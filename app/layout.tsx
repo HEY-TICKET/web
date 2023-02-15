@@ -1,4 +1,7 @@
-import StyledComponentsRegistry from '../lib/register';
+import GlobalStyles from 'styles/GlobalStyle';
+import ReactQueryProvider from 'Provider/QueryClientProvider';
+import ThemeProvider from 'Provider/ThemeProvider';
+import StyledComponentsRegistry from 'lib/register';
 
 export default function RootLayout({
   // Layouts must accept a children prop.
@@ -10,7 +13,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        <ReactQueryProvider>
+          <ThemeProvider>
+            <GlobalStyles />
+            <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+          </ThemeProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );
