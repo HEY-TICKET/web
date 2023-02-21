@@ -82,3 +82,8 @@ export const SortIconWrapper = styled.button`
   font-size: 15px;
   line-height: 18px;
 `;
+
+export const CardListWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;

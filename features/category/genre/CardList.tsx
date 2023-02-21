@@ -1,7 +1,7 @@
 import * as Styles from './CardList.styles';
 import Card from 'components/common/Card/Card';
 import dayjs from 'dayjs';
-import { getDateDiff } from '../../../utils/times';
+import { getDateDiff, getDayOfWeek } from '../../../utils/times';
 
 type CardListItem = {
   id: string;
@@ -762,6 +762,11 @@ const CardList = () => {
     <Styles.CardListWrapper>
       {CardList.map(({ id, poster, title, place, fromDate, toDate }) => {
         const restDate = getDateDiff(today, fromDate);
+        console.log(dayjs(toDate).format('ddd'));
+        console.log(dayjs(fromDate).format('ddd'));
+
+        const _toDate = `${toDate}(${getDayOfWeek(toDate, 'ko')})`;
+        const _fromDate = `${fromDate}(${getDayOfWeek(fromDate, 'ko')})`;
 
         return (
           <Card
@@ -769,8 +774,8 @@ const CardList = () => {
             src={poster}
             title={title}
             badgeDate={restDate}
-            fromDate={fromDate}
-            toDate={toDate}
+            fromDate={_fromDate}
+            toDate={_toDate}
             desc={place}
           />
         );

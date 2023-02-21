@@ -23,6 +23,7 @@ export default function RootLayout({
             <StyledComponentsRegistry>
               <GlobalStyles />
               <Layout>{children}</Layout>
+              <div id="modal"></div>
             </StyledComponentsRegistry>
           </ThemeProvider>
         </ReactQueryProvider>

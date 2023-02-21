@@ -53,6 +53,7 @@ export const ContentsWrapper = styled.div`
 
 export const PriceWrapper = styled.div`
   ${({ theme }) => css`
+    margin-top: 22px;
     & > span {
       font-style: normal;
       font-weight: 500;
