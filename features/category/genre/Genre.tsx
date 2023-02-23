@@ -6,7 +6,8 @@ import CardList from 'features/category/genre/CardList';
 import { ArrowRight, FilterIcon, SortIcon } from 'styles/icons';
 import { useRouter } from 'next/navigation';
 import useModal from 'hooks/useModal';
-import CategoryModal from 'features/category/modal/CategoryModal';
+import CategoryFilterModal from 'features/category/modal/CategoryFilterModal';
+import SortingModal from '../modal/SortingModal';
 
 interface GenreProps {
   title: string;
@@ -14,7 +15,8 @@ interface GenreProps {
 
 const Genre = ({ title }: GenreProps) => {
   const { back } = useRouter();
-  const { Modal, open } = useModal();
+  const { Modal: FilterModalFrame, open: filterModalOpen } = useModal();
+  const { Modal: SortingModalFrame, open: sortingModalOpen } = useModal();
 
   const goToBack = () => back();
 
@@ -33,12 +35,12 @@ const Genre = ({ title }: GenreProps) => {
             <Chip text={'공연일'} />
             <Chip text={'진행 상태'} />
           </Styles.FilterWrapper>
-          <Styles.FilterIconWrapper onClick={open}>
+          <Styles.FilterIconWrapper onClick={filterModalOpen}>
             <FilterIcon />
           </Styles.FilterIconWrapper>
         </Styles.FilterContainer>
         <Styles.SubFilterWrapper>
-          <Styles.SortIconWrapper>
+          <Styles.SortIconWrapper onClick={sortingModalOpen}>
             <SortIcon size={24} />
             예매순
           </Styles.SortIconWrapper>
@@ -47,9 +49,12 @@ const Genre = ({ title }: GenreProps) => {
           <CardList />
         </Styles.CardListWrapper>
       </Styles.GenreContents>
-      <Modal canClose={false}>
-        <CategoryModal />
-      </Modal>
+      <SortingModalFrame canClose={false}>
+        <SortingModal />
+      </SortingModalFrame>
+      <FilterModalFrame canClose={false}>
+        <CategoryFilterModal />
+      </FilterModalFrame>
     </>
   );
 };

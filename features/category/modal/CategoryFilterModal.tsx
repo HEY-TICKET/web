@@ -1,5 +1,5 @@
 import { CloseIcon, ResetIcon } from 'styles/icons';
-import * as Styles from './CategoryModal.styles';
+import * as Styles from './CategoryFilterModal.styles';
 import Button from 'components/common/Button/Button';
 import useTab from 'components/common/Tab/TabMenu';
 import Region from 'features/category/genre/filter/region/Region';
@@ -11,7 +11,7 @@ interface CategoryModalProps {
   onClose?: () => void;
 }
 
-const CategoryModal = ({ onClose = () => void 0 }: CategoryModalProps) => {
+const CategoryFilterModal = ({ onClose = () => void 0 }: CategoryModalProps) => {
   const TabMenu = useTab();
 
   return (
@@ -49,4 +49,4 @@ const CategoryModal = ({ onClose = () => void 0 }: CategoryModalProps) => {
   );
 };
 
-export default CategoryModal;
+export default CategoryFilterModal;
