@@ -9,16 +9,12 @@ export const InputWrapper = styled.div`
 `;
 
 export const CategoryWrapper = styled.div`
-  ${({ theme }) => css`
-    position: relative;
-    ${theme.MEDIA.mobile} {
-      display: flex;
-      flex-direction: column;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 
-      width: 100%;
-      height: 100%;
-    }
-  `}
+  width: 100%;
+  height: 100%;
 `;
 
 export const Category = styled.ul`

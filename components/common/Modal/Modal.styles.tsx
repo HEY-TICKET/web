@@ -38,7 +38,6 @@ export const CloseButton = styled.div`
 `;
 
 export const Contents = styled.div`
-  overflow: hidden;
   h1 {
     font-size: 30px;
     font-weight: 600;

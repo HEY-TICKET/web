@@ -128,7 +128,7 @@ export const FilterIcon = ({ size = 20 }: IconProps) => (
   >
     <path
       d="M4.75 17.75H12.5M19.25 17.75H17"
-      stroke="#111111"
+      stroke="#000000"
       strokeWidth="1.5"
       strokeLinecap="round"
     />
@@ -173,6 +173,48 @@ export const SortIcon = ({ size = 20 }: IconProps) => (
     />
     <path
       d="M15.001 18.6011V5.40107L18.601 9.00107"
+      stroke="#000000"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const ResetIcon = ({ size = 20 }: IconProps) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M8.7459 6.96872C9.71808 6.45735 10.8252 6.16797 12 6.16797C15.866 6.16797 19 9.30198 19 13.168C19 17.034 15.866 20.168 12 20.168C8.13401 20.168 5 17.034 5 13.168C5 12.5952 5.0688 12.0384 5.19858 11.5056"
+      stroke="#000000"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M9.72266 4L7.79308 7.39511L11.4805 8.68081"
+      stroke="#000000"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+    />
+  </svg>
+);
+
+export const CheckIcon = ({ size = 20 }: IconProps) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M4.5 11.75L9.85714 17.1071L19.5 8"
       stroke="#000000"
       strokeWidth="1.5"
       strokeLinecap="round"

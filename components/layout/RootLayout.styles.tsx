@@ -5,13 +5,10 @@ import Link from 'next/link';
 import styled, { css } from 'styled-components';
 
 export const Layout = styled.div`
-  ${({ theme }) => css`
-    ${theme.MEDIA.mobile} {
-      width: 640px;
-      height: 100vh;
-      margin: 0 auto;
-    }
-  `}
+  // 모바일 기준
+  width: 640px;
+  height: 100vh;
+  margin: 0 auto;
 `;
 
 export const Footer = styled.footer`

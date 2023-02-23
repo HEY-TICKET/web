@@ -762,8 +762,6 @@ const CardList = () => {
     <Styles.CardListWrapper>
       {CardList.map(({ id, poster, title, place, fromDate, toDate }) => {
         const restDate = getDateDiff(today, fromDate);
-        console.log(dayjs(toDate).format('ddd'));
-        console.log(dayjs(fromDate).format('ddd'));
 
         const _toDate = `${toDate}(${getDayOfWeek(toDate, 'ko')})`;
         const _fromDate = `${fromDate}(${getDayOfWeek(fromDate, 'ko')})`;
