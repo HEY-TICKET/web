@@ -1,5 +1,18 @@
 import styled, { css } from 'styled-components';
 
+export const Container = styled.div`
+  position: relative;
+  max-width: 100%;
+  min-height: 100vh;
+`;
+
+export const StickyBox = styled.div`
+  position: sticky;
+  top: 0;
+  //height: 144px;
+  background-color: ${({ theme }) => theme.COLOR.white};
+`;
+
 export const GenreContents = styled.div`
   display: flex;
   flex-direction: column;

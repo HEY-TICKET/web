@@ -46,7 +46,7 @@ const useTab = (clickTab?: () => void) => {
   TabMenu.Contents = TabContents;
   TabMenu.Tab = Tab;
 
-  return TabMenu;
+  return { TabMenu, setActiveNum };
 };
 
 export default useTab;

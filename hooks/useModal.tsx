@@ -26,5 +26,6 @@ export default function useModal(onOpen?: () => void, onClose?: () => void) {
       : () => null,
     open,
     close,
+    isOpen,
   };
 }
