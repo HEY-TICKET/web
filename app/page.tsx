@@ -1,3 +1,5 @@
+import Home from 'features/index/Home';
+
 export default function Page() {
-  return <div>hello next.js 13</div>;
+  return <Home />;
 }

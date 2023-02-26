@@ -22,6 +22,25 @@
     "prettier"
   ],
   "rules": {
+    "import/order": [
+      "warn",
+      {
+        "groups": ["builtin", "external", "internal", ["parent", "sibling"], "index", "object"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "builtin",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "always"
+      }
+    ],
     "prettier/prettier": ["error", { "endOfLine": "auto" }, { "usePrettierrc": true }],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",

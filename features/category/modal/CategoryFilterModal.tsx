@@ -1,0 +1,60 @@
+import { useEffect } from 'react';
+
+import Button from 'components/common/Button/Button';
+import useTab from 'components/common/Tab/TabMenu';
+import Price from 'features/category/genre/filter/price/Price';
+import Region from 'features/category/genre/filter/region/Region';
+import Schedule from 'features/category/genre/filter/schedule/Schedule';
+import Status from 'features/category/genre/filter/status/Status';
+import { CloseIcon, ResetIcon } from 'styles/icons';
+
+import * as Styles from './CategoryFilterModal.styles';
+
+interface CategoryModalProps {
+  onClose?: () => void;
+  initActiveNum?: number;
+}
+
+const CategoryFilterModal = ({ onClose = () => void 0, initActiveNum = 0 }: CategoryModalProps) => {
+  const { TabMenu, setActiveNum } = useTab();
+
+  useEffect(() => {
+    initActiveNum && setActiveNum(initActiveNum);
+  }, [initActiveNum, setActiveNum]);
+
+  return (
+    <Styles.ModalWrapper>
+      <Styles.Header>
+        <span>필터</span>
+        <Styles.CloseIconWrapper onClick={() => onClose()}>
+          <CloseIcon />
+        </Styles.CloseIconWrapper>
+      </Styles.Header>
+      <Styles.Body>
+        <TabMenu>
+          <TabMenu.Tab>
+            <div>지역</div>
+            <div>공연일</div>
+            <div>진행 상태</div>
+            <div>예매 가격</div>
+          </TabMenu.Tab>
+          <TabMenu.Contents>
+            <Region />
+            <Schedule />
+            <Status />
+            <Price />
+          </TabMenu.Contents>
+        </TabMenu>
+      </Styles.Body>
+      <Styles.Footer>
+        <Styles.ResetIconWrapper>
+          <ResetIcon size={24} />
+          <span>초기화</span>
+        </Styles.ResetIconWrapper>
+        <Button>적용</Button>
+      </Styles.Footer>
+    </Styles.ModalWrapper>
+  );
+};
+
+export default CategoryFilterModal;
