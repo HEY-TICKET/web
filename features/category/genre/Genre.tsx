@@ -49,6 +49,7 @@ const Genre = ({ title }: GenreProps) => {
           <CardList />
         </Styles.CardListWrapper>
       </Styles.GenreContents>
+      {/* desc : 모달 */}
       <SortingModalFrame canClose={false}>
         <SortingModal />
       </SortingModalFrame>

@@ -3,12 +3,17 @@
 import styled, { css } from 'styled-components';
 
 export const TabMenu = styled.div`
+  display: flex;
+  flex-direction: column;
+
   height: 100%;
 `;
 
 export const TabContents = styled.div<{ $active: boolean }>`
-  height: 100%;
   display: ${({ $active }) => ($active ? 'block' : 'none')};
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
 `;
 
 export const Dot = styled.div<{ $active: boolean }>`

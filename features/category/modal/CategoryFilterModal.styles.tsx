@@ -50,13 +50,22 @@ export const ResetIconWrapper = styled.div`
       font-weight: 600;
       font-size: 16px;
     }
+
+    &:hover {
+      & > svg {
+        ${theme.ICON_FILTER.gray500};
+      }
+      & > span {
+        color: ${theme.COLOR.gray500};
+      }
+    }
     cursor: pointer;
   `}
 `;
 
 export const Body = styled.section`
   height: 100%;
-  overflow-y: auto;
+  overflow: hidden;
 `;
 
 export const Footer = styled.section`

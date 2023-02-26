@@ -209,7 +209,7 @@ export const CheckIcon = ({ size = 20 }: IconProps) => (
   <svg
     width={size}
     height={size}
-    viewBox="0 0 24 24"
+    viewBox="0 0 20 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -217,6 +217,23 @@ export const CheckIcon = ({ size = 20 }: IconProps) => (
       d="M4.5 11.75L9.85714 17.1071L19.5 8"
       stroke="#000000"
       strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const CheckLineIcon = ({ size = 16 }: IconProps) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M3 7.8335L6.57143 11.4049L13 5.3335"
+      stroke="#000000"
       strokeLinecap="round"
       strokeLinejoin="round"
     />

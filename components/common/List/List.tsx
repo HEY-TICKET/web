@@ -2,19 +2,18 @@
 
 import styled from 'styled-components';
 import { CheckIcon } from 'styles/icons';
-import { useState } from 'react';
 
 type ListProps = {
   list: string[];
+  onClick: (value: string) => void;
+  active: (value: string) => boolean;
 };
 
-const List = ({ list }: ListProps) => {
-  const [active, setActive] = useState(list[0]);
-
+const List = ({ list, onClick, active }: ListProps) => {
   return (
     <Container>
       {list.map((name) => (
-        <Item key={name} onClick={() => setActive(name)} $active={name === active}>
+        <Item key={name} onClick={() => onClick(name)} $active={active(name)}>
           <span>{name}</span>
           <CheckIcon size={24} />
         </Item>
@@ -27,6 +26,7 @@ export default List;
 
 const Container = styled.ul`
   padding: 0 20px;
+  overflow-y: auto;
 `;
 
 const Item = styled.li<{ $active: boolean }>`
