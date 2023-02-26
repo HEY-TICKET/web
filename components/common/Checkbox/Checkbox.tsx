@@ -1,6 +1,8 @@
-import styled, { css } from 'styled-components';
-import { CheckLineIcon } from 'styles/icons';
 import { InputHTMLAttributes } from 'react';
+
+import styled, { css } from 'styled-components';
+
+import { CheckLineIcon } from 'styles/icons';
 
 interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   type?: 'checkbox';

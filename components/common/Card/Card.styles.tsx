@@ -1,8 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-
 import styled, { css } from 'styled-components';
+
 import { Badge } from 'components/common/Badge/Badge.styles';
 
 export const CardImage = styled(Image)`

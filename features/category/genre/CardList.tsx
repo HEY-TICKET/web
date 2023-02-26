@@ -1,6 +1,8 @@
-import * as Styles from './CardList.styles';
-import Card from 'components/common/Card/Card';
 import dayjs from 'dayjs';
+
+import Card from 'components/common/Card/Card';
+
+import * as Styles from './CardList.styles';
 import { getDateDiff, getDayOfWeek } from '../../../utils/times';
 
 type CardListItem = {

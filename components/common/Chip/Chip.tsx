@@ -1,5 +1,6 @@
-import * as Styles from './Chip.styles';
 import { CloseIcon } from 'styles/icons';
+
+import * as Styles from './Chip.styles';
 
 interface ChipProps {
   text: string;

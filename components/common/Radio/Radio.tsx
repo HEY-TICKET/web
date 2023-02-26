@@ -1,5 +1,6 @@
-import styled, { css } from 'styled-components';
 import { InputHTMLAttributes } from 'react';
+
+import styled, { css } from 'styled-components';
 
 interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   type?: 'radio';

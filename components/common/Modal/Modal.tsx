@@ -1,8 +1,9 @@
 import React, { HTMLAttributes, ReactElement, useEffect } from 'react';
 
-import * as Styles from './Modal.styles';
 import ModalContainer from 'components/common/Modal/ModalContainer';
 import useOutsideClick from 'hooks/useOutsideClick';
+
+import * as Styles from './Modal.styles';
 
 interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   onClose: () => void;

@@ -1,9 +1,9 @@
-import * as Styles from 'features/category/Category.styles';
 import Input from 'components/Input/Input';
 import Footer from 'components/layout/Footer';
-import { ArrowRight } from 'styles/icons';
-import { ROUTES } from 'constants/routes';
 import { CATEGORY } from 'constants/category';
+import { ROUTES } from 'constants/routes';
+import * as Styles from 'features/category/Category.styles';
+import { ArrowRight } from 'styles/icons';
 
 const categoryList = ['공연', '전시', '스포츠'];
 

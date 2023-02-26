@@ -1,5 +1,6 @@
-import RadioList from 'components/common/List/RadioList';
 import styled from 'styled-components';
+
+import RadioList from 'components/common/List/RadioList';
 
 const Price = () => {
   const list = ['전체', '1만원 미만', '1 ~ 4만원', '4 ~ 7만원', '7 ~ 10만원', '10만원 이상'];

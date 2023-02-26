@@ -1,9 +1,10 @@
 import { useState } from 'react';
 
-import { CloseIcon } from 'styles/icons';
-import * as Styles from './SortingModal.styles';
 import Button from 'components/common/Button/Button';
 import List from 'components/common/List/List';
+import { CloseIcon } from 'styles/icons';
+
+import * as Styles from './SortingModal.styles';
 
 interface CategoryModalProps {
   onClose?: () => void;

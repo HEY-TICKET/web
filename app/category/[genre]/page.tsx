@@ -1,8 +1,7 @@
 'use client';
 
-import Genre from 'features/category/genre/Genre';
-
 import { CATEGORY } from 'constants/category';
+import Genre from 'features/category/genre/Genre';
 
 interface PageProps {
   params: { genre: string };

@@ -1,5 +1,6 @@
-import * as Styles from './Badge.styles';
 import { HTMLAttributes } from 'react';
+
+import * as Styles from './Badge.styles';
 
 interface BadgeProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   children: string;

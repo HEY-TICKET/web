@@ -1,12 +1,14 @@
 'use client';
 
-import * as Styles from 'features/category/genre/Genre.styles';
+import { useRouter } from 'next/navigation';
+
 import Chip from 'components/common/Chip/Chip';
 import CardList from 'features/category/genre/CardList';
-import { ArrowRight, FilterIcon, SortIcon } from 'styles/icons';
-import { useRouter } from 'next/navigation';
-import useModal from 'hooks/useModal';
+import * as Styles from 'features/category/genre/Genre.styles';
 import CategoryFilterModal from 'features/category/modal/CategoryFilterModal';
+import useModal from 'hooks/useModal';
+import { ArrowRight, FilterIcon, SortIcon } from 'styles/icons';
+
 import SortingModal from '../modal/SortingModal';
 
 interface GenreProps {

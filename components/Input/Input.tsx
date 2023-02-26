@@ -1,9 +1,10 @@
 'use client';
 
-import * as Styles from './Input.styles';
 import { HTMLAttributes } from 'react';
 
 import { SearchIcon } from 'styles/icons';
+
+import * as Styles from './Input.styles';
 
 type InputProps = HTMLAttributes<HTMLInputElement>;
 

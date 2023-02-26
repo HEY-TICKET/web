@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+
 import { CheckIcon } from 'styles/icons';
 
 type ListProps = {

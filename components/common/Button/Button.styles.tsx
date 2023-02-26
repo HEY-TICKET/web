@@ -1,6 +1,7 @@
 'use client';
 
 import styled, { css, CSSProp } from 'styled-components';
+
 import { ColorTheme, Size } from './types';
 
 const colorTheme: { [K in ColorTheme]: CSSProp } = {

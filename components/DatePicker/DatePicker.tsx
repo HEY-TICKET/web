@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { ReactDatePickerProps } from 'react-datepicker';
+
 import dayjs from 'dayjs';
+import { ReactDatePickerProps } from 'react-datepicker';
 
 import * as Styles from 'components/DatePicker/DatePicker.styles';
-import useOutsideClick from 'hooks/useOutsideClick';
 import { IconWrapper } from 'components/DatePicker/DatePicker.styles';
+import useOutsideClick from 'hooks/useOutsideClick';
 import { ArrowRight } from 'styles/icons';
 
 interface PickerProps extends Omit<ReactDatePickerProps, 'onChange'> {

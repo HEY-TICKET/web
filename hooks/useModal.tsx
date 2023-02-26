@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactElement, useState } from 'react';
+
 import Modal from 'components/common/Modal/Modal';
 
 export default function useModal(onOpen?: () => void, onClose?: () => void) {

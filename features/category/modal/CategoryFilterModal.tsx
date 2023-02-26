@@ -1,11 +1,12 @@
-import { CloseIcon, ResetIcon } from 'styles/icons';
-import * as Styles from './CategoryFilterModal.styles';
 import Button from 'components/common/Button/Button';
 import useTab from 'components/common/Tab/TabMenu';
+import Price from 'features/category/genre/filter/price/Price';
 import Region from 'features/category/genre/filter/region/Region';
 import Schedule from 'features/category/genre/filter/schedule/Schedule';
-import Status from '../genre/filter/status/Status';
-import Price from '../genre/filter/price/Price';
+import Status from 'features/category/genre/filter/status/Status';
+import { CloseIcon, ResetIcon } from 'styles/icons';
+
+import * as Styles from './CategoryFilterModal.styles';
 
 interface CategoryModalProps {
   onClose?: () => void;

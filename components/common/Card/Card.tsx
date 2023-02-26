@@ -1,6 +1,7 @@
-import * as Styles from './Card.styles';
 import Badge from 'components/common/Badge/Badge';
 import Ellipsis from 'components/common/Ellipsis';
+
+import * as Styles from './Card.styles';
 
 interface CardProps {
   src: string;
