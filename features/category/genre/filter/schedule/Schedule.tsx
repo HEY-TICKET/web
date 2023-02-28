@@ -2,10 +2,10 @@ import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
 
 import DatePicker from 'components/DatePicker/DatePicker';
-import { DEFAULT_VALUES } from 'features/category/genre/Genre';
+import { FILTER_MODAL_DEFAULT_VALUES } from 'features/category/modal/CategoryFilterModal';
 
 type Props = {
-  name: keyof typeof DEFAULT_VALUES;
+  name: keyof typeof FILTER_MODAL_DEFAULT_VALUES;
 };
 
 const Schedule = ({ name }: Props) => {

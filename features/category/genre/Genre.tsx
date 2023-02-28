@@ -6,8 +6,14 @@ import Chip from 'components/common/Chip/Chip';
 import CardList from 'features/category/genre/CardList';
 import { FILTER_MODAL_TAB_ITEM_LIST } from 'features/category/genre/filter/constants';
 import * as Styles from 'features/category/genre/Genre.styles';
-import CategoryFilterModal from 'features/category/modal/CategoryFilterModal';
-import SortingModal from 'features/category/modal/SortingModal';
+import CategoryFilterModal, {
+  FILTER_MODAL_DEFAULT_VALUES,
+  FilterModalFormValues,
+} from 'features/category/modal/CategoryFilterModal';
+import SortingModal, {
+  SortingModalFormValues,
+  SORTING_MODAL_DEFAULT_VALUES,
+} from 'features/category/modal/SortingModal';
 import useModal from 'hooks/useModal';
 import useTab from 'hooks/useTab';
 import { ArrowRight, FilterIcon, SortIcon } from 'styles/icons';
@@ -16,29 +22,20 @@ interface GenreProps {
   title: string;
 }
 
-export type FormValues = {
-  region: string[];
-  date: Date;
-  status: string[];
-  price: string;
-};
-
-export const DEFAULT_VALUES = {
-  region: ['전체'],
-  date: new Date(),
-  status: ['공연중'],
-  price: '전체',
-};
-
 const Genre = ({ title }: GenreProps) => {
   const { TabMenu, setCurrent } = useTab({ tabList: FILTER_MODAL_TAB_ITEM_LIST });
   const { back } = useRouter();
   const { Modal: FilterModalFrame, open: filterModalOpen } = useModal();
   const { Modal: SortingModalFrame, open: sortingModalOpen } = useModal();
 
-  const methods = useForm<FormValues>({
-    mode: 'onChange',
-    defaultValues: DEFAULT_VALUES,
+  const filterModalMethods = useForm<FilterModalFormValues>({
+    mode: 'onTouched',
+    defaultValues: FILTER_MODAL_DEFAULT_VALUES,
+  });
+
+  const sortingModalMethods = useForm<SortingModalFormValues>({
+    mode: 'onTouched',
+    defaultValues: SORTING_MODAL_DEFAULT_VALUES,
   });
 
   const goToBack = () => back();
@@ -81,11 +78,11 @@ const Genre = ({ title }: GenreProps) => {
       </Styles.GenreContents>
       {/* desc : 모달 */}
       <SortingModalFrame canClose={false}>
-        <SortingModal />
+        <SortingModal methods={sortingModalMethods} />
       </SortingModalFrame>
       {/* FIXME : rerendering 버그 */}
       <FilterModalFrame canClose={false}>
-        <CategoryFilterModal methods={methods} TabMenu={TabMenu} />
+        <CategoryFilterModal methods={filterModalMethods} TabMenu={TabMenu} />
       </FilterModalFrame>
     </Styles.Container>
   );

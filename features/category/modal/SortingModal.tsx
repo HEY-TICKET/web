@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormProvider, UseFormReturn } from 'react-hook-form';
 
 import Button from 'components/common/Button/Button';
 import List from 'components/common/List/List';
@@ -8,32 +8,46 @@ import * as Styles from './SortingModal.styles';
 
 interface CategoryModalProps {
   onClose?: () => void;
+  methods: UseFormReturn<SortingModalFormValues>;
 }
 
-const SortingModal = ({ onClose = () => void 0 }: CategoryModalProps) => {
-  const list = ['최신순', '예매순', '조회수순', '기대평순'];
+export type SortingModalFormValues = {
+  sorting: string;
+};
 
-  const [selected, setSelected] = useState(list[0]);
+export const SORTING_MODAL_DEFAULT_VALUES = {
+  sorting: '예매순',
+};
 
-  const clickItem = (value: string) => {
-    setSelected(value);
+const SortingModal = ({ onClose = () => void 0, methods }: CategoryModalProps) => {
+  const list = ['최신순', '예매순', '조회수순'];
+
+  const { handleSubmit } = methods;
+
+  const submit = (data: SortingModalFormValues) => {
+    console.log(data);
+    onClose();
   };
 
   return (
-    <Styles.ModalWrapper>
-      <Styles.Header>
-        <span>정렬</span>
-        <Styles.CloseIconWrapper onClick={() => onClose()}>
-          <CloseIcon />
-        </Styles.CloseIconWrapper>
-      </Styles.Header>
-      <Styles.Body>
-        <List list={list} onClick={clickItem} activeList={[selected]} />
-      </Styles.Body>
-      <Styles.Footer>
-        <Button>적용</Button>
-      </Styles.Footer>
-    </Styles.ModalWrapper>
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(submit)}>
+        <Styles.ModalWrapper>
+          <Styles.Header>
+            <span>정렬</span>
+            <Styles.CloseIconWrapper onClick={() => onClose()}>
+              <CloseIcon />
+            </Styles.CloseIconWrapper>
+          </Styles.Header>
+          <Styles.Body>
+            <List list={list} type={'radio'} name={'sorting'} />
+          </Styles.Body>
+          <Styles.Footer>
+            <Button>적용</Button>
+          </Styles.Footer>
+        </Styles.ModalWrapper>
+      </form>
+    </FormProvider>
   );
 };
 

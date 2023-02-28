@@ -1,30 +1,40 @@
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 
 import Button from 'components/common/Button/Button';
-import { DEFAULT_VALUES, FormValues } from 'features/category/genre/Genre';
 import { CloseIcon, ResetIcon } from 'styles/icons';
 
 import * as Styles from './CategoryFilterModal.styles';
 
 interface CategoryModalProps {
   onClose?: () => void;
-  methods: UseFormReturn<FormValues>;
+  methods: UseFormReturn<FilterModalFormValues>;
   TabMenu: () => JSX.Element;
 }
 
-const CategoryFilterModal = ({ onClose = () => void 0, methods, TabMenu }: CategoryModalProps) => {
-  const {
-    handleSubmit,
-    reset,
-    formState: { isDirty },
-  } = methods;
+export type FilterModalFormValues = {
+  region: string[];
+  date: Date;
+  status: string[];
+  price: string;
+};
 
-  const submit = (data: FormValues) => {
+export const FILTER_MODAL_DEFAULT_VALUES = {
+  region: ['전체'],
+  date: new Date(),
+  status: ['공연중'],
+  price: '전체',
+};
+
+const CategoryFilterModal = ({ onClose = () => void 0, methods, TabMenu }: CategoryModalProps) => {
+  const { handleSubmit, reset } = methods;
+
+  const submit = (data: FilterModalFormValues) => {
     console.log(data);
+    onClose();
   };
 
   const resetFormValue = () => {
-    reset(DEFAULT_VALUES);
+    reset(FILTER_MODAL_DEFAULT_VALUES);
   };
 
   return (
@@ -41,7 +51,7 @@ const CategoryFilterModal = ({ onClose = () => void 0, methods, TabMenu }: Categ
             <TabMenu />
           </Styles.Body>
           <Styles.Footer>
-            <Styles.ResetIconWrapper disabled={!isDirty} onClick={resetFormValue}>
+            <Styles.ResetIconWrapper onClick={resetFormValue}>
               <ResetIcon size={24} />
               <span>초기화</span>
             </Styles.ResetIconWrapper>

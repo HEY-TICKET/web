@@ -1,22 +1,70 @@
-'use client';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 
+import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
 
-import { CheckIcon } from 'styles/icons';
+import ListItem from 'components/common/List/ListItem';
 
-type ListProps = {
+/**
+ * isAllValue: true => 첫번째 값과 다른 값들을 동시에 선택할 수 없습니다.
+ */
+interface ListProps {
   list: string[];
-  onClick: (value: string) => void;
-  activeList: string[];
-};
+  name?: string;
+  type?: 'checkbox' | 'radio';
+  setIsDirty?: Dispatch<SetStateAction<boolean>>;
+  isAllValue?: boolean;
+}
 
-const List = ({ list, onClick, activeList }: ListProps) => {
+const List = ({ list, name, type = 'checkbox', setIsDirty, isAllValue = false }: ListProps) => {
+  const [selected, setSelected] = useState([list[0]]);
+  const useHook = !!name;
+  const { register, setValue, getValues } = useFormContext();
+
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+
+    if (useHook) {
+      await register(name).onChange(e);
+      if (isAllValue) {
+        if (type === 'checkbox') {
+          if (value === list[0]) {
+            setValue(name, [value]);
+          } else {
+            const prevValues = getValues(name);
+            if (prevValues.includes(list[0])) {
+              setValue(
+                name,
+                prevValues.filter((item: string) => item !== list[0]),
+              );
+            }
+          }
+        }
+        setIsDirty?.(true);
+      }
+    } else {
+      if (checked) setSelected((prev) => [...prev, value]);
+      else setSelected((prev) => prev.filter((item) => item !== value));
+    }
+  };
+
   return (
     <Container>
-      {list.map((value: string) => (
-        <Item key={value} onClick={() => onClick(value)} $active={activeList.includes(value)}>
-          <span>{value}</span>
-          <CheckIcon size={24} />
+      {list.map((value) => (
+        <Item key={value}>
+          <ListItem
+            type={type}
+            value={value}
+            text={value}
+            {...(useHook && {
+              ...register(name),
+              onChange: handleChange,
+            })}
+            {...(!useHook && {
+              checked: selected.includes(value),
+              onChange: handleChange,
+            })}
+          />
         </Item>
       ))}
     </Container>
@@ -27,36 +75,18 @@ export default List;
 
 const Container = styled.ul`
   padding: 0 20px;
-  overflow-y: auto;
 `;
 
-const Item = styled.li<{ $active: boolean }>`
+const Item = styled.li`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  height: 56px;
 
-  height: 44px;
+  padding: 18px 2px;
 
   border-bottom: 1px solid ${({ theme }) => theme.COLOR.gray200};
+
   &:hover {
     background-color: ${({ theme }) => theme.COLOR.gray100};
-    & > span {
-      color: ${({ theme, $active }) => ($active ? theme.COLOR.gray750 : theme.COLOR.gray600)};
-    }
   }
-
-  & > span {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 19px;
-
-    color: ${({ theme, $active }) => ($active ? theme.COLOR.gray750 : theme.COLOR.gray400)};
-  }
-
-  & > svg {
-    display: ${({ $active }) => ($active ? 'block' : 'none')};
-  }
-
-  cursor: pointer;
 `;
