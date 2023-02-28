@@ -1,9 +1,9 @@
-import { HTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 
 import * as Styles from './Button.styles';
 import { ColorTheme, Size } from './types';
 
-interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   colorTheme?: ColorTheme;
   size?: Size;
   width?: number;

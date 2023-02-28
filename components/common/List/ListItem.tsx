@@ -2,28 +2,31 @@ import { ForwardedRef, forwardRef, InputHTMLAttributes } from 'react';
 
 import styled, { css } from 'styled-components';
 
-import { CheckLineIcon } from 'styles/icons';
+import { CheckIcon } from 'styles/icons';
 
 interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
-  type?: 'checkbox';
+  type?: 'checkbox' | 'radio';
   text: string;
 }
 
-const Checkbox = forwardRef(
-  ({ text, ...restProps }: CheckboxProps, ref: ForwardedRef<HTMLInputElement>) => {
+const ListItem = forwardRef(
+  (
+    { type = 'checkbox', text, ...restProps }: CheckboxProps,
+    ref: ForwardedRef<HTMLInputElement>,
+  ) => {
     return (
       <Label>
-        <input type={'checkbox'} ref={ref} {...restProps} />
-        <CheckMark>
-          <CheckLineIcon size={20} />
-        </CheckMark>
+        <input type={type} ref={ref} {...restProps} />
         <Text className="checkbox_text">{text}</Text>
+        <CheckMark>
+          <CheckIcon size={24} />
+        </CheckMark>
       </Label>
     );
   },
 );
 
-export default Checkbox;
+export default ListItem;
 
 const Text = styled.span`
   display: flex;
@@ -49,6 +52,7 @@ const Label = styled.label`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
 
     cursor: pointer;
@@ -59,18 +63,15 @@ const Label = styled.label`
     }
 
     ${CheckMark} {
-      background-color: ${theme.COLOR.white};
-      border: 1px solid ${theme.COLOR.gray300};
       & > svg {
-        ${theme.ICON_FILTER.white};
+        display: none;
       }
     }
 
-    & > input:checked + ${CheckMark} {
-      background-color: ${theme.COLOR.gray850};
-      border: none;
+    & > input:checked ~ ${CheckMark} {
       & > svg {
-        ${theme.ICON_FILTER.white};
+        display: flex;
+        ${theme.ICON_FILTER.gray900};
       }
     }
 
@@ -78,21 +79,17 @@ const Label = styled.label`
       color: ${({ theme }) => theme.COLOR.gray400};
     }
 
-    & > input:checked ~ ${Text} {
+    & > input:checked + ${Text} {
       color: ${({ theme }) => theme.COLOR.gray900};
     }
 
-    & > input:disabled + ${CheckMark} {
-      background-color: ${theme.COLOR.gray150};
-      border: 1px solid ${theme.COLOR.gray300};
+    & > input:disabled ~ ${CheckMark} {
       & > svg {
         ${theme.ICON_FILTER.gray150};
       }
     }
 
-    & > input:checked:disabled + ${CheckMark} {
-      background-color: ${theme.COLOR.gray150};
-      border: none;
+    & > input:checked:disabled ~ ${CheckMark} {
       & > svg {
         ${theme.ICON_FILTER.gray350};
       }

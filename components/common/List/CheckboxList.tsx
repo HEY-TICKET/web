@@ -1,15 +1,19 @@
 import { ChangeEvent, useState } from 'react';
 
+import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
 
 import Checkbox from 'components/common/Checkbox/Checkbox';
 
 interface CheckboxListProps {
   list: string[];
+  name?: string;
 }
 
-const CheckboxList = ({ list }: CheckboxListProps) => {
+const CheckboxList = ({ list, name }: CheckboxListProps) => {
   const [checked, setChecked] = useState([list[0]]);
+  const useHook = !!name;
+  const { register } = useFormContext();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
@@ -19,14 +23,17 @@ const CheckboxList = ({ list }: CheckboxListProps) => {
 
   return (
     <Container>
-      {list.map((name) => (
-        <Item key={name}>
+      {list.map((value) => (
+        <Item key={value}>
           <Checkbox
             type="checkbox"
-            value={name}
-            checked={checked.includes(name)}
-            text={name}
-            onChange={handleChange}
+            value={value}
+            text={value}
+            {...(useHook && register(name))}
+            {...(!useHook && {
+              checked: checked.includes(value),
+              onChange: handleChange,
+            })}
           />
         </Item>
       ))}

@@ -34,31 +34,32 @@ export const CloseIconWrapper = styled.div`
   `}
 `;
 
-export const ResetIconWrapper = styled.div`
+export const ResetIconWrapper = styled.button`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
     min-width: 68px;
 
     & > svg {
-      ${theme.ICON_FILTER.gray350};
+      ${theme.ICON_FILTER.gray900};
     }
     & > span {
-      color: ${theme.COLOR.gray350};
+      color: ${theme.COLOR.gray900};
 
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
     }
 
-    &:hover {
+    &:disabled {
       & > svg {
-        ${theme.ICON_FILTER.gray500};
+        ${theme.ICON_FILTER.gray350};
       }
       & > span {
-        color: ${theme.COLOR.gray500};
+        color: ${theme.COLOR.gray350};
       }
     }
+
     cursor: pointer;
   `}
 `;

@@ -1,14 +1,14 @@
 import CheckboxList from 'components/common/List/CheckboxList';
 import { STATUS } from 'constants/perform/status';
 
-const Status = () => {
+type Props = {
+  name: string;
+};
+
+const Status = ({ name }: Props) => {
   const statusList = Object.values(STATUS);
 
-  return (
-    <div>
-      <CheckboxList list={statusList} />
-    </div>
-  );
+  return <CheckboxList list={statusList} name={name} />;
 };
 
 export default Status;

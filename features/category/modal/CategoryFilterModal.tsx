@@ -1,59 +1,76 @@
-import { useEffect } from 'react';
+import { FormProvider, UseFormReturn } from 'react-hook-form';
 
 import Button from 'components/common/Button/Button';
-import useTab from 'components/common/Tab/TabMenu';
-import Price from 'features/category/genre/filter/price/Price';
-import Region from 'features/category/genre/filter/region/Region';
-import Schedule from 'features/category/genre/filter/schedule/Schedule';
-import Status from 'features/category/genre/filter/status/Status';
 import { CloseIcon, ResetIcon } from 'styles/icons';
+import { nullFn } from 'utils/function';
 
 import * as Styles from './CategoryFilterModal.styles';
 
 interface CategoryModalProps {
   onClose?: () => void;
-  initActiveNum?: number;
+  onSubmit?: (data: FilterModalFormValues) => void;
+  methods: UseFormReturn<FilterModalFormValues>;
+  TabMenu: () => JSX.Element;
 }
 
-const CategoryFilterModal = ({ onClose = () => void 0, initActiveNum = 0 }: CategoryModalProps) => {
-  const { TabMenu, setActiveNum } = useTab();
+export type FilterModalFormValues = {
+  region: string[];
+  date: Date;
+  status: string[];
+  price: string;
+};
 
-  useEffect(() => {
-    initActiveNum && setActiveNum(initActiveNum);
-  }, [initActiveNum, setActiveNum]);
+export const FILTER_MODAL_DEFAULT_VALUES = {
+  region: ['전체'],
+  date: new Date(),
+  status: ['공연중'],
+  price: '전체',
+};
+
+const CategoryFilterModal = ({
+  onClose = nullFn,
+  onSubmit,
+  methods,
+  TabMenu,
+}: CategoryModalProps) => {
+  const {
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = methods;
+
+  const submit = (data: FilterModalFormValues) => {
+    onSubmit?.(data);
+    onClose();
+  };
+
+  const resetFormValue = () => {
+    reset(FILTER_MODAL_DEFAULT_VALUES);
+  };
 
   return (
-    <Styles.ModalWrapper>
-      <Styles.Header>
-        <span>필터</span>
-        <Styles.CloseIconWrapper onClick={() => onClose()}>
-          <CloseIcon />
-        </Styles.CloseIconWrapper>
-      </Styles.Header>
-      <Styles.Body>
-        <TabMenu>
-          <TabMenu.Tab>
-            <div>지역</div>
-            <div>공연일</div>
-            <div>진행 상태</div>
-            <div>예매 가격</div>
-          </TabMenu.Tab>
-          <TabMenu.Contents>
-            <Region />
-            <Schedule />
-            <Status />
-            <Price />
-          </TabMenu.Contents>
-        </TabMenu>
-      </Styles.Body>
-      <Styles.Footer>
-        <Styles.ResetIconWrapper>
-          <ResetIcon size={24} />
-          <span>초기화</span>
-        </Styles.ResetIconWrapper>
-        <Button>적용</Button>
-      </Styles.Footer>
-    </Styles.ModalWrapper>
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(submit)}>
+        <Styles.ModalWrapper>
+          <Styles.Header>
+            <span>필터</span>
+            <Styles.CloseIconWrapper onClick={() => onClose()}>
+              <CloseIcon />
+            </Styles.CloseIconWrapper>
+          </Styles.Header>
+          <Styles.Body>
+            <TabMenu />
+          </Styles.Body>
+          <Styles.Footer>
+            <Styles.ResetIconWrapper disabled={!isDirty} onClick={resetFormValue}>
+              <ResetIcon size={24} />
+              <span>초기화</span>
+            </Styles.ResetIconWrapper>
+            <Button type={'submit'}>적용</Button>
+          </Styles.Footer>
+        </Styles.ModalWrapper>
+      </form>
+    </FormProvider>
   );
 };
 
