@@ -12,6 +12,7 @@ const Header = new Map(CATEGORY.map(({ caption, route }) => [route, caption]));
 const Page = ({ params }: PageProps) => {
   const { genre } = params;
   const title = Object.fromEntries(Header)[genre];
+
   return <Genre title={title} />;
 };
 

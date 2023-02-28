@@ -2,11 +2,13 @@ import { FormProvider, UseFormReturn } from 'react-hook-form';
 
 import Button from 'components/common/Button/Button';
 import { CloseIcon, ResetIcon } from 'styles/icons';
+import { nullFn } from 'utils/function';
 
 import * as Styles from './CategoryFilterModal.styles';
 
 interface CategoryModalProps {
   onClose?: () => void;
+  onSubmit?: (data: FilterModalFormValues) => void;
   methods: UseFormReturn<FilterModalFormValues>;
   TabMenu: () => JSX.Element;
 }
@@ -25,11 +27,20 @@ export const FILTER_MODAL_DEFAULT_VALUES = {
   price: '전체',
 };
 
-const CategoryFilterModal = ({ onClose = () => void 0, methods, TabMenu }: CategoryModalProps) => {
-  const { handleSubmit, reset } = methods;
+const CategoryFilterModal = ({
+  onClose = nullFn,
+  onSubmit,
+  methods,
+  TabMenu,
+}: CategoryModalProps) => {
+  const {
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = methods;
 
   const submit = (data: FilterModalFormValues) => {
-    console.log(data);
+    onSubmit?.(data);
     onClose();
   };
 
@@ -51,7 +62,7 @@ const CategoryFilterModal = ({ onClose = () => void 0, methods, TabMenu }: Categ
             <TabMenu />
           </Styles.Body>
           <Styles.Footer>
-            <Styles.ResetIconWrapper onClick={resetFormValue}>
+            <Styles.ResetIconWrapper disabled={!isDirty} onClick={resetFormValue}>
               <ResetIcon size={24} />
               <span>초기화</span>
             </Styles.ResetIconWrapper>

@@ -3,11 +3,13 @@ import { FormProvider, UseFormReturn } from 'react-hook-form';
 import Button from 'components/common/Button/Button';
 import List from 'components/common/List/List';
 import { CloseIcon } from 'styles/icons';
+import { nullFn } from 'utils/function';
 
 import * as Styles from './SortingModal.styles';
 
 interface CategoryModalProps {
   onClose?: () => void;
+  onSubmit?: (data: SortingModalFormValues) => void;
   methods: UseFormReturn<SortingModalFormValues>;
 }
 
@@ -19,13 +21,13 @@ export const SORTING_MODAL_DEFAULT_VALUES = {
   sorting: '예매순',
 };
 
-const SortingModal = ({ onClose = () => void 0, methods }: CategoryModalProps) => {
+const SortingModal = ({ onClose = nullFn, methods, onSubmit }: CategoryModalProps) => {
   const list = ['최신순', '예매순', '조회수순'];
 
   const { handleSubmit } = methods;
 
   const submit = (data: SortingModalFormValues) => {
-    console.log(data);
+    onSubmit?.(data);
     onClose();
   };
 

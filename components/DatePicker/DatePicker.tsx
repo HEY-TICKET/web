@@ -5,22 +5,13 @@ import { Control, Controller } from 'react-hook-form';
 
 import * as Styles from 'components/DatePicker/DatePicker.styles';
 import { IconWrapper } from 'components/DatePicker/DatePicker.styles';
+import { DAY_OF_WEEK } from 'constants/date';
 import { ArrowRight } from 'styles/icons';
 
 interface PickerProps {
   name: string;
   control: Control;
 }
-
-const DAY_OF_WEEK = {
-  Mon: '월',
-  Tue: '화',
-  Wed: '수',
-  Thu: '목',
-  Fri: '금',
-  Sat: '토',
-  Sun: '일',
-} as const;
 
 type DayOfWeekType = keyof typeof DAY_OF_WEEK;
 

@@ -65,9 +65,16 @@ export const FilterWrapper = styled.div`
   display: flex;
   gap: 8px;
   flex: 1;
+  overflow-x: auto;
+
+  ${({ theme }) =>
+    css`
+      ${theme.UTILS.hiddenScroll}
+    `}
 `;
 
 export const FilterIconWrapper = styled.div`
+  margin-left: 12px;
   cursor: pointer;
 `;
 

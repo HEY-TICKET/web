@@ -2,6 +2,7 @@ import React, { HTMLAttributes, ReactElement, useEffect } from 'react';
 
 import ModalContainer from 'components/common/Modal/ModalContainer';
 import useOutsideClick from 'hooks/useOutsideClick';
+import { nullFn } from 'utils/function';
 
 import * as Styles from './Modal.styles';
 
@@ -12,7 +13,7 @@ interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 }
 
 function Modal({ onClose, children, canClose = true }: ModalProps) {
-  const ref = useOutsideClick<HTMLDivElement>({ onClick: canClose ? onClose : () => void 0 });
+  const ref = useOutsideClick<HTMLDivElement>({ onClick: canClose ? onClose : nullFn });
 
   useEffect(() => {
     const $body = document.querySelector('body') as HTMLBodyElement;
