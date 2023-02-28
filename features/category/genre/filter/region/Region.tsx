@@ -1,29 +1,47 @@
 'use client';
-import { useState } from 'react';
+
+import { useEffect, useState } from 'react';
+
+import { useFormContext } from 'react-hook-form';
 
 import List from 'components/common/List/List';
 import { REGION } from 'constants/perform/region';
 
-const Region = () => {
+type Props = {
+  name: string;
+};
+
+const Region = ({ name }: Props) => {
+  const [activeList, setActiveList] = useState<string[]>([]);
+  const { setValue, getValues } = useFormContext();
+
   const regionList = ['전체'].concat(Object.values(REGION));
 
-  const [selected, setSelected] = useState([regionList[0]]);
-
-  const active = (value: string) => {
-    return selected.includes(value);
-  };
+  useEffect(() => {
+    setActiveList(getValues(name) || []);
+  }, [getValues, name]);
 
   const clickItem = (value: string) => {
+    const prevValues = getValues(name);
     if (value === regionList[0]) {
-      setSelected([value]);
+      setValue(name, [value]);
+      setActiveList([value]);
     } else {
-      setSelected((prev) => prev.filter((item) => item !== regionList[0]));
-      if (selected.includes(value)) setSelected((prev) => prev.filter((item) => item !== value));
-      else setSelected((prev) => [...prev, value]);
+      const filteredRegions = prevValues.filter((item: string) => item !== regionList[0]);
+      if (prevValues.includes(value)) {
+        setValue(
+          name,
+          filteredRegions.filter((item: string) => item !== value),
+        );
+        setActiveList(filteredRegions.filter((item: string) => item !== value));
+      } else {
+        setValue(name, [...filteredRegions, value]);
+        setActiveList([...filteredRegions, value]);
+      }
     }
   };
 
-  return <List list={regionList} onClick={clickItem} active={active} />;
+  return <List list={regionList} onClick={clickItem} activeList={activeList} />;
 };
 
 export default Region;

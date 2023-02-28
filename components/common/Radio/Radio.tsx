@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react';
+import { ForwardedRef, forwardRef, InputHTMLAttributes } from 'react';
 
 import styled, { css } from 'styled-components';
 
@@ -8,14 +8,16 @@ interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>
   name: string;
 }
 
-const Radio = ({ label, name, ...restProps }: RadioProps) => {
-  return (
-    <Label>
-      <Input type={'radio'} name={name} {...restProps} />
-      <Span>{label}</Span>
-    </Label>
-  );
-};
+const Radio = forwardRef(
+  ({ label, name, ...restProps }: RadioProps, ref: ForwardedRef<HTMLInputElement>) => {
+    return (
+      <Label>
+        <Input type={'radio'} name={name} ref={ref} {...restProps} />
+        <Span>{label}</Span>
+      </Label>
+    );
+  },
+);
 
 export default Radio;
 

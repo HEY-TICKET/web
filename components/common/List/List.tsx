@@ -7,15 +7,15 @@ import { CheckIcon } from 'styles/icons';
 type ListProps = {
   list: string[];
   onClick: (value: string) => void;
-  active: (value: string) => boolean;
+  activeList: string[];
 };
 
-const List = ({ list, onClick, active }: ListProps) => {
+const List = ({ list, onClick, activeList }: ListProps) => {
   return (
     <Container>
-      {list.map((name) => (
-        <Item key={name} onClick={() => onClick(name)} $active={active(name)}>
-          <span>{name}</span>
+      {list.map((value: string) => (
+        <Item key={value} onClick={() => onClick(value)} $active={activeList.includes(value)}>
+          <span>{value}</span>
           <CheckIcon size={24} />
         </Item>
       ))}

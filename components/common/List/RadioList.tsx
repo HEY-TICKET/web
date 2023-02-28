@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 
+import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
 
 import Radio from 'components/common/Radio/Radio';
@@ -7,10 +8,15 @@ import Radio from 'components/common/Radio/Radio';
 interface CheckboxListProps {
   list: string[];
   name: string;
+  useForm?: boolean;
 }
 
-const RadioList = ({ list, name }: CheckboxListProps) => {
+const RadioList = ({ list, name, useForm = false }: CheckboxListProps) => {
   const [checked, setChecked] = useState(list[0]);
+
+  const useHook = !!name && useForm;
+
+  const { register } = useFormContext();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = e.target;
@@ -23,10 +29,13 @@ const RadioList = ({ list, name }: CheckboxListProps) => {
         <Item key={value}>
           <Radio
             label={value}
-            checked={value === checked}
             value={value}
             name={name}
-            onChange={handleChange}
+            {...(useHook && register(name))}
+            {...(!useHook && {
+              checked: value === checked,
+              onChange: handleChange,
+            })}
           />
         </Item>
       ))}

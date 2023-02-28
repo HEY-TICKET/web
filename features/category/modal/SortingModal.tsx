@@ -19,10 +19,6 @@ const SortingModal = ({ onClose = () => void 0 }: CategoryModalProps) => {
     setSelected(value);
   };
 
-  const active = (value: string) => {
-    return selected === value;
-  };
-
   return (
     <Styles.ModalWrapper>
       <Styles.Header>
@@ -32,7 +28,7 @@ const SortingModal = ({ onClose = () => void 0 }: CategoryModalProps) => {
         </Styles.CloseIconWrapper>
       </Styles.Header>
       <Styles.Body>
-        <List list={list} onClick={clickItem} active={active} />
+        <List list={list} onClick={clickItem} activeList={[selected]} />
       </Styles.Body>
       <Styles.Footer>
         <Button>적용</Button>

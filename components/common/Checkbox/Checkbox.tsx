@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react';
+import { ForwardedRef, forwardRef, InputHTMLAttributes } from 'react';
 
 import styled, { css } from 'styled-components';
 
@@ -9,17 +9,19 @@ interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'typ
   text: string;
 }
 
-const Checkbox = ({ text, ...restProps }: CheckboxProps) => {
-  return (
-    <Label>
-      <input type={'checkbox'} {...restProps} />
-      <CheckMark>
-        <CheckLineIcon size={20} />
-      </CheckMark>
-      <Text className="checkbox_text">{text}</Text>
-    </Label>
-  );
-};
+const Checkbox = forwardRef(
+  ({ text, ...restProps }: CheckboxProps, ref: ForwardedRef<HTMLInputElement>) => {
+    return (
+      <Label>
+        <input type={'checkbox'} ref={ref} {...restProps} />
+        <CheckMark>
+          <CheckLineIcon size={20} />
+        </CheckMark>
+        <Text className="checkbox_text">{text}</Text>
+      </Label>
+    );
+  },
+);
 
 export default Checkbox;
 

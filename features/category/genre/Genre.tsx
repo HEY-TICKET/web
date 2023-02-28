@@ -1,40 +1,52 @@
 'use client';
-import { useEffect, useState } from 'react';
-
 import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
 
 import Chip from 'components/common/Chip/Chip';
 import CardList from 'features/category/genre/CardList';
+import { FILTER_MODAL_TAB_ITEM_LIST } from 'features/category/genre/filter/constants';
 import * as Styles from 'features/category/genre/Genre.styles';
 import CategoryFilterModal from 'features/category/modal/CategoryFilterModal';
+import SortingModal from 'features/category/modal/SortingModal';
 import useModal from 'hooks/useModal';
+import useTab from 'hooks/useTab';
 import { ArrowRight, FilterIcon, SortIcon } from 'styles/icons';
-
-import SortingModal from '../modal/SortingModal';
 
 interface GenreProps {
   title: string;
 }
 
-const Genre = ({ title }: GenreProps) => {
-  const [initNum, setInitNum] = useState(0);
+export type FormValues = {
+  region: string[];
+  date: Date;
+  status: string[];
+  price: string;
+};
 
+export const DEFAULT_VALUES = {
+  region: ['전체'],
+  date: new Date(),
+  status: ['공연중'],
+  price: '전체',
+};
+
+const Genre = ({ title }: GenreProps) => {
+  const { TabMenu, setCurrent } = useTab({ tabList: FILTER_MODAL_TAB_ITEM_LIST });
   const { back } = useRouter();
-  const { Modal: FilterModalFrame, open: filterModalOpen, isOpen } = useModal();
+  const { Modal: FilterModalFrame, open: filterModalOpen } = useModal();
   const { Modal: SortingModalFrame, open: sortingModalOpen } = useModal();
+
+  const methods = useForm<FormValues>({
+    mode: 'onChange',
+    defaultValues: DEFAULT_VALUES,
+  });
 
   const goToBack = () => back();
 
-  // FIXME : number 말고 다른 key 로 컨트롤 해야 좋을 것 같다.
-  const clickChip = (initNum: number) => {
-    setInitNum(initNum);
+  const clickChip = (index: number) => {
+    setCurrent(index);
     filterModalOpen();
   };
-
-  // DESC : 모달 닫힐 때 동작
-  useEffect(() => {
-    !isOpen && setInitNum(0);
-  }, [isOpen]);
 
   return (
     <Styles.Container>
@@ -48,10 +60,9 @@ const Genre = ({ title }: GenreProps) => {
           </Styles.GenreHeader>
           <Styles.FilterContainer>
             <Styles.FilterWrapper>
-              <Chip text={'전체'} active={true} onClick={() => clickChip(0)} />
-              <Chip text={'공연일'} onClick={() => clickChip(1)} />
-              <Chip text={'진행 상태'} onClick={() => clickChip(2)} />
-              <Chip text={'예매 가격'} onClick={() => clickChip(3)} />
+              {FILTER_MODAL_TAB_ITEM_LIST.map(({ title }, index) => (
+                <Chip key={index} text={title} active={true} onClick={() => clickChip(index)} />
+              ))}
             </Styles.FilterWrapper>
             <Styles.FilterIconWrapper onClick={filterModalOpen}>
               <FilterIcon />
@@ -72,8 +83,9 @@ const Genre = ({ title }: GenreProps) => {
       <SortingModalFrame canClose={false}>
         <SortingModal />
       </SortingModalFrame>
+      {/* FIXME : rerendering 버그 */}
       <FilterModalFrame canClose={false}>
-        <CategoryFilterModal initActiveNum={initNum} />
+        <CategoryFilterModal methods={methods} TabMenu={TabMenu} />
       </FilterModalFrame>
     </Styles.Container>
   );

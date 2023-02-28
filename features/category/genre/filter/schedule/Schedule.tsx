@@ -1,16 +1,20 @@
+import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
 
 import DatePicker from 'components/DatePicker/DatePicker';
+import { DEFAULT_VALUES } from 'features/category/genre/Genre';
 
-const Schedule = () => {
-  const handleChange = (data: Date | (Date | null)[] | null) => {
-    console.log(data);
-  };
+type Props = {
+  name: keyof typeof DEFAULT_VALUES;
+};
+
+const Schedule = ({ name }: Props) => {
+  const { control } = useFormContext();
 
   return (
     <Wrapper>
       <span>선택한 날짜 이후의 공연이 보여져요</span>
-      <DatePicker onChange={handleChange} withHeader={false} />
+      <DatePicker name={name} control={control} />
     </Wrapper>
   );
 };
