@@ -1,3 +1,5 @@
+'use client';
+
 import Input from 'components/Input/Input';
 import Footer from 'components/layout/Footer';
 import { CATEGORY } from 'constants/category';
@@ -28,7 +30,7 @@ const Category = () => {
           >
             <Styles.SubCategoryItem>
               <span>{caption}</span>
-              <p>{(1234).addComma()}</p>
+              {/*<p>{(1234).addComma()}</p>*/}
             </Styles.SubCategoryItem>
             <ArrowRight size={24} />
           </Styles.SubCategoryItemWrapper>

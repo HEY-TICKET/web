@@ -25,18 +25,6 @@ export const ModalWrap = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-export const CloseButton = styled.div`
-  float: right;
-  width: 40px;
-  height: 40px;
-  margin: 20px;
-  cursor: pointer;
-  i {
-    color: #5d5d5d;
-    font-size: 30px;
-  }
-`;
-
 export const Contents = styled.div`
   h1 {
     font-size: 30px;
@@ -46,19 +34,5 @@ export const Contents = styled.div`
   img {
     margin-top: 60px;
     width: 300px;
-  }
-`;
-export const Button = styled.button`
-  font-size: 14px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #ababab;
-  border-radius: 10px;
-  color: white;
-  font-style: italic;
-  font-weight: 200;
-  cursor: pointer;
-  &:hover {
-    background-color: #898989;
   }
 `;
