@@ -14,8 +14,8 @@ import CategoryFilterModal, {
   FilterModalFormValues,
 } from 'features/category/modal/CategoryFilterModal';
 import SortingModal, {
-  SortingModalFormValues,
   SORTING_MODAL_DEFAULT_VALUES,
+  SortingModalFormValues,
 } from 'features/category/modal/SortingModal';
 import useModal from 'hooks/useModal';
 import useTab from 'hooks/useTab';
@@ -50,13 +50,11 @@ const getText = (
 };
 
 const Genre = ({ title }: GenreProps) => {
-  const [currentSorting, setCurrentSorting] = useState(SORTING_MODAL_DEFAULT_VALUES['sorting']);
-  const [chipValues, setChipValues] = useState(FILTER_MODAL_DEFAULT_VALUES);
-
-  const { TabMenu, setCurrent } = useTab({ tabList: FILTER_MODAL_TAB_ITEM_LIST });
   const { back } = useRouter();
-  const { Modal: FilterModalFrame, open: filterModalOpen } = useModal();
-  const { Modal: SortingModalFrame, open: sortingModalOpen } = useModal();
+  const [currentSorting, setCurrentSorting] = useState(SORTING_MODAL_DEFAULT_VALUES['sorting']);
+  const [prevFilterValues, setPrevFilterValues] = useState<FilterModalFormValues | null>(null);
+  const [prevSortingValues, setPrevSortingValues] = useState<SortingModalFormValues | null>(null);
+  const [chipValues, setChipValues] = useState(FILTER_MODAL_DEFAULT_VALUES);
 
   const filterModalMethods = useForm<FilterModalFormValues>({
     mode: 'onSubmit',
@@ -68,13 +66,24 @@ const Genre = ({ title }: GenreProps) => {
     defaultValues: SORTING_MODAL_DEFAULT_VALUES,
   });
 
+  const { TabMenu, setCurrent } = useTab({ tabList: FILTER_MODAL_TAB_ITEM_LIST });
+  const { Modal: FilterModalFrame, open: filterModalOpen } = useModal(
+    () => setPrevFilterValues(filterModalMethods.getValues()),
+    () => setPrevFilterValues(null),
+  );
+  const { Modal: SortingModalFrame, open: sortingModalOpen } = useModal(
+    () => setPrevSortingValues(sortingModalMethods.getValues()),
+    () => setPrevSortingValues(null),
+  );
+
   const submitFilterValue = (data: FilterModalFormValues) => {
-    console.log(data['date']);
-    console.log(FILTER_MODAL_DEFAULT_VALUES['date']);
+    // TODO : 데이터 submit
+    console.log(data);
     setChipValues(data);
   };
 
   const submitSortingValue = (data: SortingModalFormValues) => {
+    // TODO : 데이터 submit
     console.log(data);
     setCurrentSorting(data.sorting);
   };
@@ -90,6 +99,14 @@ const Genre = ({ title }: GenreProps) => {
     console.log('onClick');
     filterModalMethods.resetField(name);
     setChipValues((prev) => ({ ...prev, [name]: FILTER_MODAL_DEFAULT_VALUES[name] }));
+  };
+
+  const cancelFilterModal = () => {
+    prevFilterValues && filterModalMethods.reset(prevFilterValues);
+  };
+
+  const cancelSortingModal = () => {
+    prevSortingValues && sortingModalMethods.reset(prevSortingValues);
   };
 
   return (
@@ -140,12 +157,18 @@ const Genre = ({ title }: GenreProps) => {
       <FilterModalFrame canClose={false}>
         <CategoryFilterModal
           methods={filterModalMethods}
-          TabMenu={TabMenu}
           onSubmit={submitFilterValue}
-        />
+          onCancel={cancelFilterModal}
+        >
+          <TabMenu />
+        </CategoryFilterModal>
       </FilterModalFrame>
       <SortingModalFrame canClose={false}>
-        <SortingModal methods={sortingModalMethods} onSubmit={submitSortingValue} />
+        <SortingModal
+          methods={sortingModalMethods}
+          onSubmit={submitSortingValue}
+          onCancel={cancelSortingModal}
+        />
       </SortingModalFrame>
     </Styles.Container>
   );

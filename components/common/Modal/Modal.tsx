@@ -7,13 +7,14 @@ import { nullFn } from 'utils/function';
 import * as Styles from './Modal.styles';
 
 interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-  onClose: () => void;
+  close: () => void;
   canClose?: boolean;
   children: ReactElement;
+  isOpen?: boolean;
 }
 
-function Modal({ onClose, children, canClose = true }: ModalProps) {
-  const ref = useOutsideClick<HTMLDivElement>({ onClick: canClose ? onClose : nullFn });
+function Modal({ close, children, isOpen = false, canClose = true }: ModalProps) {
+  const ref = useOutsideClick<HTMLDivElement>({ onClick: canClose ? close : nullFn });
 
   useEffect(() => {
     const $body = document.querySelector('body') as HTMLBodyElement;
@@ -28,7 +29,7 @@ function Modal({ onClose, children, canClose = true }: ModalProps) {
     <ModalContainer>
       <Styles.Overlay>
         <Styles.ModalWrap ref={ref}>
-          <Styles.Contents>{React.cloneElement(children, { onClose })}</Styles.Contents>
+          <Styles.Contents>{React.cloneElement(children, { close, isOpen })}</Styles.Contents>
         </Styles.ModalWrap>
       </Styles.Overlay>
     </ModalContainer>

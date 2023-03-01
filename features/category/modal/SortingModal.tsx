@@ -8,8 +8,9 @@ import { nullFn } from 'utils/function';
 import * as Styles from './SortingModal.styles';
 
 interface CategoryModalProps {
-  onClose?: () => void;
+  close?: () => void;
   onSubmit?: (data: SortingModalFormValues) => void;
+  onCancel?: () => void;
   methods: UseFormReturn<SortingModalFormValues>;
 }
 
@@ -21,14 +22,19 @@ export const SORTING_MODAL_DEFAULT_VALUES = {
   sorting: '예매순',
 };
 
-const SortingModal = ({ onClose = nullFn, methods, onSubmit }: CategoryModalProps) => {
+const SortingModal = ({ close = nullFn, methods, onSubmit, onCancel }: CategoryModalProps) => {
   const list = ['최신순', '예매순', '조회수순'];
 
   const { handleSubmit } = methods;
 
   const submit = (data: SortingModalFormValues) => {
     onSubmit?.(data);
-    onClose();
+    close();
+  };
+
+  const clickClose = () => {
+    onCancel?.();
+    close();
   };
 
   return (
@@ -37,7 +43,7 @@ const SortingModal = ({ onClose = nullFn, methods, onSubmit }: CategoryModalProp
         <Styles.ModalWrapper>
           <Styles.Header>
             <span>정렬</span>
-            <Styles.CloseIconWrapper onClick={() => onClose()}>
+            <Styles.CloseIconWrapper onClick={clickClose}>
               <CloseIcon />
             </Styles.CloseIconWrapper>
           </Styles.Header>
