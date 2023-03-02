@@ -9,6 +9,12 @@ export const Layout = styled.div`
   width: 100%;
   height: 100vh;
   margin: 0 auto;
+
+  ${({ theme }) => css`
+    ${theme.MEDIA.mobile} {
+      height: calc(var(--vh, 1vh) * 100);
+    }
+  `}
 `;
 
 export const Footer = styled.footer`
