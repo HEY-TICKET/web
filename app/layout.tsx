@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 import Toast from 'components/common/Toast/Toaster';
 import Layout from 'components/layout/Layout';
@@ -18,6 +18,13 @@ export default function RootLayout({
 }: {
   children: ReactNode;
 }) {
+  function setScreenSize() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+  useEffect(() => {
+    setScreenSize();
+  });
   return (
     <html lang="en">
       <body>

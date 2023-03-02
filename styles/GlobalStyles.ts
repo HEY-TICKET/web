@@ -22,7 +22,8 @@ const GlobalStyles = createGlobalStyle`
 
   :root {
     font-size: 16px;
-    --scrollbar-width: 0px; // useSetupScrollbarWidth 훅을 통해 브라우저마다 다른 스크롤 크기를 잡을때 calc에 초깃값이 제대로 들어가지 않아 초기화 시켜줌 
+    --scrollbar-width: 0px; // useSetupScrollbarWidth 훅을 통해 브라우저마다 다른 스크롤 크기를 잡을때 calc에 초깃값이 제대로 들어가지 않아 초기화 시켜줌
+    --vh: 100%;
   }
 
   html,
@@ -76,6 +77,7 @@ const GlobalStyles = createGlobalStyle`
     -webkit-user-drag: none;
     -webkit-tap-highlight-color: transparent;
   }
+  
 `;
 
 export default GlobalStyles;
