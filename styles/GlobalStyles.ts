@@ -30,7 +30,6 @@ const GlobalStyles = createGlobalStyle`
   body {
     position: relative;
     max-width: 100%;
-    min-height: 100vh;
   }
 
   a,
