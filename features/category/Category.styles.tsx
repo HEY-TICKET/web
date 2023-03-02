@@ -4,6 +4,10 @@ import Link from 'next/link';
 import styled, { css } from 'styled-components';
 
 export const InputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
   padding: 16px;
 `;
 

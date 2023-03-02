@@ -27,17 +27,17 @@ export const GenreHeader = styled.div`
   align-items: center;
   height: 56px;
   padding: 14px 16px;
+`;
 
-  & > span {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
+export const Title = styled.span`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
 
-    ${({ theme }) => css`
-      ${theme.COLOR.gray900};
-    `}
-  }
+  ${({ theme }) => css`
+    ${theme.COLOR.gray900};
+  `}
 `;
 
 export const LeftIconWrapper = styled.div`

@@ -1,5 +1,8 @@
+'use client';
+
 import { ReactNode } from 'react';
 
+import Toast from 'components/common/Toast/Toaster';
 import Layout from 'components/layout/Layout';
 import StyledComponentsRegistry from 'lib/register';
 import ReactQueryProvider from 'Provider/QueryClientProvider';
@@ -24,6 +27,7 @@ export default function RootLayout({
               <GlobalStyles />
               <Layout>{children}</Layout>
               <div id="modal"></div>
+              <Toast />
             </StyledComponentsRegistry>
           </ThemeProvider>
         </ReactQueryProvider>
