@@ -27,6 +27,7 @@ const FilterChips = ({ chipValues, clickChip, closeChip }: FilterChipsProps) => 
             active={active}
             onClick={() => clickChip(index)}
             onClose={() => closeChip(name)}
+            onlyActive
           />
         );
       })}
@@ -36,7 +37,7 @@ const FilterChips = ({ chipValues, clickChip, closeChip }: FilterChipsProps) => 
 
 export default FilterChips;
 
-const FILTER_VALUE_MAP = {
+export const FILTER_VALUE_MAP = {
   region: '지역',
   date: '공연일',
   status: '진행 상태',

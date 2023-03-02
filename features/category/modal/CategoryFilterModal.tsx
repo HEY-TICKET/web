@@ -3,6 +3,7 @@ import { PropsWithChildren } from 'react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 
 import Button from 'components/common/Button/Button';
+import useCustomToast from 'hooks/useCustomToast';
 import { CloseIcon, ResetIcon } from 'styles/icons';
 import { nullFn } from 'utils/function';
 
@@ -22,10 +23,10 @@ export type FilterModalFormValues = {
   price: string;
 };
 
-export const FILTER_MODAL_DEFAULT_VALUES = {
+export const FILTER_MODAL_DEFAULT_VALUES: FilterModalFormValues = {
   region: ['전체'],
   date: new Date(),
-  status: ['공연중'],
+  status: [],
   price: '전체',
 };
 
@@ -36,6 +37,8 @@ const CategoryFilterModal = ({
   children,
   onCancel,
 }: CategoryModalProps) => {
+  const toast = useCustomToast();
+
   const {
     handleSubmit,
     reset,
@@ -49,6 +52,7 @@ const CategoryFilterModal = ({
 
   const resetFormValue = () => {
     reset(FILTER_MODAL_DEFAULT_VALUES);
+    toast(`필터가 초기화되었습니다`);
   };
 
   const clickClose = () => {
@@ -72,7 +76,7 @@ const CategoryFilterModal = ({
               <ResetIcon size={24} />
               <span>초기화</span>
             </Styles.ResetIconWrapper>
-            <Button type={'submit'}>적용</Button>
+            <Button>적용</Button>
           </Styles.Footer>
         </Styles.ModalWrapper>
       </form>

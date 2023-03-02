@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import CardList from 'features/category/genre/CardList';
-import FilterChips from 'features/category/genre/filter/chip/FilterChips';
+import FilterChips, { FILTER_VALUE_MAP } from 'features/category/genre/filter/chip/FilterChips';
 import { FILTER_MODAL_TAB_ITEM_LIST } from 'features/category/genre/filter/constants';
 import * as Styles from 'features/category/genre/Genre.styles';
 import CategoryFilterModal, {
@@ -78,6 +78,7 @@ const Genre = ({ title }: GenreProps) => {
   const closeChip = (name: keyof typeof FILTER_MODAL_DEFAULT_VALUES) => {
     filterModalMethods.resetField(name);
     setChipValues((prev) => ({ ...prev, [name]: FILTER_MODAL_DEFAULT_VALUES[name] }));
+    toast(`${FILTER_VALUE_MAP[name]} 필터가 해제되었습니다`);
   };
 
   const cancelFilterModal = () => {

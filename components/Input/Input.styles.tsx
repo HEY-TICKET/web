@@ -2,6 +2,10 @@
 
 import styled, { css } from 'styled-components';
 
+export const Form = styled.form`
+  width: 100%;
+`;
+
 export const InputWrapper = styled.div`
   ${({ theme }) => css`
     display: flex;
@@ -16,7 +20,7 @@ export const InputWrapper = styled.div`
     & > svg {
       width: 20px;
       height: 20px;
-      color: ${theme.COLOR.gray350};
+      ${theme.ICON_FILTER.gray350};
     }
   `}
 `;

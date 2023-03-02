@@ -91,10 +91,11 @@ export const Button = styled.button<{
   justify-content: center;
   align-items: center;
 
-  ${({ $colorTheme, $size, $width }) => css`
+  ${({ $colorTheme, $size, $width, $height }) => css`
     ${colorTheme[$colorTheme]};
     ${size[$size]};
 
-    width: ${$width ?? '100%'};
+    width: ${$width ? `${$width}px` : '100%'};
+    height: ${$height && `${$height}px`};
   `}
 `;
