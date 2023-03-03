@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 
 export const Layout = styled.div`
   // 모바일 기준
-  width: 640px;
+  max-width: 640px;
   height: 100vh;
   margin: 0 auto;
 `;
