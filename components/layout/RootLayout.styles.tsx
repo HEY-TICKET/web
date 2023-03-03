@@ -7,6 +7,7 @@ export const Layout = styled.div`
   // 모바일 기준
   max-width: 640px;
   width: 100%;
+  height: 100vh;
   margin: 0 auto;
 
   height: calc(var(--vh, 1vh) * 100);
