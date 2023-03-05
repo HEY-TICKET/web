@@ -3,33 +3,29 @@ import React, { ReactNode, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 interface UseTabProps {
-  initIndex?: number;
+  tabIndex?: number;
   tabList: { title: string; component: ReactNode }[];
 }
 
-const useTab = ({ initIndex = 0, tabList }: UseTabProps) => {
-  const [current, setCurrent] = useState(initIndex);
+const Tab = ({ tabIndex = 0, tabList }: UseTabProps) => {
+  const [current, setCurrent] = useState(tabIndex);
 
-  const TabMenu = () => {
-    return (
-      <Wrapper>
-        <Header>
-          {tabList.map(({ title }, index) => (
-            <Tab key={index} onClick={() => setCurrent(index)} $active={current === index}>
-              <Dot $active={current === index} />
-              {title}
-            </Tab>
-          ))}
-        </Header>
-        <Body>{tabList[current].component}</Body>
-      </Wrapper>
-    );
-  };
-
-  return { TabMenu, setCurrent };
+  return (
+    <Wrapper>
+      <Header>
+        {tabList.map(({ title }, index) => (
+          <TabName key={index} onClick={() => setCurrent(index)} $active={current === index}>
+            <Dot $active={current === index} />
+            {title}
+          </TabName>
+        ))}
+      </Header>
+      <Body>{tabList[current].component}</Body>
+    </Wrapper>
+  );
 };
 
-export default useTab;
+export default Tab;
 
 const Wrapper = styled.div`
   display: flex;
@@ -51,7 +47,7 @@ const Body = styled.div`
   overflow-y: auto;
 `;
 
-const Tab = styled.li<{ $active: boolean }>`
+const TabName = styled.li<{ $active: boolean }>`
   position: relative;
 
   display: flex;

@@ -30,6 +30,8 @@ export const CardDescription = styled.p`
 `;
 
 export const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 195px;
 
   ${Badge} {
@@ -46,6 +48,11 @@ export const CardContainer = styled.div`
 `;
 
 export const ContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 104px;

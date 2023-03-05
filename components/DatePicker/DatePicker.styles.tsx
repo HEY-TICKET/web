@@ -22,14 +22,6 @@ export const CustomHeaderWrapper = styled.header`
     padding: 8px 16px;
     background-color: ${theme.COLOR.white};
   `};
-  //&:nth-child(1) {
-  //  button {
-  //    font-style: normal;
-  //    font-weight: 700;
-  //    font-size: 18px;
-  //    line-height: 150%;
-  //  }
-  //}
 `;
 
 export const DateButtonWrapper = styled.div`
@@ -65,10 +57,6 @@ export const InputButton = styled(DateButton)<{ $withRange: boolean }>`
 `;
 
 export const DatePickerWrapper = styled.div`
-  //position: absolute;
-  //top: 50px;
-  //left: 50%;
-  //transform: translate(-50%, 0%);
   width: 100%;
   
   display: flex;
@@ -110,10 +98,6 @@ export const DatePickerWrapper = styled.div`
       }
 
       .react-datepicker__day {
-        //font-style: normal;
-        //font-weight: 400;
-        //font-size: 16px;
-        //line-height: 150%;
         border-radius: 100px;
         transition: background-color 0.3s;
         &:hover {
@@ -123,10 +107,6 @@ export const DatePickerWrapper = styled.div`
       }
 
       .react-datepicker__day-names {
-        //font-style: normal;
-        //font-weight: 400;
-        //font-size: 16px;
-        //line-height: 150%;
         & > div {
           width: 40px;
           height: 40px;

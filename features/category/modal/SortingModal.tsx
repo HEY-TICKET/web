@@ -1,4 +1,6 @@
-import { FormProvider, UseFormReturn } from 'react-hook-form';
+'use client';
+
+import { useFormContext } from 'react-hook-form';
 
 import Button from 'components/common/Button/Button';
 import List from 'components/common/List/List';
@@ -11,7 +13,6 @@ interface CategoryModalProps {
   close?: () => void;
   onSubmit?: (data: SortingModalFormValues) => void;
   onCancel?: () => void;
-  methods: UseFormReturn<SortingModalFormValues>;
 }
 
 export type SortingModalFormValues = {
@@ -22,12 +23,15 @@ export const SORTING_MODAL_DEFAULT_VALUES = {
   sorting: '예매순',
 };
 
-const SortingModal = ({ close = nullFn, methods, onSubmit, onCancel }: CategoryModalProps) => {
+const SortingModal = ({ close = nullFn, onSubmit, onCancel }: CategoryModalProps) => {
   const list = ['최신순', '예매순', '조회수순'];
 
+  const methods = useFormContext<SortingModalFormValues>();
   const { handleSubmit } = methods;
 
-  const submit = (data: SortingModalFormValues) => {
+  const onValid = (data: SortingModalFormValues) => {
+    console.log('sorting modal values => ', data);
+
     onSubmit?.(data);
     close();
   };
@@ -38,24 +42,22 @@ const SortingModal = ({ close = nullFn, methods, onSubmit, onCancel }: CategoryM
   };
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(submit)}>
-        <Styles.ModalWrapper>
-          <Styles.Header>
-            <span>정렬</span>
-            <Styles.CloseIconWrapper onClick={clickClose}>
-              <CloseIcon />
-            </Styles.CloseIconWrapper>
-          </Styles.Header>
-          <Styles.Body>
-            <List list={list} type={'radio'} name={'sorting'} />
-          </Styles.Body>
-          <Styles.Footer>
-            <Button>적용</Button>
-          </Styles.Footer>
-        </Styles.ModalWrapper>
-      </form>
-    </FormProvider>
+    <form onSubmit={handleSubmit(onValid)}>
+      <Styles.ModalWrapper>
+        <Styles.Header>
+          <span>정렬</span>
+          <Styles.CloseIconWrapper onClick={clickClose}>
+            <CloseIcon />
+          </Styles.CloseIconWrapper>
+        </Styles.Header>
+        <Styles.Body>
+          <List list={list} type={'radio'} name={'sorting'} />
+        </Styles.Body>
+        <Styles.Footer>
+          <Button>적용</Button>
+        </Styles.Footer>
+      </Styles.ModalWrapper>
+    </form>
   );
 };
 

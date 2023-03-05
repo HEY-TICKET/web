@@ -70,4 +70,10 @@ export const SearchesTitle = styled.div`
 export const SearchesChips = styled.div`
   display: flex;
   gap: 8px;
+
+  overflow-x: auto;
+  ${({ theme }) =>
+    css`
+      ${theme.UTILS.hiddenScroll}
+    `}
 `;
