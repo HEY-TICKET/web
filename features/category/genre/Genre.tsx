@@ -2,8 +2,9 @@
 import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
+import Tab from 'components/common/Tab/Tab';
 import CardList from 'features/category/genre/CardList';
 import FilterChips, { FILTER_VALUE_MAP } from 'features/category/genre/filter/chip/FilterChips';
 import { FILTER_MODAL_TAB_ITEM_LIST } from 'features/category/genre/filter/constants';
@@ -18,7 +19,6 @@ import SortingModal, {
 } from 'features/category/modal/SortingModal';
 import useCustomToast from 'hooks/useCustomToast';
 import useModal from 'hooks/useModal';
-import useTab from 'hooks/useTab';
 import { ArrowRight, FilterIcon, SortIcon } from 'styles/icons';
 
 interface GenreProps {
@@ -29,24 +29,27 @@ const Genre = ({ title }: GenreProps) => {
   const { back } = useRouter();
   const toast = useCustomToast();
 
+  const [tabIndex, setTabIndex] = useState(0);
   const [currentSorting, setCurrentSorting] = useState(SORTING_MODAL_DEFAULT_VALUES['sorting']);
   const [prevFilterValues, setPrevFilterValues] = useState<FilterModalFormValues | null>(null);
   const [prevSortingValues, setPrevSortingValues] = useState<SortingModalFormValues | null>(null);
   const [chipValues, setChipValues] = useState(FILTER_MODAL_DEFAULT_VALUES);
 
   const filterModalMethods = useForm<FilterModalFormValues>({
-    mode: 'onSubmit',
+    mode: 'onTouched',
     defaultValues: FILTER_MODAL_DEFAULT_VALUES,
   });
 
   const sortingModalMethods = useForm<SortingModalFormValues>({
-    mode: 'onSubmit',
+    mode: 'onTouched',
     defaultValues: SORTING_MODAL_DEFAULT_VALUES,
   });
 
-  const { TabMenu, setCurrent } = useTab({ tabList: FILTER_MODAL_TAB_ITEM_LIST });
-
-  const { Modal: FilterModalFrame, open: filterModalOpen } = useModal(
+  const {
+    Modal: FilterModalFrame,
+    open: filterModalOpen,
+    close: filterModalClose,
+  } = useModal(
     () => setPrevFilterValues(filterModalMethods.getValues()),
     () => setPrevFilterValues(null),
   );
@@ -60,6 +63,7 @@ const Genre = ({ title }: GenreProps) => {
     console.log(data);
     setChipValues(data);
     toast('필터가 적용되었습니다');
+    filterModalClose();
   };
 
   const submitSortingValue = (data: SortingModalFormValues) => {
@@ -71,7 +75,7 @@ const Genre = ({ title }: GenreProps) => {
   const goToBack = () => back();
 
   const clickChip = (index: number) => {
-    setCurrent(index);
+    setTabIndex(index);
     filterModalOpen();
   };
 
@@ -87,6 +91,15 @@ const Genre = ({ title }: GenreProps) => {
 
   const cancelSortingModal = () => {
     prevSortingValues && sortingModalMethods.reset(prevSortingValues);
+  };
+
+  const resetFilter = () => {
+    setChipValues(FILTER_MODAL_DEFAULT_VALUES);
+    setPrevFilterValues(null);
+    filterModalMethods.reset();
+    filterModalClose();
+
+    toast(`필터가 초기화되었습니다`);
   };
 
   return (
@@ -120,15 +133,17 @@ const Genre = ({ title }: GenreProps) => {
       </Styles.GenreContents>
       {/* desc : 모달 */}
       {/* FIXME : 최초 isDirty true 변경 시 렌더링으로 스크롤 초기화 버그 */}
-      <FilterModalFrame canClose={false}>
-        <CategoryFilterModal
-          methods={filterModalMethods}
-          onSubmit={submitFilterValue}
-          onCancel={cancelFilterModal}
-        >
-          <TabMenu />
-        </CategoryFilterModal>
-      </FilterModalFrame>
+      <FormProvider {...filterModalMethods}>
+        <FilterModalFrame canClose={false}>
+          <CategoryFilterModal
+            onCancel={cancelFilterModal}
+            onReset={resetFilter}
+            onSubmit={filterModalMethods.handleSubmit(submitFilterValue)}
+          >
+            <Tab tabList={FILTER_MODAL_TAB_ITEM_LIST} tabIndex={tabIndex} />
+          </CategoryFilterModal>
+        </FilterModalFrame>
+      </FormProvider>
       <SortingModalFrame canClose={false}>
         <SortingModal
           methods={sortingModalMethods}

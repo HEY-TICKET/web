@@ -18,7 +18,7 @@ const FilterChips = ({ chipValues, clickChip, closeChip }: FilterChipsProps) => 
     <>
       {Object.entries(chipValues).map(([key, value], index) => {
         const name = key as keyof typeof FILTER_VALUE_MAP;
-        const text = getText(value, name).toString();
+        const text = getText(value, name)?.toString() ?? '';
         const active = JSON.stringify(value) !== JSON.stringify(FILTER_MODAL_DEFAULT_VALUES[name]);
         return (
           <Chip

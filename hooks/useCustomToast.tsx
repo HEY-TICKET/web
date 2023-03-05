@@ -29,7 +29,9 @@ export default useCustomToast;
 
 const DefaultToast = styled.div`
   ${({ theme }) => css`
+    min-width: 200px;
     background-color: ${theme.COLOR.gray900};
+    opacity: 0.7;
     color: ${theme.COLOR.white};
     padding: 10px 24px;
     border-radius: 8px;

@@ -71,6 +71,7 @@ const Search = () => {
             defaultValues={{ search: '' }}
             placeholder={'공연명, 출연진, 아티스트 검색'}
             hasIcon
+            autoFocus
           />
         </Styles.InputWrapper>
         <Styles.RecentSearchesWrapper>

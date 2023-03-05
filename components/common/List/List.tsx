@@ -29,13 +29,14 @@ const List = ({ list, name, type = 'checkbox', setIsDirty, isAllValue = false }:
       if (isAllValue) {
         if (type === 'checkbox') {
           if (value === list[0]) {
-            setValue(name, [value]);
+            setValue(name, [value], { shouldDirty: true });
           } else {
             const prevValues = getValues(name);
             if (prevValues.includes(list[0])) {
               setValue(
                 name,
                 prevValues.filter((item: string) => item !== list[0]),
+                { shouldDirty: true },
               );
             }
           }
