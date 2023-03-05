@@ -2,7 +2,7 @@
 
 import { ReactElement, useState } from 'react';
 
-import Modal from 'components/common/Modal/Modal';
+import Modal, { Pivot } from 'components/common/Modal/Modal';
 
 export default function useModal(onOpen?: () => void, onClose?: () => void) {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,12 +22,23 @@ export default function useModal(onOpen?: () => void, onClose?: () => void) {
           children,
           canClose,
           outSideClick,
+          pivot,
+          mobilePivot,
         }: {
           children: ReactElement;
           canClose?: boolean;
           outSideClick?: () => void;
+          pivot?: Pivot;
+          mobilePivot?: Pivot;
         }) => (
-          <Modal close={close} isOpen={isOpen} canClose={canClose} outSideClick={outSideClick}>
+          <Modal
+            close={close}
+            isOpen={isOpen}
+            canClose={canClose}
+            outSideClick={outSideClick}
+            pivot={pivot}
+            mobilePivot={mobilePivot}
+          >
             {children}
           </Modal>
         )

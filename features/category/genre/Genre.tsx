@@ -117,7 +117,7 @@ const Genre = ({ title }: GenreProps) => {
       {/* desc : 모달 */}
       {/* FIXME : 최초 isDirty true 변경 시 렌더링으로 스크롤 초기화 버그 */}
       <FormProvider {...filterModalMethods}>
-        <FilterModalFrame outSideClick={closeFilterModal}>
+        <FilterModalFrame outSideClick={closeFilterModal} mobilePivot={'bottom'}>
           <CategoryFilterModal
             onSubmit={submitFilterValue}
             onReset={resetFilter}

@@ -6,15 +6,27 @@ import { nullFn } from 'utils/function';
 
 import * as Styles from './Modal.styles';
 
+export type Pivot = 'top' | 'center' | 'bottom';
+
 interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   close: () => void;
   canClose?: boolean;
   children: ReactElement;
   isOpen?: boolean;
   outSideClick?: () => void;
+  pivot?: Pivot;
+  mobilePivot?: Pivot;
 }
 
-function Modal({ close, children, isOpen = false, canClose = true, outSideClick }: ModalProps) {
+function Modal({
+  close,
+  children,
+  isOpen = false,
+  canClose = true,
+  outSideClick,
+  pivot = 'center',
+  mobilePivot = 'center',
+}: ModalProps) {
   const handleClose = () => {
     outSideClick?.();
     close();
@@ -36,7 +48,7 @@ function Modal({ close, children, isOpen = false, canClose = true, outSideClick 
   return (
     <ModalContainer>
       <Styles.Overlay>
-        <Styles.ModalWrap ref={ref}>
+        <Styles.ModalWrap ref={ref} $pivot={pivot} $mobilePivot={mobilePivot}>
           <Styles.Contents>{React.cloneElement(children, { close, isOpen })}</Styles.Contents>
         </Styles.ModalWrap>
       </Styles.Overlay>
