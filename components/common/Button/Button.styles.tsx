@@ -1,10 +1,10 @@
 'use client';
 
-import styled, { css, CSSProp } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { ColorTheme, Size } from './types';
 
-const colorTheme: { [K in ColorTheme]: CSSProp } = {
+const colorTheme = {
   dark: css`
     ${({ theme }) => css`
       background-color: ${theme.COLOR.gray870};
@@ -51,7 +51,7 @@ const colorTheme: { [K in ColorTheme]: CSSProp } = {
   `,
 };
 
-const size: { [K in Size]: CSSProp } = {
+const size = {
   sm: css`
     height: 38px;
     padding: 10px 16px;

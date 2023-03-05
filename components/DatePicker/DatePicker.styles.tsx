@@ -33,12 +33,13 @@ export const DateButtonWrapper = styled.div`
 
 export const IconWrapper = styled.div<{ $left?: boolean }>`
   ${({ $left }) =>
-    $left &&
-    css`
-      & > svg {
-        rotate: 180deg;
-      }
-    `};
+    $left
+      ? css`
+          & > svg {
+            rotate: 180deg;
+          }
+        `
+      : css``};
   cursor: pointer;
 `;
 

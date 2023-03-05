@@ -1,12 +1,12 @@
 'use client';
-import { ReactNode } from 'react';
+import { ReactElement } from 'react';
 
 import { ThemeProvider } from 'styled-components';
 
 import theme from 'styles/theme';
 
 interface ThemeProviderProps {
-  children: ReactNode;
+  children: ReactElement;
 }
 
 const Provider = ({ children }: ThemeProviderProps) => {
