@@ -1,6 +1,11 @@
-import { PropsWithChildren } from 'react';
+'use client';
+
+import { PropsWithChildren, useEffect, useState } from 'react';
+
+import { useFormContext } from 'react-hook-form';
 
 import Button from 'components/common/Button/Button';
+import useCustomToast from 'hooks/useCustomToast';
 import { CloseIcon, ResetIcon } from 'styles/icons';
 import { nullFn } from 'utils/function';
 
@@ -8,10 +13,8 @@ import * as Styles from './CategoryFilterModal.styles';
 
 interface CategoryModalProps extends PropsWithChildren {
   close?: () => void;
-  onCancel?: () => void;
-  onSubmit?: () => void;
+  onSubmit?: (data: FilterModalFormValues) => void;
   onReset?: () => void;
-  disabledReset?: boolean;
 }
 
 export type FilterModalFormValues = {
@@ -31,22 +34,46 @@ export const FILTER_MODAL_DEFAULT_VALUES: FilterModalFormValues = {
 const CategoryFilterModal = ({
   close = nullFn,
   children,
-  onCancel,
   onReset,
   onSubmit,
-  disabledReset = false,
 }: CategoryModalProps) => {
-  const resetFormValue = () => {
-    onReset?.();
-  };
+  const [prevFilterValues, setPrevFilterValues] = useState<FilterModalFormValues | null>(null);
 
-  const clickClose = () => {
-    onCancel?.();
+  const toast = useCustomToast();
+
+  const methods = useFormContext<FilterModalFormValues>();
+  const { handleSubmit, getValues, reset } = methods;
+
+  const resetFormValue = () => {
+    reset();
+    onReset?.();
+
+    toast(`필터가 초기화되었습니다`);
     close();
   };
 
+  const clickClose = () => {
+    prevFilterValues && reset(prevFilterValues);
+    close();
+  };
+
+  const onValid = (data: FilterModalFormValues) => {
+    onSubmit?.(data);
+
+    toast('필터가 적용되었습니다');
+    close();
+  };
+
+  /**
+   * @description
+   * 값을 변경한 후 closeButton 클릭 시 이전 값을 적용하기 위한 hook
+   */
+  useEffect(() => {
+    setPrevFilterValues(getValues());
+  }, [getValues]);
+
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit(onValid)}>
       <Styles.ModalWrapper>
         <Styles.Header>
           <span>필터</span>
@@ -56,7 +83,7 @@ const CategoryFilterModal = ({
         </Styles.Header>
         <Styles.Body>{children}</Styles.Body>
         <Styles.Footer>
-          <Styles.ResetIconWrapper disabled={disabledReset} onClick={resetFormValue}>
+          <Styles.ResetIconWrapper onClick={resetFormValue}>
             <ResetIcon size={24} />
             <span>초기화</span>
           </Styles.ResetIconWrapper>
