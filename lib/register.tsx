@@ -12,13 +12,15 @@ export default function StyledComponentsRegistry({ children }: { children: React
 
   useServerInsertedHTML(() => {
     const styles = styledComponentsStyleSheet.getStyleElement();
-    // styledComponentsStyleSheet.instance.clearTag(); // FIXME: clearTag 함수가 존재하지 않음
+    styledComponentsStyleSheet.instance.clearTag();
     return <>{styles}</>;
   });
 
   if (typeof window !== 'undefined') return <>{children}</>;
 
   return (
-    <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>{children}</StyleSheetManager>
+    <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
+      {children as React.ReactChild}
+    </StyleSheetManager>
   );
 }
