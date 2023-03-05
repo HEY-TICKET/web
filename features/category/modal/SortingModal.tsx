@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import { useFormContext } from 'react-hook-form';
 
 import Button from 'components/common/Button/Button';
@@ -14,6 +12,7 @@ import * as Styles from './SortingModal.styles';
 interface CategoryModalProps {
   close?: () => void;
   onSubmit?: (data: SortingModalFormValues) => void;
+  onCancel?: () => void;
 }
 
 export type SortingModalFormValues = {
@@ -24,30 +23,23 @@ export const SORTING_MODAL_DEFAULT_VALUES = {
   sorting: '예매순',
 };
 
-const SortingModal = ({ close = nullFn, onSubmit }: CategoryModalProps) => {
-  const [prevSortingValues, setPrevSortingValues] = useState<SortingModalFormValues | null>(null);
+const SortingModal = ({ close = nullFn, onSubmit, onCancel }: CategoryModalProps) => {
   const list = ['최신순', '예매순', '조회수순'];
 
   const methods = useFormContext<SortingModalFormValues>();
-  const { handleSubmit, getValues, reset } = methods;
+  const { handleSubmit } = methods;
 
   const onValid = (data: SortingModalFormValues) => {
+    console.log('sorting modal values => ', data);
+
     onSubmit?.(data);
     close();
   };
 
   const clickClose = () => {
-    prevSortingValues && reset(prevSortingValues);
+    onCancel?.();
     close();
   };
-
-  /**
-   * @description
-   * 값을 변경한 후 closeButton 클릭 시 이전 값을 적용하기 위한 hook
-   */
-  useEffect(() => {
-    setPrevSortingValues(getValues());
-  }, [getValues]);
 
   return (
     <form onSubmit={handleSubmit(onValid)}>

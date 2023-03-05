@@ -11,10 +11,18 @@ interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   canClose?: boolean;
   children: ReactElement;
   isOpen?: boolean;
+  outSideClick?: () => void;
 }
 
-function Modal({ close, children, isOpen = false, canClose = true }: ModalProps) {
-  const ref = useOutsideClick<HTMLDivElement>({ onClick: canClose ? close : nullFn });
+function Modal({ close, children, isOpen = false, canClose = true, outSideClick }: ModalProps) {
+  const handleClose = () => {
+    outSideClick?.();
+    close();
+  };
+
+  const ref = useOutsideClick<HTMLDivElement>({
+    onClick: canClose ? handleClose : nullFn,
+  });
 
   useEffect(() => {
     const $body = document.querySelector('body') as HTMLBodyElement;

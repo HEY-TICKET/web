@@ -18,8 +18,16 @@ export default function useModal(onOpen?: () => void, onClose?: () => void) {
 
   return {
     Modal: isOpen
-      ? ({ children, canClose }: { children: ReactElement; canClose?: boolean }) => (
-          <Modal close={close} isOpen={isOpen} canClose={canClose}>
+      ? ({
+          children,
+          canClose,
+          outSideClick,
+        }: {
+          children: ReactElement;
+          canClose?: boolean;
+          outSideClick?: () => void;
+        }) => (
+          <Modal close={close} isOpen={isOpen} canClose={canClose} outSideClick={outSideClick}>
             {children}
           </Modal>
         )

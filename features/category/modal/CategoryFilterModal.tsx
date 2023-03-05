@@ -1,6 +1,6 @@
 'use client';
 
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { PropsWithChildren } from 'react';
 
 import { useFormContext } from 'react-hook-form';
 
@@ -15,6 +15,7 @@ interface CategoryModalProps extends PropsWithChildren {
   close?: () => void;
   onSubmit?: (data: FilterModalFormValues) => void;
   onReset?: () => void;
+  onCancel?: () => void;
 }
 
 export type FilterModalFormValues = {
@@ -36,13 +37,12 @@ const CategoryFilterModal = ({
   children,
   onReset,
   onSubmit,
+  onCancel,
 }: CategoryModalProps) => {
-  const [prevFilterValues, setPrevFilterValues] = useState<FilterModalFormValues | null>(null);
-
   const toast = useCustomToast();
 
   const methods = useFormContext<FilterModalFormValues>();
-  const { handleSubmit, getValues, reset } = methods;
+  const { handleSubmit, reset } = methods;
 
   const resetFormValue = () => {
     reset();
@@ -53,24 +53,17 @@ const CategoryFilterModal = ({
   };
 
   const clickClose = () => {
-    prevFilterValues && reset(prevFilterValues);
+    onCancel?.();
     close();
   };
 
   const onValid = (data: FilterModalFormValues) => {
+    console.log('filter modal values => ', data);
     onSubmit?.(data);
 
     toast('필터가 적용되었습니다');
     close();
   };
-
-  /**
-   * @description
-   * 값을 변경한 후 closeButton 클릭 시 이전 값을 적용하기 위한 hook
-   */
-  useEffect(() => {
-    setPrevFilterValues(getValues());
-  }, [getValues]);
 
   return (
     <form onSubmit={handleSubmit(onValid)}>

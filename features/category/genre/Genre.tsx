@@ -29,6 +29,9 @@ const Genre = ({ title }: GenreProps) => {
   const { back } = useRouter();
   const toast = useCustomToast();
 
+  const [prevFilterValues, setPrevFilterValues] = useState<FilterModalFormValues | null>(null);
+  const [prevSortingValues, setPrevSortingValues] = useState<SortingModalFormValues | null>(null);
+
   const [tabIndex, setTabIndex] = useState(0);
   const [currentSorting, setCurrentSorting] = useState(SORTING_MODAL_DEFAULT_VALUES['sorting']);
   const [chipValues, setChipValues] = useState(FILTER_MODAL_DEFAULT_VALUES);
@@ -43,8 +46,14 @@ const Genre = ({ title }: GenreProps) => {
     defaultValues: SORTING_MODAL_DEFAULT_VALUES,
   });
 
-  const { Modal: FilterModalFrame, open: filterModalOpen } = useModal();
-  const { Modal: SortingModalFrame, open: sortingModalOpen } = useModal();
+  const { Modal: FilterModalFrame, open: filterModalOpen } = useModal(
+    () => setPrevFilterValues(filterModalMethods.getValues()),
+    () => setPrevFilterValues(null),
+  );
+  const { Modal: SortingModalFrame, open: sortingModalOpen } = useModal(
+    () => setPrevSortingValues(sortingModalMethods.getValues()),
+    () => setPrevSortingValues(null),
+  );
 
   const submitFilterValue = (data: FilterModalFormValues) => setChipValues(data);
 
@@ -65,6 +74,15 @@ const Genre = ({ title }: GenreProps) => {
 
   const resetFilter = () => {
     setChipValues(FILTER_MODAL_DEFAULT_VALUES);
+    setPrevFilterValues(null);
+  };
+
+  const closeFilterModal = () => {
+    prevFilterValues && filterModalMethods.reset(prevFilterValues);
+  };
+
+  const closeSortingModal = () => {
+    prevSortingValues && sortingModalMethods.reset(prevSortingValues);
   };
 
   return (
@@ -99,14 +117,18 @@ const Genre = ({ title }: GenreProps) => {
       {/* desc : 모달 */}
       {/* FIXME : 최초 isDirty true 변경 시 렌더링으로 스크롤 초기화 버그 */}
       <FormProvider {...filterModalMethods}>
-        <FilterModalFrame canClose={false}>
-          <CategoryFilterModal onSubmit={submitFilterValue} onReset={resetFilter}>
+        <FilterModalFrame outSideClick={closeFilterModal}>
+          <CategoryFilterModal
+            onSubmit={submitFilterValue}
+            onReset={resetFilter}
+            onCancel={closeFilterModal}
+          >
             <Tab tabList={FILTER_MODAL_TAB_ITEM_LIST} tabIndex={tabIndex} />
           </CategoryFilterModal>
         </FilterModalFrame>
       </FormProvider>
       <FormProvider {...sortingModalMethods}>
-        <SortingModalFrame canClose={false}>
+        <SortingModalFrame outSideClick={closeSortingModal}>
           <SortingModal onSubmit={submitSortingValue} />
         </SortingModalFrame>
       </FormProvider>
