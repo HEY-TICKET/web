@@ -49,7 +49,9 @@ function Modal({
     <ModalContainer>
       <Styles.Overlay>
         <Styles.ModalWrap ref={ref} $pivot={pivot} $mobilePivot={mobilePivot}>
-          <Styles.Contents>{React.cloneElement(children, { close, isOpen })}</Styles.Contents>
+          <Styles.Contents>
+            {React.cloneElement(children, { close: handleClose, isOpen })}
+          </Styles.Contents>
         </Styles.ModalWrap>
       </Styles.Overlay>
     </ModalContainer>

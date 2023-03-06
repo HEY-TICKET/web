@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { Control, Controller } from 'react-hook-form';
 
 import * as Styles from 'components/DatePicker/DatePicker.styles';
-import { IconWrapper } from 'components/DatePicker/DatePicker.styles';
+import { IconWrapper, RotateIconWrapper } from 'components/DatePicker/DatePicker.styles';
 import { DAY_OF_WEEK } from 'constants/date';
 import { ArrowRight } from 'styles/icons';
 
@@ -34,9 +34,9 @@ const DatePicker = ({ name, control }: PickerProps) => {
                   // nextMonthButtonDisabled,
                 }) => (
                   <Styles.CustomHeaderWrapper>
-                    <IconWrapper $left={true} onClick={decreaseMonth}>
+                    <RotateIconWrapper onClick={decreaseMonth}>
                       <ArrowRight />
-                    </IconWrapper>
+                    </RotateIconWrapper>
                     <Styles.DateButtonWrapper>
                       <Styles.DateButton>{dayjs(date).format('YYYY')}년</Styles.DateButton>
                       <Styles.DateButton>{dayjs(date).format('MM')}월</Styles.DateButton>

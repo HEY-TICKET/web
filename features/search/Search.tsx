@@ -29,6 +29,7 @@ const Search = () => {
     onSubmit: () => {
       localStorage.setItem(KEY, JSON.stringify([]));
       setSearchesList([]);
+      setEditMode(false);
     },
   });
 

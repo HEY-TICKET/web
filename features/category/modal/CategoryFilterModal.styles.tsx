@@ -8,6 +8,13 @@ export const ModalWrapper = styled.div`
 
   width: 360px;
   height: 600px;
+
+  ${({ theme }) => css`
+    ${theme.MEDIA.mobilePortrait} {
+      width: 100vw;
+      height: 80vh;
+    }
+  `}
 `;
 export const Header = styled.section`
   ${({ theme }) => css`
@@ -34,7 +41,7 @@ export const CloseIconWrapper = styled.div`
   `}
 `;
 
-export const ResetIconWrapper = styled.button`
+export const ResetIconWrapper = styled.div`
   ${({ theme }) => css`
     display: flex;
     align-items: center;

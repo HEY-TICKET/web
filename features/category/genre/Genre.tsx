@@ -29,11 +29,10 @@ const Genre = ({ title }: GenreProps) => {
   const { back } = useRouter();
   const toast = useCustomToast();
 
-  const [prevFilterValues, setPrevFilterValues] = useState<FilterModalFormValues | null>(null);
-  const [prevSortingValues, setPrevSortingValues] = useState<SortingModalFormValues | null>(null);
-
   const [tabIndex, setTabIndex] = useState(0);
   const [currentSorting, setCurrentSorting] = useState(SORTING_MODAL_DEFAULT_VALUES['sorting']);
+  const [prevFilterValues, setPrevFilterValues] = useState<FilterModalFormValues | null>(null);
+  const [prevSortingValues, setPrevSortingValues] = useState<SortingModalFormValues | null>(null);
   const [chipValues, setChipValues] = useState(FILTER_MODAL_DEFAULT_VALUES);
 
   const filterModalMethods = useForm<FilterModalFormValues>({
@@ -46,7 +45,11 @@ const Genre = ({ title }: GenreProps) => {
     defaultValues: SORTING_MODAL_DEFAULT_VALUES,
   });
 
-  const { Modal: FilterModalFrame, open: filterModalOpen } = useModal(
+  const {
+    Modal: FilterModalFrame,
+    open: filterModalOpen,
+    close: filterModalClose,
+  } = useModal(
     () => setPrevFilterValues(filterModalMethods.getValues()),
     () => setPrevFilterValues(null),
   );
@@ -55,9 +58,19 @@ const Genre = ({ title }: GenreProps) => {
     () => setPrevSortingValues(null),
   );
 
-  const submitFilterValue = (data: FilterModalFormValues) => setChipValues(data);
+  const submitFilterValue = (data: FilterModalFormValues) => {
+    // TODO : 데이터 submit
+    console.log(data);
+    setChipValues(data);
+    toast('필터가 적용되었습니다');
+    filterModalClose();
+  };
 
-  const submitSortingValue = (data: SortingModalFormValues) => setCurrentSorting(data.sorting);
+  const submitSortingValue = (data: SortingModalFormValues) => {
+    // TODO : 데이터 submit
+    console.log(data);
+    setCurrentSorting(data.sorting);
+  };
 
   const goToBack = () => back();
 
@@ -72,17 +85,16 @@ const Genre = ({ title }: GenreProps) => {
     toast(`${FILTER_VALUE_MAP[name]} 필터가 해제되었습니다`);
   };
 
-  const resetFilter = () => {
-    setChipValues(FILTER_MODAL_DEFAULT_VALUES);
-    setPrevFilterValues(null);
-  };
-
-  const closeFilterModal = () => {
+  const cancelFilterModal = () => {
     prevFilterValues && filterModalMethods.reset(prevFilterValues);
   };
 
-  const closeSortingModal = () => {
+  const cancelSortingModal = () => {
     prevSortingValues && sortingModalMethods.reset(prevSortingValues);
+  };
+
+  const resetFilter = () => {
+    filterModalMethods.reset(FILTER_MODAL_DEFAULT_VALUES);
   };
 
   return (
@@ -117,21 +129,23 @@ const Genre = ({ title }: GenreProps) => {
       {/* desc : 모달 */}
       {/* FIXME : 최초 isDirty true 변경 시 렌더링으로 스크롤 초기화 버그 */}
       <FormProvider {...filterModalMethods}>
-        <FilterModalFrame outSideClick={closeFilterModal} mobilePivot={'bottom'}>
+        <FilterModalFrame canClose={false} mobilePivot={'bottom'}>
           <CategoryFilterModal
-            onSubmit={submitFilterValue}
+            onCancel={cancelFilterModal}
             onReset={resetFilter}
-            onCancel={closeFilterModal}
+            onSubmit={filterModalMethods.handleSubmit(submitFilterValue)}
           >
             <Tab tabList={FILTER_MODAL_TAB_ITEM_LIST} tabIndex={tabIndex} />
           </CategoryFilterModal>
         </FilterModalFrame>
       </FormProvider>
-      <FormProvider {...sortingModalMethods}>
-        <SortingModalFrame outSideClick={closeSortingModal}>
-          <SortingModal onSubmit={submitSortingValue} />
-        </SortingModalFrame>
-      </FormProvider>
+      <SortingModalFrame canClose={false} mobilePivot={'bottom'}>
+        <SortingModal
+          methods={sortingModalMethods}
+          onSubmit={submitSortingValue}
+          onCancel={cancelSortingModal}
+        />
+      </SortingModalFrame>
     </Styles.Container>
   );
 };

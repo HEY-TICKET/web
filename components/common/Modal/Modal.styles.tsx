@@ -57,7 +57,7 @@ export const ModalWrap = styled.div<{ $pivot: Pivot; $mobilePivot: Pivot }>`
 
   ${({ theme, $pivot, $mobilePivot }) => css`
     ${pivotCss($pivot)}
-    ${theme.MEDIA.mobile360} {
+    ${theme.MEDIA.mobilePortrait} {
       ${pivotCss($mobilePivot)}
     }
   `}
