@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactElement, useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 import Modal, { Pivot } from 'components/common/Modal/Modal';
 
@@ -25,7 +25,7 @@ export default function useModal(onOpen?: () => void, onClose?: () => void) {
           pivot,
           mobilePivot,
         }: {
-          children: ReactElement;
+          children: ReactNode;
           canClose?: boolean;
           outSideClick?: () => void;
           pivot?: Pivot;
@@ -39,7 +39,7 @@ export default function useModal(onOpen?: () => void, onClose?: () => void) {
             pivot={pivot}
             mobilePivot={mobilePivot}
           >
-            {children}
+            <>{children}</>
           </Modal>
         )
       : () => null,

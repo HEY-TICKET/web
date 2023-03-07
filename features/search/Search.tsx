@@ -3,9 +3,11 @@
 import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
+import { SubmitHandler } from 'react-hook-form';
 
 import Chip from 'components/common/Chip/Chip';
 import Input from 'components/Input/Input';
+import SearchContents from 'features/search/SearchContents';
 import usePopup from 'hooks/usePopup';
 import { ArrowRight } from 'styles/icons';
 
@@ -33,7 +35,7 @@ const Search = () => {
     },
   });
 
-  const submit = ({ search }: FormValue) => {
+  const submit: SubmitHandler<FormValue> = ({ search }) => {
     const value = search.trim();
     if (!value || searchesList.includes(value)) return;
 
@@ -97,6 +99,7 @@ const Search = () => {
             ))}
           </Styles.SearchesChips>
         </Styles.RecentSearchesWrapper>
+        <SearchContents />
       </Styles.Wrapper>
       <Popup />
     </>

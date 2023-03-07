@@ -77,3 +77,51 @@ export const SearchesChips = styled.div`
       ${theme.UTILS.hiddenScroll}
     `}
 `;
+
+export const SearchContents = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+`;
+export const NoResultWrapper = styled.div`
+  height: 100%;
+  position: relative;
+`;
+
+export const NoResult = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: absolute;
+  top: 20%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  ${({ theme }) => css`
+    h5 {
+      margin-bottom: 12px;
+
+      text-align: center;
+
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+
+      color: ${theme.COLOR.gray700};
+    }
+    span {
+      margin-bottom: 32px;
+
+      text-align: center;
+      white-space: pre-wrap;
+
+      font-style: normal;
+      font-weight: 500;
+      font-size: 15px;
+      color: ${theme.COLOR.gray400};
+    }
+  `}
+`;

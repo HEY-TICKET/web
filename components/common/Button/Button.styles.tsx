@@ -90,6 +90,7 @@ export const Button = styled.button<{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0;
 
   ${({ $colorTheme, $size, $width, $height }) => css`
     ${colorTheme[$colorTheme]};
