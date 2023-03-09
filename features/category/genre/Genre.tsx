@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Tab from 'components/common/Tab/Tab';
+import { DUMMY_PERFORMANCES } from 'constants/cardData';
 import CardList from 'features/category/genre/CardList';
 import FilterChips, { FILTER_VALUE_MAP } from 'features/category/genre/filter/chip/FilterChips';
 import { FILTER_MODAL_TAB_ITEM_LIST } from 'features/category/genre/filter/constants';
@@ -123,7 +124,7 @@ const Genre = ({ title }: GenreProps) => {
           </Styles.SubFilterWrapper>
         </Styles.StickyBox>
         <Styles.CardListWrapper>
-          <CardList />
+          <CardList data={DUMMY_PERFORMANCES} />
         </Styles.CardListWrapper>
       </Styles.GenreContents>
       {/* desc : 모달 */}

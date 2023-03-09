@@ -33,7 +33,7 @@ function Modal({
   };
 
   const ref = useOutsideClick<HTMLDivElement>({
-    onClick: canClose ? handleClose : nullFn,
+    outsideClick: canClose ? handleClose : nullFn,
   });
 
   useEffect(() => {

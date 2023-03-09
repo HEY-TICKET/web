@@ -1,56 +1,59 @@
 'use client';
 
-import { FocusEvent, InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 
 import {
-  DeepPartial,
   FieldValues,
-  FormProvider,
   Path,
+  SubmitErrorHandler,
   SubmitHandler,
-  useForm,
+  useFormContext,
 } from 'react-hook-form';
 
 import { SearchIcon } from 'styles/icons';
-import { nullFn } from 'utils/function';
 
 import * as Styles from './Input.styles';
 
 interface InputProps<T extends FieldValues>
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'name' | 'onSubmit'> {
-  name: Path<T>;
-  onSubmit?: SubmitHandler<T>;
+  extends Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    'name' | 'hasIcon' | 'onValid' | 'onInvalid'
+  > {
+  name?: Path<T>;
   hasIcon?: boolean;
-  defaultValues?: DeepPartial<T>;
+  onValid?: SubmitHandler<T>;
+  onInvalid?: SubmitErrorHandler<T>;
 }
 
 const Input = <T extends FieldValues>({
   name,
-  onSubmit = nullFn,
   hasIcon = false,
-  defaultValues,
-  onBlur,
+  onValid,
+  onInvalid,
   ...restProps
 }: InputProps<T>) => {
-  const methods = useForm<T>({ mode: 'onTouched', defaultValues });
-  const { register, handleSubmit } = methods;
-  const { onBlur: _onBlur, onChange: _onChange, ...restRegister } = register(name);
+  const methods = useFormContext<T>();
 
-  const handleBlur = async (e: FocusEvent<HTMLInputElement>) => {
-    onBlur?.(e);
-    await _onBlur(e);
-  };
-
-  return (
-    <FormProvider {...methods}>
-      <Styles.Form onSubmit={handleSubmit(onSubmit)}>
+  if (name) {
+    const { register, handleSubmit } = methods;
+    return (
+      <Styles.Form onSubmit={onValid && handleSubmit(onValid, onInvalid)}>
         <Styles.InputWrapper>
           {hasIcon && <SearchIcon size={20} />}
-          <Styles.Input {...restProps} {...restRegister} onChange={_onChange} onBlur={handleBlur} />
+          <Styles.Input {...restProps} {...register(name)} />
         </Styles.InputWrapper>
       </Styles.Form>
-    </FormProvider>
-  );
+    );
+  } else {
+    return (
+      <Styles.Form>
+        <Styles.InputWrapper>
+          {hasIcon && <SearchIcon size={20} />}
+          <Styles.Input {...restProps} />
+        </Styles.InputWrapper>
+      </Styles.Form>
+    );
+  }
 };
 
 export default Input;

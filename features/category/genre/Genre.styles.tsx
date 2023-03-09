@@ -9,7 +9,6 @@ export const Container = styled.div`
 export const StickyBox = styled.div`
   position: sticky;
   top: 0;
-  //height: 144px;
   background-color: ${({ theme }) => theme.COLOR.white};
 `;
 

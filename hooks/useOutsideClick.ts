@@ -2,20 +2,26 @@
 
 import { useCallback, useEffect, useRef } from 'react';
 
-interface useOutsideClickProps {
-  onClick: () => void;
-}
+type useOutsideClickProps = {
+  outsideClick?: () => void;
+  insideClick?: () => void;
+};
 
-const useOutsideClick = <T extends HTMLElement>({ onClick }: useOutsideClickProps) => {
+const useOutsideClick = <T extends HTMLElement>({
+  outsideClick,
+  insideClick,
+}: useOutsideClickProps) => {
   const ref = useRef<T>(null);
 
   const handleClick = useCallback(
     (event: Event) => {
       if (ref.current && !ref.current?.contains(event.target as Node)) {
-        onClick();
+        outsideClick?.();
+      } else {
+        insideClick?.();
       }
     },
-    [onClick, ref],
+    [insideClick, outsideClick],
   );
 
   useEffect(() => {

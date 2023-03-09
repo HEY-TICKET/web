@@ -2,6 +2,20 @@
 
 import styled, { css } from 'styled-components';
 
+export const Container = styled.div`
+  position: relative;
+  max-width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+`;
+export const StickyBox = styled.div`
+  position: sticky;
+  top: 0;
+  background-color: ${({ theme }) => theme.COLOR.white};
+`;
+
 export const Wrapper = styled.div`
   position: relative;
   display: flex;
@@ -85,20 +99,16 @@ export const SearchContents = styled.div`
   flex: 1;
 `;
 export const NoResultWrapper = styled.div`
-  height: 100%;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 `;
 
 export const NoResult = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  position: absolute;
-  top: 20%;
-  bottom: 0;
-  left: 0;
-  right: 0;
 
   ${({ theme }) => css`
     h5 {
