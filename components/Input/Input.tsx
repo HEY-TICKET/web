@@ -1,14 +1,8 @@
 'use client';
 
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, useEffect, useRef } from 'react';
 
-import {
-  FieldValues,
-  Path,
-  SubmitErrorHandler,
-  SubmitHandler,
-  useFormContext,
-} from 'react-hook-form';
+import { FieldValues, Path, useFormContext } from 'react-hook-form';
 
 import { SearchIcon } from 'styles/icons';
 
@@ -21,39 +15,56 @@ interface InputProps<T extends FieldValues>
   > {
   name?: Path<T>;
   hasIcon?: boolean;
-  onValid?: SubmitHandler<T>;
-  onInvalid?: SubmitErrorHandler<T>;
+  autoBlur?: boolean;
 }
 
 const Input = <T extends FieldValues>({
   name,
   hasIcon = false,
-  onValid,
-  onInvalid,
+  autoBlur = false,
   ...restProps
 }: InputProps<T>) => {
   const methods = useFormContext<T>();
+  const useHookForm = !!name && !!methods;
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  if (name) {
-    const { register, handleSubmit } = methods;
-    return (
-      <Styles.Form onSubmit={onValid && handleSubmit(onValid, onInvalid)}>
-        <Styles.InputWrapper>
-          {hasIcon && <SearchIcon size={20} />}
-          <Styles.Input {...restProps} {...register(name)} />
-        </Styles.InputWrapper>
-      </Styles.Form>
-    );
-  } else {
-    return (
-      <Styles.Form>
-        <Styles.InputWrapper>
-          {hasIcon && <SearchIcon size={20} />}
-          <Styles.Input {...restProps} />
-        </Styles.InputWrapper>
-      </Styles.Form>
-    );
-  }
+  const renderInput = () => {
+    if (useHookForm) {
+      const { register } = methods;
+      const { ref, ...rest } = register(name);
+      return (
+        <Styles.Input
+          {...restProps}
+          {...rest}
+          ref={(e: HTMLInputElement) => {
+            ref(e);
+            inputRef.current = e; // you can still assign to ref
+          }}
+        />
+      );
+    } else {
+      return <Styles.Input {...restProps} />;
+    }
+  };
+
+  useEffect(() => {
+    if (useHookForm) {
+      const {
+        formState: { isSubmitting },
+      } = methods;
+      const element = inputRef.current;
+      if (isSubmitting && autoBlur && element) {
+        element.blur();
+      }
+    }
+  }, [autoBlur, methods, useHookForm]);
+
+  return (
+    <Styles.InputWrapper>
+      {hasIcon && <SearchIcon size={20} />}
+      {renderInput()}
+    </Styles.InputWrapper>
+  );
 };
 
 export default Input;

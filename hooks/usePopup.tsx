@@ -33,18 +33,20 @@ const usePopup = ({
   };
 
   const Popup = () => (
-    <Modal canClose={false}>
-      <Container>
-        <Title>{title}</Title>
-        <ButtonWrapper>
-          <Button colorTheme={'lightGray'} width={119} height={38} onClick={cancel}>
-            {cancelText}
-          </Button>
-          <Button width={119} height={38} onClick={submit}>
-            {submitText}
-          </Button>
-        </ButtonWrapper>
-      </Container>
+    <Modal canClose={false} close={close} isOpen={isOpen}>
+      <>
+        <Container>
+          <Title>{title}</Title>
+          <ButtonWrapper>
+            <Button colorTheme={'lightGray'} width={119} height={38} onClick={cancel}>
+              {cancelText}
+            </Button>
+            <Button width={119} height={38} onClick={submit}>
+              {submitText}
+            </Button>
+          </ButtonWrapper>
+        </Container>
+      </>
     </Modal>
   );
 

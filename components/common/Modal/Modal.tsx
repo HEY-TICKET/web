@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect } from 'react';
 
 import ModalContainer from 'components/common/Modal/ModalContainer';
+import { ModalProps } from 'hooks/useModal';
 import useOutsideClick from 'hooks/useOutsideClick';
 import { nullFn } from 'utils/function';
 
@@ -8,18 +9,8 @@ import * as Styles from './Modal.styles';
 
 export type Pivot = 'top' | 'center' | 'bottom';
 
-interface ModalProps {
-  close: () => void;
-  canClose?: boolean;
-  children: ReactElement;
-  isOpen?: boolean;
-  outSideClick?: () => void;
-  pivot?: Pivot;
-  mobilePivot?: Pivot;
-}
-
 function Modal({
-  close,
+  close = nullFn,
   children,
   isOpen = false,
   canClose = true,
@@ -50,7 +41,12 @@ function Modal({
       <Styles.Overlay>
         <Styles.ModalWrap ref={ref} $pivot={pivot} $mobilePivot={mobilePivot}>
           <Styles.Contents>
-            <>{React.cloneElement(children as ReactElement, { close: handleClose, isOpen })}</>
+            <>
+              {React.cloneElement(children as ReactElement<ModalProps>, {
+                close: handleClose,
+                isOpen,
+              })}
+            </>
           </Styles.Contents>
         </Styles.ModalWrap>
       </Styles.Overlay>

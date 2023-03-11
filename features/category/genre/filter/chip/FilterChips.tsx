@@ -27,7 +27,7 @@ const FilterChips = ({ chipValues, clickChip, closeChip }: FilterChipsProps) => 
             active={active}
             onClick={() => clickChip(index)}
             onClose={() => closeChip(name)}
-            onlyActive
+            closable={active}
           />
         );
       })}

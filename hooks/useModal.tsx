@@ -4,6 +4,16 @@ import { ReactNode, useState } from 'react';
 
 import Modal, { Pivot } from 'components/common/Modal/Modal';
 
+export type ModalProps = {
+  close?: () => void;
+  isOpen?: boolean;
+  children: ReactNode;
+  canClose?: boolean;
+  outSideClick?: () => void;
+  pivot?: Pivot;
+  mobilePivot?: Pivot;
+};
+
 export default function useModal(onOpen?: () => void, onClose?: () => void) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -18,19 +28,7 @@ export default function useModal(onOpen?: () => void, onClose?: () => void) {
 
   return {
     Modal: isOpen
-      ? ({
-          children,
-          canClose,
-          outSideClick,
-          pivot,
-          mobilePivot,
-        }: {
-          children: ReactNode;
-          canClose?: boolean;
-          outSideClick?: () => void;
-          pivot?: Pivot;
-          mobilePivot?: Pivot;
-        }) => (
+      ? ({ children, canClose, outSideClick, pivot, mobilePivot }: ModalProps) => (
           <Modal
             close={close}
             isOpen={isOpen}
@@ -39,7 +37,7 @@ export default function useModal(onOpen?: () => void, onClose?: () => void) {
             pivot={pivot}
             mobilePivot={mobilePivot}
           >
-            <>{children}</>
+            {children}
           </Modal>
         )
       : () => null,

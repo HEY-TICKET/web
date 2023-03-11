@@ -8,6 +8,7 @@ export const Form = styled.form`
 
 export const InputWrapper = styled.div`
   ${({ theme }) => css`
+    width: 100%;
     display: flex;
     gap: 8px;
     align-items: center;
