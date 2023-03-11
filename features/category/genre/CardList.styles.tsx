@@ -1,6 +1,6 @@
 'use client';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const CardListWrapper = styled.div`
   display: grid;
@@ -8,4 +8,10 @@ export const CardListWrapper = styled.div`
   gap: 22px 12px;
 
   width: fit-content;
+
+  ${({ theme }) => css`
+    ${theme.MEDIA.mobilePortrait} {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  `}
 `;

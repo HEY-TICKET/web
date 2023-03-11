@@ -31,15 +31,14 @@ export const DateButtonWrapper = styled.div`
 
 // TODO : ArrowButton 공통 스타일 constant 로 분리
 
-export const IconWrapper = styled.div<{ $left?: boolean }>`
-  ${({ $left }) =>
-    $left
-      ? css`
-          & > svg {
-            rotate: 180deg;
-          }
-        `
-      : css``};
+export const IconWrapper = styled.div<{ left?: boolean }>`
+  cursor: pointer;
+`;
+
+export const RotateIconWrapper = styled(IconWrapper)`
+  & > svg {
+    rotate: 180deg;
+  }
   cursor: pointer;
 `;
 

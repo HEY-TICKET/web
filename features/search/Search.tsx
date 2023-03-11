@@ -3,9 +3,13 @@
 import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import Chip from 'components/common/Chip/Chip';
 import Input from 'components/Input/Input';
+import { CardListItem, DUMMY_PERFORMANCES } from 'constants/cardData';
+import SearchContents from 'features/search/SearchContents';
+import useOutsideClick from 'hooks/useOutsideClick';
 import usePopup from 'hooks/usePopup';
 import { ArrowRight } from 'styles/icons';
 
@@ -23,34 +27,62 @@ const Search = () => {
   const [editMode, setEditMode] = useState(false);
   const [searchesList, setSearchesList] = useState<string[]>([]);
 
-  const { Popup, open } = usePopup({
+  const [isSearching, setIsSearching] = useState(true);
+  const [data, setData] = useState<CardListItem[]>([]);
+
+  const methods = useForm({ mode: 'onTouched', defaultValues: { search: '' } });
+  const { trigger } = methods;
+
+  const clearSearches = () => {
+    localStorage.setItem(KEY, JSON.stringify([]));
+    setSearchesList([]);
+  };
+
+  const {
+    Popup,
+    open: openPopup,
+    isOpen,
+  } = usePopup({
     title: '최근 검색어를 모두 삭제하시겠어요?',
     submitText: '삭제',
     onSubmit: () => {
-      localStorage.setItem(KEY, JSON.stringify([]));
-      setSearchesList([]);
+      clearSearches();
+      setEditMode(false);
+      setIsSearching(true);
     },
   });
 
-  const submit = ({ search }: FormValue) => {
+  const inputWrapperRef = useOutsideClick<HTMLDivElement>({
+    outsideClick: () => !isOpen && setIsSearching(false),
+    insideClick: () => !isOpen && setIsSearching(true),
+  });
+
+  const clickChip = () => {
+    //
+  };
+
+  const onValidSubmit: SubmitHandler<FormValue> = ({ search }) => {
     const value = search.trim();
-    if (!value || searchesList.includes(value)) return;
 
-    const item = [value, ...searchesList];
-    if (item.length > 10) item.pop();
-    localStorage.setItem(KEY, JSON.stringify(item));
-    setSearchesList(item);
+    if (!value) return;
+
+    if (!searchesList.includes(value)) {
+      const item = [value, ...searchesList];
+      if (item.length > 10) item.pop();
+      localStorage.setItem(KEY, JSON.stringify(item));
+      setSearchesList(item);
+    }
+
+    setData(DUMMY_PERFORMANCES);
+    setIsSearching(false);
   };
 
-  const deleteAllKeyword = () => {
-    open();
-  };
-
-  const deleteKeyword = (keyword: string) => {
+  const deleteKeyword = async (keyword: string) => {
     console.log('delete keyword');
     const item = searchesList.filter((search) => search !== keyword);
     localStorage.setItem(KEY, JSON.stringify(item));
     setSearchesList(item);
+    await trigger('search', { shouldFocus: true });
   };
 
   useEffect(() => {
@@ -59,46 +91,54 @@ const Search = () => {
   }, []);
 
   return (
-    <>
-      <Styles.Wrapper>
+    <Styles.Container>
+      <Styles.StickyBox ref={inputWrapperRef}>
         <Styles.InputWrapper>
           <Styles.BackIconWrapper onClick={() => back()}>
             <ArrowRight size={32} />
           </Styles.BackIconWrapper>
-          <Input<FormValue>
-            name={'search'}
-            onSubmit={submit}
-            defaultValues={{ search: '' }}
-            placeholder={'공연명, 출연진, 아티스트 검색'}
-            hasIcon
-            autoFocus
-          />
+
+          <FormProvider {...methods}>
+            <Input<FormValue>
+              name={'search'}
+              onValid={onValidSubmit}
+              placeholder={'공연명, 출연진, 아티스트 검색'}
+              hasIcon
+              onFocus={() => setIsSearching(true)}
+            />
+          </FormProvider>
         </Styles.InputWrapper>
-        <Styles.RecentSearchesWrapper>
-          <Styles.SearchesTitle>
-            <span>최근 검색어</span>
-            {!!searchesList.length && (
+        {isSearching && !!searchesList.length && (
+          <Styles.RecentSearchesWrapper>
+            <Styles.SearchesTitle>
+              <span>최근 검색어</span>
               <div>
                 {editMode ? (
                   <>
-                    <span onClick={deleteAllKeyword}>전체 삭제</span>
+                    <span onClick={openPopup}>전체 삭제</span>
                     <span onClick={() => setEditMode(false)}>취소</span>
                   </>
                 ) : (
                   <span onClick={() => setEditMode(true)}>편집</span>
                 )}
               </div>
-            )}
-          </Styles.SearchesTitle>
-          <Styles.SearchesChips>
-            {searchesList.map((search, i) => (
-              <Chip key={search + i} text={search} onClose={() => deleteKeyword(search)} />
-            ))}
-          </Styles.SearchesChips>
-        </Styles.RecentSearchesWrapper>
-      </Styles.Wrapper>
+            </Styles.SearchesTitle>
+            <Styles.SearchesChips>
+              {searchesList.map((search, i) => (
+                <Chip
+                  key={search + i}
+                  text={search}
+                  onClick={clickChip}
+                  onClose={() => deleteKeyword(search)}
+                />
+              ))}
+            </Styles.SearchesChips>
+          </Styles.RecentSearchesWrapper>
+        )}
+      </Styles.StickyBox>
+      <SearchContents visible={!isSearching && !!data.length} data={data} />
       <Popup />
-    </>
+    </Styles.Container>
   );
 };
 

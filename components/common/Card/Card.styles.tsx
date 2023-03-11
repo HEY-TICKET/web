@@ -8,6 +8,14 @@ import { Badge } from 'components/common/Badge/Badge.styles';
 export const CardImage = styled(Image)`
   border-radius: 4px;
   margin-bottom: 14px;
+
+  ${({ theme }) => css`
+    ${theme.MEDIA.mobilePortrait} {
+      width: 108px;
+      height: 152px;
+      margin: 0;
+    }
+  `}
 `;
 
 export const CardTitle = styled.h3`
@@ -45,11 +53,26 @@ export const CardContainer = styled.div`
   ${CardDescription} {
     margin-bottom: 2px;
   }
+
+  ${({ theme }) => css`
+    ${theme.MEDIA.mobilePortrait} {
+      flex-direction: row;
+      gap: 12px;
+      width: 100%;
+      padding: 0 20px;
+    }
+  `}
 `;
 
 export const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+  ${({ theme }) => css`
+    ${theme.MEDIA.mobilePortrait} {
+      justify-content: space-between;
+    }
+  `}
 `;
 
 export const InfoWrapper = styled.div`
@@ -77,6 +100,12 @@ export const PriceWrapper = styled.div`
       line-height: 18px;
 
       color: ${theme.COLOR.gray800};
+    }
+  `}
+
+  ${({ theme }) => css`
+    ${theme.MEDIA.mobilePortrait} {
+      margin: 0;
     }
   `}
 `;

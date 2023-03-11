@@ -21,12 +21,7 @@ const Category = () => {
   return (
     <Styles.CategoryWrapper>
       <Styles.InputWrapper>
-        <Input
-          name={'search'}
-          placeholder={'공연명, 출연진, 아티스트 검색'}
-          hasIcon
-          onFocus={handleFocus}
-        />
+        <Input placeholder={'공연명, 출연진, 아티스트 검색'} hasIcon onFocus={handleFocus} />
       </Styles.InputWrapper>
 
       <Styles.Category>

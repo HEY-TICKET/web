@@ -1,11 +1,6 @@
-'use client';
-
 import { PropsWithChildren } from 'react';
 
-import { useFormContext } from 'react-hook-form';
-
 import Button from 'components/common/Button/Button';
-import useCustomToast from 'hooks/useCustomToast';
 import { CloseIcon, ResetIcon } from 'styles/icons';
 import { nullFn } from 'utils/function';
 
@@ -13,9 +8,10 @@ import * as Styles from './CategoryFilterModal.styles';
 
 interface CategoryModalProps extends PropsWithChildren {
   close?: () => void;
-  onSubmit?: (data: FilterModalFormValues) => void;
-  onReset?: () => void;
   onCancel?: () => void;
+  onSubmit?: () => void;
+  onReset?: () => void;
+  disabledReset?: boolean;
 }
 
 export type FilterModalFormValues = {
@@ -35,21 +31,13 @@ export const FILTER_MODAL_DEFAULT_VALUES: FilterModalFormValues = {
 const CategoryFilterModal = ({
   close = nullFn,
   children,
+  onCancel,
   onReset,
   onSubmit,
-  onCancel,
+  disabledReset = false,
 }: CategoryModalProps) => {
-  const toast = useCustomToast();
-
-  const methods = useFormContext<FilterModalFormValues>();
-  const { handleSubmit, reset } = methods;
-
   const resetFormValue = () => {
-    reset();
     onReset?.();
-
-    toast(`필터가 초기화되었습니다`);
-    close();
   };
 
   const clickClose = () => {
@@ -57,16 +45,8 @@ const CategoryFilterModal = ({
     close();
   };
 
-  const onValid = (data: FilterModalFormValues) => {
-    console.log('filter modal values => ', data);
-    onSubmit?.(data);
-
-    toast('필터가 적용되었습니다');
-    close();
-  };
-
   return (
-    <form onSubmit={handleSubmit(onValid)}>
+    <form onSubmit={onSubmit}>
       <Styles.ModalWrapper>
         <Styles.Header>
           <span>필터</span>
@@ -76,7 +56,7 @@ const CategoryFilterModal = ({
         </Styles.Header>
         <Styles.Body>{children}</Styles.Body>
         <Styles.Footer>
-          <Styles.ResetIconWrapper onClick={resetFormValue}>
+          <Styles.ResetIconWrapper disabled={disabledReset} onClick={resetFormValue}>
             <ResetIcon size={24} />
             <span>초기화</span>
           </Styles.ResetIconWrapper>

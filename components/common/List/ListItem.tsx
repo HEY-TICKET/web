@@ -39,8 +39,8 @@ const Text = styled.span`
 `;
 
 const CheckMark = styled.span`
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
   border-radius: 4px;
 `;
 
@@ -48,7 +48,6 @@ const Label = styled.label`
   width: 100%;
   height: inherit;
 
-  margin-left: 4px;
   ${({ theme }) => css`
     display: flex;
     align-items: center;

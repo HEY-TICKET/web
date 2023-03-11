@@ -21,7 +21,7 @@ const Card = ({ src, badgeDate, title, desc, fromDate, toDate }: CardProps) => {
       <Styles.ContentsWrapper>
         <Styles.InfoWrapper>
           {badgeDate <= 0 ? (
-            <Badge colorTheme={'green'}>{`진행중`}</Badge>
+            <Badge colorTheme={'green'}>{`공연 중`}</Badge>
           ) : (
             <Badge>{`D-${badgeDate}`}</Badge>
           )}
