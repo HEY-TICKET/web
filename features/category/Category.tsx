@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import Input from 'components/Input/Input';
+import FakeInput from 'components/Input/FakeInput';
 import Footer from 'components/layout/Footer';
 import { CATEGORY } from 'constants/category';
 import { ROUTES } from 'constants/routes';
@@ -14,14 +14,12 @@ const categoryList = ['공연', '전시', '스포츠'];
 const Category = () => {
   const { push } = useRouter();
 
-  const handleFocus = () => {
-    push('/search');
-  };
+  const clickFakeInput = () => push('/search');
 
   return (
     <Styles.CategoryWrapper>
       <Styles.InputWrapper>
-        <Input placeholder={'공연명, 출연진, 아티스트 검색'} hasIcon onFocus={handleFocus} />
+        <FakeInput onClick={clickFakeInput} hasIcon placeholder={'공연명, 출연진, 아티스트 검색'} />
       </Styles.InputWrapper>
 
       <Styles.Category>

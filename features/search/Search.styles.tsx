@@ -16,13 +16,10 @@ export const StickyBox = styled.div`
   background-color: ${({ theme }) => theme.COLOR.white};
 `;
 
-export const Wrapper = styled.div`
-  position: relative;
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
-
-  width: 100%;
-  height: 100%;
+  flex: 1;
 `;
 
 export const InputWrapper = styled.div`
@@ -95,6 +92,7 @@ export const SearchesChips = styled.div`
 export const SearchContents = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   flex: 1;
 `;

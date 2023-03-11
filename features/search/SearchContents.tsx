@@ -8,13 +8,10 @@ import * as Styles from './Search.styles';
 
 type Props = {
   data: CardListItem[];
-  visible: boolean;
 };
 
-const SearchContents = ({ data, visible }: Props) => {
+const SearchContents = ({ data }: Props) => {
   const isNoResult = data.length === 0;
-
-  if (!visible) return null;
 
   if (isNoResult) return <NoResult />;
 
