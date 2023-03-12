@@ -39,18 +39,18 @@ const Genre = ({ title }: GenreProps) => {
   const [prevSortingValues, setPrevSortingValues] = useState<SortingModalFormValues | null>(null);
   const [chipValues, setChipValues] = useState(FILTER_MODAL_DEFAULT_VALUES);
 
-  const { data, isFetchingNextPage, fetchNextPage } = useInfinitePerformanceQuery({
+  const { data, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfinitePerformanceQuery({
     page: 0,
     size: SIZE_PER_PAGE,
   });
 
   const onIntersect: IntersectionObserverCallback = useCallback(
     async ([{ isIntersecting }]) => {
-      if (isIntersecting && !isFetchingNextPage) {
+      if (hasNextPage && isIntersecting && !isFetchingNextPage) {
         await fetchNextPage();
       }
     },
-    [fetchNextPage, isFetchingNextPage],
+    [fetchNextPage, hasNextPage, isFetchingNextPage],
   );
   const { setTarget } = useIntersectionObserver({ onIntersect });
 
