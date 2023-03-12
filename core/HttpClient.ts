@@ -65,6 +65,6 @@ export abstract class HttpClient {
     if (this._options.acceptAllResponse) return response;
     return response.data;
   };
-  // FIXME : 타입 및 핸들러 처리를 배포를 위해 임시 설정함.
-  _handleError = (error: Error) => Promise.reject(error);
+  _handleError = ({ response: { data, status } }: { response: { data?: any; status: any } }) =>
+    Promise.reject({ data, status });
 }
