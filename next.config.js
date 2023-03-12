@@ -9,7 +9,14 @@ const nextConfig = {
     styledComponents: true,
     removeConsole: process.env.NODE_ENV === 'production',
   },
-
+  async rewrites() {
+    return [
+      {
+        source: '/:paths*',
+        destination: `${process.env.NEXT_PUBLIC_API_URL}/:paths*`,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

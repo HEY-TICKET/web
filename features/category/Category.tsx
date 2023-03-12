@@ -16,6 +16,10 @@ const Category = () => {
 
   const clickFakeInput = () => push('/search');
 
+  const clickSubCategory = (route: string) => {
+    push(`${ROUTES.category}/${route}`);
+  };
+
   return (
     <Styles.CategoryWrapper>
       <Styles.InputWrapper>
@@ -31,10 +35,7 @@ const Category = () => {
       </Styles.Category>
       <Styles.SubCategory>
         {CATEGORY.map(({ caption, route }) => (
-          <Styles.SubCategoryItemWrapper
-            key={caption}
-            href={{ pathname: `${ROUTES.category}/${route}` }}
-          >
+          <Styles.SubCategoryItemWrapper key={caption} onClick={() => clickSubCategory(route)}>
             <Styles.SubCategoryItem>
               <span>{caption}</span>
               <p>{(1234).addComma()}</p>

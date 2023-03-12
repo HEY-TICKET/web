@@ -9,6 +9,7 @@ import { SearchFormValue } from 'features/search/Search';
 import * as Styles from 'features/search/Search.styles';
 import usePopup from 'hooks/usePopup';
 
+// TODO : 키 관리 필요.
 const KEY = 'searches';
 
 const SearchHistory = () => {

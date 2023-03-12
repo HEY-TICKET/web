@@ -1,13 +1,13 @@
 'use client';
 
-import { CardListItem } from 'constants/cardData';
+import { PerformancesResponses } from 'apis/performance/type';
 import CardList from 'features/category/genre/CardList';
 import NoResult from 'features/search/NoResult';
 
 import * as Styles from './Search.styles';
 
 type Props = {
-  data: CardListItem[];
+  data: PerformancesResponses[];
 };
 
 const SearchContents = ({ data }: Props) => {
