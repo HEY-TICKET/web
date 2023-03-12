@@ -1,11 +1,12 @@
 'use client';
-import { useState } from 'react';
+
+import { useCallback, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import { SIZE_PER_PAGE } from 'apis/performance/constants';
 import Tab from 'components/common/Tab/Tab';
-import { DUMMY_PERFORMANCES } from 'constants/cardData';
 import CardList from 'features/category/genre/CardList';
 import FilterChips, { FILTER_VALUE_MAP } from 'features/category/genre/filter/chip/FilterChips';
 import { FILTER_MODAL_TAB_ITEM_LIST } from 'features/category/genre/filter/constants';
@@ -19,7 +20,9 @@ import SortingModal, {
   SortingModalFormValues,
 } from 'features/category/modal/SortingModal';
 import useCustomToast from 'hooks/useCustomToast';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import useModal from 'hooks/useModal';
+import { useInfinitePerformanceQuery } from 'reactQuery/performance';
 import { ArrowRight, FilterIcon, SortIcon } from 'styles/icons';
 
 interface GenreProps {
@@ -35,6 +38,21 @@ const Genre = ({ title }: GenreProps) => {
   const [prevFilterValues, setPrevFilterValues] = useState<FilterModalFormValues | null>(null);
   const [prevSortingValues, setPrevSortingValues] = useState<SortingModalFormValues | null>(null);
   const [chipValues, setChipValues] = useState(FILTER_MODAL_DEFAULT_VALUES);
+
+  const { data, isFetchingNextPage, fetchNextPage } = useInfinitePerformanceQuery({
+    page: 0,
+    size: SIZE_PER_PAGE,
+  });
+
+  const onIntersect: IntersectionObserverCallback = useCallback(
+    async ([{ isIntersecting }]) => {
+      if (isIntersecting && !isFetchingNextPage) {
+        await fetchNextPage();
+      }
+    },
+    [fetchNextPage, isFetchingNextPage],
+  );
+  const { setTarget } = useIntersectionObserver({ onIntersect });
 
   const filterModalMethods = useForm<FilterModalFormValues>({
     mode: 'onTouched',
@@ -124,8 +142,10 @@ const Genre = ({ title }: GenreProps) => {
           </Styles.SubFilterWrapper>
         </Styles.StickyBox>
         <Styles.CardListWrapper>
-          <CardList data={DUMMY_PERFORMANCES} />
+          <CardList data={data?.pages.flat() ?? []} />
         </Styles.CardListWrapper>
+        {/* desc : infinite query intersect ref*/}
+        <div ref={setTarget} />
       </Styles.GenreContents>
       {/* desc : 모달 */}
       {/* FIXME : 최초 isDirty true 변경 시 렌더링으로 스크롤 초기화 버그 */}

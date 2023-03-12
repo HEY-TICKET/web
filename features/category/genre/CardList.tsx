@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 
+import { PerformancesResponses } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
-import { CardListItem } from 'constants/cardData';
 import { getDateDiff, getDayOfWeek } from 'utils/times';
 
 import * as Styles from './CardList.styles';
 
 type Props = {
-  data: CardListItem[];
+  data: PerformancesResponses[];
 };
 
 const CardList = ({ data }: Props) => {
@@ -15,21 +15,22 @@ const CardList = ({ data }: Props) => {
 
   return (
     <Styles.CardListWrapper>
-      {data.map(({ id, poster, title, place, fromDate, toDate }) => {
-        const restDate = getDateDiff(today, fromDate);
+      {data.map(({ mt20id, poster, title, place, startDate, endDate, pcseguidance }) => {
+        const restDate = getDateDiff(today, startDate);
 
-        const _toDate = `${toDate}(${getDayOfWeek(toDate, 'ko')})`;
-        const _fromDate = `${fromDate}(${getDayOfWeek(fromDate, 'ko')})`;
+        const _startDate = `${startDate}(${getDayOfWeek(startDate, 'ko')})`;
+        const _endDate = `${endDate}(${getDayOfWeek(endDate, 'ko')})`;
 
         return (
           <Card
-            key={id}
+            key={mt20id}
             src={poster}
             title={title}
-            badgeDate={restDate}
-            fromDate={_fromDate}
-            toDate={_toDate}
+            restDate={restDate}
+            startDate={_startDate}
+            endDate={_endDate}
             desc={place}
+            price={pcseguidance}
           />
         );
       })}

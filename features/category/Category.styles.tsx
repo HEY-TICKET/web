@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import styled, { css } from 'styled-components';
 
 export const InputWrapper = styled.div`
@@ -43,7 +42,7 @@ export const SubCategory = styled.ul`
   flex: 1;
 `;
 
-export const SubCategoryItemWrapper = styled(Link)`
+export const SubCategoryItemWrapper = styled.div`
   cursor: pointer;
   ${({ theme }) => css`
     display: flex;

@@ -1,3 +1,5 @@
+'use client';
+
 import Category from 'features/category/Category';
 
 const Page = () => {
