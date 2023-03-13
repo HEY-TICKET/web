@@ -28,13 +28,105 @@ export const InputWrapper = styled.div`
   gap: 10px;
 
   padding: 16px;
+
+  ${({ theme }) => css`
+    ${theme.MEDIA.mobilePortrait} {
+      padding: 16px 10px;
+    }
+  `}
+`;
+
+export const CategoryWrapper = styled.div``;
+
+export const FilterWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+  align-items: center;
+
+  padding: 16px;
+`;
+
+export const FilterButton = styled.button<{ $active: boolean }>`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 26px;
+
+  ${({ theme }) => css`
+    ${theme.MEDIA.mobilePortrait} {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 24px;
+    }
+  `}
+
+  color: ${({ $active, theme }) => ($active ? theme.COLOR.gray900 : theme.COLOR.gray350)};
+`;
+
+export const SearchResultWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 16px;
+`;
+
+export const SearchResult = styled.span`
+  ${({ theme }) => css`
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+
+    ${theme.MEDIA.mobilePortrait} {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 18px;
+    }
+  `}
+`;
+
+export const SortIconWrapper = styled.button`
+  display: flex;
+  align-items: center;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 18px;
+
+  ${({ theme }) => css`
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    ${theme.MEDIA.mobilePortrait} {
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  `}
 `;
 
 export const BackIconWrapper = styled.div`
-  & > svg {
-    rotate: 180deg;
-    cursor: pointer;
-  }
+  ${({ theme }) => css`
+    & > svg {
+      rotate: 180deg;
+      cursor: pointer;
+      ${theme.ICON_FILTER.gray700};
+    }
+
+    ${theme.MEDIA.mobilePortrait} {
+      svg {
+        width: 24px;
+        height: 24px;
+        ${theme.ICON_FILTER.gray400};
+      }
+    }
+  `}
 `;
 
 export const RecentSearchesWrapper = styled.div`

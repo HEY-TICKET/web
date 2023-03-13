@@ -72,7 +72,11 @@ const Genre = ({ title }: GenreProps) => {
     () => setPrevFilterValues(filterModalMethods.getValues()),
     () => setPrevFilterValues(null),
   );
-  const { Modal: SortingModalFrame, open: sortingModalOpen } = useModal(
+  const {
+    Modal: SortingModalFrame,
+    open: sortingModalOpen,
+    close: sortingModalClose,
+  } = useModal(
     () => setPrevSortingValues(sortingModalMethods.getValues()),
     () => setPrevSortingValues(null),
   );
@@ -89,6 +93,8 @@ const Genre = ({ title }: GenreProps) => {
     // TODO : 데이터 submit
     console.log(data);
     setCurrentSorting(data.sorting);
+    toast('필터가 적용되었습니다');
+    sortingModalClose();
   };
 
   const goToBack = () => back();
@@ -160,13 +166,14 @@ const Genre = ({ title }: GenreProps) => {
           </CategoryFilterModal>
         </FilterModalFrame>
       </FormProvider>
-      <SortingModalFrame canClose={false} mobilePivot={'bottom'}>
-        <SortingModal
-          methods={sortingModalMethods}
-          onSubmit={submitSortingValue}
-          onCancel={cancelSortingModal}
-        />
-      </SortingModalFrame>
+      <FormProvider {...sortingModalMethods}>
+        <SortingModalFrame canClose={false} mobilePivot={'bottom'}>
+          <SortingModal
+            onSubmit={sortingModalMethods.handleSubmit(submitSortingValue)}
+            onCancel={cancelSortingModal}
+          />
+        </SortingModalFrame>
+      </FormProvider>
     </Styles.Container>
   );
 };
