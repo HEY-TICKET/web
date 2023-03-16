@@ -39,9 +39,7 @@ export const useInfinitePerformanceQuery = (
     {
       ...config,
       getNextPageParam: (lastPage, allPages) => {
-        console.log(lastPage);
         return !lastPage.length ? undefined : allPages.length;
-        // return allPages[0].total ? allPages.reduce((sum, page) => sum + page.result.length, 0) : 0;
       },
     },
   );

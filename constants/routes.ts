@@ -3,4 +3,5 @@ export const ROUTES = {
   category: '/category',
   my: '/my',
   search: '/search',
+  perform: '/perform',
 };
