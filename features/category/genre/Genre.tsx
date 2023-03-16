@@ -7,6 +7,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { SIZE_PER_PAGE } from 'apis/performance/constants';
 import Tab from 'components/common/Tab/Tab';
+import { ROUTES } from 'constants/routes';
 import CardList from 'features/category/genre/CardList';
 import FilterChips, { FILTER_VALUE_MAP } from 'features/category/genre/filter/chip/FilterChips';
 import { FILTER_MODAL_TAB_ITEM_LIST } from 'features/category/genre/filter/constants';
@@ -30,7 +31,7 @@ interface GenreProps {
 }
 
 const Genre = ({ title }: GenreProps) => {
-  const { back } = useRouter();
+  const { back, push } = useRouter();
   const toast = useCustomToast();
 
   const [tabIndex, setTabIndex] = useState(0);
@@ -97,6 +98,11 @@ const Genre = ({ title }: GenreProps) => {
     sortingModalClose();
   };
 
+  const clickCard = (id: string) => {
+    console.log(id);
+    push(`${ROUTES.perform}/${id}`);
+  };
+
   const goToBack = () => back();
 
   const clickChip = (index: number) => {
@@ -148,7 +154,7 @@ const Genre = ({ title }: GenreProps) => {
           </Styles.SubFilterWrapper>
         </Styles.StickyBox>
         <Styles.CardListWrapper>
-          <CardList data={data?.pages.flat() ?? []} />
+          <CardList data={data?.pages.flat() ?? []} onClick={clickCard} />
         </Styles.CardListWrapper>
         {/* desc : infinite query intersect ref*/}
         <div ref={setTarget} />

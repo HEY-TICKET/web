@@ -24,7 +24,6 @@ const usePopup = ({
 
   const cancel = () => {
     onCancel?.();
-    console.log('close!');
     close();
   };
   const submit = () => {

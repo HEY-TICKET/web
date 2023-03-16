@@ -14,6 +14,7 @@ export const StickyBox = styled.div`
   position: sticky;
   top: 0;
   background-color: ${({ theme }) => theme.COLOR.white};
+  z-index: 1;
 `;
 
 export const Form = styled.form`

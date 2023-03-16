@@ -30,7 +30,6 @@ const SearchHistory = () => {
   };
 
   const deleteSearchKeyword = async (keyword: string) => {
-    console.log('delete keyword');
     const item = searchesList.filter((search) => search !== keyword);
     localStorage.setItem(KEY, JSON.stringify(item));
     setSearchesList(item);
@@ -52,7 +51,6 @@ const SearchHistory = () => {
 
   useEffect(() => {
     if (isSubmitting) {
-      console.log('submitting..');
       const value = getValues('search');
 
       const item = [value, ...searchesList.filter((item) => item !== value)];

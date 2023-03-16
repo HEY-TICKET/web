@@ -5,9 +5,18 @@ import styled, { css } from 'styled-components';
 
 import { Badge } from 'components/common/Badge/Badge.styles';
 
-export const CardImage = styled(Image)`
+export const CardImageWrapper = styled.div`
   border-radius: 4px;
   margin-bottom: 14px;
+  overflow: hidden;
+`;
+
+export const CardImage = styled(Image)`
+  border-radius: 4px;
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s;
+  }
 
   ${({ theme }) => css`
     ${theme.MEDIA.mobilePortrait} {
@@ -41,6 +50,7 @@ export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 195px;
+  cursor: pointer;
 
   ${Badge} {
     margin-bottom: 8px;
