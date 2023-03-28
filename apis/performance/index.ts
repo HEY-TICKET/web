@@ -8,7 +8,8 @@ import {
 
 class PerformanceApi extends HttpClient {
   constructor() {
-    super({ baseUrl: '/' });
+    // env로 관리 필요.
+    super({ baseUrl: 'http://13.209.246.231:8080/api/v1' });
   }
   getPerformances = async (params: PerformancesParams): Promise<PerformancesResponses[]> => {
     return await this.instance.get('/performances', { params });
