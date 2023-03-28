@@ -3,6 +3,10 @@ export type PerformancesParams = {
   size: number;
 };
 
+export type DetailPerformanceParams = {
+  id: string;
+};
+
 export type Url = {
   url: string;
 };

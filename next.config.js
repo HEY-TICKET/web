@@ -9,14 +9,6 @@ const nextConfig = {
     styledComponents: true,
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  async rewrites() {
-    return [
-      {
-        source: '/:paths*',
-        destination: 'http://13.209.246.231:8080/api/v1/:paths*',
-      },
-    ];
-  },
   images: {
     remotePatterns: [
       {
