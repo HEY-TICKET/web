@@ -10,7 +10,6 @@ import { ArrowRight } from 'styles/icons';
 
 const PerformDetail = () => {
   const { data } = useDetailPerformanceQuery({ id: '[id]' });
-  console.log(data);
 
   const { back } = useRouter();
 
