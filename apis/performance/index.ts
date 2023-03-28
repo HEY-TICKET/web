@@ -1,6 +1,10 @@
 import { HttpClient } from 'core/HttpClient';
 
-import { PerformancesParams, PerformancesResponses } from '../performance/type';
+import {
+  DetailPerformanceParams,
+  PerformancesParams,
+  PerformancesResponses,
+} from '../performance/type';
 
 class PerformanceApi extends HttpClient {
   constructor() {
@@ -10,7 +14,11 @@ class PerformanceApi extends HttpClient {
     return await this.instance.get('/performances', { params });
   };
 
-  // getPerformanceDetail = async () => {};
+  getPerformanceDetail = async (
+    params: DetailPerformanceParams,
+  ): Promise<PerformancesResponses> => {
+    return await this.instance.get(`/performances/${params.id}`);
+  };
 
   // getPlace = async () => {};
 }
