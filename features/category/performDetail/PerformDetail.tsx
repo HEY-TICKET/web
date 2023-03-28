@@ -8,8 +8,8 @@ import * as Styles from 'features/category/performDetail/PerformDetail.styles';
 import { useDetailPerformanceQuery } from 'reactQuery/performance';
 import { ArrowRight } from 'styles/icons';
 
-const PerformDetail = () => {
-  const { data } = useDetailPerformanceQuery({ id: '[id]' });
+const PerformDetail = ({ id }: { id: string }) => {
+  const { data } = useDetailPerformanceQuery({ id: id }, { enabled: !!id });
 
   const { back } = useRouter();
 
