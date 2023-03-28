@@ -100,7 +100,7 @@ const Genre = ({ title }: GenreProps) => {
 
   const clickCard = (id: string) => {
     console.log(id);
-    push(`${ROUTES.perform}/${id}`);
+    push(`${ROUTES.category}/concert/${id}`);
   };
 
   const goToBack = () => back();

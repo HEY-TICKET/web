@@ -1,17 +1,49 @@
 'use client';
 
 import { AxiosError } from 'axios';
-import { useInfiniteQuery, UseInfiniteQueryOptions, UseInfiniteQueryResult } from 'react-query';
+import {
+  useInfiniteQuery,
+  UseInfiniteQueryOptions,
+  UseInfiniteQueryResult,
+  useQuery,
+  UseQueryOptions,
+  UseQueryResult,
+} from 'react-query';
 
 import performanceService from 'apis/performance';
 import { SIZE_PER_PAGE } from 'apis/performance/constants';
-import { PerformancesParams, PerformancesResponses } from 'apis/performance/type';
+import {
+  DetailPerformanceParams,
+  PerformancesParams,
+  PerformancesResponses,
+} from 'apis/performance/type';
 
-const performanceKeys = {
+const PERFORMANCES_KEYS = {
   all: ['performance'],
-  lists: () => [...performanceKeys.all, 'list'],
-  list: (params: PerformancesParams) => [...performanceKeys.lists(), params],
+  lists: () => [...PERFORMANCES_KEYS.all, 'list'],
+  list: (params: PerformancesParams) => [...PERFORMANCES_KEYS.lists(), params],
+  details: () => [...PERFORMANCES_KEYS.all, 'detail'],
+  detail: (params: DetailPerformanceParams) => [...PERFORMANCES_KEYS.details(), params],
 } as const;
+
+export const useDetailPerformanceQuery = (
+  params: DetailPerformanceParams,
+  config?: Omit<
+    UseQueryOptions<
+      PerformancesResponses,
+      AxiosError,
+      PerformancesResponses,
+      ReturnType<typeof PERFORMANCES_KEYS.detail>
+    >,
+    'queryKey' | 'queryFn'
+  >,
+): UseQueryResult<PerformancesResponses, AxiosError> => {
+  return useQuery(
+    PERFORMANCES_KEYS.detail(params),
+    () => performanceService.getPerformanceDetail(params),
+    { ...config },
+  );
+};
 
 export const useInfinitePerformanceQuery = (
   params: PerformancesParams,
@@ -21,13 +53,13 @@ export const useInfinitePerformanceQuery = (
       AxiosError,
       PerformancesResponses[],
       PerformancesResponses[],
-      ReturnType<typeof performanceKeys.list>
+      ReturnType<typeof PERFORMANCES_KEYS.list>
     >,
     'getNextPageParam'
   >,
 ): UseInfiniteQueryResult<PerformancesResponses[], AxiosError> => {
   return useInfiniteQuery(
-    performanceKeys.list(params),
+    PERFORMANCES_KEYS.list(params),
     async ({ queryKey: [, , params], pageParam = 0 }) => {
       const _params = params as PerformancesParams;
       return performanceService.getPerformances({
