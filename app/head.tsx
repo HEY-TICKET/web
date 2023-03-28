@@ -2,6 +2,8 @@ export default function Head() {
   return (
     <>
       <title>Hey Ticket</title>
+      {/*https http 간 api통신이 가능하도록 하는 메타태그*/}
+      <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       <meta name="title" content="Hey Ticket" key="title" />
       <meta
         name="description"
