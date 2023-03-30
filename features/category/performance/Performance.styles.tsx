@@ -36,3 +36,24 @@ export const Title = styled.span`
 `;
 
 export const CardWrapper = styled.div``;
+
+export const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  padding: 20px 16px;
+  background-color: ${({ theme }) => theme.COLOR.gray150};
+`;
+
+export const InfoWrapper = styled.div`
+  padding: 20px;
+  background-color: ${({ theme }) => theme.COLOR.white};
+`;
+
+export const InfoTitle = styled.span`
+  color: ${({ theme }) => theme.COLOR.gray900};
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+`;

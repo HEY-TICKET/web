@@ -5,21 +5,24 @@ import styled, { css } from 'styled-components';
 import { Badge } from 'components/common/Badge/Badge.styles';
 
 export const PosterWrapper = styled.div`
-  margin-bottom: 14px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 16px;
 `;
 
 export const CardTitle = styled.h3`
   font-style: normal;
   font-weight: 700;
-  font-size: 15px;
-  line-height: 18px;
+  font-size: 20px;
+  line-height: 24px;
 `;
 
 export const CardDescription = styled.p`
   font-style: normal;
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 16px;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 20px;
 
   ${({ theme }) =>
     css`

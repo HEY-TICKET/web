@@ -7,6 +7,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { SIZE_PER_PAGE } from 'apis/performance/constants';
 import Tab from 'components/common/Tab/Tab';
+import { CATEGORY } from 'constants/category';
 import { ROUTES } from 'constants/routes';
 import CardList from 'features/category/genre/CardList';
 import FilterChips, { FILTER_VALUE_MAP } from 'features/category/genre/filter/chip/FilterChips';
@@ -27,12 +28,15 @@ import { useInfinitePerformanceQuery } from 'reactQuery/performance';
 import { ArrowRight, FilterIcon, SortIcon } from 'styles/icons';
 
 interface GenreProps {
-  title: string;
+  genre: string;
 }
+const Header = new Map(CATEGORY.map(({ caption, route }) => [route, caption]));
 
-const Genre = ({ title }: GenreProps) => {
+const Genre = ({ genre }: GenreProps) => {
   const { back, push } = useRouter();
   const toast = useCustomToast();
+
+  const title = Object.fromEntries(Header)[genre];
 
   const [tabIndex, setTabIndex] = useState(0);
   const [currentSorting, setCurrentSorting] = useState(SORTING_MODAL_DEFAULT_VALUES['sorting']);
@@ -100,7 +104,7 @@ const Genre = ({ title }: GenreProps) => {
 
   const clickCard = (id: string) => {
     console.log(id);
-    push(`${ROUTES.category}/concert/${id}`);
+    push(`${ROUTES.category}/${genre}/${id}`);
   };
 
   const goToBack = () => back();
