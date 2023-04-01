@@ -3,16 +3,14 @@
 import styled, { css } from 'styled-components';
 
 import { Badge } from 'components/common/Badge/Badge.styles';
-
-export const PosterWrapper = styled.div`
-  margin-bottom: 14px;
-`;
+import { textOverflowEllipsis } from 'utils/common';
 
 export const CardTitle = styled.h3`
   font-style: normal;
   font-weight: 700;
   font-size: 15px;
   line-height: 18px;
+  ${textOverflowEllipsis({ lineCount: 2 })};
 `;
 
 export const CardDescription = styled.p`
@@ -20,6 +18,8 @@ export const CardDescription = styled.p`
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
+
+  ${textOverflowEllipsis({ lineCount: 1 })};
 
   ${({ theme }) =>
     css`
@@ -30,6 +30,7 @@ export const CardDescription = styled.p`
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
+  row-gap: 14px;
   cursor: pointer;
 
   ${Badge} {
@@ -43,26 +44,11 @@ export const CardContainer = styled.div`
   ${CardDescription} {
     margin-bottom: 2px;
   }
-
-  ${({ theme }) => css`
-    ${theme.MEDIA.mobilePortrait} {
-      flex-direction: row;
-      gap: 12px;
-      width: 100%;
-      padding: 0 20px;
-    }
-  `}
 `;
 
 export const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-
-  ${({ theme }) => css`
-    ${theme.MEDIA.mobilePortrait} {
-      justify-content: space-between;
-    }
-  `}
 `;
 
 export const InfoWrapper = styled.div`
@@ -73,7 +59,6 @@ export const InfoWrapper = styled.div`
 
 export const PriceWrapper = styled.div`
   ${({ theme }) => css`
-    margin-top: 22px;
     & > span {
       font-style: normal;
       font-weight: 500;
@@ -90,12 +75,6 @@ export const PriceWrapper = styled.div`
       line-height: 18px;
 
       color: ${theme.COLOR.gray800};
-    }
-  `}
-
-  ${({ theme }) => css`
-    ${theme.MEDIA.mobilePortrait} {
-      margin: 0;
     }
   `}
 `;

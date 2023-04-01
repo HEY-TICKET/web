@@ -1,39 +1,35 @@
 import { ComponentProps } from 'react';
 
 import Image from 'next/image';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-type PosterProps = ComponentProps<typeof Image>;
+interface PosterProps extends ComponentProps<typeof Image> {
+  isPointer?: boolean;
+  scaleUp?: boolean;
+}
 
 const Poster = ({ src, width, height, alt, ...rest }: PosterProps) => {
   return (
-    <CardImageWrapper width={width} height={height}>
+    <Wrapper width={width} height={height}>
       <CardImage src={src} width={width} height={height} alt={alt} {...rest} />
-    </CardImageWrapper>
+    </Wrapper>
   );
 };
 
 export default Poster;
 
-export const CardImageWrapper = styled.div<{ width: number; height: number }>`
-  border-radius: 4px;
+const Wrapper = styled.div<{ width: number; height: number }>`
+  display: flex;
+  align-items: center;
   width: ${({ width }) => width}px;
   height: ${({ height }) => height}px;
+  border: 1px solid ${({ theme }) => theme.COLOR.gray200};
+  border-radius: 4px;
   overflow: hidden;
+  cursor: pointer;
 `;
 
-export const CardImage = styled(Image)`
-  border-radius: 4px;
-  &:hover {
-    transform: scale(1.1);
-    transition: transform 0.3s;
-  }
-
-  ${({ theme }) => css`
-    ${theme.MEDIA.mobilePortrait} {
-      width: 108px;
-      height: 152px;
-      margin: 0;
-    }
-  `}
+const CardImage = styled(Image)`
+  width: 100%;
+  height: 100%;
 `;

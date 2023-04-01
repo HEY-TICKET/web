@@ -1,43 +1,55 @@
+import { HTMLAttributes } from 'react';
+
 import styled from 'styled-components';
 
+import { PerformancesResponses } from 'apis/performance/type';
+import NaverMap from 'components/common/Map/NaverMap';
 import * as Styles from 'features/category/performance/Performance.styles';
+import { getArrayPerformanceTime, getArrayPrice } from 'utils/performance';
+import { getPeriod } from 'utils/times';
 
-const PerformanceInfo = () => {
+interface Props extends HTMLAttributes<HTMLElement> {
+  data: PerformancesResponses;
+}
+
+const PerformanceInfo = ({ data }: Props) => {
+  const { startDate, endDate, dtguidance: time, cast, runtime, pcseguidance: price, place } = data;
+
+  const period = getPeriod(startDate, endDate);
+
   return (
     <Styles.InfoWrapper>
       <Styles.InfoTitle>공연 정보</Styles.InfoTitle>
       <ContentsWrapper>
         <SubTitle>기간</SubTitle>
         <DescriptionWrapper>
-          <Description>{'2022.12.21(수) ~ 2023.02.04(일)'}</Description>
+          <Description>{period}</Description>
+        </DescriptionWrapper>
+        <SubTitle>런타임</SubTitle>
+        <DescriptionWrapper>
+          <Description>{runtime}</Description>
         </DescriptionWrapper>
         <SubTitle>시간</SubTitle>
         <DescriptionWrapper>
-          {['{공연시간}', 'R석 110,000원', 'S석 80,000원'].map((desc, index) => (
+          {getArrayPerformanceTime(time).map((desc, index) => (
             <Description key={index}>{desc}</Description>
           ))}
         </DescriptionWrapper>
         <SubTitle>출연진</SubTitle>
-        <DescriptionWrapper>
-          {['V석 130,000원', 'R석 110,000원', 'S석 80,000원'].map((desc, index) => (
-            <Description key={index}>{desc}</Description>
-          ))}
-        </DescriptionWrapper>
+        <Description>{cast}</Description>
         <SubTitle>예매가</SubTitle>
         <DescriptionWrapper>
-          {['V석 130,000원', 'R석 110,000원', 'S석 80,000원'].map((desc, index) => (
-            <Description key={index}>{desc}</Description>
+          {getArrayPrice(price).map((desc, index) => (
+            <Description key={index}>{`${desc}`}</Description>
           ))}
         </DescriptionWrapper>
         <SubTitle>공연장</SubTitle>
         <DescriptionWrapper>
-          {['V석 130,000원', 'R석 110,000원', 'S석 80,000원'].map((desc, index) => (
-            <Description key={index}>{desc}</Description>
-          ))}
+          <Description>{place}</Description>
         </DescriptionWrapper>
       </ContentsWrapper>
       <MapWrapper>
-        <Map />
+        <NaverMap />
       </MapWrapper>
     </Styles.InfoWrapper>
   );
@@ -46,7 +58,7 @@ const PerformanceInfo = () => {
 export default PerformanceInfo;
 
 const ContentsWrapper = styled.div`
-  padding: 16px 0 10px;
+  padding: 16px 0;
   display: grid;
   grid-template-columns: 72px 1fr;
   row-gap: 12px;
@@ -70,9 +82,7 @@ const Description = styled.p`
   font-size: 14px;
   line-height: 20px;
 `;
-const MapWrapper = styled.div``;
-const Map = styled.div`
+const MapWrapper = styled.div`
   width: 100%;
   height: 190px;
-  background-color: ${({ theme }) => theme.COLOR.gray200};
 `;

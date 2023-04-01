@@ -117,7 +117,7 @@ const Search = () => {
           {showSearchHistory ? <SearchHistory /> : <SearchContents data={data} />}
         </Styles.Container>
       </Styles.Form>
-      <SortingModalFrame canClose={false} mobilePivot={'bottom'}>
+      <SortingModalFrame canClose={false}>
         <SortingModal onSubmit={handleSubmit(onValidSubmit)} onCancel={cancelSortingModal} />
       </SortingModalFrame>
     </FormProvider>

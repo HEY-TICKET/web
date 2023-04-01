@@ -1,3 +1,5 @@
+import Script from 'next/script';
+
 export default function Head() {
   return (
     <>
@@ -24,6 +26,12 @@ export default function Head() {
       <meta property="og:site_name" content="Hey Ticket" />
       {/*viewport 설정*/}
       <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+
+      {/* <!-- Naver Map  --> */}
+      <Script
+        type="text/javascript"
+        src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_CLIENT_ID}`}
+      ></Script>
     </>
   );
 }

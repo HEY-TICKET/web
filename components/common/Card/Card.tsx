@@ -1,34 +1,23 @@
-import dayjs from 'dayjs';
+import { HTMLAttributes } from 'react';
 
 import { PerformancesResponses } from 'apis/performance/type';
 import Badge from 'components/common/Badge/Badge';
 import Poster from 'components/common/Card/Poster';
-import Ellipsis from 'components/common/Ellipsis';
-import { getDateDiff, getDayOfWeek } from 'utils/times';
+import { getDateDiff, getPeriod } from 'utils/times';
 
 import * as Styles from './Card.styles';
 
-interface CardProps extends PerformancesResponses {
+interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
   onClick?: (id: PerformancesResponses['mt20id']) => void;
+  data: PerformancesResponses;
 }
 
-const Card = ({
-  mt20id,
-  title,
-  place,
-  startDate,
-  endDate,
-  poster,
-  pcseguidance,
-  onClick,
-}: CardProps) => {
-  const today = dayjs(new Date()).format('YYYY.MM.DD');
-  const restDate = getDateDiff(today, startDate);
+const Card = ({ data, onClick }: CardProps) => {
+  const { mt20id, title, place, startDate, endDate, poster, pcseguidance } = data;
 
-  const _startDate = `${startDate}(${getDayOfWeek(startDate, 'ko')})`;
-  const _endDate = `${endDate}(${getDayOfWeek(endDate, 'ko')})`;
+  const restDate = getDateDiff(startDate);
 
-  const date = _startDate === _endDate ? _endDate : `${_startDate} ~ ${_endDate}`;
+  const date = getPeriod(startDate, endDate);
 
   const isRunning = restDate > 0;
   const dDay = Math.floor(restDate);
@@ -38,11 +27,7 @@ const Card = ({
   return (
     <Styles.CardContainer onClick={() => onClick?.(mt20id)}>
       {/*TODO : 이미지가 유효하지 않은 값이 오거나 없는 경우 default 이미지를 렌더링 시켜야 함*/}
-      {isSrcValid && (
-        <Styles.PosterWrapper>
-          <Poster src={poster} width={195} height={275} alt={'poster'} />
-        </Styles.PosterWrapper>
-      )}
+      {isSrcValid && <Poster src={poster} width={195} height={275} alt={'poster'} isPointer />}
       <Styles.ContentsWrapper>
         <Styles.InfoWrapper>
           {isRunning ? (
@@ -50,17 +35,13 @@ const Card = ({
           ) : (
             <Badge colorTheme={'blue25'}>{`D-${dDay}`}</Badge>
           )}
-          <Styles.CardTitle>
-            <Ellipsis>{title}</Ellipsis>
-          </Styles.CardTitle>
+          <Styles.CardTitle>{title}</Styles.CardTitle>
           <Styles.CardDescription>{place}</Styles.CardDescription>
           <Styles.CardDescription>{date}</Styles.CardDescription>
         </Styles.InfoWrapper>
 
         <Styles.PriceWrapper>
           <span>예매가</span>
-          {/*<p>{(1234).addComma()}</p>*/}
-          {/*<p>{`12,000 ~ 30,000`}</p>*/}
           <p>{pcseguidance}</p>
         </Styles.PriceWrapper>
       </Styles.ContentsWrapper>

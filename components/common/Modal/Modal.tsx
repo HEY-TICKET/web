@@ -16,7 +16,6 @@ function Modal({
   canClose = true,
   outSideClick,
   pivot = 'center',
-  mobilePivot = 'center',
 }: ModalProps) {
   const handleClose = () => {
     outSideClick?.();
@@ -39,7 +38,7 @@ function Modal({
   return (
     <ModalContainer>
       <Styles.Overlay>
-        <Styles.ModalWrap ref={ref} $pivot={pivot} $mobilePivot={mobilePivot}>
+        <Styles.ModalWrap ref={ref} $pivot={pivot}>
           <Styles.Contents>
             <>
               {React.cloneElement(children as ReactElement<ModalProps>, {

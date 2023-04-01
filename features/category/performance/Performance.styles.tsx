@@ -50,7 +50,7 @@ export const InfoWrapper = styled.div`
   background-color: ${({ theme }) => theme.COLOR.white};
 `;
 
-export const InfoTitle = styled.span`
+export const InfoTitle = styled.div`
   color: ${({ theme }) => theme.COLOR.gray900};
   font-style: normal;
   font-weight: 700;

@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 
-import { PerformancesResponses } from 'apis/performance/type';
 import DetailCard from 'components/common/Card/DetailCard';
 import OtherPerformances from 'features/category/performance/OtherPerformances';
 import * as Styles from 'features/category/performance/Performance.styles';
@@ -13,6 +12,7 @@ import { useDetailPerformanceQuery } from 'reactQuery/performance';
 import { ArrowRight } from 'styles/icons';
 
 const Performance = ({ id, title }: { id: string; title: string }) => {
+  // TODO : prefetch 적용 필요 (이미지 로딩이 느림)
   const { data } = useDetailPerformanceQuery({ id: id }, { enabled: !!id });
 
   const { back } = useRouter();
@@ -30,13 +30,13 @@ const Performance = ({ id, title }: { id: string; title: string }) => {
         <Styles.Title>{title}</Styles.Title>
       </Styles.GenreHeader>
       <Styles.CardWrapper>
-        <DetailCard {...(data as PerformancesResponses)} />
+        <DetailCard data={data} />
       </Styles.CardWrapper>
       <Styles.InfoContainer>
-        <PerformanceInfo />
-        <PerformanceDetail />
+        <PerformanceInfo data={data} />
+        <PerformanceDetail data={data} />
         <OtherPerformances />
-        <PerformanceETC />
+        <PerformanceETC data={data} />
       </Styles.InfoContainer>
     </>
   );

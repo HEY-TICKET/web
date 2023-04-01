@@ -1,25 +1,22 @@
-import dayjs from 'dayjs';
+import { HTMLAttributes } from 'react';
 
 import { PerformancesResponses } from 'apis/performance/type';
 import Badge from 'components/common/Badge/Badge';
 import Poster from 'components/common/Card/Poster';
-import Ellipsis from 'components/common/Ellipsis';
-import { getDateDiff, getDayOfWeek } from 'utils/times';
+import { getDateDiff, getPeriod } from 'utils/times';
 
 import * as Styles from './DetailCard.styles';
 
-interface CardProps extends PerformancesResponses {
+interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
   onClick?: (id: PerformancesResponses['mt20id']) => void;
+  data: PerformancesResponses;
 }
 
-const DetailCard = ({ mt20id, title, startDate, endDate, poster, onClick }: CardProps) => {
-  const today = dayjs(new Date()).format('YYYY.MM.DD');
-  const restDate = getDateDiff(today, startDate);
+const DetailCard = ({ data, onClick }: CardProps) => {
+  const { mt20id, title, startDate, endDate, poster } = data;
+  const restDate = getDateDiff(startDate);
 
-  const _startDate = `${startDate}(${getDayOfWeek(startDate, 'ko')})`;
-  const _endDate = `${endDate}(${getDayOfWeek(endDate, 'ko')})`;
-
-  const date = _startDate === _endDate ? _endDate : `${_startDate} ~ ${_endDate}`;
+  const period = getPeriod(startDate, endDate);
 
   const isRunning = restDate > 0;
   const dDay = Math.floor(restDate);
@@ -41,10 +38,8 @@ const DetailCard = ({ mt20id, title, startDate, endDate, poster, onClick }: Card
           ) : (
             <Badge colorTheme={'blue25'}>{`D-${dDay}`}</Badge>
           )}
-          <Styles.CardTitle>
-            <Ellipsis>{title}</Ellipsis>
-          </Styles.CardTitle>
-          <Styles.CardDescription>{date}</Styles.CardDescription>
+          <Styles.CardTitle>{title}</Styles.CardTitle>
+          <Styles.CardDescription>{period}</Styles.CardDescription>
         </Styles.InfoWrapper>
       </Styles.ContentsWrapper>
     </Styles.CardContainer>

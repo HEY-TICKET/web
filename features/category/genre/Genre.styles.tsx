@@ -101,19 +101,6 @@ export const SortIconWrapper = styled.button`
   font-weight: 600;
   font-size: 15px;
   line-height: 18px;
-
-  ${({ theme }) => css`
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 17px;
-    ${theme.MEDIA.mobilePortrait} {
-      svg {
-        width: 20px;
-        height: 20px;
-      }
-    }
-  `}
 `;
 
 export const CardListWrapper = styled.div`
