@@ -49,17 +49,14 @@ const pivotCss = (pivot: Pivot) => {
   }
 };
 
-export const ModalWrap = styled.div<{ $pivot: Pivot; $mobilePivot: Pivot }>`
+export const ModalWrap = styled.div<{ $pivot: Pivot }>`
   width: fit-content;
   height: fit-content;
   background-color: #fff;
   position: absolute;
 
-  ${({ theme, $pivot, $mobilePivot }) => css`
+  ${({ $pivot }) => css`
     ${pivotCss($pivot)}
-    ${theme.MEDIA.mobilePortrait} {
-      ${pivotCss($mobilePivot)}
-    }
   `}
 `;
 

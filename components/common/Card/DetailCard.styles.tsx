@@ -5,21 +5,27 @@ import styled, { css } from 'styled-components';
 import { Badge } from 'components/common/Badge/Badge.styles';
 import { textOverflowEllipsis } from 'utils/common';
 
+export const PosterWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 16px;
+`;
+
 export const CardTitle = styled.h3`
   font-style: normal;
   font-weight: 700;
-  font-size: 15px;
-  line-height: 18px;
+  font-size: 20px;
+  line-height: 24px;
+
   ${textOverflowEllipsis({ lineCount: 2 })};
 `;
 
 export const CardDescription = styled.p`
   font-style: normal;
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 16px;
-
-  ${textOverflowEllipsis({ lineCount: 1 })};
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 20px;
 
   ${({ theme }) =>
     css`
@@ -30,8 +36,6 @@ export const CardDescription = styled.p`
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 14px;
-  cursor: pointer;
 
   ${Badge} {
     margin-bottom: 8px;
@@ -49,32 +53,11 @@ export const CardContainer = styled.div`
 export const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0 16px;
 `;
 
 export const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 104px;
-`;
-
-export const PriceWrapper = styled.div`
-  ${({ theme }) => css`
-    & > span {
-      font-style: normal;
-      font-weight: 500;
-      font-size: 11px;
-      line-height: 13px;
-
-      color: ${theme.COLOR.gray500};
-    }
-
-    & > p {
-      font-style: normal;
-      font-weight: 600;
-      font-size: 15px;
-      line-height: 18px;
-
-      color: ${theme.COLOR.gray800};
-    }
-  `}
 `;

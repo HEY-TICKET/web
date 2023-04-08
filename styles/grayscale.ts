@@ -31,6 +31,9 @@ export const ICON_FILTER = {
   gray800: css`
     filter: invert(14%) sepia(19%) saturate(0%) hue-rotate(189deg) brightness(101%) contrast(94%);
   `,
+  gray850: css`
+    filter: invert(8%) sepia(30%) saturate(0%) hue-rotate(266deg) brightness(98%) contrast(90%);
+  `,
   gray900: css`
     filter: invert(0%) sepia(1%) saturate(3642%) hue-rotate(328deg) brightness(103%) contrast(87%);
   `,

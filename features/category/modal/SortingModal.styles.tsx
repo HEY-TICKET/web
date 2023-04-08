@@ -8,12 +8,6 @@ export const ModalWrapper = styled.div`
 
   width: 360px;
   height: 328px;
-
-  ${({ theme }) => css`
-    ${theme.MEDIA.mobilePortrait} {
-      width: 100vw;
-    }
-  `}
 `;
 export const Header = styled.section`
   ${({ theme }) => css`

@@ -6,11 +6,11 @@ type DateProps = string | number | Date;
 
 type Language = 'en' | 'ko';
 
-export const getDateDiff = (d1: DateProps, d2: DateProps) => {
-  const date1 = new Date(d1);
-  const date2 = new Date(d2);
+export const getDateDiff = (date: DateProps, otherDate?: DateProps) => {
+  const _date = new Date(date);
+  const _otherDate = otherDate ? new Date(otherDate) : new Date();
 
-  const diffDate = date1.getTime() - date2.getTime();
+  const diffDate = _otherDate.getTime() - _date.getTime();
 
   return diffDate / (1000 * 60 * 60 * 24); // 밀리세컨 * 초 * 분 * 시 = 일
 };
@@ -18,4 +18,10 @@ export const getDateDiff = (d1: DateProps, d2: DateProps) => {
 export const getDayOfWeek = (date: DateProps, lan: Language = 'en') => {
   const dayOfWeek = dayjs(date).format('ddd') as keyof typeof DAY_OF_WEEK;
   return lan === 'en' ? dayOfWeek : DAY_OF_WEEK[dayOfWeek];
+};
+
+export const getPeriod = (startDate: Date | string, endDate: Date | string) => {
+  const _startDate = `${startDate}(${getDayOfWeek(startDate, 'ko')})`;
+  const _endDate = `${endDate}(${getDayOfWeek(endDate, 'ko')})`;
+  return _startDate === _endDate ? _endDate : `${_startDate} ~ ${_endDate}`;
 };

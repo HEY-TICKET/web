@@ -8,13 +8,6 @@ export const ModalWrapper = styled.div`
 
   width: 360px;
   height: 600px;
-
-  ${({ theme }) => css`
-    ${theme.MEDIA.mobilePortrait} {
-      width: 100vw;
-      height: 80vh;
-    }
-  `}
 `;
 export const Header = styled.section`
   ${({ theme }) => css`
@@ -28,15 +21,6 @@ export const Header = styled.section`
       font-weight: 700;
       font-size: 18px;
       line-height: 26px;
-    }
-  `}
-`;
-
-export const CloseIconWrapper = styled.div`
-  ${({ theme }) => css`
-    cursor: pointer;
-    & > svg {
-      ${theme.ICON_FILTER.gray500};
     }
   `}
 `;

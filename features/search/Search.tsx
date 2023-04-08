@@ -103,9 +103,11 @@ const Search = () => {
                   ))}
                 </Styles.FilterWrapper>
                 <Styles.SearchResultWrapper>
-                  <Styles.SearchResult>{`${getValues(
-                    'search',
-                  )} 검색 결과 ${data.length.addComma()}`}</Styles.SearchResult>
+                  {data.length && (
+                    <Styles.SearchResult>{`${getValues(
+                      'search',
+                    )} 검색 결과 ${data.length.addComma()}`}</Styles.SearchResult>
+                  )}
                   <Styles.SortIconWrapper type={'button'} onClick={sortingModalOpen}>
                     <SortIcon size={24} />
                     {currentSorting}
@@ -117,7 +119,7 @@ const Search = () => {
           {showSearchHistory ? <SearchHistory /> : <SearchContents data={data} />}
         </Styles.Container>
       </Styles.Form>
-      <SortingModalFrame canClose={false} mobilePivot={'bottom'}>
+      <SortingModalFrame canClose={false}>
         <SortingModal onSubmit={handleSubmit(onValidSubmit)} onCancel={cancelSortingModal} />
       </SortingModalFrame>
     </FormProvider>

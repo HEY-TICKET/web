@@ -239,3 +239,83 @@ export const CheckLineIcon = ({ size = 16 }: IconProps) => (
     />
   </svg>
 );
+
+export const ShareIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15 8L12 5L9 8" stroke="#000000" strokeWidth="1.5" strokeLinecap="square" />
+    <path
+      d="M12 15.0002L12 6.5"
+      stroke="#000000"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M7 11.5C5.63317 11.5 4.5 11.5 4.5 11.5V20.5H19.5V11.5H17"
+      stroke="#000000"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+    />
+  </svg>
+);
+
+export const HeartLineIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M20.3368 7.89339C20.0694 6.88432 19.4844 5.96224 18.5986 5.31852C16.6098 3.8832 13.8939 4.38774 12.4816 6.42328L11.997 7.17138L11.5123 6.42328C10.1084 4.38774 7.39249 3.8832 5.40363 5.31852C4.50948 5.96224 3.92452 6.88432 3.65711 7.89339C3.48163 8.5893 3.4482 9.32 3.5819 10.0333C3.5819 10.0333 3.73232 11.1294 5.12787 12.7735L11.997 20.5556L18.866 12.7735C20.2616 11.1207 20.412 10.0333 20.412 10.0333C20.5541 9.32 20.5206 8.5893 20.3368 7.89339Z"
+      stroke="#000000"
+      strokeWidth="1.5"
+    />
+  </svg>
+);
+
+export const HeartIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M20.3368 7.89339C20.0694 6.88432 19.4844 5.96224 18.5986 5.31852C16.6098 3.8832 13.8939 4.38774 12.4816 6.42328L11.997 7.17138L11.5123 6.42328C10.1084 4.38774 7.39249 3.8832 5.40363 5.31852C4.50948 5.96224 3.92452 6.88432 3.65711 7.89339C3.48163 8.5893 3.4482 9.32 3.5819 10.0333C3.5819 10.0333 3.73232 11.1294 5.12787 12.7735L11.997 20.5556L18.866 12.7735C20.2616 11.1207 20.412 10.0333 20.412 10.0333C20.5541 9.32 20.5206 8.5893 20.3368 7.89339Z"
+      fill="#000000"
+      stroke="#000000"
+      strokeWidth="1.5"
+    />
+  </svg>
+);
+
+export const CouponIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M21 18.6191H4V14.5768C5.17078 14.5768 6.12797 13.675 6.12797 12.5596C6.12797 11.4442 5.17869 10.5423 4 10.5423V6.5H21V18.6191Z"
+      stroke="#000000"
+      strokeWidth="1.5"
+      strokeMiterlimit="10"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M10.5 6.5L10.5 9.5M10.5 18.5L10.5 15.5M10.5 11L10.5 14"
+      stroke="#000000"
+      strokeWidth="1.5"
+    />
+  </svg>
+);
+
+export const BellIcon = ({ size = 28 }: IconProps) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox={`0 0 28 28`}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M21.1965 10.927V16.0358L22.1666 20.2964H5.83325L6.81793 16.0075V10.927C6.81793 7.02028 10.0387 3.84961 14.0072 3.84961C17.9757 3.84961 21.1965 7.02028 21.1965 10.927Z"
+      stroke="#000000"
+      strokeWidth="1.5"
+      strokeMiterlimit="10"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M17.3774 20.2988C17.3774 22.1781 15.8396 23.7016 13.9426 23.7016C12.0456 23.7016 10.5078 22.1781 10.5078 20.2988"
+      stroke="#000000"
+      strokeWidth="1.5"
+    />
+  </svg>
+);

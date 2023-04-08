@@ -11,7 +11,6 @@ export type ModalProps = {
   canClose?: boolean;
   outSideClick?: () => void;
   pivot?: Pivot;
-  mobilePivot?: Pivot;
 };
 
 export default function useModal(onOpen?: () => void, onClose?: () => void) {
@@ -28,14 +27,13 @@ export default function useModal(onOpen?: () => void, onClose?: () => void) {
 
   return {
     Modal: isOpen
-      ? ({ children, canClose, outSideClick, pivot, mobilePivot }: ModalProps) => (
+      ? ({ children, canClose, outSideClick, pivot }: ModalProps) => (
           <Modal
             close={close}
             isOpen={isOpen}
             canClose={canClose}
             outSideClick={outSideClick}
             pivot={pivot}
-            mobilePivot={mobilePivot}
           >
             {children}
           </Modal>
