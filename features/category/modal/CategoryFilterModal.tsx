@@ -1,7 +1,8 @@
 import { PropsWithChildren } from 'react';
 
 import Button from 'components/common/Button/Button';
-import { CloseIcon, ResetIcon } from 'styles/icons';
+import CloseButton from 'components/common/Button/CloseButton';
+import { ResetIcon } from 'styles/icons';
 import { nullFn } from 'utils/function';
 
 import * as Styles from './CategoryFilterModal.styles';
@@ -50,9 +51,7 @@ const CategoryFilterModal = ({
       <Styles.ModalWrapper>
         <Styles.Header>
           <span>필터</span>
-          <Styles.CloseIconWrapper onClick={clickClose}>
-            <CloseIcon />
-          </Styles.CloseIconWrapper>
+          <CloseButton onClick={clickClose} />
         </Styles.Header>
         <Styles.Body>{children}</Styles.Body>
         <Styles.Footer>

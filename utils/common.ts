@@ -24,3 +24,12 @@ export const textOverflowEllipsis = (
         white-space: pre-wrap;
       `}
 `;
+
+export const copyClipboard = async (text: string, onSuccess?: () => void, onFail?: () => void) => {
+  try {
+    await navigator.clipboard.writeText(text);
+    onSuccess && onSuccess();
+  } catch (error) {
+    onFail && onFail();
+  }
+};

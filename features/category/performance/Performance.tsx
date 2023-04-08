@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import DetailCard from 'components/common/Card/DetailCard';
+import Footer from 'features/category/performance/Footer';
 import OtherPerformances from 'features/category/performance/OtherPerformances';
 import * as Styles from 'features/category/performance/Performance.styles';
 import PerformanceDetail from 'features/category/performance/PerformanceDetail';
@@ -38,6 +39,9 @@ const Performance = ({ id, title }: { id: string; title: string }) => {
         <OtherPerformances />
         <PerformanceETC data={data} />
       </Styles.InfoContainer>
+      <Styles.FooterWrapper>
+        <Footer />
+      </Styles.FooterWrapper>
     </>
   );
 };

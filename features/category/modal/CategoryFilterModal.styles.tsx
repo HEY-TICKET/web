@@ -25,15 +25,6 @@ export const Header = styled.section`
   `}
 `;
 
-export const CloseIconWrapper = styled.div`
-  ${({ theme }) => css`
-    cursor: pointer;
-    & > svg {
-      ${theme.ICON_FILTER.gray500};
-    }
-  `}
-`;
-
 export const ResetIconWrapper = styled.div`
   ${({ theme }) => css`
     display: flex;

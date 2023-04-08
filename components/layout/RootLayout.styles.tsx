@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import styled, { css } from 'styled-components';
 
+import STYLES from 'styles/index';
+
 export const Layout = styled.div`
   // 모바일 기준
   max-width: 640px;
@@ -15,9 +17,11 @@ export const Footer = styled.footer`
   align-items: center;
   justify-content: space-around;
 
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 640px;
+  background-color: ${STYLES.color.white};
+  z-index: 1;
 
   height: 60px;
   ${({ theme }) => css`

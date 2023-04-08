@@ -45,6 +45,24 @@ export const useDetailPerformanceQuery = (
   );
 };
 
+export const usePerformanceQuery = (
+  params: PerformancesParams,
+  config?: UseQueryOptions<
+    PerformancesResponses[],
+    AxiosError,
+    PerformancesResponses[],
+    ReturnType<typeof PERFORMANCES_KEYS.list>
+  >,
+): UseQueryResult<PerformancesResponses[], AxiosError> => {
+  return useQuery(
+    PERFORMANCES_KEYS.list(params),
+    () => performanceService.getPerformances(params),
+    {
+      ...config,
+    },
+  );
+};
+
 export const useInfinitePerformanceQuery = (
   params: PerformancesParams,
   config?: Omit<
@@ -60,7 +78,7 @@ export const useInfinitePerformanceQuery = (
 ): UseInfiniteQueryResult<PerformancesResponses[], AxiosError> => {
   return useInfiniteQuery(
     PERFORMANCES_KEYS.list(params),
-    async ({ queryKey: [, , params], pageParam = 0 }) => {
+    ({ queryKey: [, , params], pageParam = 0 }) => {
       const _params = params as PerformancesParams;
       return performanceService.getPerformances({
         ..._params,

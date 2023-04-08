@@ -1,7 +1,9 @@
 'use client';
 
 import { Toast, toast } from 'react-hot-toast';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+
+import STYLES from 'styles/index';
 
 type Option =
   | Partial<
@@ -28,33 +30,27 @@ const useCustomToast = () => {
 export default useCustomToast;
 
 const DefaultToast = styled.div`
-  ${({ theme }) => css`
-    min-width: 200px;
-    background-color: ${theme.COLOR.gray900};
-    opacity: 0.7;
-    color: ${theme.COLOR.white};
-    padding: 10px 24px;
-    border-radius: 8px;
-    margin: 0;
-  `}
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 200px;
+  background-color: ${STYLES.color.gray900};
+  opacity: 0.7;
+  color: ${STYLES.color.white};
+  padding: 10px 24px;
+  border-radius: 8px;
+  margin: 0;
 `;
 const InfoToast = styled(DefaultToast)`
-  ${({ theme }) => css`
-    background-color: ${theme.COLOR.blue50};
-  `}
+  background-color: ${STYLES.color.blue50};
 `;
 const WarningToast = styled(DefaultToast)`
-  ${({ theme }) => css`
-    background-color: ${theme.COLOR.orange};
-  `}
+  background-color: ${STYLES.color.orange};
 `;
 const SuccessToast = styled(DefaultToast)`
-  ${({ theme }) => css`
-    background-color: ${theme.COLOR.green50};
-  `}
+  background-color: ${STYLES.color.green50};
 `;
 const ErrorToast = styled(DefaultToast)`
-  ${({ theme }) => css`
-    background-color: ${theme.COLOR.red};
-  `}
+  background-color: ${STYLES.color.red};
 `;

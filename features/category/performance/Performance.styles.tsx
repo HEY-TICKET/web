@@ -57,3 +57,10 @@ export const InfoTitle = styled.div`
   font-size: 18px;
   line-height: 24px;
 `;
+
+export const FooterWrapper = styled.div`
+  position: sticky;
+  bottom: 0;
+  background-color: ${({ theme }) => theme.COLOR.white};
+  z-index: 1;
+`;
