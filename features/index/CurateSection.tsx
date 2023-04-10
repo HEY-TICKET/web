@@ -15,7 +15,7 @@ interface CurateSectionProps extends HTMLAttributes<HTMLElement> {
 const CurateSection = ({ chips }: CurateSectionProps) => {
   const [genre, setGenre] = useState(chips[0].caption);
   console.log(genre);
-  const { data } = usePerformanceQuery({ page: 0, size: 10 });
+  const { data } = usePerformanceQuery({ page: 1, size: 10 });
 
   return (
     <Styles.CurateSectionWrapper>

@@ -43,7 +43,7 @@ function Modal({
             <>
               {React.cloneElement(children as ReactElement<ModalProps>, {
                 close: handleClose,
-                isOpen,
+                isOpen: isOpen,
               })}
             </>
           </Styles.Contents>

@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { MouseEvent, ReactNode, useState } from 'react';
 
 import Modal, { Pivot } from 'components/common/Modal/Modal';
 
@@ -16,7 +16,9 @@ export type ModalProps = {
 export default function useModal(onOpen?: () => void, onClose?: () => void) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const open = () => {
+  // FIXME : MouseEvent 타입 외 들어올 수 있음.
+  const open = (e?: MouseEvent) => {
+    e?.stopPropagation();
     setIsOpen(true);
     onOpen?.();
   };
