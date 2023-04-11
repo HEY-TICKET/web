@@ -13,6 +13,8 @@ interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
 }
 
 const Card = ({ data, onClick }: CardProps) => {
+  if (!data) return <></>;
+
   const { mt20id, title, place, startDate, endDate, poster, pcseguidance } = data;
 
   const restDate = getDateDiff(startDate);
@@ -22,7 +24,7 @@ const Card = ({ data, onClick }: CardProps) => {
   const isRunning = restDate > 0;
   const dDay = Math.floor(restDate);
   const isSrcValid =
-    poster.startsWith('/') || poster.startsWith('http://') || poster.startsWith('https://');
+    poster?.startsWith('/') || poster?.startsWith('http://') || poster?.startsWith('https://');
 
   return (
     <Styles.CardContainer onClick={() => onClick?.(mt20id)}>
