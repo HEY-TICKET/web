@@ -3,17 +3,21 @@ import { HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 import { PerformancesResponses } from 'apis/performance/type';
+import { GetPlaceReturnValue } from 'apis/place/type';
 import NaverMap from 'components/common/Map/NaverMap';
+import Description from 'features/category/performance/Description';
 import * as Styles from 'features/category/performance/Performance.styles';
 import { getArrayPerformanceTime, getArrayPrice } from 'utils/performance';
 import { getPeriod } from 'utils/times';
 
 interface Props extends HTMLAttributes<HTMLElement> {
   data: PerformancesResponses;
+  placeData: GetPlaceReturnValue;
 }
 
-const PerformanceInfo = ({ data }: Props) => {
+const PerformanceInfo = ({ data, placeData }: Props) => {
   const { startDate, endDate, dtguidance: time, cast, runtime, pcseguidance: price, place } = data;
+  const { latitude, longitude, address } = placeData;
 
   const period = getPeriod(startDate, endDate);
 
@@ -46,10 +50,11 @@ const PerformanceInfo = ({ data }: Props) => {
         <SubTitle>공연장</SubTitle>
         <DescriptionWrapper>
           <Description>{place}</Description>
+          <Description>{address}</Description>
         </DescriptionWrapper>
       </ContentsWrapper>
       <MapWrapper>
-        <NaverMap />
+        <NaverMap latitude={latitude} longitude={longitude} />
       </MapWrapper>
     </Styles.InfoWrapper>
   );
@@ -74,13 +79,6 @@ const SubTitle = styled.span`
 const DescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-`;
-const Description = styled.p`
-  color: ${({ theme }) => theme.COLOR.gray900};
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
 `;
 const MapWrapper = styled.div`
   width: 100%;
