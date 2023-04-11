@@ -26,6 +26,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const Kakao = window.Kakao;
     if (Kakao && !Kakao.isInitialized()) {
+      if (!process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY) return;
       Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
       console.log('Kakao.isInitialized() => ', Kakao.isInitialized());
     }
