@@ -3,31 +3,39 @@ import { HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 import { PerformancesResponses } from 'apis/performance/type';
+import { GetPlaceReturnValue } from 'apis/place/type';
+import Description from 'features/category/performance/Description';
 import * as Styles from 'features/category/performance/Performance.styles';
 
 interface Props extends HTMLAttributes<HTMLElement> {
   data: PerformancesResponses;
+  placeData: GetPlaceReturnValue;
 }
 
-const PerformanceETC = ({ data }: Props) => {
+const PerformanceETC = ({ data, placeData }: Props) => {
   const { age, crew } = data;
+  const { fcltychartr, phoneNumber } = placeData;
 
   return (
     <Styles.InfoWrapper>
       <Styles.InfoTitle>기타 정보</Styles.InfoTitle>
       <ContentsWrapper>
+        <SubTitle>주체/기획</SubTitle>
+        <DescriptionWrapper>
+          <Description>{fcltychartr}</Description>
+        </DescriptionWrapper>
+        <SubTitle>고객문의</SubTitle>
+        <DescriptionWrapper>
+          <Description>{phoneNumber}</Description>
+        </DescriptionWrapper>
         <SubTitle>관람 등급</SubTitle>
         <DescriptionWrapper>
           <Description>{age}</Description>
         </DescriptionWrapper>
-        {!!crew.trim() && (
-          <>
-            <SubTitle>작가/출연자</SubTitle>
-            <DescriptionWrapper>
-              <Description>{crew}</Description>
-            </DescriptionWrapper>
-          </>
-        )}
+        <SubTitle>작가/출연자</SubTitle>
+        <DescriptionWrapper>
+          <Description>{crew}</Description>
+        </DescriptionWrapper>
       </ContentsWrapper>
     </Styles.InfoWrapper>
   );
@@ -52,11 +60,4 @@ const SubTitle = styled.span`
 const DescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-`;
-const Description = styled.p`
-  color: ${({ theme }) => theme.COLOR.gray900};
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
 `;
