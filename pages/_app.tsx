@@ -16,6 +16,7 @@ import 'utils/prototype';
 declare global {
   interface Window {
     Kakao: any;
+    naver: any;
   }
 }
 

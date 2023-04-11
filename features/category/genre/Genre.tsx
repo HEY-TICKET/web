@@ -45,7 +45,7 @@ const Genre = ({ genre }: GenreProps) => {
   const [chipValues, setChipValues] = useState(FILTER_MODAL_DEFAULT_VALUES);
 
   const { data, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfinitePerformanceQuery({
-    page: 1,
+    page: 0,
     size: SIZE_PER_PAGE,
   });
 

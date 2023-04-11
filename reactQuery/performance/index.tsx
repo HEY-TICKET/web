@@ -82,7 +82,7 @@ export const useInfinitePerformanceQuery = (
       const _params = params as PerformancesParams;
       return performanceService.getPerformances({
         ..._params,
-        page: pageParam + 1,
+        page: pageParam,
         size: SIZE_PER_PAGE,
       });
     },

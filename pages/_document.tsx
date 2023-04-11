@@ -1,5 +1,4 @@
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
-import Script from 'next/script';
 import { ServerStyleSheet } from 'styled-components';
 
 class MyDocument extends Document {
@@ -51,13 +50,14 @@ class MyDocument extends Document {
           <meta property="og:locale" content="ko_KR" />
           <meta property="og:site_name" content="Hey Ticket" />
           {/* <!-- Naver Map  --> */}
-          <Script
+          <script
             type="text/javascript"
             src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_CLIENT_ID}`}
-          ></Script>
+            async={true}
+          ></script>
 
           <script
-            src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
+            src={'https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js'}
             integrity={process.env.NEXT_PUBLIC_KAKAO_SDK_INTEGRITY}
             crossOrigin={'anonymous'}
             async={true}
