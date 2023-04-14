@@ -2,19 +2,32 @@
 
 import { useState } from 'react';
 
+import { useSearchParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import Button from 'components/common/Button/Button';
 import ShareModal from 'features/category/performance/ShareModal';
 import useCustomToast from 'hooks/useCustomToast';
 import useModal from 'hooks/useModal';
+import { useDetailPerformanceQuery } from 'reactQuery/performance';
+import { usePlaceQuery } from 'reactQuery/place';
 import { CouponIcon, HeartIcon, HeartLineIcon, ShareIcon } from 'styles/icons';
 import STYLES from 'styles/index';
 
 const Footer = () => {
+  const id = useSearchParams().get('id') || '';
+
   const [saved, setSaved] = useState(false);
   const { Modal, open } = useModal();
   const toast = useCustomToast();
+
+  const { data: performance } = useDetailPerformanceQuery({ id: id }, { enabled: !!id });
+
+  const placeId = performance?.mt10id || '';
+  const { data: placeData } = usePlaceQuery(
+    { placeId: placeId },
+    { enabled: !!performance?.mt10id },
+  );
 
   const clickSaveButton = () => {
     if (saved) {
@@ -45,7 +58,7 @@ const Footer = () => {
       </Button>
       {/* desc: 모달 */}
       <Modal>
-        <ShareModal />
+        <ShareModal performance={performance} place={placeData} />
       </Modal>
     </Wrapper>
   );

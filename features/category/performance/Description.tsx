@@ -9,8 +9,6 @@ interface DescriptionProps extends HTMLAttributes<HTMLElement> {
 }
 
 const Description = ({ desc = '정보 없음', children, ...rest }: DescriptionProps) => {
-  console.log('children', typeof children);
-
   if (typeof children === 'string')
     return <Text {...rest}>{children.trim() ? children : desc}</Text>;
 

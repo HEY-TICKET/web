@@ -14,13 +14,13 @@ const NaverMap = ({ latitude, longitude }: Location) => {
       const location = new naver.maps.LatLng(latitude, longitude);
       const mapOptions: naver.maps.MapOptions = {
         center: location,
-        // draggable: false,
-        // pinchZoom: false,
-        // scrollWheel: false,
-        // disableDoubleClickZoom: true,
-        // disableDoubleTapZoom: true,
-        // disableTwoFingerTapZoom: true,
-        // disableKineticPan: false,
+        draggable: false,
+        pinchZoom: false,
+        scrollWheel: false,
+        keyboardShortcuts: false,
+        disableDoubleTapZoom: true,
+        disableDoubleClickZoom: true,
+        disableTwoFingerTapZoom: true,
       };
       const map = new naver.maps.Map(mapElement.current, mapOptions);
       new naver.maps.Marker({

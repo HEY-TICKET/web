@@ -4,6 +4,8 @@ import { HTMLAttributes } from 'react';
 
 import styled from 'styled-components';
 
+import { PerformancesResponses } from 'apis/performance/type';
+import { GetPlaceReturnValue } from 'apis/place/type';
 import CloseButton from 'components/common/Button/CloseButton';
 import useCustomToast from 'hooks/useCustomToast';
 import STYLES from 'styles/index';
@@ -12,13 +14,61 @@ import { nullFn } from 'utils/function';
 
 interface ShareModalProps extends HTMLAttributes<HTMLElement> {
   close?: () => void;
+  performance?: PerformancesResponses;
+  place?: GetPlaceReturnValue;
 }
 
-const ShareModal = ({ close = nullFn }: ShareModalProps) => {
+const ShareModal = ({ close = nullFn, performance, place }: ShareModalProps) => {
   const toast = useCustomToast();
+
+  console.log(performance);
+  console.log(place);
+
+  if (!performance || !place) return null;
+
+  const { title, poster } = performance;
+  const { latitude, longitude } = place;
 
   const copyLink = async () => {
     await copyClipboard(window.location.href, () => toast('링크를 복사했어요.'));
+  };
+
+  const sendKakaoMessage = () => {
+    console.log(`https://map.naver.com/v5/?c=${longitude},${latitude},15,0,0,0,dh`);
+
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '이 공연 어때요? 👀',
+        description: title,
+        imageUrl: poster,
+        link: {
+          mobileWebUrl: `https://map.naver.com/v5/?c=${longitude},${latitude},15,0,0,0,dh`,
+          webUrl: `https://map.naver.com/v5/?c=${longitude},${latitude},15,0,0,0,dh`,
+        },
+      },
+      buttons: [
+        {
+          title: '공연정보',
+          link: {
+            webUrl: `https://map.naver.com/v5/?c=${longitude},${latitude},15,0,0,0,dh`,
+            mobileWebUrl: `https://map.naver.com/v5/?c=${longitude},${latitude},15,0,0,0,dh`,
+            androidExecutionParams: '',
+            iosExecutionParams: '',
+          },
+        },
+        {
+          title: '공연장 위치보기',
+          link: {
+            webUrl: `https://map.naver.com/v5/?c=${longitude},${latitude},15,0,0,0,dh`,
+            mobileWebUrl: `https://map.naver.com/v5/?c=${longitude},${latitude},15,0,0,0,dh`,
+            androidExecutionParams: '',
+            iosExecutionParams: '',
+          },
+        },
+      ],
+      callback: close,
+    });
   };
 
   return (
@@ -28,7 +78,7 @@ const ShareModal = ({ close = nullFn }: ShareModalProps) => {
         <CloseButton onClick={close} />
       </Header>
       <Body>
-        <Content>카카오톡 공유</Content>
+        <Content onClick={sendKakaoMessage}>카카오톡 공유</Content>
         <Content onClick={copyLink}>링크 복사</Content>
       </Body>
     </ModalWrapper>
