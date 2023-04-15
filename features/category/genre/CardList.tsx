@@ -12,7 +12,7 @@ const CardList = ({ data, onClick }: Props) => {
   return (
     <Styles.CardListWrapper>
       {data.map((item) => {
-        return <Card key={item.mt20id} data={item} onClick={onClick} />;
+        return <Card key={item.mt10id + item.mt20id} data={item} onClick={onClick} />;
       })}
     </Styles.CardListWrapper>
   );

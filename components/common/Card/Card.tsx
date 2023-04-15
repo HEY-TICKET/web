@@ -7,12 +7,16 @@ import { getDateDiff, getPeriod } from 'utils/times';
 
 import * as Styles from './Card.styles';
 
+type CardType = 'default' | 'simple';
+
 interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
   onClick?: (id: PerformancesResponses['mt20id']) => void;
   data: PerformancesResponses;
+  type?: CardType;
+  rank?: number;
 }
 
-const Card = ({ data, onClick }: CardProps) => {
+const Card = ({ data, onClick, type = 'default', rank }: CardProps) => {
   if (!data) return <></>;
 
   const { mt20id, title, place, startDate, endDate, poster, pcseguidance } = data;
@@ -26,10 +30,31 @@ const Card = ({ data, onClick }: CardProps) => {
   const isSrcValid =
     poster?.startsWith('/') || poster?.startsWith('http://') || poster?.startsWith('https://');
 
+  if (type === 'simple') {
+    return (
+      <Styles.CardContainer onClick={() => onClick?.(mt20id)}>
+        {/*TODO : 이미지가 유효하지 않은 값이 오거나 없는 경우 default 이미지를 렌더링 시켜야 함*/}
+        {isSrcValid && <Poster src={poster} alt={'poster'} rank={rank} />}
+        <Styles.ContentsWrapper>
+          <Styles.InfoWrapper>
+            <Styles.SimpleCardDescription>{place}</Styles.SimpleCardDescription>
+            <Styles.CardTitle>{title}</Styles.CardTitle>
+            <Styles.PerformanceDate isRunning={isRunning}>
+              <span>{isRunning ? '공연 중' : `D-${dDay}`}</span>
+              <Styles.SimpleCardDescription>
+                {isRunning ? `${endDate} 종료` : `${startDate} 시작`}
+              </Styles.SimpleCardDescription>
+            </Styles.PerformanceDate>
+          </Styles.InfoWrapper>
+        </Styles.ContentsWrapper>
+      </Styles.CardContainer>
+    );
+  }
+
   return (
     <Styles.CardContainer onClick={() => onClick?.(mt20id)}>
       {/*TODO : 이미지가 유효하지 않은 값이 오거나 없는 경우 default 이미지를 렌더링 시켜야 함*/}
-      {isSrcValid && <Poster src={poster} width={195} height={275} alt={'poster'} />}
+      {isSrcValid && <Poster src={poster} alt={'poster'} />}
       <Styles.ContentsWrapper>
         <Styles.InfoWrapper>
           {isRunning ? (

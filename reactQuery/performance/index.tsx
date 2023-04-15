@@ -11,7 +11,6 @@ import {
 } from 'react-query';
 
 import performanceService from 'apis/performance';
-import { SIZE_PER_PAGE } from 'apis/performance/constants';
 import {
   DetailPerformanceParams,
   PerformancesParams,
@@ -83,7 +82,6 @@ export const useInfinitePerformanceQuery = (
       return performanceService.getPerformances({
         ..._params,
         page: pageParam,
-        size: SIZE_PER_PAGE,
       });
     },
     {

@@ -3,6 +3,7 @@
 import styled, { css } from 'styled-components';
 
 import { Badge } from 'components/common/Badge/Badge.styles';
+import STYLES from 'styles/index';
 import { textOverflowEllipsis } from 'utils/common';
 
 export const CardTitle = styled.h3`
@@ -13,6 +14,20 @@ export const CardTitle = styled.h3`
   ${textOverflowEllipsis({ lineCount: 2 })};
 `;
 
+export const PerformanceDate = styled.span<{ isRunning: boolean }>`
+  display: flex;
+  column-gap: 4px;
+
+  & > span {
+    color: ${({ isRunning }) => (isRunning ? STYLES.color.green50 : STYLES.color.blue50)};
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+  }
+`;
+
 export const CardDescription = styled.p`
   font-style: normal;
   font-weight: 400;
@@ -21,10 +36,18 @@ export const CardDescription = styled.p`
 
   ${textOverflowEllipsis({ lineCount: 1 })};
 
-  ${({ theme }) =>
-    css`
-      color: ${theme.COLOR.gray500};
-    `};
+  color: ${STYLES.color.gray500};
+`;
+
+export const SimpleCardDescription = styled.p`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+
+  ${textOverflowEllipsis({ lineCount: 1 })};
+
+  color: ${STYLES.color.gray500};
 `;
 
 export const CardContainer = styled.div`

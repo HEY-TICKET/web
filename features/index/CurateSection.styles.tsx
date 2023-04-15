@@ -19,7 +19,7 @@ export const InfoTitle = styled.div`
   color: ${({ theme }) => theme.COLOR.gray900};
   font-style: normal;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 24px;
 `;
 

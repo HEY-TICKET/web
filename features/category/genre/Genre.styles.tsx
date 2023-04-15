@@ -107,3 +107,7 @@ export const CardListWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+export const Trigger = styled.div`
+  height: 10px;
+`;

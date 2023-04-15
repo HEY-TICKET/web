@@ -5,7 +5,6 @@ import { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { SIZE_PER_PAGE } from 'apis/performance/constants';
 import Tab from 'components/common/Tab/Tab';
 import { CATEGORY } from 'constants/category';
 import { ROUTES } from 'constants/routes';
@@ -33,7 +32,7 @@ interface GenreProps {
 const Header = new Map(CATEGORY.map(({ caption, route }) => [route, caption]));
 
 const Genre = ({ genre }: GenreProps) => {
-  const { back, push } = useRouter();
+  const { replace, push } = useRouter();
   const toast = useCustomToast();
 
   const title = Object.fromEntries(Header)[genre];
@@ -44,13 +43,20 @@ const Genre = ({ genre }: GenreProps) => {
   const [prevSortingValues, setPrevSortingValues] = useState<SortingModalFormValues | null>(null);
   const [chipValues, setChipValues] = useState(FILTER_MODAL_DEFAULT_VALUES);
 
-  const { data, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfinitePerformanceQuery({
-    page: 0,
-    size: SIZE_PER_PAGE,
-  });
+  const { data, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfinitePerformanceQuery(
+    {
+      page: 0,
+      size: 24,
+    },
+    { keepPreviousData: true },
+  );
 
   const onIntersect: IntersectionObserverCallback = useCallback(
     async ([{ isIntersecting }]) => {
+      console.log('isIntersecting', isIntersecting);
+      console.log('hasNextPage', hasNextPage);
+      console.log('isFetchingNextPage', isFetchingNextPage);
+
       if (hasNextPage && isIntersecting && !isFetchingNextPage) {
         await fetchNextPage();
       }
@@ -103,11 +109,10 @@ const Genre = ({ genre }: GenreProps) => {
   };
 
   const clickCard = (id: string) => {
-    console.log(id);
     push(`${ROUTES.category}/${genre}/${id}`);
   };
 
-  const goToBack = () => back();
+  const goToBack = () => replace(`${ROUTES.category}`);
 
   const clickChip = (index: number) => {
     setTabIndex(index);
@@ -161,7 +166,7 @@ const Genre = ({ genre }: GenreProps) => {
           <CardList data={data?.pages.flat() ?? []} onClick={clickCard} />
         </Styles.CardListWrapper>
         {/* desc : infinite query intersect ref*/}
-        <div ref={setTarget} />
+        <Styles.Trigger ref={setTarget}></Styles.Trigger>
       </Styles.GenreContents>
       {/* desc : 모달 */}
       {/* FIXME : 최초 isDirty true 변경 시 렌더링으로 스크롤 초기화 버그 */}

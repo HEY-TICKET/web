@@ -2,20 +2,27 @@
 
 import { HTMLAttributes, useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import Card from 'components/common/Card/Card';
 import Chip from 'components/common/Chip/Chip';
+import { ROUTES } from 'constants/routes';
 import * as Styles from 'features/index/CurateSection.styles';
 import { usePerformanceQuery } from 'reactQuery/performance';
 import { ArrowRight } from 'styles/icons';
 
 interface CurateSectionProps extends HTMLAttributes<HTMLElement> {
-  chips: { caption: string }[];
+  chips: { caption: string; value: string }[];
 }
 
 const CurateSection = ({ chips }: CurateSectionProps) => {
-  const [genre, setGenre] = useState(chips[0].caption);
-  console.log(genre);
+  const { push } = useRouter();
+  const [genre, setGenre] = useState(chips[0].value);
   const { data } = usePerformanceQuery({ page: 0, size: 10 });
+
+  const clickCard = (id: string) => {
+    push(`${ROUTES.category}/${genre}/${id}`);
+  };
 
   return (
     <Styles.CurateSectionWrapper>
@@ -27,13 +34,21 @@ const CurateSection = ({ chips }: CurateSectionProps) => {
         </Styles.ReadMoreButton>
       </Styles.Header>
       <Styles.ChipContainer>
-        {chips.map(({ caption }, index) => (
-          <Chip key={index} text={caption} onClick={() => setGenre(caption)} />
+        {chips.map(({ caption, value }, index) => (
+          <Chip key={index} text={caption} onClick={() => setGenre(value)} />
         ))}
       </Styles.ChipContainer>
       <Styles.CardContainer>
-        {data?.map((item) => {
-          return <Card key={item.mt20id} data={item} />;
+        {data?.map((item, index) => {
+          return (
+            <Card
+              key={item.mt20id}
+              data={item}
+              onClick={clickCard}
+              type={'simple'}
+              rank={index + 1}
+            />
+          );
         })}
       </Styles.CardContainer>
     </Styles.CurateSectionWrapper>
