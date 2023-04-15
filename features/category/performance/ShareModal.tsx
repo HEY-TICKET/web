@@ -34,8 +34,6 @@ const ShareModal = ({ close = nullFn, performance, place }: ShareModalProps) => 
   };
 
   const sendKakaoMessage = () => {
-    console.log(`https://map.naver.com/v5/?c=${longitude},${latitude},15,0,0,0,dh`);
-
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
@@ -43,16 +41,16 @@ const ShareModal = ({ close = nullFn, performance, place }: ShareModalProps) => 
         description: title,
         imageUrl: poster,
         link: {
-          mobileWebUrl: `https://map.naver.com/v5/?c=${longitude},${latitude},15,0,0,0,dh`,
-          webUrl: `https://map.naver.com/v5/?c=${longitude},${latitude},15,0,0,0,dh`,
+          mobileWebUrl: window.location.href,
+          webUrl: window.location.href,
         },
       },
       buttons: [
         {
           title: '공연정보',
           link: {
-            webUrl: `https://map.naver.com/v5/?c=${longitude},${latitude},15,0,0,0,dh`,
-            mobileWebUrl: `https://map.naver.com/v5/?c=${longitude},${latitude},15,0,0,0,dh`,
+            webUrl: window.location.href,
+            mobileWebUrl: window.location.href,
             androidExecutionParams: '',
             iosExecutionParams: '',
           },

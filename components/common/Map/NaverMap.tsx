@@ -6,6 +6,10 @@ const NaverMap = ({ latitude, longitude }: Location) => {
   const mapElement = useRef(null);
 
   useEffect(() => {
+    const handleOpenNewTab = (url: string) => {
+      window.open(url, '_blank', 'noopener, noreferrer');
+    };
+
     if (!!latitude && !!longitude) {
       const { naver } = window;
       if (!mapElement.current || !naver) return;
@@ -27,10 +31,13 @@ const NaverMap = ({ latitude, longitude }: Location) => {
         position: location,
         map,
       });
+      naver.maps.Event.addListener(map, 'click', () =>
+        handleOpenNewTab(`https://map.naver.com/v5/?c=${longitude},${latitude},15,0,0,0,dh`),
+      );
     }
   }, [latitude, longitude]);
 
-  return <div ref={mapElement} style={{ width: '100%', height: '100%' }} />;
+  return <div ref={mapElement} style={{ width: '100%', height: '100%' }}></div>;
 };
 
 export default NaverMap;
