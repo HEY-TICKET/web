@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import Card from 'components/common/Card/Card';
 import Chip from 'components/common/Chip/Chip';
+import Slider from 'components/common/Slider/Slider';
 import { ROUTES } from 'constants/routes';
 import * as Styles from 'features/index/CurateSection.styles';
 import { usePerformanceQuery } from 'reactQuery/performance';
@@ -38,7 +39,7 @@ const CurateSection = ({ chips }: CurateSectionProps) => {
           <Chip key={index} text={caption} onClick={() => setGenre(value)} />
         ))}
       </Styles.ChipContainer>
-      <Styles.CardContainer>
+      <Slider>
         {data?.map((item, index) => {
           return (
             <Card
@@ -50,7 +51,7 @@ const CurateSection = ({ chips }: CurateSectionProps) => {
             />
           );
         })}
-      </Styles.CardContainer>
+      </Slider>
     </Styles.CurateSectionWrapper>
   );
 };

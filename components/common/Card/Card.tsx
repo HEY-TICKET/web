@@ -39,7 +39,7 @@ const Card = ({ data, onClick, type = 'default', rank }: CardProps) => {
           <Styles.InfoWrapper>
             <Styles.SimpleCardDescription>{place}</Styles.SimpleCardDescription>
             <Styles.CardTitle>{title}</Styles.CardTitle>
-            <Styles.PerformanceDate isRunning={isRunning}>
+            <Styles.PerformanceDate $isRunning={isRunning}>
               <span>{isRunning ? '공연 중' : `D-${dDay}`}</span>
               <Styles.SimpleCardDescription>
                 {isRunning ? `${endDate} 종료` : `${startDate} 시작`}
