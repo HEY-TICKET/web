@@ -5,6 +5,8 @@ import styled, { css } from 'styled-components';
 import STYLES from 'styles/index';
 
 export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
   overflow-x: auto;
   position: relative;
 `;
@@ -20,8 +22,9 @@ export const PrevButton = styled.button`
   height: 32px;
   padding: 6px;
 
+  filter: drop-shadow(0px 0px 4.57143px rgba(0, 0, 0, 0.2));
+
   border-radius: 50%;
-  border: 1px solid ${STYLES.color.gray200};
   background-color: ${STYLES.color.white};
   & > svg {
     transform: rotate(-180deg);
@@ -41,17 +44,23 @@ export const NextButton = styled.button`
   height: 32px;
   padding: 6px;
   border-radius: 50%;
-  border: 1px solid ${STYLES.color.gray200};
+  filter: drop-shadow(0px 0px 4.57143px rgba(0, 0, 0, 0.2));
+
   background-color: ${STYLES.color.white};
 
   z-index: 1;
 `;
 
-export const ChildrenWrapper = styled.div<{ $clientX: number; $duration: number }>`
+export const ChildrenWrapper = styled.div<{
+  $clientX: number;
+  $duration: number;
+  $sliderWidth: string;
+}>`
   display: flex;
   column-gap: 16px;
   padding: 16px;
-  ${({ $clientX, $duration }) => css`
+  ${({ $sliderWidth, $clientX, $duration }) => css`
+    width: ${$sliderWidth};
     transform: translateX(-${$clientX}px);
     transition: all ${$duration} ease-in-out;
   `}

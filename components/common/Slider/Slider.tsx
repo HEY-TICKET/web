@@ -10,22 +10,27 @@ interface Props extends HTMLAttributes<HTMLElement> {
   skipSize?: number;
   duration?: number;
   durationUnit?: 's' | 'ms';
+  sliderWidth: number;
 }
 
-const Slider = ({ children, skipSize = 1, duration = 500, durationUnit = 'ms' }: Props) => {
+const Slider = ({
+  children,
+  skipSize = 1,
+  duration = 500,
+  durationUnit = 'ms',
+  sliderWidth,
+}: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [clientX, setClientX] = useState<number[]>([]);
   const ref = useRef<HTMLDivElement>(null);
   const currentRef = ref.current;
-
-  const prevButtonClickable = currentIndex - skipSize >= 0;
 
   const clickPrevButton = () => {
     if (currentIndex - skipSize >= 0) setCurrentIndex(currentIndex - skipSize);
   };
 
   const clickNextButton = () => {
-    const isMax = currentIndex >= clientX.length - 2;
+    const isMax = currentIndex >= clientX.length - 3;
     if (isMax) setCurrentIndex(0);
     else setCurrentIndex(currentIndex + skipSize);
   };
@@ -45,14 +50,13 @@ const Slider = ({ children, skipSize = 1, duration = 500, durationUnit = 'ms' }:
 
   return (
     <Styles.Wrapper>
-      {prevButtonClickable && (
-        <Styles.PrevButton onClick={clickPrevButton}>
-          <ArrowRight size={20} />
-        </Styles.PrevButton>
-      )}
+      <Styles.PrevButton onClick={clickPrevButton}>
+        <ArrowRight size={20} />
+      </Styles.PrevButton>
       <Styles.ChildrenWrapper
         $duration={duration + durationUnit}
         $clientX={clientX[currentIndex] - clientX[0]}
+        $sliderWidth={sliderWidth + 'px'}
         ref={ref}
       >
         {children}
