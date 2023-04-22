@@ -3,6 +3,7 @@ import { HTMLAttributes } from 'react';
 import { PerformancesResponses } from 'apis/performance/type';
 import Badge from 'components/common/Badge/Badge';
 import Poster from 'components/common/Card/Poster';
+import Skeleton from 'components/common/Skeleton/Skeleton';
 import { getDateDiff, getPeriod } from 'utils/times';
 
 import * as Styles from './Card.styles';
@@ -12,13 +13,12 @@ type CardType = 'default' | 'simple';
 interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
   onClick?: (id: PerformancesResponses['mt20id']) => void;
   data: PerformancesResponses;
+  loading: boolean;
   type?: CardType;
   rank?: number;
 }
 
-const Card = ({ data, onClick, type = 'default', rank }: CardProps) => {
-  if (!data) return <></>;
-
+const Card = ({ data, loading, onClick, type = 'default', rank }: CardProps) => {
   const { mt20id, title, place, startDate, endDate, poster, pcseguidance } = data;
 
   const restDate = getDateDiff(startDate);
@@ -29,6 +29,8 @@ const Card = ({ data, onClick, type = 'default', rank }: CardProps) => {
   const dDay = Math.floor(restDate);
   const isSrcValid =
     poster?.startsWith('/') || poster?.startsWith('http://') || poster?.startsWith('https://');
+
+  if (loading) return <Card.Skeleton type={type} />;
 
   if (type === 'simple') {
     return (
@@ -77,3 +79,36 @@ const Card = ({ data, onClick, type = 'default', rank }: CardProps) => {
 };
 
 export default Card;
+
+type CardSkeletonProps = {
+  type: CardType;
+};
+
+Card.Skeleton = ({ type }: CardSkeletonProps) => {
+  if (type === 'simple') {
+    return (
+      <Skeleton>
+        <Skeleton.Block css={Styles.SimpleCardPosterStyle} />
+        <Skeleton.Block css={Styles.SimpleCardDescriptionStyle} />
+        <Skeleton.Block css={Styles.SimpleCardTitleStyle} />
+        <Skeleton.Block css={Styles.SimpleCardSecondLineTitleStyle} />
+        <Skeleton.FlexBox css={Styles.RowDivStyle}>
+          <Skeleton.Block css={Styles.BadgeStyle} />
+          <Skeleton.Block css={Styles.DateStyle} />
+        </Skeleton.FlexBox>
+      </Skeleton>
+    );
+  }
+
+  return (
+    <Skeleton>
+      <Skeleton.Block css={Styles.DefaultCardPosterStyle} />
+      <Skeleton.Block css={Styles.DefaultBadgeStyle} />
+      <Skeleton.Block css={Styles.DefaultTitleStyle} />
+      <Skeleton.Block css={Styles.DefaultSecondLineTitleStyle} />
+      <Skeleton.Block css={Styles.DefaultDescriptionStyle} />
+      <Skeleton.Block css={Styles.DefaultPriceTitle} />
+      <Skeleton.Block css={Styles.DefaultPrice} />
+    </Skeleton>
+  );
+};

@@ -116,7 +116,7 @@ const Search = () => {
               </Styles.CategoryWrapper>
             )}
           </Styles.StickyBox>
-          {showSearchHistory ? <SearchHistory /> : <SearchContents data={data} />}
+          {showSearchHistory ? <SearchHistory /> : <SearchContents data={data} loading={false} />}
         </Styles.Container>
       </Styles.Form>
       <SortingModalFrame canClose={false}>

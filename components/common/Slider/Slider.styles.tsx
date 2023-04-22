@@ -53,7 +53,7 @@ export const NextButton = styled.button`
 
 export const ChildrenWrapper = styled.div<{
   $clientX: number;
-  $duration: number;
+  $duration: string;
   $sliderWidth: string;
 }>`
   display: flex;

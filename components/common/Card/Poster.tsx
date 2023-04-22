@@ -12,6 +12,18 @@ interface PosterProps extends ComponentProps<typeof Image> {
 }
 
 const Poster = ({ src, alt, width = 195, rank, ...rest }: PosterProps) => {
+  // const [isLoaded, setIsLoaded] = useState(false);
+  //
+  // console.log(isLoaded);
+  //
+  // if (!isLoaded) {
+  //   return (
+  //     <Wrapper>
+  //       <Poster.DefaultImage width={width} height={0} />
+  //     </Wrapper>
+  //   );
+  // }
+
   return (
     <Wrapper>
       <CardImage src={src} width={width} height={0} alt={alt} {...rest} />
@@ -59,3 +71,40 @@ const RankingMark = styled.div<{ $visible: boolean }>`
 
   visibility: ${({ $visible }) => ($visible ? 'visible' : 'hidden')};
 `;
+
+const DefaultPoster = styled.div<{ width: number; height?: number }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => (height ? `${height}px` : '100%')};
+
+  aspect-ratio: 1 / 1.414;
+
+  color: ${STYLES.color.gray300};
+
+  text-align: center;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 32px;
+  white-space: pre-line;
+  border-radius: 6px;
+  border: 1px solid ${STYLES.color.gray200};
+`;
+
+type DefaultImageProps = {
+  width: number;
+  height?: number;
+};
+
+Poster.DefaultImage = ({ width, height }: DefaultImageProps) => {
+  return (
+    <DefaultPoster width={width} height={height}>
+      HEY
+      <br />
+      TICKET
+    </DefaultPoster>
+  );
+};

@@ -43,20 +43,17 @@ const Genre = ({ genre }: GenreProps) => {
   const [prevSortingValues, setPrevSortingValues] = useState<SortingModalFormValues | null>(null);
   const [chipValues, setChipValues] = useState(FILTER_MODAL_DEFAULT_VALUES);
 
-  const { data, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfinitePerformanceQuery(
-    {
-      page: 0,
-      size: 24,
-    },
-    { keepPreviousData: true },
-  );
+  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
+    useInfinitePerformanceQuery(
+      {
+        page: 0,
+        size: 24,
+      },
+      { keepPreviousData: true },
+    );
 
   const onIntersect: IntersectionObserverCallback = useCallback(
     async ([{ isIntersecting }]) => {
-      console.log('isIntersecting', isIntersecting);
-      console.log('hasNextPage', hasNextPage);
-      console.log('isFetchingNextPage', isFetchingNextPage);
-
       if (hasNextPage && isIntersecting && !isFetchingNextPage) {
         await fetchNextPage();
       }
@@ -94,7 +91,6 @@ const Genre = ({ genre }: GenreProps) => {
 
   const submitFilterValue = (data: FilterModalFormValues) => {
     // TODO : 데이터 submit
-    console.log(data);
     setChipValues(data);
     toast('필터가 적용되었습니다');
     filterModalClose();
@@ -102,7 +98,6 @@ const Genre = ({ genre }: GenreProps) => {
 
   const submitSortingValue = (data: SortingModalFormValues) => {
     // TODO : 데이터 submit
-    console.log(data);
     setCurrentSorting(data.sorting);
     toast('필터가 적용되었습니다');
     sortingModalClose();
@@ -163,7 +158,11 @@ const Genre = ({ genre }: GenreProps) => {
           </Styles.SubFilterWrapper>
         </Styles.StickyBox>
         <Styles.CardListWrapper>
-          <CardList data={data?.pages.flat() ?? []} onClick={clickCard} />
+          <CardList
+            data={data?.pages.flat() ?? []}
+            loading={isFetchingNextPage || isLoading}
+            onClick={clickCard}
+          />
         </Styles.CardListWrapper>
         {/* desc : infinite query intersect ref*/}
         <Styles.Trigger ref={setTarget}></Styles.Trigger>

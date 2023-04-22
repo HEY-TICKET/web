@@ -13,6 +13,7 @@ import { useDetailPerformanceQuery } from 'reactQuery/performance';
 import { usePlaceQuery } from 'reactQuery/place';
 import { CouponIcon, HeartIcon, HeartLineIcon, ShareIcon } from 'styles/icons';
 import STYLES from 'styles/index';
+import { handleOpenNewTab } from 'utils/url';
 
 const Footer = () => {
   const id = useSearchParams().get('id') || '';
@@ -38,6 +39,13 @@ const Footer = () => {
     setSaved((prev) => !prev);
   };
 
+  const search = () => {
+    const encodeString = encodeURI(
+      `https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=${performance?.genre}, ${performance?.title}`,
+    );
+    handleOpenNewTab(encodeString);
+  };
+
   return (
     <Wrapper>
       <ButtonsContainer>
@@ -48,7 +56,7 @@ const Footer = () => {
           {saved ? <HeartIcon /> : <HeartLineIcon />}
         </IconButton>
       </ButtonsContainer>
-      <Button>
+      <Button onClick={search}>
         <ButtonContentsWrapper>
           <IconWrapper>
             <CouponIcon />

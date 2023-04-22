@@ -19,7 +19,7 @@ interface CurateSectionProps extends HTMLAttributes<HTMLElement> {
 const CurateSection = ({ chips }: CurateSectionProps) => {
   const { push } = useRouter();
   const [genre, setGenre] = useState(chips[0].value);
-  const { data } = usePerformanceQuery({ page: 0, size: 10 });
+  const { data, isLoading } = usePerformanceQuery({ page: 0, size: 10 });
 
   const clickCard = (id: string) => {
     push(`${ROUTES.category}/${genre}/${id}`);
@@ -45,6 +45,7 @@ const CurateSection = ({ chips }: CurateSectionProps) => {
             <Card
               key={item.mt20id}
               data={item}
+              loading={isLoading}
               onClick={clickCard}
               type={'simple'}
               rank={index + 1}

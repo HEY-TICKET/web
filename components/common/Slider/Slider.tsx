@@ -40,7 +40,6 @@ const Slider = ({
       const list = Array.from(currentRef.children);
       if (list.length) {
         const xList = list.map((child) => child.getBoundingClientRect().x);
-        console.log(xList);
         setClientX(xList);
       }
     }

@@ -46,6 +46,8 @@ const CategoryFilterModal = ({
     close();
   };
 
+  console.log(disabledReset);
+
   return (
     <form onSubmit={onSubmit}>
       <Styles.ModalWrapper>
@@ -55,7 +57,10 @@ const CategoryFilterModal = ({
         </Styles.Header>
         <Styles.Body>{children}</Styles.Body>
         <Styles.Footer>
-          <Styles.ResetIconWrapper disabled={disabledReset} onClick={resetFormValue}>
+          <Styles.ResetIconWrapper
+            // disabled={disabledReset}
+            onClick={resetFormValue}
+          >
             <ResetIcon size={24} />
             <span>초기화</span>
           </Styles.ResetIconWrapper>

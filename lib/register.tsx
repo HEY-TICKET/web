@@ -12,7 +12,7 @@ export default function StyledComponentsRegistry({ children }: { children: React
 
   useServerInsertedHTML(() => {
     const styles = styledComponentsStyleSheet.getStyleElement();
-    styledComponentsStyleSheet.instance.clearTag();
+    // styledComponentsStyleSheet.instance.clearTag();
     return <>{styles}</>;
   });
 

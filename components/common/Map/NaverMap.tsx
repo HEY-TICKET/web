@@ -1,15 +1,13 @@
 import { useEffect, useRef } from 'react';
 
+import { handleOpenNewTab } from 'utils/url';
+
 export type Location = { latitude: number; longitude: number };
 
 const NaverMap = ({ latitude, longitude }: Location) => {
   const mapElement = useRef(null);
 
   useEffect(() => {
-    const handleOpenNewTab = (url: string) => {
-      window.open(url, '_blank', 'noopener, noreferrer');
-    };
-
     if (!!latitude && !!longitude) {
       const { naver } = window;
       if (!mapElement.current || !naver) return;

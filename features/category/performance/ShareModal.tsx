@@ -21,9 +21,6 @@ interface ShareModalProps extends HTMLAttributes<HTMLElement> {
 const ShareModal = ({ close = nullFn, performance, place }: ShareModalProps) => {
   const toast = useCustomToast();
 
-  console.log(performance);
-  console.log(place);
-
   if (!performance || !place) return null;
 
   const { title, poster } = performance;

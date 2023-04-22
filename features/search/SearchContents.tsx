@@ -8,16 +8,17 @@ import * as Styles from './Search.styles';
 
 type Props = {
   data: PerformancesResponses[];
+  loading: boolean;
 };
 
-const SearchContents = ({ data }: Props) => {
+const SearchContents = ({ data, loading }: Props) => {
   const isNoResult = data.length === 0;
 
   if (isNoResult) return <NoResult />;
 
   return (
     <Styles.SearchContents>
-      <CardList data={data} />
+      <CardList data={data} loading={loading} />
     </Styles.SearchContents>
   );
 };

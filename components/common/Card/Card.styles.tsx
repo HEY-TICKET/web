@@ -81,23 +81,123 @@ export const InfoWrapper = styled.div`
 `;
 
 export const PriceWrapper = styled.div`
-  ${({ theme }) => css`
-    & > span {
-      font-style: normal;
-      font-weight: 500;
-      font-size: 11px;
-      line-height: 13px;
+  & > span {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
 
-      color: ${theme.COLOR.gray500};
-    }
+    color: ${STYLES.color.gray500};
+  }
 
-    & > p {
-      font-style: normal;
-      font-weight: 600;
-      font-size: 15px;
-      line-height: 18px;
+  & > p {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
 
-      color: ${theme.COLOR.gray800};
-    }
-  `}
+    color: ${STYLES.color.gray800};
+  }
+`;
+
+export const RowDivStyle = css`
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+`;
+
+export const BadgeStyle = css`
+  width: 35px;
+  height: 15px;
+  border-radius: 4px;
+`;
+export const DateStyle = css`
+  width: 87px;
+  height: 15px;
+  border-radius: 4px;
+`;
+
+/**
+ * SimpleCardPoster Skeleton
+ */
+
+export const SimpleCardPosterStyle = css`
+  width: 148px;
+  height: 100%;
+  border-radius: 6px;
+  aspect-ratio: 1 / 1.414;
+
+  margin-bottom: 14px;
+`;
+
+export const SimpleCardDescriptionStyle = css`
+  width: 100%;
+  height: 15px;
+  border-radius: 4px;
+  margin-bottom: 2px;
+`;
+
+export const SimpleCardTitleStyle = css`
+  width: 100%;
+  height: 20px;
+  border-radius: 4px;
+  margin-bottom: 2px;
+`;
+
+export const SimpleCardSecondLineTitleStyle = css`
+  width: 80%;
+  height: 20px;
+  border-radius: 4px;
+  margin-bottom: 2px;
+`;
+
+/**
+ * DefaultCardPoster Skeleton
+ */
+
+export const DefaultCardPosterStyle = css`
+  width: 195px;
+  height: 280px;
+  border-radius: 6px;
+  aspect-ratio: 1 / 1.414;
+  margin-bottom: 14px;
+`;
+
+export const DefaultBadgeStyle = css`
+  width: 50px;
+  height: 22px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+`;
+export const DefaultTitleStyle = css`
+  width: 100%;
+  height: 20px;
+  margin-bottom: 2px;
+  border-radius: 4px;
+`;
+
+export const DefaultSecondLineTitleStyle = css`
+  width: 60%;
+  height: 20px;
+  margin-bottom: 2px;
+  border-radius: 4px;
+`;
+export const DefaultDescriptionStyle = css`
+  width: 90%;
+  height: 18px;
+  border-radius: 4px;
+  margin-bottom: 14px;
+`;
+
+export const DefaultPriceTitle = css`
+  width: 28px;
+  height: 14px;
+  border-radius: 4px;
+  margin-bottom: 2px;
+`;
+export const DefaultPrice = css`
+  width: 100%;
+  height: 18px;
+  margin-bottom: 2px;
+  border-radius: 4px;
 `;
