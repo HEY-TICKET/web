@@ -1,7 +1,5 @@
+import Index from 'features/Index/Index';
+
 export default function Page() {
-  return (
-    <>
-      <div>index</div>
-    </>
-  );
+  return <Index />;
 }

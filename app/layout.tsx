@@ -1,4 +1,7 @@
 import React from 'react';
+import 'styles/globals.css';
+
+import Head from 'next/head';
 
 import ReactQueryProvider from 'src/utils/ReactQueryProvider';
 
@@ -19,6 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Head>
+        <title>Hey Ticket ✨</title>
+      </Head>
       <body>
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
