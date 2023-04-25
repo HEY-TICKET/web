@@ -3,7 +3,7 @@
 import { Toast, toast } from 'react-hot-toast';
 import styled from 'styled-components';
 
-import STYLES from 'styles/index';
+import STYLES from 'deprecated/styles/index';
 
 type Option =
   | Partial<

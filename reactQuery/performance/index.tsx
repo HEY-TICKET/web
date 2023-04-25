@@ -1,6 +1,5 @@
 'use client';
 
-import { AxiosError } from 'axios';
 import {
   useInfiniteQuery,
   UseInfiniteQueryOptions,
@@ -8,7 +7,8 @@ import {
   useQuery,
   UseQueryOptions,
   UseQueryResult,
-} from 'react-query';
+} from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
 import performanceService from 'apis/performance';
 import {

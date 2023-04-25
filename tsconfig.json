@@ -18,19 +18,21 @@
     "baseUrl": ".",
     "paths": {
       "app/*": ["./app/*"],
-      "pages/*": ["./pages/*"],
+      "src/*": ["./src/*"],
       "components/*": ["./components/*"],
       "features/*": ["./features/*"],
-      "styles/*": ["./styles/*"],
       "apis/*": ["./apis/*"],
       "constants/*": ["./constants/*"],
       "types/*": ["./types/*"],
       "hooks/*": ["./hooks/*"],
-      "ReactQuery/*": ["./ReactQuery/*"],
       "core/*": ["./core/*"],
       "utils/*": ["./utils/*"],
       "services/*": ["./services/*"],
-      "reactQuery/*": ["./reactQuery/*"]
+
+      "deprecated/*": ["./deprecated/*"],
+      "pages/*": ["./pages/*"],
+      "reactQuery/*": ["./reactQuery/*"],
+      "styles/*": ["./styles/*"]
     },
     "plugins": [
       {

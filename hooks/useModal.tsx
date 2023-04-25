@@ -2,7 +2,7 @@
 
 import { MouseEvent, ReactNode, useState } from 'react';
 
-import Modal, { Pivot } from 'components/common/Modal/Modal';
+import Modal, { Pivot } from 'deprecated/components/common/Modal/Modal';
 
 export type ModalProps = {
   close?: () => void;
