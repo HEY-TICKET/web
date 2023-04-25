@@ -1,6 +1,7 @@
 'use client';
 
 import GlobalLayout from 'components/Layouts/GlobalLayout';
+import Banner from 'features/Index/Banner';
 import NavigationBar from 'features/Index/NavigationBar';
 
 const Index = () => {
@@ -11,7 +12,7 @@ const Index = () => {
           {/*GNB*/}
           <NavigationBar />
           {/*Banner*/}
-          <div>배너</div>
+          <Banner />
 
           <div>슬라이드 카드 컴포넌트</div>
         </div>

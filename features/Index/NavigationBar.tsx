@@ -8,9 +8,13 @@ const NavigationBar = () => {
   return (
     <div className={'flex justify-between h-9.5 px-4 py-3'}>
       <Logo />
-      <div className={'flex items-center gap-x-2'}>
-        <MagnifyingGlassIcon className={'h-6 w-6'} />
-        <BellIcon className={'h-6 w-6'} />
+      <div className={'flex items-center gap-x-1'}>
+        <button className={'p-1.5'}>
+          <MagnifyingGlassIcon className={'h-6 w-6'} />
+        </button>
+        <button className={'p-1.5'}>
+          <BellIcon className={'h-6 w-6'} />
+        </button>
       </div>
     </div>
   );
