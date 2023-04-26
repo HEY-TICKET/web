@@ -16,7 +16,7 @@ type FooterItem = {
 // todo : pathname constant로 관리필요.
 const FOOTER_ITEM_LIST: FooterItem[] = [
   { caption: '홈', route: '/', Icon: <HomeIcon size={24} /> },
-  { caption: '카테고리', route: '/category', Icon: <CategoryIcon size={24} /> },
+  { caption: '카테고리', route: '/performance', Icon: <CategoryIcon size={24} /> },
   { caption: '마이', route: '/my', Icon: <MyIcon size={24} /> },
 ];
 

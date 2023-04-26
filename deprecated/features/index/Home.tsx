@@ -1,5 +1,5 @@
-import { RANKING_SECTION_FILTERS } from 'constants/curateSection';
 import Footer from 'deprecated/components/layout/Footer';
+import { RANKING_SECTION_FILTERS } from 'deprecated/constants/curateSection';
 import Banner from 'deprecated/features/index/Banner';
 import CurateSection from 'deprecated/features/index/CurateSection';
 import GNB from 'deprecated/features/index/GNB';

@@ -4,6 +4,9 @@ import { HTMLAttributes } from 'react';
 
 import Script from 'next/script';
 
+import Footer from 'components/Common/Footer/Footer';
+import NavigationBar from 'features/Index/NavigationBar';
+
 type GlobalLayoutProps = HTMLAttributes<HTMLElement>;
 
 /**
@@ -27,7 +30,12 @@ const GlobalLayout = ({ children }: GlobalLayoutProps) => {
       {/* TODO 모달, 토스트 메시지 portal 구현 */}
       {/*<div id="modal"></div>*/}
       {/*<Toast />*/}
-      {children}
+      {/*GNB*/}
+      <div className={'flex flex-col h-screen'}>
+        <NavigationBar />
+        <div className={'flex flex-col flex-1'}>{children}</div>
+        <Footer />
+      </div>
     </>
   );
 };

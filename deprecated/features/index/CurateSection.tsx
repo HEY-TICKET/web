@@ -4,10 +4,10 @@ import { HTMLAttributes, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { ROUTES } from 'constants/routes';
 import Card from 'deprecated/components/common/Card/Card';
 import Chip from 'deprecated/components/common/Chip/Chip';
 import Slider from 'deprecated/components/common/Slider/Slider';
+import { ROUTES } from 'deprecated/constants/routes';
 import * as Styles from 'deprecated/features/index/CurateSection.styles';
 import { ArrowRight } from 'deprecated/styles/icons';
 import { usePerformanceQuery } from 'reactQuery/performance';

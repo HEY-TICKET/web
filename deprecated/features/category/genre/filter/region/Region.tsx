@@ -1,7 +1,7 @@
 'use client';
 
-import { REGION } from 'constants/perform/region';
 import List from 'deprecated/components/common/List/List';
+import { REGION } from 'deprecated/constants/perform/region';
 
 type Props = {
   name: string;

@@ -3,9 +3,9 @@
 import dayjs from 'dayjs';
 import { Control, Controller } from 'react-hook-form';
 
-import { DAY_OF_WEEK } from 'constants/date';
 import * as Styles from 'deprecated/components/DatePicker/DatePicker.styles';
 import { IconWrapper, RotateIconWrapper } from 'deprecated/components/DatePicker/DatePicker.styles';
+import { DAY_OF_WEEK } from 'deprecated/constants/date';
 import { ArrowRight } from 'deprecated/styles/icons';
 
 interface PickerProps {

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { ROUTES } from 'constants/routes';
+import { ROUTES } from 'deprecated/constants/routes';
 import * as Styles from 'deprecated/features/index/GNB.styles';
 import { BellIcon, SearchIcon } from 'deprecated/styles/icons';
 

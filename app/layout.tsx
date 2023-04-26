@@ -3,6 +3,7 @@ import 'styles/globals.css';
 
 import Head from 'next/head';
 
+import GlobalLayout from 'components/Layouts/GlobalLayout';
 import ReactQueryProvider from 'src/utils/ReactQueryProvider';
 
 // TODO: 메타데이터 설정
@@ -26,7 +27,9 @@ export default function RootLayout({
         <title>Hey Ticket ✨</title>
       </Head>
       <body>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ReactQueryProvider>
+          <GlobalLayout>{children}</GlobalLayout>
+        </ReactQueryProvider>
       </body>
     </html>
   );

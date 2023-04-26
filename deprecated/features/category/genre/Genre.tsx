@@ -5,9 +5,9 @@ import { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { CATEGORY } from 'constants/category';
-import { ROUTES } from 'constants/routes';
 import Tab from 'deprecated/components/common/Tab/Tab';
+import { CATEGORY } from 'deprecated/constants/category';
+import { ROUTES } from 'deprecated/constants/routes';
 import CardList from 'deprecated/features/category/genre/CardList';
 import FilterChips, {
   FILTER_VALUE_MAP,

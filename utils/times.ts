@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { DAY_OF_WEEK } from 'constants/date';
+import { DAY_OF_WEEK } from 'deprecated/constants/date';
 
 type DateProps = string | number | Date;
 

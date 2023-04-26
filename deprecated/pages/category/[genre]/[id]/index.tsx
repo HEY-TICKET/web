@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 
-import { CATEGORY } from 'constants/category';
+import { CATEGORY } from 'deprecated/constants/category';
 import Performance from 'deprecated/features/category/performance/Performance';
 
 const Header = new Map(CATEGORY.map(({ caption, route }) => [route, caption]));

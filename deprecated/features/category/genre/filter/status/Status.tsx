@@ -1,5 +1,5 @@
-import { STATUS } from 'constants/perform/status';
 import CheckboxList from 'deprecated/components/common/List/CheckboxList';
+import { STATUS } from 'deprecated/constants/perform/status';
 
 type Props = {
   name: string;

@@ -2,10 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 
-import { CATEGORY } from 'constants/category';
-import { ROUTES } from 'constants/routes';
 import FakeInput from 'deprecated/components/Input/FakeInput';
 import Footer from 'deprecated/components/layout/Footer';
+import { CATEGORY } from 'deprecated/constants/category';
+import { ROUTES } from 'deprecated/constants/routes';
 import * as Styles from 'deprecated/features/category/Category.styles';
 import { ArrowRight } from 'deprecated/styles/icons';
 

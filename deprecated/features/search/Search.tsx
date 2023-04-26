@@ -6,9 +6,9 @@ import { useRouter } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { PerformancesResponses } from 'apis/performance/type';
-import { DUMMY_PERFORMANCES } from 'constants/cardData';
-import { ROUTES } from 'constants/routes';
 import Input from 'deprecated/components/Input/Input';
+import { DUMMY_PERFORMANCES } from 'deprecated/constants/cardData';
+import { ROUTES } from 'deprecated/constants/routes';
 import SortingModal, {
   SORTING_MODAL_DEFAULT_VALUES,
 } from 'deprecated/features/category/modal/SortingModal';
