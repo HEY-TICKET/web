@@ -5,7 +5,6 @@ import Image, { ImageProps } from 'next/image';
 import Badge from 'components/Common/Badge/Badge';
 
 interface CardProps extends Omit<ImageProps, 'width'> {
-  width: number;
   dDay: string;
   title: string;
   place: string;
@@ -14,15 +13,19 @@ interface CardProps extends Omit<ImageProps, 'width'> {
 }
 
 const Card = (props: CardProps) => {
-  const { src, alt, width, dDay, title, place, period, price, ...restProps } = props;
+  const { src, alt, dDay, title, place, period, price, ...restProps } = props;
+
+  const containerClass = `flex flex-col w-[195px]`;
+
   return (
-    <div className={`flex flex-col max-w-[${width}px]`}>
+    <div className={containerClass}>
       <Image
         src={src}
         alt={alt}
-        width={width}
-        height={(width / 9) * 16}
-        className={'mb-4 aspect-w-9 aspect-h-16  rounded-md'}
+        width={195}
+        height={195 * (3 / 4)}
+        style={{ objectFit: 'cover' }}
+        className={`mb-4 aspect-w-3 aspect-h-4 rounded-md w-[195px] h-[260px]`}
         {...restProps}
       />
       <section className={'min-h-[124px] mb-6'}>

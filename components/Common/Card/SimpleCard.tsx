@@ -3,7 +3,6 @@
 import Image, { ImageProps } from 'next/image';
 
 interface CardProps extends Omit<ImageProps, 'width'> {
-  width: number;
   title: string;
   place: string;
   dDay: string;
@@ -12,15 +11,15 @@ interface CardProps extends Omit<ImageProps, 'width'> {
 }
 
 const SimpleCard = (props: CardProps) => {
-  const { src, alt, width, title, place, dDay, period, rank, ...restProps } = props;
+  const { src, alt, title, place, dDay, period, rank, ...restProps } = props;
   return (
-    <div className={`relative flex flex-col gap-2.5 max-w-[${width}px]`}>
+    <div className={`relative flex flex-col gap-2.5 w-[148px]`}>
       <Image
         src={src}
         alt={alt}
-        width={width}
-        height={(width / 9) * 16}
-        className={'aspect-w-9 aspect-h-16  rounded-md'}
+        width={148}
+        height={148 * (3 / 4)}
+        className={'aspect-w-3 aspect-h-4 rounded-md w-[148px] h-[197px]'}
         {...restProps}
       />
       <section className={'flex flex-col gap-1'}>
