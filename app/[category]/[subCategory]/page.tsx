@@ -7,7 +7,11 @@ type PageProps = {
 };
 
 const Page = ({ params }: PageProps) => {
-  return <div>{params.subCategory}</div>;
+  return (
+    <>
+      <div>{params.subCategory}</div>
+    </>
+  );
 };
 
 export default Page;
