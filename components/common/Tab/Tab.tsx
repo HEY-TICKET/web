@@ -2,6 +2,8 @@ import React, { ReactNode, useState } from 'react';
 
 import styled, { css } from 'styled-components';
 
+import STYLES from 'styles/index';
+
 interface UseTabProps {
   tabIndex?: number;
   tabList: { title: string; component: ReactNode }[];
@@ -39,7 +41,7 @@ const Header = styled.ul`
   padding: 16px 20px;
   gap: 20px;
 
-  background-color: ${({ theme }) => theme.COLOR.white};
+  background-color: ${STYLES.color.white};
 `;
 const Body = styled.div`
   flex: 1;
@@ -56,8 +58,8 @@ const TabName = styled.li<{ $active: boolean }>`
 
   margin-right: 8px;
 
-  ${({ theme, $active }) => css`
-    color: ${$active ? theme.COLOR.gray900 : theme.COLOR.gray350};
+  ${({ $active }) => css`
+    color: ${$active ? STYLES.color.gray900 : STYLES.color.gray350};
   `}
 
   font-style: normal;
@@ -69,7 +71,7 @@ const TabName = styled.li<{ $active: boolean }>`
 `;
 
 const Dot = styled.div<{ $active: boolean }>`
-  ${({ theme, $active }) => css`
+  ${({ $active }) => css`
     position: absolute;
     top: 0;
     right: -8px;
@@ -78,6 +80,6 @@ const Dot = styled.div<{ $active: boolean }>`
     width: 5px;
     height: 5px;
     border-radius: 100px;
-    background-color: ${theme.COLOR.red};
+    background-color: ${STYLES.color.red};
   `}
 `;

@@ -2,52 +2,48 @@
 
 import styled, { css } from 'styled-components';
 
+import STYLES from 'styles/index';
+
 import { ColorTheme, Size } from './types';
 
 const colorTheme = {
   dark: css`
-    ${({ theme }) => css`
-      background-color: ${theme.COLOR.gray870};
-      color: ${theme.COLOR.white};
+    background-color: ${STYLES.color.gray870};
+    color: ${STYLES.color.white};
 
-      &:disabled {
-        background-color: ${theme.COLOR.gray350};
-      }
+    &:disabled {
+      background-color: ${STYLES.color.gray350};
+    }
 
-      &:hover {
-        background-color: ${theme.COLOR.gray850};
-      }
-    `}
+    &:hover {
+      background-color: ${STYLES.color.gray850};
+    }
   `,
   lightGray: css`
-    ${({ theme }) => css`
-      background-color: ${theme.COLOR.gray200};
-      color: ${theme.COLOR.gray650};
+    background-color: ${STYLES.color.gray200};
+    color: ${STYLES.color.gray650};
 
-      &:disabled {
-        background-color: ${theme.COLOR.gray400};
-      }
+    &:disabled {
+      background-color: ${STYLES.color.gray400};
+    }
 
-      &:hover {
-        background-color: ${theme.COLOR.white};
-        border: 1px solid ${theme.COLOR.gray250};
-      }
-    `}
+    &:hover {
+      background-color: ${STYLES.color.white};
+      border: 1px solid ${STYLES.color.gray250};
+    }
   `,
   line: css`
-    ${({ theme }) => css`
-      background-color: ${theme.COLOR.white};
-      color: ${theme.COLOR.gray800};
+    background-color: ${STYLES.color.white};
+    color: ${STYLES.color.gray800};
 
-      border: 1px solid ${theme.COLOR.gray250};
+    border: 1px solid ${STYLES.color.gray250};
 
-      &:disabled {
-        background-color: ${theme.COLOR.gray400};
-      }
+    &:disabled {
+      background-color: ${STYLES.color.gray400};
+    }
 
-      &:hover {
-      }
-    `}
+    &:hover {
+    }
   `,
 };
 

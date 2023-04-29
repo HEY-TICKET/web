@@ -2,6 +2,8 @@
 
 import styled from 'styled-components';
 
+import STYLES from 'styles/index';
+
 export const CurateSectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -12,11 +14,11 @@ export const Header = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  background-color: ${({ theme }) => theme.COLOR.white};
+  background-color: ${STYLES.color.white};
 `;
 
 export const InfoTitle = styled.div`
-  color: ${({ theme }) => theme.COLOR.gray900};
+  color: ${STYLES.color.gray900};
   font-style: normal;
   font-weight: 700;
   font-size: 20px;

@@ -4,6 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
 
 import Checkbox from 'components/common/Checkbox/Checkbox';
+import STYLES from 'styles/index';
 
 interface CheckboxListProps {
   list: string[];
@@ -54,9 +55,9 @@ const Item = styled.li`
 
   padding: 18px 2px;
 
-  border-bottom: 1px solid ${({ theme }) => theme.COLOR.gray200};
+  border-bottom: 1px solid ${STYLES.color.gray200};
 
   &:hover {
-    background-color: ${({ theme }) => theme.COLOR.gray100};
+    background-color: ${STYLES.color.gray100};
   }
 `;

@@ -1,5 +1,5 @@
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { useQuery, UseQueryOptions } from 'react-query';
 
 import placeService from 'apis/place';
 import { GetPlaceParams, GetPlaceReturnValue } from 'apis/place/type';

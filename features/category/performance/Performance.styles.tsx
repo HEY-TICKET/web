@@ -1,6 +1,8 @@
 'use client';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+
+import STYLES from 'styles/index';
 
 export const GenreHeader = styled.div`
   display: flex;
@@ -30,9 +32,7 @@ export const Title = styled.span`
   font-size: 20px;
   line-height: 24px;
 
-  ${({ theme }) => css`
-    ${theme.COLOR.gray900};
-  `}
+  ${STYLES.color.gray900};
 `;
 
 export const CardWrapper = styled.div``;
@@ -42,16 +42,16 @@ export const InfoContainer = styled.div`
   flex-direction: column;
   row-gap: 20px;
   padding: 20px 16px;
-  background-color: ${({ theme }) => theme.COLOR.gray150};
+  background-color: ${STYLES.color.gray150};
 `;
 
 export const InfoWrapper = styled.div`
   padding: 20px;
-  background-color: ${({ theme }) => theme.COLOR.white};
+  background-color: ${STYLES.color.white};
 `;
 
 export const InfoTitle = styled.div`
-  color: ${({ theme }) => theme.COLOR.gray900};
+  color: ${STYLES.color.gray900};
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
@@ -61,6 +61,6 @@ export const InfoTitle = styled.div`
 export const FooterWrapper = styled.div`
   position: sticky;
   bottom: 0;
-  background-color: ${({ theme }) => theme.COLOR.white};
+  background-color: ${STYLES.color.white};
   z-index: 1;
 `;

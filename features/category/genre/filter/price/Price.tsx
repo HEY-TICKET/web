@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import RadioList from 'components/common/List/RadioList';
+import STYLES from 'styles/index';
 
 type Props = {
   name: string;
@@ -31,6 +32,6 @@ const Wrapper = styled.div`
     font-size: 14px;
     line-height: 24px;
 
-    color: ${({ theme }) => theme.COLOR.orange};
+    color: ${STYLES.color.orange};
   }
 `;

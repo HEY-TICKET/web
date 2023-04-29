@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { PerformancesResponses } from 'apis/performance/type';
 import * as Styles from 'features/category/performance/Performance.styles';
+import STYLES from 'styles/index';
 
 interface Props extends HTMLAttributes<HTMLElement> {
   data: PerformancesResponses;
@@ -36,7 +37,7 @@ const PerformanceDetail = ({ data }: Props) => {
 export default PerformanceDetail;
 
 const Text = styled.span`
-  color: ${({ theme }) => theme.COLOR.gray900};
+  color: ${STYLES.color.gray900};
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

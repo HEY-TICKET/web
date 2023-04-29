@@ -1,29 +1,25 @@
 'use client';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-export const Form = styled.form`
-  width: 100%;
-`;
+import STYLES from 'styles/index';
 
 export const InputWrapper = styled.div`
-  ${({ theme }) => css`
-    width: 100%;
-    display: flex;
-    gap: 8px;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  align-items: center;
 
-    height: 44px;
-    border-radius: 8px;
-    padding: 12px;
+  height: 44px;
+  border-radius: 8px;
+  padding: 12px;
 
-    background-color: ${theme.COLOR.gray150};
-    & > svg {
-      width: 20px;
-      height: 20px;
-      ${theme.ICON_FILTER.gray350};
-    }
-  `}
+  background-color: ${STYLES.color.gray150};
+  & > svg {
+    width: 20px;
+    height: 20px;
+    ${STYLES.iconFilter.gray350};
+  }
 `;
 
 export const Input = styled.input`
@@ -34,11 +30,9 @@ export const Input = styled.input`
   font-size: 16px;
   line-height: 20px;
 
-  ${({ theme }) => css`
-    width: 100%;
-    background-color: ${theme.COLOR.gray150};
-    &::placeholder {
-      color: ${theme.COLOR.gray350};
-    }
-  `}
+  width: 100%;
+  background-color: ${STYLES.color.gray150};
+  &::placeholder {
+    color: ${STYLES.color.gray350};
+  }
 `;

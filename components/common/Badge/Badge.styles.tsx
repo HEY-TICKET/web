@@ -3,6 +3,7 @@
 import styled, { css } from 'styled-components';
 
 import { COLOR } from 'styles/colors';
+import STYLES from 'styles/index';
 
 export const Badge = styled.div<{ $colorTheme: keyof typeof COLOR }>`
   display: flex;
@@ -19,24 +20,24 @@ export const Badge = styled.div<{ $colorTheme: keyof typeof COLOR }>`
   font-size: 12px;
   line-height: 14px;
 
-  ${({ theme, $colorTheme }) => {
+  ${({ $colorTheme }) => {
     switch ($colorTheme) {
       case 'gray400': {
         return css`
-          color: ${theme.COLOR.white};
-          background-color: ${theme.COLOR[$colorTheme]};
+          color: ${STYLES.color.white};
+          background-color: ${STYLES.color[$colorTheme]};
         `;
       }
       case 'blue25': {
         return css`
-          color: ${theme.COLOR.blue50};
-          background-color: ${theme.COLOR[$colorTheme]};
+          color: ${STYLES.color.blue50};
+          background-color: ${STYLES.color[$colorTheme]};
         `;
       }
       case 'green25': {
         return css`
-          color: ${theme.COLOR.green50};
-          background-color: ${theme.COLOR[$colorTheme]};
+          color: ${STYLES.color.green50};
+          background-color: ${STYLES.color[$colorTheme]};
         `;
       }
       default:

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import DatePicker from 'components/DatePicker/DatePicker';
 import { FILTER_MODAL_DEFAULT_VALUES } from 'features/category/modal/CategoryFilterModal';
+import STYLES from 'styles/index';
 
 type Props = {
   name: keyof typeof FILTER_MODAL_DEFAULT_VALUES;
@@ -34,6 +35,6 @@ const Wrapper = styled.div`
     font-size: 14px;
     line-height: 24px;
 
-    color: ${({ theme }) => theme.COLOR.orange};
+    color: ${STYLES.color.orange};
   }
 `;

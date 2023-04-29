@@ -9,7 +9,7 @@ const nextConfig = {
   reactStrictMode: true, // Recommended for the `pages` directory, default in `migration`.
   swcMinify: true,
   experimental: {
-    appDir: false,
+    appDir: true,
     scrollRestoration: true,
     images: {
       allowFutureImage: true,

@@ -1,4 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+
+import STYLES from 'styles/index';
 
 export const Container = styled.div`
   position: relative;
@@ -9,7 +11,7 @@ export const Container = styled.div`
 export const StickyBox = styled.div`
   position: sticky;
   top: 0;
-  background-color: ${({ theme }) => theme.COLOR.white};
+  background-color: ${STYLES.color.white};
   z-index: 1;
 `;
 
@@ -35,9 +37,7 @@ export const Title = styled.span`
   font-size: 20px;
   line-height: 24px;
 
-  ${({ theme }) => css`
-    ${theme.COLOR.gray900};
-  `}
+  ${STYLES.color.gray900};
 `;
 
 export const LeftIconWrapper = styled.div`
@@ -67,10 +67,7 @@ export const FilterWrapper = styled.div`
   flex: 1;
   overflow-x: auto;
 
-  ${({ theme }) =>
-    css`
-      ${theme.UTILS.hiddenScroll}
-    `}
+  ${STYLES.utils.hiddenScroll}
 `;
 
 export const FilterIconWrapper = styled.div`
@@ -87,10 +84,7 @@ export const SubFilterWrapper = styled.div`
   padding: 8px 10px;
   margin-bottom: 16px;
 
-  ${({ theme }) =>
-    css`
-      color: ${theme.COLOR.gray900};
-    `}
+  color: ${STYLES.color.gray900};
 `;
 
 export const SortIconWrapper = styled.button`

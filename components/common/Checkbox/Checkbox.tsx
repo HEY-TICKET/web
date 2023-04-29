@@ -1,8 +1,9 @@
 import { ForwardedRef, forwardRef, InputHTMLAttributes } from 'react';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { CheckLineIcon } from 'styles/icons';
+import STYLES from 'styles/index';
 
 interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   type?: 'checkbox';
@@ -46,56 +47,54 @@ const Label = styled.label`
   height: inherit;
 
   margin-left: 4px;
-  ${({ theme }) => css`
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    // input 숨김처리
-    & > input {
-      display: none;
+  // input 숨김처리
+  & > input {
+    display: none;
+  }
+
+  ${CheckMark} {
+    background-color: ${STYLES.color.white};
+    border: 1px solid ${STYLES.color.gray300};
+    & > svg {
+      ${STYLES.iconFilter.white};
     }
+  }
 
-    ${CheckMark} {
-      background-color: ${theme.COLOR.white};
-      border: 1px solid ${theme.COLOR.gray300};
-      & > svg {
-        ${theme.ICON_FILTER.white};
-      }
+  & > input:checked + ${CheckMark} {
+    background-color: ${STYLES.color.gray850};
+    border: none;
+    & > svg {
+      ${STYLES.iconFilter.white};
     }
+  }
 
-    & > input:checked + ${CheckMark} {
-      background-color: ${theme.COLOR.gray850};
-      border: none;
-      & > svg {
-        ${theme.ICON_FILTER.white};
-      }
-    }
+  ${Text} {
+    color: ${STYLES.color.gray400};
+  }
 
-    ${Text} {
-      color: ${({ theme }) => theme.COLOR.gray400};
-    }
+  & > input:checked ~ ${Text} {
+    color: ${STYLES.color.gray900};
+  }
 
-    & > input:checked ~ ${Text} {
-      color: ${({ theme }) => theme.COLOR.gray900};
+  & > input:disabled + ${CheckMark} {
+    background-color: ${STYLES.color.gray150};
+    border: 1px solid ${STYLES.color.gray300};
+    & > svg {
+      ${STYLES.iconFilter.gray150};
     }
+  }
 
-    & > input:disabled + ${CheckMark} {
-      background-color: ${theme.COLOR.gray150};
-      border: 1px solid ${theme.COLOR.gray300};
-      & > svg {
-        ${theme.ICON_FILTER.gray150};
-      }
+  & > input:checked:disabled + ${CheckMark} {
+    background-color: ${STYLES.color.gray150};
+    border: none;
+    & > svg {
+      ${STYLES.iconFilter.gray350};
     }
-
-    & > input:checked:disabled + ${CheckMark} {
-      background-color: ${theme.COLOR.gray150};
-      border: none;
-      & > svg {
-        ${theme.ICON_FILTER.gray350};
-      }
-    }
-  `}
+  }
 `;

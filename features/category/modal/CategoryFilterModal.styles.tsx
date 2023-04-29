@@ -1,6 +1,8 @@
 'use client';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+
+import STYLES from 'styles/index';
 
 export const ModalWrapper = styled.div`
   display: flex;
@@ -10,49 +12,45 @@ export const ModalWrapper = styled.div`
   height: 600px;
 `;
 export const Header = styled.section`
-  ${({ theme }) => css`
-    display: flex;
-    justify-content: space-between;
-    padding: 24px 20px 12px;
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 20px 12px;
 
-    & > span {
-      color: ${theme.COLOR.gray900};
-      font-style: normal;
-      font-weight: 700;
-      font-size: 18px;
-      line-height: 26px;
-    }
-  `}
+  & > span {
+    color: ${STYLES.color.gray900};
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 26px;
+  }
 `;
 
 export const ResetIconWrapper = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    align-items: center;
-    min-width: 68px;
+  display: flex;
+  align-items: center;
+  min-width: 68px;
 
+  & > svg {
+    ${STYLES.iconFilter.gray900};
+  }
+  & > span {
+    color: ${STYLES.color.gray900};
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  &:disabled {
     & > svg {
-      ${theme.ICON_FILTER.gray900};
+      ${STYLES.iconFilter.gray350};
     }
     & > span {
-      color: ${theme.COLOR.gray900};
-
-      font-style: normal;
-      font-weight: 600;
-      font-size: 16px;
+      color: ${STYLES.color.gray350};
     }
+  }
 
-    &:disabled {
-      & > svg {
-        ${theme.ICON_FILTER.gray350};
-      }
-      & > span {
-        color: ${theme.COLOR.gray350};
-      }
-    }
-
-    cursor: pointer;
-  `}
+  cursor: pointer;
 `;
 
 export const Body = styled.section`
@@ -68,10 +66,4 @@ export const Footer = styled.section`
   padding: 16px 10px;
 
   height: 70px;
-`;
-
-export const TabHeader = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
 `;

@@ -1,9 +1,7 @@
-'use client';
-
 import Category from 'features/category/Category';
 
-const Index = () => {
+const Page = () => {
   return <Category />;
 };
 
-export default Index;
+export default Page;
