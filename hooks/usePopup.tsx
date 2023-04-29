@@ -1,9 +1,10 @@
 'use client';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import Button from 'components/common/Button/Button';
 import useModal from 'hooks/useModal';
+import STYLES from 'styles/index';
 
 type Props = {
   title: string;
@@ -67,10 +68,7 @@ const Title = styled.h3`
 
   padding: 20px 16px;
 
-  ${({ theme }) =>
-    css`
-      color: ${theme.COLOR.gray750};
-    `}
+  color: ${STYLES.color.gray750};
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

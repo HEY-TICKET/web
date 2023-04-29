@@ -1,11 +1,7 @@
-'use client';
+import { usePathname } from 'next/navigation';
 
-import * as Styles from 'components/layout/RootLayout.styles';
+import * as Styles from 'components/layout/Footer/Footer.styles';
 import { CategoryIcon, HomeIcon, MyIcon } from 'styles/icons';
-
-interface FooterProps {
-  pathname: string;
-}
 
 type FooterItem = {
   route: string;
@@ -20,11 +16,15 @@ const FOOTER_ITEM_LIST: FooterItem[] = [
   { caption: '마이', route: '/my', Icon: <MyIcon size={24} /> },
 ];
 
-const Footer = ({ pathname }: FooterProps) => {
+const Footer = () => {
+  const pathname = usePathname();
+  console.log(pathname);
+  // FIXME: $active 상태 처리필요
+
   return (
     <Styles.Footer>
       {FOOTER_ITEM_LIST.map(({ route, caption, Icon }) => (
-        <Styles.FooterIcon key={route} href={{ pathname: route }} $active={pathname === route}>
+        <Styles.FooterIcon key={route} href={{ pathname: route }} $active={true}>
           {Icon}
           <span>{caption}</span>
         </Styles.FooterIcon>

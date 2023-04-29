@@ -104,9 +104,9 @@ const Search = () => {
                 </Styles.FilterWrapper>
                 <Styles.SearchResultWrapper>
                   {data.length && (
-                    <Styles.SearchResult>{`${getValues(
-                      'search',
-                    )} 검색 결과 ${data.length.addComma()}`}</Styles.SearchResult>
+                    <Styles.SearchResult>{`${getValues('search')} 검색 결과 ${
+                      data.length
+                    }`}</Styles.SearchResult>
                   )}
                   <Styles.SortIconWrapper type={'button'} onClick={sortingModalOpen}>
                     <SortIcon size={24} />

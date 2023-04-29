@@ -18,7 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "app/*": ["./app/*"],
-      "pages/*": ["./pages/*"],
+      "src/*": ["./src/*"],
       "components/*": ["./components/*"],
       "features/*": ["./features/*"],
       "styles/*": ["./styles/*"],
@@ -26,7 +26,6 @@
       "constants/*": ["./constants/*"],
       "types/*": ["./types/*"],
       "hooks/*": ["./hooks/*"],
-      "ReactQuery/*": ["./ReactQuery/*"],
       "core/*": ["./core/*"],
       "utils/*": ["./utils/*"],
       "services/*": ["./services/*"],

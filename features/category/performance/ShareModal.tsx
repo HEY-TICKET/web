@@ -18,12 +18,18 @@ interface ShareModalProps extends HTMLAttributes<HTMLElement> {
   place?: GetPlaceReturnValue;
 }
 
+declare global {
+  interface Window {
+    Kakao: any;
+    naver: any;
+  }
+}
 const ShareModal = ({ close = nullFn, performance, place }: ShareModalProps) => {
   const toast = useCustomToast();
 
   if (!performance || !place) return null;
-
   const { title, poster } = performance;
+
   const { latitude, longitude } = place;
 
   const copyLink = async () => {

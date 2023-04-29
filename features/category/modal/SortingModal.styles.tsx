@@ -1,6 +1,8 @@
 'use client';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+
+import STYLES from 'styles/index';
 
 export const ModalWrapper = styled.div`
   display: flex;
@@ -10,29 +12,25 @@ export const ModalWrapper = styled.div`
   height: 328px;
 `;
 export const Header = styled.section`
-  ${({ theme }) => css`
-    height: 62px;
-    display: flex;
-    justify-content: space-between;
-    padding: 24px 20px 12px;
+  height: 62px;
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 20px 12px;
 
-    & > span {
-      color: ${theme.COLOR.gray900};
-      font-style: normal;
-      font-weight: 700;
-      font-size: 18px;
-      line-height: 26px;
-    }
-  `}
+  & > span {
+    color: ${STYLES.color.gray900};
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 26px;
+  }
 `;
 
 export const CloseIconWrapper = styled.div`
-  ${({ theme }) => css`
-    cursor: pointer;
-    & > svg {
-      ${theme.ICON_FILTER.gray500};
-    }
-  `}
+  cursor: pointer;
+  & > svg {
+    ${STYLES.iconFilter.gray500};
+  }
 `;
 
 export const Body = styled.section`
@@ -48,10 +46,4 @@ export const Footer = styled.section`
   padding: 16px 10px;
 
   height: 68px;
-`;
-
-export const TabHeader = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
 `;

@@ -1,13 +1,15 @@
 import styled, { css } from 'styled-components';
 
+import STYLES from 'styles/index';
+
 export const ChipWrapper = styled.div<{ $active: boolean }>`
-  ${({ theme, $active }) => css`
+  ${({ $active }) => css`
     display: flex;
     gap: 4px;
     padding: 6px 12px;
-    background: ${$active ? theme.COLOR.gray850 : theme.COLOR.white};
+    background: ${$active ? STYLES.color.gray850 : STYLES.color.white};
 
-    border: 1px solid ${theme.COLOR.gray200};
+    border: 1px solid ${STYLES.color.gray200};
     border-radius: 16px;
   `}
   cursor:pointer;
@@ -18,9 +20,9 @@ export const CloseIconWrapper = styled.div<{ $active: boolean }>`
   display: flex;
   align-items: center;
 
-  ${({ theme, $active }) => css`
+  ${({ $active }) => css`
     & > svg {
-      ${$active ? theme.ICON_FILTER.white : theme.ICON_FILTER.gray500};
+      ${$active ? STYLES.iconFilter.white : STYLES.iconFilter.gray500};
     }
   `}
 `;
@@ -32,7 +34,7 @@ export const Chip = styled.div<{ $active: boolean }>`
   line-height: 14px;
   white-space: nowrap;
 
-  ${({ theme, $active }) => css`
-    color: ${$active ? theme.COLOR.white : theme.COLOR.gray500};
+  ${({ $active }) => css`
+    color: ${$active ? STYLES.color.white : STYLES.color.gray500};
   `}
 `;

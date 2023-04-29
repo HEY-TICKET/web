@@ -1,8 +1,9 @@
 'use client';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { Badge } from 'components/common/Badge/Badge.styles';
+import STYLES from 'styles/index';
 import { textOverflowEllipsis } from 'utils/common';
 
 export const PosterWrapper = styled.div`
@@ -27,10 +28,7 @@ export const CardDescription = styled.p`
   font-size: 17px;
   line-height: 20px;
 
-  ${({ theme }) =>
-    css`
-      color: ${theme.COLOR.gray500};
-    `};
+  color: ${STYLES.color.gray500};
 `;
 
 export const CardContainer = styled.div`

@@ -1,8 +1,9 @@
 import { ForwardedRef, forwardRef, InputHTMLAttributes } from 'react';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { CheckIcon } from 'styles/icons';
+import STYLES from 'styles/index';
 
 interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   type?: 'checkbox' | 'radio';
@@ -48,50 +49,48 @@ const Label = styled.label`
   width: 100%;
   height: inherit;
 
-  ${({ theme }) => css`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    // input 숨김처리
-    & > input {
+  // input 숨김처리
+  & > input {
+    display: none;
+  }
+
+  ${CheckMark} {
+    & > svg {
       display: none;
     }
+  }
 
-    ${CheckMark} {
-      & > svg {
-        display: none;
-      }
+  & > input:checked ~ ${CheckMark} {
+    & > svg {
+      display: flex;
+      ${STYLES.iconFilter.gray900};
     }
+  }
 
-    & > input:checked ~ ${CheckMark} {
-      & > svg {
-        display: flex;
-        ${theme.ICON_FILTER.gray900};
-      }
-    }
+  ${Text} {
+    color: ${STYLES.color.gray400};
+  }
 
-    ${Text} {
-      color: ${({ theme }) => theme.COLOR.gray400};
-    }
+  & > input:checked + ${Text} {
+    color: ${STYLES.color.gray900};
+  }
 
-    & > input:checked + ${Text} {
-      color: ${({ theme }) => theme.COLOR.gray900};
+  & > input:disabled ~ ${CheckMark} {
+    & > svg {
+      ${STYLES.iconFilter.gray150};
     }
+  }
 
-    & > input:disabled ~ ${CheckMark} {
-      & > svg {
-        ${theme.ICON_FILTER.gray150};
-      }
+  & > input:checked:disabled ~ ${CheckMark} {
+    & > svg {
+      ${STYLES.iconFilter.gray350};
     }
-
-    & > input:checked:disabled ~ ${CheckMark} {
-      & > svg {
-        ${theme.ICON_FILTER.gray350};
-      }
-    }
-  `}
+  }
 `;

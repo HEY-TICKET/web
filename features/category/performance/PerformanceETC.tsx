@@ -6,6 +6,7 @@ import { PerformancesResponses } from 'apis/performance/type';
 import { GetPlaceReturnValue } from 'apis/place/type';
 import Description from 'features/category/performance/Description';
 import * as Styles from 'features/category/performance/Performance.styles';
+import STYLES from 'styles/index';
 
 interface Props extends HTMLAttributes<HTMLElement> {
   data: PerformancesResponses;
@@ -51,7 +52,7 @@ const ContentsWrapper = styled.div`
   column-gap: 6px;
 `;
 const SubTitle = styled.span`
-  color: ${({ theme }) => theme.COLOR.gray500};
+  color: ${STYLES.color.gray500};
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

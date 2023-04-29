@@ -1,6 +1,8 @@
 'use client';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+
+import STYLES from 'styles/index';
 
 export const Container = styled.div`
   position: relative;
@@ -13,7 +15,7 @@ export const Container = styled.div`
 export const StickyBox = styled.div`
   position: sticky;
   top: 0;
-  background-color: ${({ theme }) => theme.COLOR.white};
+  background-color: ${STYLES.color.white};
   z-index: 1;
 `;
 
@@ -47,7 +49,7 @@ export const FilterButton = styled.button<{ $active: boolean }>`
   font-size: 22px;
   line-height: 26px;
 
-  color: ${({ $active, theme }) => ($active ? theme.COLOR.gray900 : theme.COLOR.gray350)};
+  color: ${({ $active }) => ($active ? STYLES.color.gray900 : STYLES.color.gray350)};
 `;
 
 export const SearchResultWrapper = styled.div`
@@ -76,13 +78,11 @@ export const SortIconWrapper = styled.button`
 `;
 
 export const BackIconWrapper = styled.div`
-  ${({ theme }) => css`
-    & > svg {
-      rotate: 180deg;
-      cursor: pointer;
-      ${theme.ICON_FILTER.gray700};
-    }
-  `}
+  & > svg {
+    rotate: 180deg;
+    cursor: pointer;
+    ${STYLES.iconFilter.gray700};
+  }
 `;
 
 export const RecentSearchesWrapper = styled.div`
@@ -97,29 +97,27 @@ export const SearchesTitle = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  ${({ theme }) => css`
+  & > span {
+    color: ${STYLES.color.gray900};
+  }
+  & > div {
+    display: flex;
+    align-items: center;
+
     & > span {
-      color: ${theme.COLOR.gray900};
-    }
-    & > div {
-      display: flex;
-      align-items: center;
+      color: ${STYLES.color.gray400};
+      cursor: pointer;
 
-      & > span {
-        color: ${theme.COLOR.gray400};
-        cursor: pointer;
-
-        &:not(:last-child)::after {
-          display: inline-block;
-          content: '';
-          width: 1px;
-          height: 12px;
-          margin: 0 12px;
-          background-color: ${theme.COLOR.gray400};
-        }
+      &:not(:last-child)::after {
+        display: inline-block;
+        content: '';
+        width: 1px;
+        height: 12px;
+        margin: 0 12px;
+        background-color: ${STYLES.color.gray400};
       }
     }
-  `}
+  }
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -131,10 +129,7 @@ export const SearchesChips = styled.div`
   gap: 8px;
 
   overflow-x: auto;
-  ${({ theme }) =>
-    css`
-      ${theme.UTILS.hiddenScroll}
-    `}
+  ${STYLES.utils.hiddenScroll}
 `;
 
 export const SearchContents = styled.div`
@@ -156,28 +151,26 @@ export const NoResult = styled.div`
   flex-direction: column;
   align-items: center;
 
-  ${({ theme }) => css`
-    h5 {
-      margin-bottom: 12px;
+  h5 {
+    margin-bottom: 12px;
 
-      text-align: center;
+    text-align: center;
 
-      font-style: normal;
-      font-weight: 600;
-      font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
 
-      color: ${theme.COLOR.gray700};
-    }
-    span {
-      margin-bottom: 32px;
+    color: ${STYLES.color.gray700};
+  }
+  span {
+    margin-bottom: 32px;
 
-      text-align: center;
-      white-space: pre-wrap;
+    text-align: center;
+    white-space: pre-wrap;
 
-      font-style: normal;
-      font-weight: 500;
-      font-size: 15px;
-      color: ${theme.COLOR.gray400};
-    }
-  `}
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    color: ${STYLES.color.gray400};
+  }
 `;

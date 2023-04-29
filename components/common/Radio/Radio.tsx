@@ -1,6 +1,8 @@
 import { ForwardedRef, forwardRef, InputHTMLAttributes } from 'react';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+
+import STYLES from 'styles/index';
 
 interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   type?: 'radio';
@@ -45,21 +47,19 @@ const Input = styled.input`
   width: 22px;
   height: 22px;
 
-  ${({ theme }) => css`
-    border-radius: 100px;
-    border: 1px solid ${theme.COLOR.gray300};
+  border-radius: 100px;
+  border: 1px solid ${STYLES.color.gray300};
+  & + ${Span} {
+    color: ${STYLES.color.gray400};
+  }
+  &:checked {
+    background-color: black;
+    background-clip: content-box;
+    padding: 4px;
+    border: 1px solid ${STYLES.color.gray900};
+    accent-color: ${STYLES.color.gray900};
     & + ${Span} {
-      color: ${theme.COLOR.gray400};
+      color: ${STYLES.color.gray900};
     }
-    &:checked {
-      background-color: black;
-      background-clip: content-box;
-      padding: 4px;
-      border: 1px solid ${theme.COLOR.gray900};
-      accent-color: ${theme.COLOR.gray900};
-      & + ${Span} {
-        color: ${theme.COLOR.gray900};
-      }
-    }
-  `}
+  }
 `;

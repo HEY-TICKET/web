@@ -1,7 +1,7 @@
 import My from 'features/my/My';
 
-const Index = () => {
+const Page = () => {
   return <My />;
 };
 
-export default Index;
+export default Page;
