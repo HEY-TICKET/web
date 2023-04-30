@@ -35,7 +35,3 @@ export const ChipContainer = styled.div`
   column-gap: 8px;
   padding: 8px 16px;
 `;
-
-export const CardListWrapper = styled.div`
-  display: flex;
-`;

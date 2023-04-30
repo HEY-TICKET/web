@@ -12,21 +12,9 @@ interface PosterProps extends ComponentProps<typeof Image> {
 }
 
 const Poster = ({ src, alt, width = 195, rank, ...rest }: PosterProps) => {
-  // const [isLoaded, setIsLoaded] = useState(false);
-  //
-  // console.log(isLoaded);
-  //
-  // if (!isLoaded) {
-  //   return (
-  //     <Wrapper>
-  //       <Poster.DefaultImage width={width} height={0} />
-  //     </Wrapper>
-  //   );
-  // }
-
   return (
     <Wrapper>
-      <CardImage src={src} width={width} height={0} alt={alt} {...rest} />
+      <CardImage src={src} width={width} height={0} alt={alt} priority {...rest} />
       <RankingMark $visible={!!rank}>{rank}</RankingMark>
     </Wrapper>
   );

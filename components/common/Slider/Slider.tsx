@@ -1,49 +1,47 @@
 'use client';
 
-import { HTMLAttributes, useEffect, useRef, useState } from 'react';
+import { Children, HTMLAttributes, ReactNode, useEffect, useRef, useState } from 'react';
 
 import { ArrowRight } from 'styles/icons';
 
 import * as Styles from './Slider.styles';
 
-interface Props extends HTMLAttributes<HTMLElement> {
+interface Props extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
+  children: ReactNode;
   skipSize?: number;
   duration?: number;
-  durationUnit?: 's' | 'ms';
-  sliderWidth: number;
 }
 
-const Slider = ({
-  children,
-  skipSize = 1,
-  duration = 500,
-  durationUnit = 'ms',
-  sliderWidth,
-}: Props) => {
+const Slider = ({ children, skipSize = 1, duration = 500 }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [clientX, setClientX] = useState<number[]>([]);
-  const ref = useRef<HTMLDivElement>(null);
-  const currentRef = ref.current;
-
+  const [numberOfItemsIncludes, setNumberOfItemsIncludes] = useState(0);
+  const ref = useRef<HTMLUListElement>(null);
   const clickPrevButton = () => {
     if (currentIndex - skipSize >= 0) setCurrentIndex(currentIndex - skipSize);
   };
 
   const clickNextButton = () => {
-    const isMax = currentIndex >= clientX.length - 3;
+    console.log(numberOfItemsIncludes);
+    const isMax = currentIndex >= clientX.length - numberOfItemsIncludes;
     if (isMax) setCurrentIndex(0);
     else setCurrentIndex(currentIndex + skipSize);
   };
 
   useEffect(() => {
-    if (currentRef) {
-      const list = Array.from(currentRef.children);
+    if (ref.current) {
+      const list = Array.from(ref.current.children);
       if (list.length) {
         const xList = list.map((child) => child.getBoundingClientRect().x);
         setClientX(xList);
       }
+
+      const firstChildClientX = ref.current.children[0]?.getBoundingClientRect().x ?? 1;
+      const containerClientWidth = ref.current.getBoundingClientRect().width ?? 1;
+      const numberOfItemsIncludes = Math.floor(containerClientWidth / firstChildClientX);
+      setNumberOfItemsIncludes(numberOfItemsIncludes);
     }
-  }, [currentRef]);
+  }, [children]);
 
   if (!skipSize) return <></>;
 
@@ -52,14 +50,17 @@ const Slider = ({
       <Styles.PrevButton onClick={clickPrevButton}>
         <ArrowRight size={20} />
       </Styles.PrevButton>
-      <Styles.ChildrenWrapper
-        $duration={duration + durationUnit}
-        $clientX={clientX[currentIndex] - clientX[0]}
-        $sliderWidth={sliderWidth + 'px'}
-        ref={ref}
-      >
-        {children}
-      </Styles.ChildrenWrapper>
+      <Styles.ContentsWrapper>
+        <Styles.Contents
+          ref={ref}
+          $duration={duration}
+          $clientX={clientX[currentIndex] - clientX[0]}
+        >
+          {Children.map(children, (child, idx) => (
+            <Styles.Item key={idx}>{child}</Styles.Item>
+          ))}
+        </Styles.Contents>
+      </Styles.ContentsWrapper>
       <Styles.NextButton onClick={clickNextButton}>
         <ArrowRight size={20} />
       </Styles.NextButton>

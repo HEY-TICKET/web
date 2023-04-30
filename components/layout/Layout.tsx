@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <Styles.Wrapper>
       <GNB />
-      <Styles.Content>{children}</Styles.Content>
+      <Styles.Body>{children}</Styles.Body>
       <Footer />
     </Styles.Wrapper>
   );
