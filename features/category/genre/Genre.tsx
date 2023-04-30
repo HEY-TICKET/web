@@ -133,62 +133,64 @@ const Genre = ({ genre }: GenreProps) => {
   };
 
   return (
-    <Styles.Container>
-      <Styles.GenreContents>
-        <Styles.StickyBox>
-          <Styles.GenreHeader>
-            <Styles.LeftIconWrapper onClick={goToBack}>
-              <ArrowRight size={28} />
-            </Styles.LeftIconWrapper>
-            <Styles.Title>{title}</Styles.Title>
-          </Styles.GenreHeader>
-          <Styles.FilterContainer>
-            <Styles.FilterWrapper>
-              <FilterChips chipValues={chipValues} clickChip={clickChip} closeChip={closeChip} />
-            </Styles.FilterWrapper>
-            <Styles.FilterIconWrapper onClick={filterModalOpen}>
-              <FilterIcon />
-            </Styles.FilterIconWrapper>
-          </Styles.FilterContainer>
-          <Styles.SubFilterWrapper>
-            <Styles.SortIconWrapper onClick={sortingModalOpen}>
-              <SortIcon size={24} />
-              {currentSorting}
-            </Styles.SortIconWrapper>
-          </Styles.SubFilterWrapper>
-        </Styles.StickyBox>
-        <Styles.CardListWrapper>
-          <CardList
-            data={data?.pages.flat() ?? []}
-            loading={isFetchingNextPage || isLoading}
-            onClick={clickCard}
-          />
-        </Styles.CardListWrapper>
-        {/* desc : infinite query intersect ref*/}
-        <Styles.Trigger ref={setTarget}></Styles.Trigger>
-      </Styles.GenreContents>
-      {/* desc : 모달 */}
-      {/* FIXME : 최초 isDirty true 변경 시 렌더링으로 스크롤 초기화 버그 */}
-      <FormProvider {...filterModalMethods}>
-        <FilterModalFrame canClose={false}>
-          <CategoryFilterModal
-            onCancel={cancelFilterModal}
-            onReset={resetFilter}
-            onSubmit={filterModalMethods.handleSubmit(submitFilterValue)}
-          >
-            <Tab tabList={FILTER_MODAL_TAB_ITEM_LIST} tabIndex={tabIndex} />
-          </CategoryFilterModal>
-        </FilterModalFrame>
-      </FormProvider>
-      <FormProvider {...sortingModalMethods}>
-        <SortingModalFrame canClose={false}>
-          <SortingModal
-            onSubmit={sortingModalMethods.handleSubmit(submitSortingValue)}
-            onCancel={cancelSortingModal}
-          />
-        </SortingModalFrame>
-      </FormProvider>
-    </Styles.Container>
+    <>
+      <Styles.StickyBox>
+        <Styles.GenreHeader>
+          <Styles.LeftIconWrapper onClick={goToBack}>
+            <ArrowRight size={28} />
+          </Styles.LeftIconWrapper>
+          <Styles.Title>{title}</Styles.Title>
+        </Styles.GenreHeader>
+        <Styles.FilterContainer>
+          <Styles.FilterWrapper>
+            <FilterChips chipValues={chipValues} clickChip={clickChip} closeChip={closeChip} />
+          </Styles.FilterWrapper>
+          <Styles.FilterIconWrapper onClick={filterModalOpen}>
+            <FilterIcon />
+          </Styles.FilterIconWrapper>
+        </Styles.FilterContainer>
+        <Styles.SubFilterWrapper>
+          <Styles.SortIconWrapper onClick={sortingModalOpen}>
+            <SortIcon size={24} />
+            {currentSorting}
+          </Styles.SortIconWrapper>
+        </Styles.SubFilterWrapper>
+      </Styles.StickyBox>
+      <Styles.Container>
+        <Styles.GenreContents>
+          <Styles.CardListWrapper>
+            <CardList
+              data={data?.pages.flat() ?? []}
+              loading={isFetchingNextPage || isLoading}
+              onClick={clickCard}
+            />
+          </Styles.CardListWrapper>
+          {/* desc : infinite query intersect ref*/}
+          <Styles.Trigger ref={setTarget} />
+        </Styles.GenreContents>
+        {/* desc : 모달 */}
+        {/* FIXME : 최초 isDirty true 변경 시 렌더링으로 스크롤 초기화 버그 */}
+        <FormProvider {...filterModalMethods}>
+          <FilterModalFrame canClose={false}>
+            <CategoryFilterModal
+              onCancel={cancelFilterModal}
+              onReset={resetFilter}
+              onSubmit={filterModalMethods.handleSubmit(submitFilterValue)}
+            >
+              <Tab tabList={FILTER_MODAL_TAB_ITEM_LIST} tabIndex={tabIndex} />
+            </CategoryFilterModal>
+          </FilterModalFrame>
+        </FormProvider>
+        <FormProvider {...sortingModalMethods}>
+          <SortingModalFrame canClose={false}>
+            <SortingModal
+              onSubmit={sortingModalMethods.handleSubmit(submitSortingValue)}
+              onCancel={cancelSortingModal}
+            />
+          </SortingModalFrame>
+        </FormProvider>
+      </Styles.Container>
+    </>
   );
 };
 

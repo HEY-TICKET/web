@@ -24,6 +24,7 @@ declare global {
     naver: any;
   }
 }
+
 const ShareModal = ({ close = nullFn, performance, place }: ShareModalProps) => {
   const toast = useCustomToast();
 
@@ -37,6 +38,14 @@ const ShareModal = ({ close = nullFn, performance, place }: ShareModalProps) => 
   };
 
   const sendKakaoMessage = () => {
+    if (!window.Kakao) return;
+
+    if (!window.Kakao.isInitialized()) {
+      if (!process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY) return;
+      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
+      console.log('Kakao.isInitialized() => ', window.Kakao.isInitialized());
+    }
+
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
