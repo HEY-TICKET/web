@@ -19,16 +19,18 @@ const FOOTER_ITEM_LIST: FooterItem[] = [
 const Footer = () => {
   const pathname = usePathname();
   console.log(pathname);
-  // FIXME: $active 상태 처리필요
 
   return (
     <Styles.Footer>
-      {FOOTER_ITEM_LIST.map(({ route, caption, Icon }) => (
-        <Styles.FooterIcon key={route} href={{ pathname: route }} $active={true}>
-          {Icon}
-          <span>{caption}</span>
-        </Styles.FooterIcon>
-      ))}
+      {FOOTER_ITEM_LIST.map(({ route, caption, Icon }) => {
+        const isActive = route === '/' ? pathname === route : pathname.startsWith(route);
+        return (
+          <Styles.FooterIcon key={route} href={{ pathname: route }} $active={isActive}>
+            {Icon}
+            <span>{caption}</span>
+          </Styles.FooterIcon>
+        );
+      })}
     </Styles.Footer>
   );
 };
