@@ -1,5 +1,4 @@
 export const MEDIA = {
-  pc: '@media screen and (max-width:1440px)',
-  tablet: '@media screen and (max-width:1279px)',
-  mobile: '@media screen and (max-width:767px)',
+  tablet: '@media screen and (min-width:768px)',
+  pc: '@media screen and (min-width:1280px)',
 } as const;

@@ -5,10 +5,9 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  // 모바일 기준
-  max-width: 640px;
   height: 100vh;
   margin: 0 auto;
+  width: 640px;
 `;
 
 export const Content = styled.div`
