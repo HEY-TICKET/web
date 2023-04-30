@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import styled from 'styled-components';
 
 import STYLES from 'styles/index';
@@ -13,7 +14,7 @@ export const GNBWrapper = styled.div`
   padding: 0 16px;
 `;
 
-export const Logo = styled.div`
+export const Logo = styled(Link)`
   font-style: normal;
   font-weight: 900;
   font-size: 24px;

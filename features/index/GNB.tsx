@@ -7,7 +7,7 @@ import { BellIcon, SearchIcon } from 'styles/icons';
 const GNB = () => {
   return (
     <Styles.GNBWrapper>
-      <Styles.Logo>HEY TICKET</Styles.Logo>
+      <Styles.Logo href={'/'}>HEY TICKET</Styles.Logo>
       <Styles.ContentsWrapper>
         <Link href={`${ROUTES.search}`}>
           <SearchIcon size={28} />

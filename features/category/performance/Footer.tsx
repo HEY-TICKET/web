@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import Button from 'components/common/Button/Button';
@@ -16,7 +16,8 @@ import STYLES from 'styles/index';
 import { handleOpenNewTab } from 'utils/url';
 
 const Footer = () => {
-  const id = useSearchParams().get('id') || '';
+  const params = useParams();
+  const { id } = params;
 
   const [saved, setSaved] = useState(false);
   const { Modal, open } = useModal();

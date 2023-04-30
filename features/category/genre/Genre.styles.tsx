@@ -103,5 +103,5 @@ export const CardListWrapper = styled.div`
 `;
 
 export const Trigger = styled.div`
-  height: 10px;
+  padding: 1px;
 `;

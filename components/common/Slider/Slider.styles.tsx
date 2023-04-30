@@ -1,13 +1,12 @@
 'use client';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import STYLES from 'styles/index';
 
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  overflow-x: auto;
   position: relative;
 `;
 
@@ -51,17 +50,25 @@ export const NextButton = styled.button`
   z-index: 1;
 `;
 
-export const ChildrenWrapper = styled.div<{
+export const ContentsWrapper = styled.div`
+  position: relative;
+  overflow: hidden;
+`;
+
+export const Contents = styled.ul<{
   $clientX: number;
-  $duration: string;
-  $sliderWidth: string;
+  $duration: number;
 }>`
   display: flex;
   column-gap: 16px;
   padding: 16px;
-  ${({ $sliderWidth, $clientX, $duration }) => css`
-    width: ${$sliderWidth};
-    transform: translateX(-${$clientX}px);
-    transition: all ${$duration} ease-in-out;
-  `}
+  transform: translateX(${({ $clientX }) => -$clientX}px);
+  transition-property: all;
+  transition-duration: ${({ $duration }) => $duration}ms;
+  transition-timing-function: ease-in-out;
+`;
+
+export const Item = styled.li`
+  position: relative;
+  display: inline-block;
 `;
