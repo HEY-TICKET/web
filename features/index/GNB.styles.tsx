@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import styled from 'styled-components';
 
 import STYLES from 'styles/index';
@@ -21,14 +20,6 @@ export const GNBWrapper = styled.div`
 
   background-color: ${STYLES.color.white};
   z-index: ${STYLES.zIndex.navigation};
-`;
-
-export const Logo = styled(Link)`
-  font-style: normal;
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 130%;
-  color: ${STYLES.color.gray800};
 `;
 
 export const ContentsWrapper = styled.div`

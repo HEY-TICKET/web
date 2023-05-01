@@ -12,7 +12,10 @@ const colorTheme = {
     color: ${STYLES.color.white};
 
     &:disabled {
-      background-color: ${STYLES.color.gray350};
+      background-color: ${STYLES.color.gray300};
+      &:hover {
+        background-color: ${STYLES.color.gray300};
+      }
     }
 
     &:hover {
