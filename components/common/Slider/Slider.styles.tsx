@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
 
 export const PrevButton = styled.button<{ $clickable: boolean }>`
   position: absolute;
-  top: 140px;
+  top: 50%;
   left: 0;
   display: flex;
   align-items: center;
@@ -37,7 +37,7 @@ export const PrevButton = styled.button<{ $clickable: boolean }>`
 `;
 export const NextButton = styled.button`
   position: absolute;
-  top: 140px;
+  top: 50%;
   right: 0;
   display: flex;
   align-items: center;

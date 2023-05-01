@@ -74,6 +74,12 @@ export const ContentsWrapper = styled.div`
   flex-direction: column;
 `;
 
+export const SimpleInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 72px;
+`;
+
 export const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;

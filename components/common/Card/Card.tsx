@@ -38,7 +38,7 @@ const Card = ({ data, loading, onClick, type = 'default', rank }: CardProps) => 
         {/*TODO : 이미지가 유효하지 않은 값이 오거나 없는 경우 default 이미지를 렌더링 시켜야 함*/}
         {isSrcValid && <Poster src={poster} width={148} alt={'poster'} rank={rank} />}
         <Styles.ContentsWrapper>
-          <Styles.InfoWrapper>
+          <Styles.SimpleInfoWrapper>
             <Styles.SimpleCardDescription>{place}</Styles.SimpleCardDescription>
             <Styles.CardTitle>{title}</Styles.CardTitle>
             <Styles.PerformanceDate $isRunning={isRunning}>
@@ -47,7 +47,7 @@ const Card = ({ data, loading, onClick, type = 'default', rank }: CardProps) => 
                 {isRunning ? `${endDate} 종료` : `${startDate} 시작`}
               </Styles.SimpleCardDescription>
             </Styles.PerformanceDate>
-          </Styles.InfoWrapper>
+          </Styles.SimpleInfoWrapper>
         </Styles.ContentsWrapper>
       </Styles.CardContainer>
     );
