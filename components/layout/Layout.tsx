@@ -11,9 +11,13 @@ type LayoutProps = HTMLAttributes<HTMLDivElement>;
 const Layout = ({ children }: LayoutProps) => {
   return (
     <Styles.Wrapper>
-      <GNB />
+      <Styles.Header>
+        <GNB />
+      </Styles.Header>
       <Styles.Body>{children}</Styles.Body>
-      <Footer />
+      <Styles.Footer>
+        <Footer />
+      </Styles.Footer>
     </Styles.Wrapper>
   );
 };

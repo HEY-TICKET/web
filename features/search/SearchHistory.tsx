@@ -25,14 +25,22 @@ const SearchHistory = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const clearSearches = () => {
-    localStorage.setItem(KEY, JSON.stringify([]));
-    setSearchesList([]);
+    try {
+      localStorage.setItem(KEY, JSON.stringify([]));
+      setSearchesList([]);
+    } catch (e) {
+      console.log('localstorage setItem error', e);
+    }
   };
 
   const deleteSearchKeyword = async (keyword: string) => {
-    const item = searchesList.filter((search) => search !== keyword);
-    localStorage.setItem(KEY, JSON.stringify(item));
-    setSearchesList(item);
+    try {
+      const item = searchesList.filter((search) => search !== keyword);
+      localStorage.setItem(KEY, JSON.stringify(item));
+      setSearchesList(item);
+    } catch (e) {
+      console.log('localstorage setItem error', e);
+    }
   };
 
   const { Popup, open: openPopup } = usePopup({
@@ -50,13 +58,17 @@ const SearchHistory = () => {
   };
 
   useEffect(() => {
-    if (isSubmitting) {
-      const value = getValues('search');
+    try {
+      if (isSubmitting) {
+        const value = getValues('search');
 
-      const item = [value, ...searchesList.filter((item) => item !== value)];
-      if (item.length > 10) item.pop();
-      localStorage.setItem(KEY, JSON.stringify(item));
-      setSearchesList(item);
+        const item = [value, ...searchesList.filter((item) => item !== value)];
+        if (item.length > 10) item.pop();
+        localStorage.setItem(KEY, JSON.stringify(item));
+        setSearchesList(item);
+      }
+    } catch (e) {
+      console.log('localstorage setItem error', e);
     }
   }, [getValues, isSubmitting, searchesList]);
 
@@ -64,8 +76,12 @@ const SearchHistory = () => {
    * desc : mount 될 때, localStorage 값 state 에 저장
    */
   useEffect(() => {
-    const searches = localStorage.getItem('searches');
-    if (searches && Array.isArray(JSON.parse(searches))) setSearchesList(JSON.parse(searches));
+    try {
+      const searches = localStorage.getItem('searches');
+      if (searches && Array.isArray(JSON.parse(searches))) setSearchesList(JSON.parse(searches));
+    } catch (e) {
+      console.log('localstorage getItem error', e);
+    }
   }, []);
 
   return (

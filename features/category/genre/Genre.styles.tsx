@@ -4,8 +4,7 @@ import STYLES from 'styles/index';
 
 export const Container = styled.div`
   position: relative;
-  max-width: 100%;
-  min-height: 100vh;
+  padding-bottom: calc(60px + 22px);
 `;
 
 export const StickyBox = styled.div`
@@ -102,6 +101,4 @@ export const CardListWrapper = styled.div`
   justify-content: center;
 `;
 
-export const Trigger = styled.div`
-  padding: 1px;
-`;
+export const Trigger = styled.div``;

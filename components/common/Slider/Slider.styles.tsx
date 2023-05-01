@@ -10,10 +10,10 @@ export const Wrapper = styled.div`
   position: relative;
 `;
 
-export const PrevButton = styled.button`
+export const PrevButton = styled.button<{ $clickable: boolean }>`
   position: absolute;
   top: 140px;
-  left: 20px;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,6 +25,10 @@ export const PrevButton = styled.button`
 
   border-radius: 50%;
   background-color: ${STYLES.color.white};
+
+  visibility: ${({ $clickable }) => ($clickable ? 'visible' : 'hidden')};
+  pointer-events: ${({ $clickable }) => ($clickable ? 'unset' : 'none')};
+
   & > svg {
     transform: rotate(-180deg);
   }
@@ -34,7 +38,7 @@ export const PrevButton = styled.button`
 export const NextButton = styled.button`
   position: absolute;
   top: 140px;
-  right: 20px;
+  right: 0;
   display: flex;
   align-items: center;
   justify-content: center;

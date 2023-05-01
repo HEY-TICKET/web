@@ -39,7 +39,7 @@ const CurateSection = ({ chips }: CurateSectionProps) => {
           <Chip key={index} text={caption} onClick={() => setGenre(value)} />
         ))}
       </Styles.ChipContainer>
-      <Slider>
+      <Slider viewedItemCount={3}>
         {data?.map((item, index) => {
           return (
             <Card

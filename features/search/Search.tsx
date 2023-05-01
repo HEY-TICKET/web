@@ -2,12 +2,10 @@
 
 import { useState } from 'react';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-import { PerformancesResponses } from 'apis/performance/type';
 import Input from 'components/Input/Input';
-import { DUMMY_PERFORMANCES } from 'constants/cardData';
 import { ROUTES } from 'constants/routes';
 import SortingModal, { SORTING_MODAL_DEFAULT_VALUES } from 'features/category/modal/SortingModal';
 import * as Styles from 'features/search/Search.styles';
@@ -15,6 +13,8 @@ import { FilterButton } from 'features/search/Search.styles';
 import SearchContents from 'features/search/SearchContents';
 import SearchHistory from 'features/search/SearchHistory';
 import useModal from 'hooks/useModal';
+import useOutsideClick from 'hooks/useOutsideClick';
+import { usePerformanceQuery } from 'reactQuery/performance';
 import { ArrowRight, SortIcon } from 'styles/icons';
 
 export type SearchFormValue = {
@@ -26,15 +26,25 @@ const FILTER_TAB_LIST = ['공연', '아티스트'] as const;
 
 const Search = () => {
   const { back, push } = useRouter();
+  const keyword = useSearchParams().get('keyword');
+
   const [currentTab, setCurrentTab] = useState<(typeof FILTER_TAB_LIST)[number]>(
     FILTER_TAB_LIST[0],
   );
   const [currentSorting, setCurrentSorting] = useState(SORTING_MODAL_DEFAULT_VALUES['sorting']);
   const [prevSortingValues, setPrevSortingValues] = useState<string | null>(null);
-  const [showSearchHistory, setShowSearchHistory] = useState(true);
+  const [isFocused, setIsFocused] = useState(!keyword);
 
-  // FIXME : api 작업 가능하게 되면 react-query로 data 관리
-  const [data, setData] = useState<PerformancesResponses[]>([]);
+  const ref = useOutsideClick<HTMLDivElement>({
+    outsideClick: () => {
+      setIsFocused(false);
+    },
+  });
+
+  // TODO : 실제 값 들어오면 keyword 처리
+  const { data, isLoading } = usePerformanceQuery({ page: 0, size: 10 }, { enabled: !!keyword });
+
+  console.log(data);
 
   const methods = useForm<SearchFormValue>({
     mode: 'onTouched',
@@ -57,14 +67,10 @@ const Search = () => {
   };
 
   const onValidSubmit: SubmitHandler<SearchFormValue> = ({ search, sorting }) => {
-    search && push(`${ROUTES.search}?keyword=${search}`);
-
-    setData(DUMMY_PERFORMANCES);
     setCurrentSorting(sorting);
-
-    // FIXME : 검색을 하거나, ESC를 누르거나(?) (KREAM은 취소 버튼이 있음)
-    setShowSearchHistory(false);
     sortingModalIsOpen && sortingModalClose();
+
+    search && push(`${ROUTES.search}?keyword=${search}`);
   };
 
   const cancelSortingModal = () => {
@@ -75,7 +81,7 @@ const Search = () => {
     <FormProvider {...methods}>
       <Styles.Form id={'search-input-form'} onSubmit={handleSubmit(onValidSubmit)}>
         <Styles.Container>
-          <Styles.StickyBox>
+          <Styles.StickyBox ref={ref}>
             <Styles.InputWrapper>
               <Styles.BackIconWrapper onClick={clickBackButton}>
                 <ArrowRight size={32} />
@@ -85,11 +91,13 @@ const Search = () => {
                 name={'search'}
                 placeholder={'공연명, 출연진, 아티스트 검색'}
                 hasIcon
+                autoFocus={!keyword}
                 autoBlur
-                onFocus={() => setShowSearchHistory(true)}
+                onFocus={() => setIsFocused(true)}
               />
             </Styles.InputWrapper>
-            {!showSearchHistory && (
+            {isFocused && <SearchHistory />}
+            {!!keyword && (
               <Styles.CategoryWrapper>
                 <Styles.FilterWrapper>
                   {FILTER_TAB_LIST.map((tab) => (
@@ -103,7 +111,7 @@ const Search = () => {
                   ))}
                 </Styles.FilterWrapper>
                 <Styles.SearchResultWrapper>
-                  {data.length && (
+                  {data?.length && (
                     <Styles.SearchResult>{`${getValues('search')} 검색 결과 ${
                       data.length
                     }`}</Styles.SearchResult>
@@ -116,7 +124,7 @@ const Search = () => {
               </Styles.CategoryWrapper>
             )}
           </Styles.StickyBox>
-          {showSearchHistory ? <SearchHistory /> : <SearchContents data={data} loading={false} />}
+          {!isLoading && <SearchContents data={data ?? []} loading={isLoading} />}
         </Styles.Container>
       </Styles.Form>
       <SortingModalFrame canClose={false}>
