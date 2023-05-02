@@ -38,12 +38,10 @@ const usePopup = ({
         <Container>
           <Title>{title}</Title>
           <ButtonWrapper>
-            <Button colorTheme={'lightGray'} width={119} height={38} onClick={cancel}>
+            <Button theme={'white'} onClick={cancel}>
               {cancelText}
             </Button>
-            <Button width={119} height={38} onClick={submit}>
-              {submitText}
-            </Button>
+            <Button onClick={submit}>{submitText}</Button>
           </ButtonWrapper>
         </Container>
       </>
@@ -80,6 +78,7 @@ const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 8px;
+  padding: 0 12px;
 
   height: 62px;
 `;

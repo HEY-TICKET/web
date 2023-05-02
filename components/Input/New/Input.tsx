@@ -1,17 +1,22 @@
 'use client';
 
-import { HTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
 
 import * as Styles from 'components/Input/New/Input.styles';
 
-interface NewInputProps<T extends FieldValues> extends HTMLAttributes<HTMLInputElement> {
+interface NewInputProps<T extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   name: Path<T>;
   labelText?: string;
 }
 
-const Input = <T extends FieldValues>({ labelText, name, ...restProps }: NewInputProps<T>) => {
+const Input = <T extends FieldValues>({
+  labelText,
+  name,
+  disabled,
+  ...restProps
+}: NewInputProps<T>) => {
   const methods = useFormContext<T>();
   const {
     register,
@@ -22,13 +27,15 @@ const Input = <T extends FieldValues>({ labelText, name, ...restProps }: NewInpu
 
   return (
     <Styles.Container>
-      <Styles.InputWrapper error={!!error}>
+      <Styles.InputWrapper error={!!error} disabled={!!disabled}>
         <Styles.Label>
           {labelText && <Styles.LabelText>{labelText}</Styles.LabelText>}
-          <input type="text" {...restProps} {...register(name)} />
+          <input type="text" disabled={disabled} {...restProps} {...register(name)} />
         </Styles.Label>
       </Styles.InputWrapper>
-      <Styles.ErrorMessage>{error?.message?.toString()}</Styles.ErrorMessage>
+      {!disabled && error && (
+        <Styles.ErrorMessage>{error?.message?.toString()}</Styles.ErrorMessage>
+      )}
     </Styles.Container>
   );
 };

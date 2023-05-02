@@ -42,7 +42,7 @@ export const SignInFormWrapper = styled.section`
 export const FormContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 8px;
 `;
 
 export const KakaoSignInFormWrapper = styled.section`
@@ -56,4 +56,8 @@ export const KakaoSignInFormWrapper = styled.section`
 export const FindAccountLink = styled.span`
   color: ${STYLES.color.gray500};
   text-decoration: underline;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
 `;

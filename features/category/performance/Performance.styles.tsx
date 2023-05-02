@@ -4,6 +4,10 @@ import styled from 'styled-components';
 
 import STYLES from 'styles/index';
 
+export const Container = styled.div`
+  padding-bottom: 60px;
+`;
+
 export const GenreHeader = styled.div`
   display: flex;
   position: relative;
