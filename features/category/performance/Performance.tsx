@@ -26,7 +26,7 @@ const Performance = ({ id, title }: { id: string; title: string }) => {
   if (!data || !placeData) return <></>; // FIXME: 404 페이지로 전환
 
   return (
-    <>
+    <Styles.Container>
       <Styles.GenreHeader>
         <Styles.LeftIconWrapper onClick={goToBack}>
           <ArrowRight size={28} />
@@ -45,7 +45,7 @@ const Performance = ({ id, title }: { id: string; title: string }) => {
       <Styles.FooterWrapper>
         <Footer />
       </Styles.FooterWrapper>
-    </>
+    </Styles.Container>
   );
 };
 

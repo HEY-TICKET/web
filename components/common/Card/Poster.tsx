@@ -24,6 +24,7 @@ export default Poster;
 
 const Wrapper = styled.div`
   position: relative;
+  aspect-ratio: 1 / 1.414;
   border-radius: 6px;
   overflow: hidden;
   cursor: pointer;

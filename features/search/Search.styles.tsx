@@ -11,6 +11,8 @@ export const Container = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  padding-bottom: calc(60px + 22px);
 `;
 export const StickyBox = styled.div`
   position: sticky;

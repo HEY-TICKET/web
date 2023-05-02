@@ -6,17 +6,23 @@ import styled, { css } from 'styled-components';
 import STYLES from 'styles/index';
 
 export const Footer = styled.footer`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
   display: flex;
   align-items: center;
   justify-content: space-around;
 
   flex: 0 0 auto;
 
-  width: 100%;
-  background-color: ${STYLES.color.white};
-
+  width: 640px;
   height: 60px;
+  margin: auto;
   border-top: 1px solid ${STYLES.color.gray200};
+  background-color: ${STYLES.color.white};
+  z-index: ${STYLES.zIndex.navigation};
 `;
 
 export const FooterIcon = styled(Link)<{ $active?: boolean }>`

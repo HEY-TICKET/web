@@ -10,20 +10,19 @@ interface Props extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
   children: ReactNode;
   skipSize?: number;
   duration?: number;
+  viewedItemCount: number;
 }
 
-const Slider = ({ children, skipSize = 1, duration = 500 }: Props) => {
+const Slider = ({ children, skipSize = 1, duration = 500, viewedItemCount }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [clientX, setClientX] = useState<number[]>([]);
-  const [numberOfItemsIncludes, setNumberOfItemsIncludes] = useState(0);
   const ref = useRef<HTMLUListElement>(null);
   const clickPrevButton = () => {
     if (currentIndex - skipSize >= 0) setCurrentIndex(currentIndex - skipSize);
   };
 
   const clickNextButton = () => {
-    console.log(numberOfItemsIncludes);
-    const isMax = currentIndex >= clientX.length - numberOfItemsIncludes;
+    const isMax = currentIndex >= clientX.length - viewedItemCount;
     if (isMax) setCurrentIndex(0);
     else setCurrentIndex(currentIndex + skipSize);
   };
@@ -35,11 +34,6 @@ const Slider = ({ children, skipSize = 1, duration = 500 }: Props) => {
         const xList = list.map((child) => child.getBoundingClientRect().x);
         setClientX(xList);
       }
-
-      const firstChildClientX = ref.current.children[0]?.getBoundingClientRect().x ?? 1;
-      const containerClientWidth = ref.current.getBoundingClientRect().width ?? 1;
-      const numberOfItemsIncludes = Math.floor(containerClientWidth / firstChildClientX);
-      setNumberOfItemsIncludes(numberOfItemsIncludes);
     }
   }, [children]);
 
@@ -47,7 +41,7 @@ const Slider = ({ children, skipSize = 1, duration = 500 }: Props) => {
 
   return (
     <Styles.Wrapper>
-      <Styles.PrevButton onClick={clickPrevButton}>
+      <Styles.PrevButton $clickable={currentIndex !== 0} onClick={clickPrevButton}>
         <ArrowRight size={20} />
       </Styles.PrevButton>
       <Styles.ContentsWrapper>

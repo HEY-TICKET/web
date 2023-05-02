@@ -76,6 +76,10 @@ const GlobalStyles = createGlobalStyle`
     -webkit-user-drag: none;
     -webkit-tap-highlight-color: transparent;
   }
+  
+  input{
+    outline: none;
+  }
 `;
 
 export default GlobalStyles;
