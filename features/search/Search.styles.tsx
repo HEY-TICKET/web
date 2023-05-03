@@ -28,6 +28,10 @@ export const Form = styled.form`
 `;
 
 export const InputWrapper = styled.div`
+  width: 100%;
+`;
+
+export const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;

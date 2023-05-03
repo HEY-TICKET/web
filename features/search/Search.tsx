@@ -82,18 +82,19 @@ const Search = () => {
       <Styles.Form id={'search-input-form'} onSubmit={handleSubmit(onValidSubmit)}>
         <Styles.Container>
           <Styles.StickyBox ref={ref}>
-            <Styles.InputWrapper>
+            <Styles.HeaderWrapper>
               <Styles.BackIconWrapper onClick={clickBackButton}>
                 <ArrowRight size={32} />
               </Styles.BackIconWrapper>
-
-              <Input<SearchFormValue>
-                name={'search'}
-                placeholder={'공연명, 출연진, 아티스트 검색'}
-                autoFocus={!keyword}
-                onFocus={() => setIsFocused(true)}
-              />
-            </Styles.InputWrapper>
+              <Styles.InputWrapper>
+                <Input<SearchFormValue>
+                  name={'search'}
+                  placeholder={'공연명, 출연진, 아티스트 검색'}
+                  autoFocus={!keyword}
+                  onFocus={() => setIsFocused(true)}
+                />
+              </Styles.InputWrapper>
+            </Styles.HeaderWrapper>
             {isFocused && <SearchHistory />}
             {!!keyword && (
               <Styles.CategoryWrapper>

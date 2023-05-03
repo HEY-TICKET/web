@@ -38,14 +38,6 @@ export const Label = styled.label`
   row-gap: 8px;
 
   height: 100%;
-
-  & > input {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 20px;
-    height: 24px;
-  }
 `;
 
 export const LabelText = styled.span`
@@ -62,4 +54,12 @@ export const ErrorMessage = styled.span`
   font-size: 12px;
   line-height: 14px;
   color: ${STYLES.color.red};
+`;
+
+export const Input = styled.input`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  height: 24px;
 `;

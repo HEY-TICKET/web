@@ -30,7 +30,7 @@ const SignInFormProvider = ({ children }: FormProviderProps) => {
   const onValidSubmit: SubmitHandler<SignInFormValues> = (data) => {
     console.log(data);
 
-    const isSignedEmail = false;
+    const isSignedEmail = true;
 
     if (isSignedEmail) {
       // 패스워드 입력 창
