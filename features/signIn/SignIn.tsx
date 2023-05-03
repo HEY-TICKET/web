@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 import { useFormContext } from 'react-hook-form';
-import { css } from 'styled-components';
+import { css, keyframes } from 'styled-components';
 
 import Button from 'components/common/Button/Button';
 import Logo from 'components/common/Logo/Logo';
@@ -65,6 +65,22 @@ const SignIn = () => {
 
 export default SignIn;
 
+const move = keyframes` /* 2. css코드를 씀. */
+0%{
+    transform: translateY(-74px);
+    height: 0;
+    z-index:-1;
+}
+90%{
+    z-index:-1;
+}
+100%{
+    transform: translateY(0);
+    height: 66px;
+    z-index: unset;
+}
+`;
+
 const HiddenInput = () => {
   const [name, setName] = useState<SignInVia | null>(null);
   const methods = useFormContext<SignInFormValues>();
@@ -90,6 +106,12 @@ const HiddenInput = () => {
   const inputType = name === 'password' ? 'password' : 'text';
 
   return (
-    <Input<SignInFormValues> type={inputType} autoFocus name={name} labelText={labelText[name]} />
+    <div
+      css={css`
+        animation: ${move} 500ms ease-in-out;
+      `}
+    >
+      <Input<SignInFormValues> type={inputType} autoFocus name={name} labelText={labelText[name]} />
+    </div>
   );
 };
