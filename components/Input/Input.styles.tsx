@@ -1,38 +1,65 @@
 'use client';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import STYLES from 'styles/index';
 
-export const InputWrapper = styled.div`
-  width: 100%;
+export const Container = styled.div`
   display: flex;
-  gap: 8px;
-  align-items: center;
+  flex-direction: column;
+`;
 
-  height: 44px;
-  border-radius: 8px;
-  padding: 12px;
+export const InputWrapper = styled.div<{ error: boolean; disabled: boolean }>`
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: 2px solid ${STYLES.color.gray400};
+  
+  
+  ${({ error, disabled }) =>
+    css`
+      &:focus-within {
+        border-color: ${error ? STYLES.color.red : STYLES.color.gray700};
+      }
+      border-color: ${disabled
+        ? STYLES.color.gray200
+        : error
+        ? STYLES.color.red
+        : STYLES.color.gray400};
 
-  background-color: ${STYLES.color.gray150};
-  & > svg {
-    width: 20px;
-    height: 20px;
-    ${STYLES.iconFilter.gray350};
+      background-color: ${disabled ? STYLES.color.gray150 : STYLES.color.white};
+    `}}
+`;
+
+export const Label = styled.label`
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+
+  height: 100%;
+
+  & > input {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    height: 24px;
   }
 `;
 
-export const Input = styled.input`
-  outline: none;
-
+export const LabelText = styled.span`
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 12px;
+  line-height: 14px;
+`;
 
-  width: 100%;
-  background-color: ${STYLES.color.gray150};
-  &::placeholder {
-    color: ${STYLES.color.gray350};
-  }
+export const ErrorMessage = styled.span`
+  margin-top: 6px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: ${STYLES.color.red};
 `;

@@ -90,9 +90,7 @@ const Search = () => {
               <Input<SearchFormValue>
                 name={'search'}
                 placeholder={'공연명, 출연진, 아티스트 검색'}
-                hasIcon
                 autoFocus={!keyword}
-                autoBlur
                 onFocus={() => setIsFocused(true)}
               />
             </Styles.InputWrapper>

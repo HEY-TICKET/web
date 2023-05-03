@@ -9,7 +9,7 @@ import { css, keyframes } from 'styled-components';
 import Button from 'components/common/Button/Button';
 import Logo from 'components/common/Logo/Logo';
 import ConnectForm from 'components/FormProvider/ConnectForm';
-import Input from 'components/Input/New/Input';
+import Input from 'components/Input/Input';
 import * as Styles from 'features/signIn/SignIn.styles';
 import SignInFormProvider, {
   SignInFormValues,
@@ -90,7 +90,6 @@ const HiddenInput = () => {
   } = methods;
 
   useEffect(() => {
-    console.log('isSubmitSuccessful', isSubmitSuccessful);
     if (isSubmitSuccessful) {
       setName(getValues('signInVia'));
     }
