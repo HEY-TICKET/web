@@ -42,7 +42,16 @@ export const SignInFormWrapper = styled.section`
 export const FormContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+export const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   row-gap: 8px;
+`;
+
+export const ButtonWrapper = styled.div`
+  margin-top: 12px;
 `;
 
 export const KakaoSignInFormWrapper = styled.section`

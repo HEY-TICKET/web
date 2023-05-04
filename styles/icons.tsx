@@ -319,3 +319,32 @@ export const BellIcon = ({ size = 28 }: IconProps) => (
     />
   </svg>
 );
+
+export const OpenedEyeIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M20 12C20 13.5 16.4183 18 12 18C7.58172 18 4 13.5 4 12C4 10.5 7.58172 6 12 6C16.4183 6 20 10.5 20 12Z"
+      stroke="#000000"
+      strokeWidth="1.5"
+    />
+    <circle cx="12" cy="12" r="3" stroke="#000000" strokeWidth="1.5" />
+  </svg>
+);
+
+export const ClosedEyeIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M16.1454 7.28875C18.4562 8.73735 20 11.0152 20 12C20 13.5 16.4183 18 12 18C10.5429 18 9.17669 17.5105 8 16.8007M5.40987 14.6084C4.52067 13.5799 4 12.5719 4 12C4 10.5 7.58172 6 12 6C12.2794 6 12.5555 6.018 12.8275 6.05209"
+      stroke="#000000"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M13.9168 9.69141C14.5786 10.2417 15 11.0713 15 11.9993C15 13.6562 13.6569 14.9993 12 14.9993C11.2316 14.9993 10.5308 14.7105 10 14.2354"
+      stroke="#000000"
+      strokeWidth="1.5"
+    />
+    <path d="M18.0762 5L6.05857 18.8665" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);

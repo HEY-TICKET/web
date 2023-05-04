@@ -4,12 +4,9 @@ import Link from 'next/link';
 import { css } from 'styled-components';
 
 import Button from 'components/common/Button/Button';
-import Logo from 'components/common/Logo/Logo';
-import ConnectForm from 'components/FormProvider/ConnectForm';
-import Input from 'components/Input/Input';
-import HiddenInput from 'features/signIn/Input/HiddenInput';
 import * as Styles from 'features/signIn/SignIn.styles';
-import SignInFormProvider, { SignInFormValues } from 'features/signIn/SignInFormProvider';
+import SignInFormContentsByStep from 'features/signIn/SignInFormContentsByStep';
+import SignInFormProvider from 'features/signIn/SignInFormProvider';
 import { ArrowRight } from 'styles/icons';
 import STYLES from 'styles/index';
 
@@ -20,24 +17,8 @@ const SignIn = () => {
         <ArrowRight size={28} />
       </Styles.Header>
       <Styles.SignInFormWrapper>
-        <Logo />
         <SignInFormProvider>
-          <ConnectForm<SignInFormValues>>
-            {({ formState: { isSubmitting, isValid } }) => (
-              <Styles.FormContentsWrapper>
-                <Input<SignInFormValues> autoFocus name={'email'} label={'이메일 주소'} />
-                <HiddenInput />
-                <Button
-                  css={css`
-                    margin-top: 12px;
-                  `}
-                  disabled={!isValid || isSubmitting}
-                >
-                  이메일로 계속하기
-                </Button>
-              </Styles.FormContentsWrapper>
-            )}
-          </ConnectForm>
+          <SignInFormContentsByStep />
         </SignInFormProvider>
       </Styles.SignInFormWrapper>
       <Styles.KakaoSignInFormWrapper>

@@ -12,6 +12,7 @@ const useCountDown = (autoPlay?: boolean, initTimeSecond?: number) => {
       setTime((time) => {
         if (time === 0) {
           clearInterval(timer);
+          setIsPlaying(false);
           return 0;
         } else return time - 1;
       });
@@ -24,7 +25,10 @@ const useCountDown = (autoPlay?: boolean, initTimeSecond?: number) => {
 
   const play = () => setIsPlaying(true);
   const pause = () => setIsPlaying(false);
-  const reset = () => setTime(initTimeSecond ?? 300);
+  const reset = () => {
+    setTime(initTimeSecond ?? 300);
+    setIsPlaying(true);
+  };
 
   const minute = Math.floor(time / 60)
     .toString()
