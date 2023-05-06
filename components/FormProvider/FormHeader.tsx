@@ -19,7 +19,6 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   row-gap: 4px;
-  margin-bottom: 38px;
 `;
 
 const Title = styled.span`

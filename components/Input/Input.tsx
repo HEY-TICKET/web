@@ -22,7 +22,7 @@ const Input = <T extends FieldValues>({ label, name, disabled, ...restProps }: I
     >
       <InputComponents<T> name={name} disabled={disabled}>
         <InputComponents.Label text={label}>
-          <InputComponents.Input<T> name={name} {...restProps} />
+          <InputComponents.Input<T> name={name} disabled={disabled} {...restProps} />
         </InputComponents.Label>
       </InputComponents>
       <InputComponents.ErrorMessage<T> name={name} disabled={disabled} />

@@ -12,16 +12,18 @@ import STYLES from 'styles/index';
 interface AuthenticationNumberInputProps<T extends FieldValues>
   extends InputHTMLAttributes<HTMLInputElement> {
   name: Path<T>;
-  initializeAuthenticationNumber: () => void;
+  initTimeSecond?: number;
+  onTimeOver?: () => void;
 }
 
 const AuthenticationNumberInput = <T extends FieldValues>({
   name,
   disabled,
-  initializeAuthenticationNumber,
+  onTimeOver,
+  initTimeSecond = 15,
   ...restProps
 }: AuthenticationNumberInputProps<T>) => {
-  const { leftTime, play, reset, timeOver } = useCountDown(false, 15);
+  const { leftTime, play, reset, timeOver } = useCountDown(false, initTimeSecond);
 
   const reReceiveCode = () => {
     reset();
@@ -33,16 +35,16 @@ const AuthenticationNumberInput = <T extends FieldValues>({
 
   useEffect(() => {
     if (timeOver) {
-      initializeAuthenticationNumber();
+      onTimeOver?.();
     }
-  }, [initializeAuthenticationNumber, timeOver]);
+  }, [onTimeOver, timeOver]);
 
   return (
     <Wrapper>
       <InputComponents<T> name={name} disabled={disabled}>
         <InputComponents.Label text={'인증코드 입력'}>
           <Contents>
-            <InputComponents.Input<T> {...restProps} autoFocus name={name} />
+            <InputComponents.Input<T> {...restProps} name={name} />
             <Timer>유효시간 {leftTime}</Timer>
           </Contents>
         </InputComponents.Label>
@@ -57,22 +59,6 @@ const AuthenticationNumberInput = <T extends FieldValues>({
 };
 
 export default AuthenticationNumberInput;
-
-// const AuthenticationNumberWrapperMove = keyframes` /* 2. css코드를 씀. */
-// 0%{
-//     transform: translateY(-74px);
-//     height: 0;
-//     z-index:-1;
-// }
-// 90%{
-//     z-index:-1;
-// }
-// 100%{
-//     transform: translateY(0);
-//     height: 80px;
-//     z-index: unset;
-// }
-// `;
 
 const Wrapper = styled.div`
   display: flex;

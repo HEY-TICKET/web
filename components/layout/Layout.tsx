@@ -20,12 +20,12 @@ const Layout = ({ children }: LayoutProps) => {
       return !!params.genre;
     }
 
-    return pathname.startsWith('/search') || pathname.startsWith('/signIn');
+    return pathname.startsWith('/search') || pathname.startsWith('/auth');
   };
 
   // FIXME: exclude path return 함수 리팩토링 필요.
   const isFooterExcludePath = () => {
-    return pathname.startsWith('/signIn');
+    return pathname.startsWith('/auth');
   };
 
   return (

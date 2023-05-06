@@ -31,9 +31,9 @@ const PasswordInput = <T extends FieldValues>({
       <InputComponents<T> name={name} disabled={disabled}>
         <InputComponents.Label text={'비밀번호'}>
           <Contents>
-            <InputComponents.Input<T> {...restProps} type={inputType} autoFocus name={name} />
+            <InputComponents.Input<T> {...restProps} type={inputType} name={name} />
             <IconButton type={'button'} onClick={toggleInputType}>
-              {inputTypeIsPassword ? <ClosedEyeIcon /> : <OpenedEyeIcon />}
+              {inputTypeIsPassword ? <OpenedEyeIcon /> : <ClosedEyeIcon />}
             </IconButton>
           </Contents>
         </InputComponents.Label>
@@ -44,22 +44,6 @@ const PasswordInput = <T extends FieldValues>({
 };
 
 export default PasswordInput;
-
-// const passwordMove = keyframes` /* 2. css코드를 씀. */
-// 0%{
-//     transform: translateY(-74px);
-//     height: 0;
-//     z-index:-1;
-// }
-// 90%{
-//     z-index:-1;
-// }
-// 100%{
-//     transform: translateY(0);
-//     height: 66px;
-//     z-index: unset;
-// }
-// `;
 
 const Wrapper = styled.div`
   display: flex;
