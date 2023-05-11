@@ -7,7 +7,7 @@ import useModal from 'hooks/useModal';
 import STYLES from 'styles/index';
 
 type Props = {
-  title: string;
+  title: string | JSX.Element;
   onCancel?: () => void;
   onSubmit?: () => void;
   cancelText?: string;
@@ -63,6 +63,8 @@ const Title = styled.h3`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  text-align: center;
 
   padding: 20px 16px;
 
