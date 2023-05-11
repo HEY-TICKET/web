@@ -2,7 +2,7 @@
 
 import { HTMLAttributes } from 'react';
 
-import { useParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import Footer from 'components/layout/Footer/Footer';
 import * as Styles from 'components/layout/RootLayout.styles';
@@ -10,22 +10,20 @@ import GNB from 'features/index/GNB';
 
 type LayoutProps = HTMLAttributes<HTMLDivElement>;
 
+const HEADER_EXCLUDE_PATH = ['/category/', '/search', '/auth', '/my/interest'];
+const FOOTER_EXCLUDE_PATH = ['/auth', '/my/interest'];
+
 const Layout = ({ children }: LayoutProps) => {
   const pathname = usePathname();
-  const params = useParams();
 
   // FIXME: exclude path return 함수 리팩토링 필요.
   const isHeaderExcludePath = () => {
-    if (pathname.startsWith('/category')) {
-      return !!params.genre;
-    }
-
-    return pathname.startsWith('/search') || pathname.startsWith('/auth');
+    return HEADER_EXCLUDE_PATH.some((path) => path === pathname);
   };
 
   // FIXME: exclude path return 함수 리팩토링 필요.
   const isFooterExcludePath = () => {
-    return pathname.startsWith('/auth');
+    return FOOTER_EXCLUDE_PATH.some((path) => path === pathname);
   };
 
   return (
