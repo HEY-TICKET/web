@@ -18,12 +18,12 @@ const Layout = ({ children }: LayoutProps) => {
 
   // FIXME: exclude path return 함수 리팩토링 필요.
   const isHeaderExcludePath = () => {
-    return HEADER_EXCLUDE_PATH.some((path) => path === pathname);
+    return HEADER_EXCLUDE_PATH.some((path) => pathname.startsWith(path));
   };
 
   // FIXME: exclude path return 함수 리팩토링 필요.
   const isFooterExcludePath = () => {
-    return FOOTER_EXCLUDE_PATH.some((path) => path === pathname);
+    return FOOTER_EXCLUDE_PATH.some((path) => pathname.startsWith(path));
   };
 
   return (
