@@ -11,11 +11,13 @@ import STYLES from 'styles/index';
 
 interface PasswordInputProps<T extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   name: Path<T>;
+  message?: string;
 }
 
 const PasswordInput = <T extends FieldValues>({
   name,
   disabled,
+  message,
   ...restProps
 }: PasswordInputProps<T>) => {
   const [inputType, setInputType] = useState<'text' | 'password'>('password');
@@ -38,7 +40,7 @@ const PasswordInput = <T extends FieldValues>({
           </Contents>
         </InputComponents.Label>
       </InputComponents>
-      <InputComponents.ErrorMessage<T> name={name} disabled={disabled} />
+      <InputComponents.ErrorMessage<T> name={name} disabled={disabled} message={message} />
     </Wrapper>
   );
 };

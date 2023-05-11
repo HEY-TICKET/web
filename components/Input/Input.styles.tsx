@@ -47,12 +47,15 @@ export const LabelText = styled.span`
   line-height: 14px;
 `;
 
-export const ErrorMessage = styled.span`
+export const DefaultMessage = styled.span`
   margin-top: 6px;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;
+  color: ${STYLES.color.gray500};
+`;
+export const ErrorMessage = styled(DefaultMessage)`
   color: ${STYLES.color.red};
 `;
 

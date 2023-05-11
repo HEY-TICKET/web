@@ -35,7 +35,12 @@ const EmailLogin = () => {
                 <>
                   <InputContainer>
                     <Input<EmailLoginFormValue> name={'email'} label={'이메일 주소'} disabled />
-                    <PasswordInput<EmailLoginFormValue> name={'password'} autoFocus />
+                    <PasswordInput<EmailLoginFormValue>
+                      name={'password'}
+                      placeholder={'비밀번호 입력'}
+                      message={'영문 대문자, 소문자, 숫자 포함 8자 이상'}
+                      autoFocus
+                    />
                   </InputContainer>
                   <Button disabled={!isValid || isSubmitting}>로그인</Button>
                 </>

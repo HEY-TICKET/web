@@ -18,6 +18,7 @@ export type MobileAuthenticationFormValue = {
 const MobileAuthenticationFormProvider = ({ children }: FormProviderProps) => {
   const { push } = useRouter();
   const email = useSearchParams().get('email') ?? '';
+  const find = useSearchParams().get('find');
 
   const methods = useForm<MobileAuthenticationFormValue>({
     mode: 'onTouched',
@@ -36,7 +37,11 @@ const MobileAuthenticationFormProvider = ({ children }: FormProviderProps) => {
     const isValidAuthenticationNumber = true;
 
     if (isValidAuthenticationNumber) {
-      push(`/auth/write-password`);
+      if (find) {
+        push(`/auth/write-password?find=true`);
+      } else {
+        push(`/auth/write-password`);
+      }
     } else {
       setError('authenticationNumber', {
         message: '인증코드가 일치하지 않아요. 다시 입력해 주세요.',

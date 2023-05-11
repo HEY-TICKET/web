@@ -50,8 +50,11 @@ const FindPassword = () => {
             </ConnectForm>
           </FindPasswordFormProvider>
           <RegisterWrapper>
-            <FindPasswordDescription>이메일 주소가 기억나지 않으신가요?</FindPasswordDescription>
-            <FindPasswordLink href={'/auth/find-password'}>비밀번호 찾기</FindPasswordLink>
+            <FindPasswordDescription>
+              이메일 주소가 기억나지 않으시면
+              <br />
+              <FindPasswordLink href={'/auth/login'}>다시 가입</FindPasswordLink>해 주세요.
+            </FindPasswordDescription>
           </RegisterWrapper>
         </FindPasswordFormWrapper>
       </Wrapper>
@@ -96,6 +99,7 @@ const RegisterWrapper = styled.section`
 
 const FindPasswordDescription = styled.span`
   color: ${STYLES.color.gray500};
+  text-align: center;
 
   font-style: normal;
   font-weight: 500;

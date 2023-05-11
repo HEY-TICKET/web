@@ -3,6 +3,7 @@
 import { HTMLAttributes } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useSearchParams } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as yup from 'yup';
@@ -14,6 +15,8 @@ export type WritePasswordFormValue = {
 };
 
 const WritePasswordFormProvider = ({ children }: FormProviderProps) => {
+  const find = useSearchParams().get('find');
+
   const methods = useForm<WritePasswordFormValue>({
     mode: 'onTouched',
     defaultValues: {
@@ -22,10 +25,19 @@ const WritePasswordFormProvider = ({ children }: FormProviderProps) => {
     resolver: yupResolver(schema),
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, setError } = methods;
 
   const onValidSubmit: SubmitHandler<WritePasswordFormValue> = (data) => {
     console.log(data);
+    const isUsedPassword = true;
+
+    if (find) {
+      if (isUsedPassword) {
+        setError('password', { message: '이전에 사용하던 비밀번호는 사용할 수 없습니다' });
+      }
+    } else {
+      //
+    }
   };
 
   return (
