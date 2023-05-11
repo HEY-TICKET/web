@@ -49,14 +49,12 @@ const EmailLogin = () => {
             theme={'none'}
             css={css`
               color: ${STYLES.color.gray800};
-              background-color: #ffe141;
+              background-color: ${STYLES.color.kakaoYellow};
             `}
           >
             카카오로 계속하기
           </Button>
-          <Link href={'/auth/find-account'}>
-            <FindAccountLink>계정찾기</FindAccountLink>
-          </Link>
+          <FindPasswordLink href={'/auth/find-password'}>비밀번호 찾기</FindPasswordLink>
         </KakaoLoginFormWrapper>
       </Wrapper>
     </>
@@ -98,9 +96,9 @@ const KakaoLoginFormWrapper = styled.section`
   width: 328px;
 `;
 
-const FindAccountLink = styled.span`
-  color: ${STYLES.color.gray500};
-  text-decoration: underline;
+const FindPasswordLink = styled(Link)`
+  color: ${STYLES.color.gray500} !important;
+  text-decoration: underline !important;
 
   font-style: normal;
   font-weight: 500;

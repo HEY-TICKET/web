@@ -25,11 +25,11 @@ const MobileAuthentication = () => {
         </button>
       </Styles.Header>
       <Wrapper>
-        <EmailLoginFormWrapper>
+        <MobileAuthenticationFormWrapper>
           <FormHeader>
             <FormHeader.Title>인증 메일이 발송되었어요</FormHeader.Title>
             <FormHeader.Description>
-              입력하신 이메일 주소로 인증 코드가 발송되었어요. <br /> 인증 코드를 입력해 주세요.
+              입력한 이메일 주소로 인증 코드가 발송되었어요. <br /> 인증 코드를 입력해 주세요.
             </FormHeader.Description>
           </FormHeader>
           <MobileAuthenticationFormProvider>
@@ -53,7 +53,7 @@ const MobileAuthentication = () => {
               )}
             </ConnectForm>
           </MobileAuthenticationFormProvider>
-        </EmailLoginFormWrapper>
+        </MobileAuthenticationFormWrapper>
       </Wrapper>
     </>
   );
@@ -70,7 +70,7 @@ const Wrapper = styled.div`
   justify-content: center;
   padding-top: 56px;
 `;
-const EmailLoginFormWrapper = styled.div`
+const MobileAuthenticationFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -29,4 +29,6 @@ export const COLOR = {
 
   blue25: '#E8F8FF',
   blue50: '#2C70F2',
+
+  kakaoYellow: '#ffe141',
 };

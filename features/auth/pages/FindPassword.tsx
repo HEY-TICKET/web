@@ -2,18 +2,20 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import Button from 'components/common/Button/Button';
-import Logo from 'components/common/Logo/Logo';
 import ConnectForm from 'components/FormProvider/ConnectForm';
+import FormHeader from 'components/FormProvider/FormHeader';
 import Input from 'components/Input/Input';
 import * as Styles from 'features/auth/auth.styles';
-import LoginFormProvider, { LoginFormValue } from 'features/auth/FormProvider/LoginFormProvider';
+import FindPasswordFormProvider, {
+  FindPasswordFormValue,
+} from 'features/auth/FormProvider/FindPasswordFormProvider';
 import { ArrowRight } from 'styles/icons';
 import STYLES from 'styles/index';
 
-const Login = () => {
+const FindPassword = () => {
   const { back } = useRouter();
 
   return (
@@ -24,45 +26,40 @@ const Login = () => {
         </button>
       </Styles.Header>
       <Wrapper>
-        <EmailLoginFormWrapper>
-          <Logo />
-          <LoginFormProvider>
-            <ConnectForm<LoginFormValue>>
+        <FindPasswordFormWrapper>
+          <FormHeader>
+            <FormHeader.Title>비밀번호 찾기</FormHeader.Title>
+            <FormHeader.Description>
+              입력한 이메일로 비밀번호 재설정 링크를 전송해 드릴게요.
+            </FormHeader.Description>
+          </FormHeader>
+          <FindPasswordFormProvider>
+            <ConnectForm<FindPasswordFormValue>>
               {({ formState: { isValid, isSubmitting } }) => (
                 <>
                   <InputContainer>
-                    <Input<LoginFormValue>
+                    <Input<FindPasswordFormValue>
                       name={'email'}
                       label={'이메일 주소'}
                       placeholder={'abcd@heyticket.co.kr'}
-                      autoFocus
                     />
                   </InputContainer>
-                  <Button disabled={!isValid || isSubmitting}>이메일로 계속하기</Button>
+                  <Button disabled={!isValid || isSubmitting}>다음</Button>
                 </>
               )}
             </ConnectForm>
-          </LoginFormProvider>
-        </EmailLoginFormWrapper>
-        <KakaoLoginFormWrapper>
-          <Button
-            type={'button'}
-            theme={'none'}
-            css={css`
-              color: ${STYLES.color.gray800};
-              background-color: ${STYLES.color.kakaoYellow};
-            `}
-          >
-            카카오로 계속하기
-          </Button>
-          <FindPasswordLink href={'/auth/find-password'}>비밀번호 찾기</FindPasswordLink>
-        </KakaoLoginFormWrapper>
+          </FindPasswordFormProvider>
+          <RegisterWrapper>
+            <FindPasswordDescription>이메일 주소가 기억나지 않으신가요?</FindPasswordDescription>
+            <FindPasswordLink href={'/auth/find-password'}>비밀번호 찾기</FindPasswordLink>
+          </RegisterWrapper>
+        </FindPasswordFormWrapper>
       </Wrapper>
     </>
   );
 };
 
-export default Login;
+export default FindPassword;
 
 const Wrapper = styled.div`
   display: flex;
@@ -73,7 +70,7 @@ const Wrapper = styled.div`
   justify-content: center;
   padding-top: 56px;
 `;
-const EmailLoginFormWrapper = styled.div`
+const FindPasswordFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,14 +81,25 @@ const EmailLoginFormWrapper = styled.div`
   padding-top: 220px;
 `;
 const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
   margin-bottom: 20px;
 `;
-const KakaoLoginFormWrapper = styled.section`
+const RegisterWrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 18px;
+  row-gap: 2px;
   width: 328px;
+`;
+
+const FindPasswordDescription = styled.span`
+  color: ${STYLES.color.gray500};
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
 `;
 
 const FindPasswordLink = styled(Link)`

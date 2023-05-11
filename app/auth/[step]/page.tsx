@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import EmailLogin from 'features/auth/pages/EmailLogin';
+import FindPassword from 'features/auth/pages/FindPassword';
 import Login from 'features/auth/pages/Login';
 import MobileAuthentication from 'features/auth/pages/MobileAuthentication';
 import WritePassword from 'features/auth/pages/WritePassword';
@@ -11,13 +12,20 @@ interface PageProps {
 
 // type Step = 'login' | 'email-login' | 'mobile-authentication' | 'write-email';
 
-const STEP = ['login', 'email-login', 'mobile-authentication', 'write-password'] as const;
+const STEP = [
+  'login',
+  'email-login',
+  'mobile-authentication',
+  'write-password',
+  'find-password',
+] as const;
 
 const PAGE_BY_STEP: { [K in (typeof STEP)[number]]: () => JSX.Element } = {
   login: Login,
   'email-login': EmailLogin,
   'mobile-authentication': MobileAuthentication,
   'write-password': WritePassword,
+  'find-password': FindPassword,
 };
 
 const Page = ({ params }: PageProps) => {

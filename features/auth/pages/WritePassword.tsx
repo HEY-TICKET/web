@@ -14,7 +14,7 @@ import PasswordInput from 'features/auth/Input/PasswordInput';
 import usePopup from 'hooks/usePopup';
 import { ArrowRight } from 'styles/icons';
 
-const MobileAuthentication = () => {
+const WritePassword = () => {
   const { back } = useRouter();
 
   const { Popup, open: openPopup } = usePopup({
@@ -36,7 +36,7 @@ const MobileAuthentication = () => {
         </button>
       </Styles.Header>
       <Wrapper>
-        <EmailLoginFormWrapper>
+        <WritePasswordFormWrapper>
           <FormHeader.Title>비밀번호를 입력해 주세요</FormHeader.Title>
           <WritePasswordFormProvider>
             <ConnectForm<WritePasswordFormValue>>
@@ -50,14 +50,14 @@ const MobileAuthentication = () => {
               )}
             </ConnectForm>
           </WritePasswordFormProvider>
-        </EmailLoginFormWrapper>
+        </WritePasswordFormWrapper>
       </Wrapper>
       <Popup />
     </>
   );
 };
 
-export default MobileAuthentication;
+export default WritePassword;
 
 const Wrapper = styled.div`
   display: flex;
@@ -69,7 +69,7 @@ const Wrapper = styled.div`
   padding-top: 56px;
 `;
 
-const EmailLoginFormWrapper = styled.div`
+const WritePasswordFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

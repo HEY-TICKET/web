@@ -62,4 +62,12 @@ export const Input = styled.input`
   font-size: 14px;
   line-height: 20px;
   height: 24px;
+
+  &::placeholder {
+    color: ${STYLES.color.gray300};
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+  }
 `;
