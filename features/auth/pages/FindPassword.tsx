@@ -5,14 +5,13 @@ import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
 import Button from 'components/common/Button/Button';
+import TopBar from 'components/common/Nav/TopBar';
 import ConnectForm from 'components/FormProvider/ConnectForm';
 import FormHeader from 'components/FormProvider/FormHeader';
 import Input from 'components/Input/Input';
-import * as Styles from 'features/auth/auth.styles';
 import FindPasswordFormProvider, {
   FindPasswordFormValue,
 } from 'features/auth/FormProvider/FindPasswordFormProvider';
-import { ArrowRight } from 'styles/icons';
 import STYLES from 'styles/index';
 
 const FindPassword = () => {
@@ -20,11 +19,8 @@ const FindPassword = () => {
 
   return (
     <>
-      <Styles.Header>
-        <button onClick={back}>
-          <ArrowRight size={28} />
-        </button>
-      </Styles.Header>
+      <TopBar leftProps={<TopBar.BackButton onClick={back} />} />
+
       <Wrapper>
         <FindPasswordFormWrapper>
           <FormHeader>

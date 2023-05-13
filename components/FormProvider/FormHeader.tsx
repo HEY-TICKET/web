@@ -8,8 +8,8 @@ import STYLES from 'styles/index';
 
 type FormHeaderProps = HTMLAttributes<HTMLElement>;
 
-const FormHeader = ({ children }: FormHeaderProps) => {
-  return <Wrapper>{children}</Wrapper>;
+const FormHeader = ({ children, ...restProps }: FormHeaderProps) => {
+  return <Wrapper {...restProps}>{children}</Wrapper>;
 };
 
 export default FormHeader;

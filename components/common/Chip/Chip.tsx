@@ -7,14 +7,14 @@ import * as Styles from './Chip.styles';
 export interface ChipProps extends HTMLAttributes<HTMLDivElement> {
   text: string;
   active?: boolean;
-  onClose?: () => void;
+  onClose?: (e: MouseEvent<HTMLDivElement>) => void;
   closable?: boolean;
 }
 
 const Chip = ({ text, active = false, onClose, closable, ...restProps }: ChipProps) => {
   const handleClose = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    onClose?.();
+    onClose?.(e);
   };
 
   return (

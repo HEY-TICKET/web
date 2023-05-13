@@ -1,66 +1,66 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styled, { css } from 'styled-components';
 
-import Button from 'components/common/Button/Button';
-import ConnectForm from 'components/FormProvider/ConnectForm';
+import TopBar from 'components/common/Nav/TopBar';
 import FormHeader from 'components/FormProvider/FormHeader';
-import { GENRE } from 'constants/perform/genre';
-import { REGION } from 'constants/perform/region';
-import ChipSelectBox from 'features/my/interest/ChipSelectBox';
 import InterestFormProvider, {
-  InterestFormValue,
+  InterestType,
 } from 'features/my/interest/FormProvider/InterestFormProvider';
-import * as Styles from 'features/my/interest/Interest.styles';
-import { ArrowRight } from 'styles/icons';
+import InterestsCategory from 'features/my/interest/FormsByType/InterestsCategory';
+import InterestsKeyword from 'features/my/interest/FormsByType/InterestsKeyword';
+
+const HEADER_TEXT_BY_TYPE: { [K in InterestType]: { title: string; description: string } } = {
+  category: {
+    title: '관심 카테고리 선택',
+    description: '선택한 카테고리 기준으로 공연을 추천해 드려요.',
+  },
+  keyword: {
+    title: '관심 키워드 등록',
+    description: '입력한 키워드의 공연이 열리면 바로 알려드려요.',
+  },
+};
 
 const Interest = () => {
   const { back } = useRouter();
+  const type = useSearchParams().get('type') as InterestType;
+
+  const FORM_BY_TYPE: { [K in InterestType]: () => JSX.Element } = {
+    category: InterestsCategory,
+    keyword: InterestsKeyword,
+  };
+
+  const renderHeader = () => {
+    const text = HEADER_TEXT_BY_TYPE[type];
+    if (!text) return <></>;
+    return (
+      <>
+        <FormHeader.Title>{text.title}</FormHeader.Title>
+        <FormHeader.Description>{text.description}</FormHeader.Description>
+      </>
+    );
+  };
+
+  const renderForms = () => {
+    const Component = FORM_BY_TYPE[type];
+    if (!Component) return <></>;
+    return <Component />;
+  };
 
   return (
     <>
-      <Styles.Header>
-        <button onClick={back}>
-          <ArrowRight size={28} />
-        </button>
-      </Styles.Header>
+      <TopBar leftProps={<TopBar.BackButton onClick={back} />} />
       <Wrapper>
         <InterestFormWrapper>
-          <FormHeader>
-            <FormHeader.Title>관심 카테고리 선택</FormHeader.Title>
-            <FormHeader.Description>
-              선택한 카테고리 기준으로 공연을 추천해 드려요.
-            </FormHeader.Description>
+          <FormHeader
+            css={css`
+              padding-bottom: 40px;
+            `}
+          >
+            {renderHeader()}
           </FormHeader>
-          <InterestFormProvider>
-            <ConnectForm<InterestFormValue>>
-              {({ formState: { isValid, isSubmitting } }) => (
-                <>
-                  <ChipSelectBox<InterestFormValue>
-                    name={'region'}
-                    title={'지역'}
-                    description={'복수 선택 가능해요'}
-                    list={Object.values(REGION)}
-                    css={css`
-                      padding-top: 40px;
-                    `}
-                  />
-
-                  <ChipSelectBox<InterestFormValue>
-                    name={'genre'}
-                    title={'공연 장르'}
-                    description={'복수 선택 가능해요'}
-                    list={Object.values(GENRE)}
-                    css={css`
-                      padding: 28px 0 60px;
-                    `}
-                  />
-                  <Button disabled={!isValid || isSubmitting}>다음</Button>
-                </>
-              )}
-            </ConnectForm>
-          </InterestFormProvider>
+          <InterestFormProvider>{renderForms()}</InterestFormProvider>
         </InterestFormWrapper>
       </Wrapper>
     </>
@@ -75,7 +75,6 @@ const Wrapper = styled.div`
 
   align-items: center;
   justify-content: center;
-  padding-top: 56px;
 `;
 
 const InterestFormWrapper = styled.div`

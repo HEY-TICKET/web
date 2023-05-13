@@ -3,7 +3,7 @@
 import { HTMLAttributes } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-// import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as yup from 'yup';
@@ -13,16 +13,21 @@ type FormProviderProps = HTMLAttributes<HTMLElement>;
 export type InterestFormValue = {
   region: string[];
   genre: string[];
+  keyword: string[];
 };
 
+export type InterestType = 'category' | 'keyword';
+
 const InterestFormProvider = ({ children }: FormProviderProps) => {
-  // const { push } = useRouter();
+  const { push } = useRouter();
+  const type = useSearchParams().get('type') as InterestType;
 
   const methods = useForm<InterestFormValue>({
     mode: 'onTouched',
     defaultValues: {
       region: [],
       genre: [],
+      keyword: [],
     },
     resolver: yupResolver(schema),
   });
@@ -31,6 +36,14 @@ const InterestFormProvider = ({ children }: FormProviderProps) => {
 
   const onValidSubmit: SubmitHandler<InterestFormValue> = (data) => {
     console.log(data);
+
+    if (type === 'category') {
+      push('/my/interest?type=keyword');
+    } else {
+      // TODO: api 통신 시 빈 값 제거, 자동 로그인? 혹은 로그인 화면으로? ??
+      console.log(data);
+      push('/');
+    }
   };
 
   return (

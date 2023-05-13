@@ -4,19 +4,18 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import Button from 'components/common/Button/Button';
+import TopBar from 'components/common/Nav/TopBar';
 import ConnectForm from 'components/FormProvider/ConnectForm';
 import FormHeader from 'components/FormProvider/FormHeader';
-import * as Styles from 'features/auth/auth.styles';
 import WritePasswordFormProvider, {
   WritePasswordFormValue,
 } from 'features/auth/FormProvider/WritePasswordFormProvider';
 import PasswordInput from 'features/auth/Input/PasswordInput';
 import usePopup from 'hooks/usePopup';
-import { ArrowRight } from 'styles/icons';
 
 const WritePassword = () => {
   const find = useSearchParams().get('find');
-  const { back } = useRouter();
+  const { replace } = useRouter();
 
   const { Popup, open: openPopup } = usePopup({
     title: (
@@ -26,16 +25,12 @@ const WritePassword = () => {
         다시 진행해야 해요. 페이지에서 나갈까요?
       </span>
     ),
-    onSubmit: back,
+    onSubmit: () => replace('/auth/login'),
   });
 
   return (
     <>
-      <Styles.Header>
-        <button onClick={openPopup}>
-          <ArrowRight size={28} />
-        </button>
-      </Styles.Header>
+      <TopBar leftProps={<TopBar.BackButton onClick={openPopup} />} />
       <Wrapper>
         <WritePasswordFormWrapper>
           <FormHeader>
@@ -81,7 +76,6 @@ const Wrapper = styled.div`
 
   align-items: center;
   justify-content: center;
-  padding-top: 56px;
 `;
 
 const WritePasswordFormWrapper = styled.div`

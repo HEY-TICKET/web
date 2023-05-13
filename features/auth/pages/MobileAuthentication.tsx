@@ -4,26 +4,21 @@ import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
 import Button from 'components/common/Button/Button';
+import TopBar from 'components/common/Nav/TopBar';
 import ConnectForm from 'components/FormProvider/ConnectForm';
 import FormHeader from 'components/FormProvider/FormHeader';
 import Input from 'components/Input/Input';
-import * as Styles from 'features/auth/auth.styles';
 import MobileAuthenticationFormProvider, {
   MobileAuthenticationFormValue,
 } from 'features/auth/FormProvider/MobileAuthenticationFormProvider';
 import AuthenticationNumberInput from 'features/auth/Input/AuthenticationNumberInput';
-import { ArrowRight } from 'styles/icons';
 
 const MobileAuthentication = () => {
   const { back } = useRouter();
 
   return (
     <>
-      <Styles.Header>
-        <button onClick={back}>
-          <ArrowRight size={28} />
-        </button>
-      </Styles.Header>
+      <TopBar leftProps={<TopBar.BackButton onClick={back} />} />
       <Wrapper>
         <MobileAuthenticationFormWrapper>
           <FormHeader>
@@ -68,7 +63,6 @@ const Wrapper = styled.div`
 
   align-items: center;
   justify-content: center;
-  padding-top: 56px;
 `;
 const MobileAuthenticationFormWrapper = styled.div`
   display: flex;
