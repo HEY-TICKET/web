@@ -3,10 +3,12 @@
 import { HTMLAttributes } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as yup from 'yup';
+
+import useCustomToast from 'hooks/useCustomToast';
 
 type FormProviderProps = HTMLAttributes<HTMLElement>;
 
@@ -15,6 +17,9 @@ export type WritePasswordFormValue = {
 };
 
 const WritePasswordFormProvider = ({ children }: FormProviderProps) => {
+  const { push } = useRouter();
+  const toast = useCustomToast();
+
   const find = useSearchParams().get('find');
 
   const methods = useForm<WritePasswordFormValue>({
@@ -35,8 +40,11 @@ const WritePasswordFormProvider = ({ children }: FormProviderProps) => {
       if (isUsedPassword) {
         setError('password', { message: '이전에 사용하던 비밀번호는 사용할 수 없습니다' });
       }
+      push(`/auth/login`);
+      // 비밀번호 재설정 api
+      setTimeout(() => toast.success('새 비밀번호로 바뀌었어요. 다시 로그인해주세요.'), 1000);
     } else {
-      //
+      // 초기 비밀번호 설정 api
     }
   };
 

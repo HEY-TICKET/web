@@ -3,7 +3,9 @@
 import styled from 'styled-components';
 
 import Button from 'components/common/Button/Button';
+import { Text } from 'components/common/Checkbox/Checkbox';
 import ArrayInput from 'components/Input/ArrayInput';
+import CheckInput from 'components/Input/CheckInput';
 import { InterestFormValue } from 'features/my/interest/FormProvider/InterestFormProvider';
 import STYLES from 'styles/index';
 
@@ -31,11 +33,25 @@ const InterestsKeyword = () => {
           }
         />
       </FormWrapper>
-      <Description>
-        관심 키워드 등록 시 키워드 알림 수신(앱 푸시, 카카오톡 알림톡)에
-        <br />
-        동의함으로 간주합니다.
-      </Description>
+
+      {/* TODO: value 설정 */}
+      <TermsAgreement>
+        <CheckInput<InterestFormValue>
+          name={'termsAgreement'}
+          value={'수신'}
+          text={'관심 키워드 등록 시 키워드 알림 수신(앱 푸시, 카카오톡 알림 톡)에 동의합니다.'}
+        />
+        <CheckInput<InterestFormValue>
+          name={'termsAgreement'}
+          value={'이용약관'}
+          text={
+            <>
+              <strong>회원 이용 약관</strong>과<strong>개인정보 처리 방침</strong>을 확인하고
+              동의합니다.
+            </>
+          }
+        />
+      </TermsAgreement>
       <Button>가입 완료</Button>
     </>
   );
@@ -102,14 +118,20 @@ const InputGuideWrapper = styled.div`
   }
 `;
 
-const Description = styled.p`
-  color: ${STYLES.color.gray400};
-  text-align: center;
+const TermsAgreement = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
 
-  padding: 70px 0 20px;
+  margin: 70px 0 20px;
 
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 14px;
+  & > label {
+    margin: 0;
+  }
+  ${Text} {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+  }
 `;

@@ -8,6 +8,8 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
+import useCustomToast from 'hooks/useCustomToast';
+
 type FormProviderProps = HTMLAttributes<HTMLElement>;
 
 export type MobileAuthenticationFormValue = {
@@ -16,6 +18,7 @@ export type MobileAuthenticationFormValue = {
 };
 
 const MobileAuthenticationFormProvider = ({ children }: FormProviderProps) => {
+  const toast = useCustomToast();
   const { push } = useRouter();
   const email = useSearchParams().get('email') ?? '';
   const find = useSearchParams().get('find');
@@ -37,6 +40,7 @@ const MobileAuthenticationFormProvider = ({ children }: FormProviderProps) => {
     const isValidAuthenticationNumber = true;
 
     if (isValidAuthenticationNumber) {
+      toast.success('이메일 인증이 확인되었어요.');
       if (find) {
         push(`/auth/write-password?find=true`);
       } else {

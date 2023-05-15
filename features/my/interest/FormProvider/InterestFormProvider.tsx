@@ -14,6 +14,8 @@ export type InterestFormValue = {
   region: string[];
   genre: string[];
   keyword: string[];
+
+  termsAgreement: string[];
 };
 
 export type InterestType = 'category' | 'keyword';
@@ -28,6 +30,8 @@ const InterestFormProvider = ({ children }: FormProviderProps) => {
       region: [],
       genre: [],
       keyword: [],
+
+      termsAgreement: [],
     },
     resolver: yupResolver(schema),
   });

@@ -3,6 +3,7 @@
 import { Toast, toast } from 'react-hot-toast';
 import styled from 'styled-components';
 
+import { SuccessCheckIcon } from 'styles/icons';
 import STYLES from 'styles/index';
 
 type Option =
@@ -20,7 +21,15 @@ const useCustomToast = () => {
   _toast.warning = (message: string, option?: Option) =>
     toast(() => <WarningToast>{message}</WarningToast>, option);
   _toast.success = (message: string, option?: Option) =>
-    toast(() => <SuccessToast>{message}</SuccessToast>, option);
+    toast(
+      () => (
+        <SuccessToast>
+          <SuccessCheckIcon />
+          {message}
+        </SuccessToast>
+      ),
+      option,
+    );
   _toast.error = (message: string, option?: Option) =>
     toast(() => <ErrorToast>{message}</ErrorToast>, option);
 
@@ -49,7 +58,9 @@ const WarningToast = styled(DefaultToast)`
   background-color: ${STYLES.color.orange};
 `;
 const SuccessToast = styled(DefaultToast)`
-  background-color: ${STYLES.color.green50};
+  background-color: ${STYLES.color.gray770};
+  opacity: 1;
+  column-gap: 8px;
 `;
 const ErrorToast = styled(DefaultToast)`
   background-color: ${STYLES.color.red};

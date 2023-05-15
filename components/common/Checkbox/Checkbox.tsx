@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import { CheckLineIcon } from 'styles/icons';
 import STYLES from 'styles/index';
 
-interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   type?: 'checkbox';
-  text: string;
+  text: string | JSX.Element;
 }
 
 const Checkbox = forwardRef(
@@ -26,14 +26,18 @@ const Checkbox = forwardRef(
 
 export default Checkbox;
 
-const Text = styled.span`
+export const Text = styled.span`
   display: flex;
   align-items: center;
 
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
-  line-height: 19px;
+  line-height: 18px;
+
+  & > strong {
+    text-decoration: underline;
+  }
 `;
 
 const CheckMark = styled.span`

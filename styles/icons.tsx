@@ -348,3 +348,16 @@ export const ClosedEyeIcon = () => (
     <path d="M18.0762 5L6.05857 18.8665" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" />
   </svg>
 );
+
+export const SuccessCheckIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="10" cy="10" r="10" fill="#06C755" />
+    <path
+      d="M5.625 9.85547L8.75 12.9805L14.375 7.66797"
+      stroke="white"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);

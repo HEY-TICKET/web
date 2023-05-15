@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 import InputComponents from 'components/Input/InputComponents';
 import useCountDown from 'hooks/useCountDown';
+import useCustomToast from 'hooks/useCustomToast';
 import STYLES from 'styles/index';
 
 interface AuthenticationNumberInputProps<T extends FieldValues>
@@ -23,9 +24,13 @@ const AuthenticationNumberInput = <T extends FieldValues>({
   initTimeSecond = 15,
   ...restProps
 }: AuthenticationNumberInputProps<T>) => {
+  const toast = useCustomToast();
+
   const { leftTime, play, reset, timeOver } = useCountDown(false, initTimeSecond);
 
   const reReceiveCode = () => {
+    // TODO: 인증코드 메시지 관리, 토스트 리팩토링...
+    toast.success('인증 코드를 다시 보내드렸어요.');
     reset();
   };
 
