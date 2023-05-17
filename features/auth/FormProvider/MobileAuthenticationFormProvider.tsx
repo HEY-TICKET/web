@@ -75,5 +75,10 @@ const schema = yup
       .string()
       .required('이메일을 입력해주세요.')
       .matches(EMAIL_REGEX, '이메일 형식에 맞게 입력해주세요.'),
+
+    authenticationNumber: yup
+      .string()
+      .min(6, '인증번호는 6자리 입니다.')
+      .required('인증번호를 입력해주세요.'),
   })
   .required();

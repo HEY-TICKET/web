@@ -2,7 +2,15 @@
 
 import { useEffect, useState } from 'react';
 
-const useCountDown = (autoPlay?: boolean, initTimeSecond?: number) => {
+export type UseCountDownReturnType = {
+  leftTime: string;
+  play: () => void;
+  pause: () => void;
+  reset: () => void;
+  timeOver: boolean;
+};
+
+const useCountDown = (autoPlay?: boolean, initTimeSecond?: number): UseCountDownReturnType => {
   const [time, setTime] = useState(initTimeSecond ?? 300);
   const [isPlaying, setIsPlaying] = useState(autoPlay ?? true);
 

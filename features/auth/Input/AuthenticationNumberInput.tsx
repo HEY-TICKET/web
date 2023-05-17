@@ -1,32 +1,30 @@
 'use client';
 
-import { InputHTMLAttributes, useEffect } from 'react';
+import { InputHTMLAttributes } from 'react';
 
 import { FieldValues, Path } from 'react-hook-form';
 import styled from 'styled-components';
 
 import InputComponents from 'components/Input/InputComponents';
-import useCountDown from 'hooks/useCountDown';
+import { UseCountDownReturnType } from 'hooks/useCountDown';
 import useCustomToast from 'hooks/useCustomToast';
 import STYLES from 'styles/index';
 
 interface AuthenticationNumberInputProps<T extends FieldValues>
-  extends InputHTMLAttributes<HTMLInputElement> {
+  extends InputHTMLAttributes<HTMLInputElement>,
+    Omit<UseCountDownReturnType, 'pause' | 'play'> {
   name: Path<T>;
-  initTimeSecond?: number;
-  onTimeOver?: () => void;
 }
 
 const AuthenticationNumberInput = <T extends FieldValues>({
   name,
   disabled,
-  onTimeOver,
-  initTimeSecond = 15,
+  leftTime,
+  reset,
+  timeOver,
   ...restProps
 }: AuthenticationNumberInputProps<T>) => {
   const toast = useCustomToast();
-
-  const { leftTime, play, reset, timeOver } = useCountDown(false, initTimeSecond);
 
   const reReceiveCode = () => {
     // TODO: 인증코드 메시지 관리, 토스트 리팩토링...
@@ -34,28 +32,21 @@ const AuthenticationNumberInput = <T extends FieldValues>({
     reset();
   };
 
-  useEffect(() => {
-    play();
-  }, [play]);
-
-  useEffect(() => {
-    if (timeOver) {
-      onTimeOver?.();
-    }
-  }, [onTimeOver, timeOver]);
-
   return (
     <Wrapper>
       <InputComponents<T> name={name} disabled={disabled}>
         <InputComponents.Label text={'인증코드 입력'}>
           <Contents>
-            <InputComponents.Input<T> {...restProps} name={name} />
+            <InputComponents.Input<T> {...restProps} name={name} disabled={disabled} />
             <Timer>유효시간 {leftTime}</Timer>
           </Contents>
         </InputComponents.Label>
       </InputComponents>
-      <InputComponents.ErrorMessage<T> name={name} disabled={disabled} />
-      {timeOver && <TimeOverMessage>유효 시간이 지났어요.</TimeOverMessage>}
+      <InputComponents.ErrorMessage<T>
+        name={name}
+        disabled={disabled}
+        message={timeOver ? '유효시간이 지났어요.' : ''}
+      />
       <UnderlineButton type={'button'} onClick={reReceiveCode} timeOver={timeOver}>
         인증 코드 다시 받기
       </UnderlineButton>
@@ -99,14 +90,4 @@ const Timer = styled.span`
   font-size: 12px;
   line-height: 24px;
   white-space: nowrap;
-`;
-
-const TimeOverMessage = styled.p`
-  color: ${STYLES.color.gray500};
-  margin-top: 6px;
-
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
 `;

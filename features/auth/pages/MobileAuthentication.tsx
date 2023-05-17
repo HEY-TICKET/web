@@ -12,9 +12,12 @@ import MobileAuthenticationFormProvider, {
   MobileAuthenticationFormValue,
 } from 'features/auth/FormProvider/MobileAuthenticationFormProvider';
 import AuthenticationNumberInput from 'features/auth/Input/AuthenticationNumberInput';
+import useCountDown from 'hooks/useCountDown';
 
 const MobileAuthentication = () => {
   const { back } = useRouter();
+
+  const { leftTime, reset, timeOver } = useCountDown(true, 30);
 
   return (
     <>
@@ -40,10 +43,13 @@ const MobileAuthentication = () => {
                     <AuthenticationNumberInput<MobileAuthenticationFormValue>
                       name={'authenticationNumber'}
                       autoFocus
-                      // onTimeOver={() => resetField('authenticationNumber')}
+                      placeholder={'6자리 입력'}
+                      leftTime={leftTime}
+                      reset={reset}
+                      timeOver={timeOver}
                     />
                   </InputContainer>
-                  <Button disabled={!isValid || isSubmitting}>다음</Button>
+                  <Button disabled={!isValid || isSubmitting || timeOver}>다음</Button>
                 </>
               )}
             </ConnectForm>
