@@ -8,6 +8,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
+import { PASSWORD_REGEX } from 'constants/regex';
 import useCustomToast from 'hooks/useCustomToast';
 
 type FormProviderProps = HTMLAttributes<HTMLElement>;
@@ -65,6 +66,9 @@ const Form = styled.form`
 
 const schema = yup
   .object({
-    password: yup.string().required('영문 대문자, 소문자, 숫자 포함 8자 이상'),
+    password: yup
+      .string()
+      .required('영문 대문자, 소문자, 숫자 포함 8자 이상')
+      .matches(PASSWORD_REGEX, '영문 대문자, 소문자, 숫자 포함 8자 이상'),
   })
   .required();

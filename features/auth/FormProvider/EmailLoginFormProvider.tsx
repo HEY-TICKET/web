@@ -8,6 +8,8 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
+import { EMAIL_REGEX, PASSWORD_REGEX } from 'constants/regex';
+
 type FormProviderProps = HTMLAttributes<HTMLElement>;
 
 export type EmailLoginFormValue = {
@@ -61,8 +63,11 @@ const schema = yup
     email: yup
       .string()
       .required('이메일을 입력해주세요.')
-      .email('이메일 형식에 맞게 입력해주세요.'),
+      .matches(EMAIL_REGEX, '이메일 형식에 맞게 입력해주세요.'),
 
-    password: yup.string().required('비밀번로를 입력해주세요.'),
+    password: yup
+      .string()
+      .required('비밀번호를 입력해주세요.')
+      .matches(PASSWORD_REGEX, '영문 대문자, 소문자, 숫자 포함 8자 이상'),
   })
   .required();
