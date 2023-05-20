@@ -1,5 +1,7 @@
 import React from 'react';
 
+import localFont from 'next/font/local';
+
 import Toast from 'components/common/Toast/Toaster';
 import Layout from 'components/layout/Layout';
 import StyledComponentsRegistry from 'lib/register';
@@ -14,6 +16,10 @@ import GlobalStyles from 'styles/GlobalStyles';
 //   description: 'Welcome to Next.js',
 // };
 
+const Pretendard = localFont({
+  src: '../public/fonts/PretendardVariable.woff2',
+});
+
 export default function RootLayout({
   // Layouts must accept a children prop.
   // This will be populated with nested layouts or pages
@@ -22,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={Pretendard.className}>
       <body>
         <ReactQueryProvider>
           <StyledComponentsRegistry>

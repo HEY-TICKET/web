@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Button from 'components/common/Button/Button';
 import { Text } from 'components/common/Checkbox/Checkbox';
+import ConnectForm from 'components/FormProvider/ConnectForm';
 import ArrayInput from 'components/Input/ArrayInput';
 import CheckInput from 'components/Input/CheckInput';
 import { InterestFormValue } from 'features/my/interest/FormProvider/InterestFormProvider';
@@ -52,7 +53,11 @@ const InterestsKeyword = () => {
           }
         />
       </TermsAgreement>
-      <Button>가입 완료</Button>
+      <ConnectForm<InterestFormValue>>
+        {({ formState: { isValid, isSubmitting } }) => (
+          <Button disabled={!isValid || isSubmitting}>가입 완료</Button>
+        )}
+      </ConnectForm>
     </>
   );
 };

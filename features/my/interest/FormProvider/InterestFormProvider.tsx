@@ -1,6 +1,6 @@
 'use client';
 
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, useEffect } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -11,6 +11,7 @@ import * as yup from 'yup';
 type FormProviderProps = HTMLAttributes<HTMLElement>;
 
 export type InterestFormValue = {
+  type: InterestType;
   region: string[];
   genre: string[];
   keyword: string[];
@@ -27,6 +28,7 @@ const InterestFormProvider = ({ children }: FormProviderProps) => {
   const methods = useForm<InterestFormValue>({
     mode: 'onTouched',
     defaultValues: {
+      type: 'category',
       region: [],
       genre: [],
       keyword: [],
@@ -36,7 +38,7 @@ const InterestFormProvider = ({ children }: FormProviderProps) => {
     resolver: yupResolver(schema),
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, setValue } = methods;
 
   const onValidSubmit: SubmitHandler<InterestFormValue> = (data) => {
     console.log(data);
@@ -45,10 +47,13 @@ const InterestFormProvider = ({ children }: FormProviderProps) => {
       push('/my/interest?type=keyword');
     } else {
       // TODO: api 통신 시 빈 값 제거, 자동 로그인? 혹은 로그인 화면으로? ??
-      console.log(data);
       push('/');
     }
   };
+
+  useEffect(() => {
+    setValue('type', type);
+  }, [setValue, type]);
 
   return (
     <FormProvider {...methods}>
@@ -67,9 +72,12 @@ const Form = styled.form`
 
 const schema = yup
   .object({
-    // email: yup
-    //   .string()
-    //   .required('이메일을 입력해주세요.')
-    //   .email('이메일 형식에 맞게 입력해주세요.'),
+    termsAgreement: yup
+      .array()
+      .of(yup.string())
+      .when('type', {
+        is: (type: InterestType) => type === 'keyword',
+        then: (schema) => schema.min(2),
+      }),
   })
   .required();

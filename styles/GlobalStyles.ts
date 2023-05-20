@@ -9,7 +9,7 @@ const GlobalStyles = createGlobalStyle`
     scroll-behavior: unset;
     box-sizing: border-box;
 
-    font-family: 'Noto Sans KR', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif', 'serif';
+    font-family: '__Pretendard_968ab4', '__Pretendard_Fallback_968ab4', 'Noto Sans KR', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif', 'serif';
     font-style: normal;
 
     background-repeat: no-repeat;
