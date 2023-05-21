@@ -19,6 +19,7 @@ export type WritePasswordFormValue = {
 
 const WritePasswordFormProvider = ({ children }: FormProviderProps) => {
   const { push } = useRouter();
+  const email = useSearchParams().get('email');
   const toast = useCustomToast();
 
   const find = useSearchParams().get('find');
@@ -35,6 +36,7 @@ const WritePasswordFormProvider = ({ children }: FormProviderProps) => {
 
   const onValidSubmit: SubmitHandler<WritePasswordFormValue> = (data) => {
     console.log(data);
+    console.log('email', email);
     const isUsedPassword = true;
 
     if (find) {

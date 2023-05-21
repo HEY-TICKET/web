@@ -3,7 +3,7 @@
 import { HTMLAttributes } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as yup from 'yup';
@@ -18,6 +18,7 @@ export type EmailLoginFormValue = {
 };
 
 const EmailLoginFormProvider = ({ children }: FormProviderProps) => {
+  const { push } = useRouter();
   const email = useSearchParams().get('email') ?? '';
 
   const methods = useForm<EmailLoginFormValue>({
@@ -33,13 +34,12 @@ const EmailLoginFormProvider = ({ children }: FormProviderProps) => {
 
   const onValidSubmit: SubmitHandler<EmailLoginFormValue> = (data) => {
     console.log(data);
-
-    const isValidPassword = false;
-
-    if (isValidPassword) {
-      console.log('로그인');
+    const { password } = data;
+    const isCorrectPassword = password === 'Test123@';
+    if (isCorrectPassword) {
+      push('/');
     } else {
-      setError('password', { message: '이메일 주소 혹은 비밀번호를 확인해 주세요.' });
+      setError('password', { message: '이메일 주소 혹은 비밀번호를 확인해주세요' });
     }
   };
 

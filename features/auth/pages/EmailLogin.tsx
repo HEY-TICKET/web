@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import styled, { css } from 'styled-components';
+import { useRouter, useSearchParams } from 'next/navigation';
+import styled from 'styled-components';
 
 import Button from 'components/common/Button/Button';
 import Logo from 'components/common/Logo/Logo';
@@ -17,6 +17,7 @@ import STYLES from 'styles/index';
 
 const EmailLogin = () => {
   const { back } = useRouter();
+  const email = useSearchParams().get('email');
 
   return (
     <>
@@ -43,19 +44,9 @@ const EmailLogin = () => {
             </ConnectForm>
           </EmailLoginFormProvider>
         </EmailLoginFormWrapper>
-        <KakaoLoginFormWrapper>
-          <Button
-            type={'button'}
-            theme={'none'}
-            css={css`
-              color: ${STYLES.color.gray800};
-              background-color: ${STYLES.color.kakaoYellow};
-            `}
-          >
-            카카오로 계속하기
-          </Button>
-          <FindPasswordLink href={'/auth/find-password'}>비밀번호 찾기</FindPasswordLink>
-        </KakaoLoginFormWrapper>
+        <FindPasswordLink href={`/auth/find-password?email=${email}`}>
+          비밀번호 찾기
+        </FindPasswordLink>
       </Wrapper>
     </>
   );
@@ -66,7 +57,7 @@ export default EmailLogin;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 220px;
+  row-gap: 18px;
 
   align-items: center;
   justify-content: center;
@@ -87,13 +78,6 @@ const InputContainer = styled.div`
   flex-direction: column;
   row-gap: 8px;
   margin-bottom: 20px;
-`;
-const KakaoLoginFormWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 18px;
-  width: 328px;
 `;
 
 const FindPasswordLink = styled(Link)`

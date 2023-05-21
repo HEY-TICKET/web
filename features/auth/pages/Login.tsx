@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import styled, { css } from 'styled-components';
 
@@ -50,7 +49,6 @@ const Login = () => {
           >
             카카오로 계속하기
           </Button>
-          <FindPasswordLink href={'/auth/find-password'}>비밀번호 찾기</FindPasswordLink>
         </KakaoLoginFormWrapper>
       </Wrapper>
     </>
@@ -86,13 +84,4 @@ const KakaoLoginFormWrapper = styled.section`
   align-items: center;
   row-gap: 18px;
   width: 328px;
-`;
-
-const FindPasswordLink = styled(Link)`
-  color: ${STYLES.color.gray500} !important;
-  text-decoration: underline !important;
-
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
 `;

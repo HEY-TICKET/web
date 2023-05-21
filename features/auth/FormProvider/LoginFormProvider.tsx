@@ -32,7 +32,7 @@ const LoginFormProvider = ({ children }: FormProviderProps) => {
   const onValidSubmit: SubmitHandler<LoginFormValue> = (data) => {
     console.log(data);
 
-    const isSubscribedEmail = false;
+    const isSubscribedEmail = data.email === 'test@gmail.com';
 
     if (isSubscribedEmail) {
       // FIXME: 세션으로 데이터 전달 ? or route query 로 전달?

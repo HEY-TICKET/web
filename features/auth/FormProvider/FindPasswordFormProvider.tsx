@@ -3,7 +3,7 @@
 import { HTMLAttributes } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as yup from 'yup';
@@ -18,11 +18,12 @@ export type FindPasswordFormValue = {
 
 const FindPasswordFormProvider = ({ children }: FormProviderProps) => {
   const { push } = useRouter();
+  const email = useSearchParams().get('email') ?? '';
 
   const methods = useForm<FindPasswordFormValue>({
     mode: 'onTouched',
     defaultValues: {
-      email: '',
+      email: email,
     },
     resolver: yupResolver(schema),
   });

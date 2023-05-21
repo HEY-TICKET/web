@@ -43,9 +43,9 @@ const MobileAuthenticationFormProvider = ({ children }: FormProviderProps) => {
     if (isValidAuthenticationNumber) {
       toast.success('이메일 인증이 확인되었어요.');
       if (find) {
-        push(`/auth/write-password?find=true`);
+        push(`/auth/write-password?email=${email}?find=true`);
       } else {
-        push(`/auth/write-password`);
+        push(`/auth/write-password?email=${email}`);
       }
     } else {
       setError('authenticationNumber', {
