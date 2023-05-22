@@ -43,14 +43,13 @@ const Genre = ({ genre }: GenreProps) => {
   const [prevSortingValues, setPrevSortingValues] = useState<SortingModalFormValues | null>(null);
   const [chipValues, setChipValues] = useState(FILTER_MODAL_DEFAULT_VALUES);
 
-  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
-    useInfinitePerformanceQuery(
-      {
-        page: 0,
-        size: 24,
-      },
-      { keepPreviousData: true },
-    );
+  const { isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfinitePerformanceQuery(
+    {
+      page: 0,
+      size: 24,
+    },
+    { keepPreviousData: true },
+  );
 
   const onIntersect: IntersectionObserverCallback = useCallback(
     async ([{ isIntersecting }]) => {
@@ -160,7 +159,11 @@ const Genre = ({ genre }: GenreProps) => {
         <Styles.GenreContents>
           <Styles.CardListWrapper>
             <CardList
-              data={data?.pages.flat() ?? []}
+              data={
+                //FIXME : react-query api 교체 하면서 해당 부분도 체크
+                // data?.pages.flat() ??
+                []
+              }
               loading={isFetchingNextPage || isLoading}
               onClick={clickCard}
             />

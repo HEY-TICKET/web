@@ -2,14 +2,14 @@
 
 import { useSearchParams } from 'next/navigation';
 
-import { PerformancesResponses } from 'apis/performance/type';
+import { PerformanceResponse } from 'apis/New/performance/type';
 import CardList from 'features/category/genre/CardList';
 import NoResult from 'features/search/NoResult';
 
 import * as Styles from './Search.styles';
 
 type Props = {
-  data: PerformancesResponses[];
+  data: PerformanceResponse[];
   loading: boolean;
 };
 
@@ -24,7 +24,13 @@ const SearchContents = ({ data, loading }: Props) => {
 
   return (
     <Styles.SearchContents>
-      <CardList data={data} loading={loading} />
+      <CardList
+        data={
+          //FIXME : react-query api 교체 하면서 해당 부분도 체크
+          []
+        }
+        loading={loading}
+      />
     </Styles.SearchContents>
   );
 };

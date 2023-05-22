@@ -3,23 +3,36 @@
 import { HTMLAttributes, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
+import { css } from 'styled-components';
 
+import { PerformanceRankParams } from 'apis/New/performance/type';
 import Card from 'components/common/Card/Card';
 import Chip from 'components/common/Chip/Chip';
 import Slider from 'components/common/Slider/Slider';
+import { PERFORMANCE_GENRE_MAP } from 'constants/new/performance';
 import { ROUTES } from 'constants/routes';
 import * as Styles from 'features/index/CurateSection.styles';
-import { usePerformanceQuery } from 'reactQuery/performance';
+import { usePerformanceRankQuery } from 'reactQuery/performance';
 import { ArrowRight } from 'styles/icons';
 
 interface CurateSectionProps extends HTMLAttributes<HTMLElement> {
-  chips: { caption: string; value: string }[];
+  chips: typeof PERFORMANCE_GENRE_MAP;
 }
 
 const CurateSection = ({ chips }: CurateSectionProps) => {
   const { push } = useRouter();
-  const [genre, setGenre] = useState(chips[0].value);
-  const { data, isLoading } = usePerformanceQuery({ page: 0, size: 10 });
+  const [genre, setGenre] = useState<PerformanceRankParams['genre']>(chips[0].value);
+  const { data, isLoading } = usePerformanceRankQuery({
+    timePeriod: 'DAY',
+    date: '2023-05-22',
+    genre: genre,
+    pageSize: 10,
+    page: 0,
+  });
+
+  console.log('data', data);
+
+  const cards = data?.contents ?? [];
 
   const clickCard = (id: string) => {
     push(`${ROUTES.category}/${genre}/${id}`);
@@ -34,21 +47,30 @@ const CurateSection = ({ chips }: CurateSectionProps) => {
           <ArrowRight size={20} />
         </Styles.ReadMoreButton>
       </Styles.Header>
-      <Styles.ChipContainer>
+      <Styles.ChipContainer
+        css={css`
+          overflow: auto;
+        `}
+      >
         {chips.map(({ caption, value }, index) => (
-          <Chip key={index} text={caption} onClick={() => setGenre(value)} />
+          <Chip
+            key={index}
+            active={value === genre}
+            text={caption}
+            onClick={() => setGenre(value)}
+          />
         ))}
       </Styles.ChipContainer>
       <Slider viewedItemCount={3}>
-        {data?.map((item, index) => {
+        {cards.map((item) => {
           return (
             <Card
-              key={item.mt20id}
+              key={item.id}
               data={item}
               loading={isLoading}
               onClick={clickCard}
               type={'simple'}
-              rank={index + 1}
+              rank={item.rank}
             />
           );
         })}

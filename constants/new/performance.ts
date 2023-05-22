@@ -47,3 +47,20 @@ export const SORT_ORDER = {
   DESC: 'DESC',
   ASC: 'ASC',
 } as const;
+
+// caption, value 별 정리
+
+export const PERFORMANCE_GENRE_MAP = [
+  { caption: '연극', value: 'THEATER' },
+  { caption: '뮤지컬', value: 'MUSICAL' },
+  { caption: '클래식', value: 'CLASSIC' },
+  { caption: '국악', value: 'KOREAN_TRADITIONAL_MUSIC' },
+  { caption: '대중음악', value: 'POPULAR_MUSIC' },
+  { caption: '무용', value: 'DANCE' },
+  { caption: '현대무용', value: 'CONTEMPORARY_DANCE' },
+  { caption: '서커스/마술', value: 'CIRCUS_AND_MAGIC' },
+  { caption: '복합', value: 'MIXED_GENRE' },
+  { caption: '아동', value: 'KID' },
+  { caption: '진행중', value: 'OPEN' },
+  { caption: '전체', value: 'ALL' },
+] as const;

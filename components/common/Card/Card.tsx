@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 
-import { PerformancesResponses } from 'apis/performance/type';
+import { PerformanceRankResponse } from 'apis/New/performance/type';
 import Badge from 'components/common/Badge/Badge';
 import Poster from 'components/common/Card/Poster';
 import Skeleton from 'components/common/Skeleton/Skeleton';
@@ -11,15 +11,15 @@ import * as Styles from './Card.styles';
 type CardType = 'default' | 'simple';
 
 interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
-  onClick?: (id: PerformancesResponses['mt20id']) => void;
-  data: PerformancesResponses;
+  onClick?: (id: PerformanceRankResponse['id']) => void;
+  data: PerformanceRankResponse;
   loading: boolean;
   type?: CardType;
   rank?: number;
 }
 
 const Card = ({ data, loading, onClick, type = 'default', rank }: CardProps) => {
-  const { mt20id, title, place, startDate, endDate, poster, pcseguidance } = data;
+  const { id, title, place, startDate, endDate, poster, price } = data;
 
   const restDate = getDateDiff(startDate);
 
@@ -34,7 +34,7 @@ const Card = ({ data, loading, onClick, type = 'default', rank }: CardProps) => 
 
   if (type === 'simple') {
     return (
-      <Styles.CardContainer onClick={() => onClick?.(mt20id)}>
+      <Styles.CardContainer onClick={() => onClick?.(id)}>
         {/*TODO : 이미지가 유효하지 않은 값이 오거나 없는 경우 default 이미지를 렌더링 시켜야 함*/}
         {isSrcValid && <Poster src={poster} width={148} alt={'poster'} rank={rank} />}
         <Styles.ContentsWrapper>
@@ -54,7 +54,7 @@ const Card = ({ data, loading, onClick, type = 'default', rank }: CardProps) => 
   }
 
   return (
-    <Styles.CardContainer onClick={() => onClick?.(mt20id)}>
+    <Styles.CardContainer onClick={() => onClick?.(id)}>
       {/*TODO : 이미지가 유효하지 않은 값이 오거나 없는 경우 default 이미지를 렌더링 시켜야 함*/}
       {isSrcValid && <Poster src={poster} alt={'poster'} />}
       <Styles.ContentsWrapper>
@@ -71,7 +71,7 @@ const Card = ({ data, loading, onClick, type = 'default', rank }: CardProps) => 
 
         <Styles.PriceWrapper>
           <span>예매가</span>
-          <p>{pcseguidance}</p>
+          <p>{price}</p>
         </Styles.PriceWrapper>
       </Styles.ContentsWrapper>
     </Styles.CardContainer>

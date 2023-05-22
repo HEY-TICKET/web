@@ -10,30 +10,29 @@ import { HttpClient } from 'core/HttpClient';
 
 class PerformanceApi extends HttpClient {
   constructor() {
-    // env로 관리 필요.
-    super({ baseUrl: process.env.NEXT_PUBLIC_API_URL });
+    super({ baseUrl: `/api/performances` });
   }
 
   getPerformance = async (params: PerformanceParams): Promise<PerformanceResponse> => {
-    return await this.instance.get(`/performances/${params.id}`);
+    return await this.instance.get(`/${params.id}`);
   };
 
   getRecommendationPerformance = async (
     params: PerformanceParams,
   ): Promise<PerformanceResponse> => {
-    return await this.instance.get(`/performances/${params.id}/recommendation`);
+    return await this.instance.get(`/${params.id}/recommendation`);
   };
 
   getRank = async (
     params: PerformanceRankParams,
   ): Promise<PerformanceResponseWithPages<PerformanceRankResponse>> => {
-    return await this.instance.get('/performances/rank', { params });
+    return await this.instance.get('/rank', { params }).then((res) => res.data);
   };
 
   getNew = async (
     params: PerformanceNewParams,
   ): Promise<PerformanceResponseWithPages<PerformanceResponse>> => {
-    return await this.instance.get('/performances/new', { params });
+    return await this.instance.get('/new', { params });
   };
 }
 

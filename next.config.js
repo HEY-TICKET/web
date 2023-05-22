@@ -15,6 +15,14 @@ const nextConfig = {
       allowFutureImage: true,
     },
   },
+  async rewrites() {
+    return [
+      {
+        source: '/:path*',
+        destination: 'http://13.124.230.85/:path*',
+      },
+    ];
+  },
   compiler: {
     styledComponents: true,
     removeConsole: process.env.NODE_ENV === 'production',

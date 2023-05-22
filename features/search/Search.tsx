@@ -123,7 +123,7 @@ const Search = () => {
               </Styles.CategoryWrapper>
             )}
           </Styles.StickyBox>
-          {!isLoading && <SearchContents data={data ?? []} loading={isLoading} />}
+          {!isLoading && <SearchContents data={[]} loading={isLoading} />}
         </Styles.Container>
       </Styles.Form>
       <SortingModalFrame canClose={false}>

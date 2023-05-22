@@ -10,6 +10,12 @@ import {
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
+import performanceNewService from 'apis/New/performance';
+import {
+  PerformanceRankParams,
+  PerformanceRankResponse,
+  PerformanceResponseWithPages,
+} from 'apis/New/performance/type';
 import performanceService from 'apis/performance';
 import {
   DetailPerformanceParams,
@@ -23,7 +29,27 @@ const PERFORMANCES_KEYS = {
   list: (params: PerformancesParams) => [...PERFORMANCES_KEYS.lists(), params],
   details: () => [...PERFORMANCES_KEYS.all, 'detail'],
   detail: (params: DetailPerformanceParams) => [...PERFORMANCES_KEYS.details(), params],
+
+  ranks: () => [...PERFORMANCES_KEYS.all, 'rank'],
+  rank: (params: PerformanceRankParams) => [...PERFORMANCES_KEYS.ranks(), params],
 } as const;
+
+export const usePerformanceRankQuery = (
+  params: PerformanceRankParams,
+  config?: Omit<
+    UseQueryOptions<
+      PerformanceResponseWithPages<PerformanceRankResponse>,
+      AxiosError,
+      PerformanceResponseWithPages<PerformanceRankResponse>,
+      ReturnType<typeof PERFORMANCES_KEYS.rank>
+    >,
+    'queryKey' | 'queryFn'
+  >,
+) => {
+  return useQuery(PERFORMANCES_KEYS.rank(params), () => performanceNewService.getRank(params), {
+    ...config,
+  });
+};
 
 export const useDetailPerformanceQuery = (
   params: DetailPerformanceParams,
