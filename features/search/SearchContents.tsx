@@ -26,6 +26,7 @@ const SearchContents = ({ data, loading }: Props) => {
     <Styles.SearchContents>
       <CardList
         data={
+          // 배포 테스트
           //FIXME : react-query api 교체 하면서 해당 부분도 체크
           []
         }
