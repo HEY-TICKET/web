@@ -50,30 +50,14 @@ export type PerformanceResponse = {
   openRun: boolean;
   storyUrls: string[];
   dtguidance: string; // 공연시간
+};
+
+export interface PerformanceNewResponse extends PerformanceResponse {
   views: number;
   latitude: number;
   longitude: number;
-};
+}
 
-export type PerformanceRankResponse = {
-  id: string;
-  placeId: string;
-  title: string;
-  startDate: Date;
-  endDate: Date;
-  place: string;
-  cast: string;
-  crew: string;
-  runtime: string;
-  age: string;
-  company: string;
-  price: string;
-  poster: string;
-  story: string;
-  genre: string;
-  state: string;
-  openRun: boolean;
-  storyUrls: string[];
-  dtguidance: string; // 공연시간
+export interface PerformanceRankResponse extends PerformanceResponse {
   rank: number;
-};
+}

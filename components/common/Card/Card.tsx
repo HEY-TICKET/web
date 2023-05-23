@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 
-import { PerformanceRankResponse } from 'apis/New/performance/type';
+import { PerformanceResponse } from 'apis/New/performance/type';
 import Badge from 'components/common/Badge/Badge';
 import Poster from 'components/common/Card/Poster';
 import Skeleton from 'components/common/Skeleton/Skeleton';
@@ -11,8 +11,8 @@ import * as Styles from './Card.styles';
 type CardType = 'default' | 'simple';
 
 interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
-  onClick?: (id: PerformanceRankResponse['id']) => void;
-  data: PerformanceRankResponse;
+  onClick?: (id: PerformanceResponse['id']) => void;
+  data: PerformanceResponse;
   loading: boolean;
   type?: CardType;
   rank?: number;

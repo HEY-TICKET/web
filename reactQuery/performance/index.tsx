@@ -12,6 +12,8 @@ import { AxiosError } from 'axios';
 
 import performanceNewService from 'apis/New/performance';
 import {
+  PerformanceNewParams,
+  PerformanceNewResponse,
   PerformanceRankParams,
   PerformanceRankResponse,
   PerformanceResponseWithPages,
@@ -32,6 +34,9 @@ const PERFORMANCES_KEYS = {
 
   ranks: () => [...PERFORMANCES_KEYS.all, 'rank'],
   rank: (params: PerformanceRankParams) => [...PERFORMANCES_KEYS.ranks(), params],
+
+  news: () => [...PERFORMANCES_KEYS.all, 'new'],
+  new: (params: PerformanceNewParams) => [...PERFORMANCES_KEYS.news(), params],
 } as const;
 
 export const usePerformanceRankQuery = (
@@ -47,6 +52,23 @@ export const usePerformanceRankQuery = (
   >,
 ) => {
   return useQuery(PERFORMANCES_KEYS.rank(params), () => performanceNewService.getRank(params), {
+    ...config,
+  });
+};
+
+export const usePerformanceNewQuery = (
+  params: PerformanceNewParams,
+  config?: Omit<
+    UseQueryOptions<
+      PerformanceResponseWithPages<PerformanceNewResponse>,
+      AxiosError,
+      PerformanceResponseWithPages<PerformanceNewResponse>,
+      ReturnType<typeof PERFORMANCES_KEYS.new>
+    >,
+    'queryKey' | 'queryFn'
+  >,
+) => {
+  return useQuery(PERFORMANCES_KEYS.new(params), () => performanceNewService.getNew(params), {
     ...config,
   });
 };

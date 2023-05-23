@@ -5,6 +5,7 @@ import {
   PerformanceResponse,
   PerformanceNewParams,
   PerformanceParams,
+  PerformanceNewResponse,
 } from 'apis/New/performance/type';
 import { HttpClient } from 'core/HttpClient';
 
@@ -31,8 +32,8 @@ class PerformanceApi extends HttpClient {
 
   getNew = async (
     params: PerformanceNewParams,
-  ): Promise<PerformanceResponseWithPages<PerformanceResponse>> => {
-    return await this.instance.get('/new', { params });
+  ): Promise<PerformanceResponseWithPages<PerformanceNewResponse>> => {
+    return await this.instance.get('/new', { params }).then((res) => res.data);
   };
 }
 
