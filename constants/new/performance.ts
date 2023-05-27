@@ -51,6 +51,7 @@ export const SORT_ORDER = {
 // caption, value 별 정리
 
 export const PERFORMANCE_GENRE_MAP = [
+  { caption: '전체', value: 'ALL' },
   { caption: '연극', value: 'THEATER' },
   { caption: '뮤지컬', value: 'MUSICAL' },
   { caption: '클래식', value: 'CLASSIC' },
@@ -62,5 +63,4 @@ export const PERFORMANCE_GENRE_MAP = [
   { caption: '복합', value: 'MIXED_GENRE' },
   { caption: '아동', value: 'KID' },
   { caption: '진행중', value: 'OPEN' },
-  { caption: '전체', value: 'ALL' },
 ] as const;

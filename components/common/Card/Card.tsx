@@ -13,12 +13,12 @@ type CardType = 'default' | 'simple';
 interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
   onClick?: (id: PerformanceResponse['id']) => void;
   data: PerformanceResponse;
-  loading: boolean;
+  loading?: boolean;
   type?: CardType;
   rank?: number;
 }
 
-const Card = ({ data, loading, onClick, type = 'default', rank }: CardProps) => {
+const Card = ({ data, onClick, type = 'default', rank }: CardProps) => {
   const { id, title, place, startDate, endDate, poster, price } = data;
 
   const restDate = getDateDiff(startDate);
@@ -29,8 +29,6 @@ const Card = ({ data, loading, onClick, type = 'default', rank }: CardProps) => 
   const dDay = Math.floor(restDate);
   const isSrcValid =
     poster?.startsWith('/') || poster?.startsWith('http://') || poster?.startsWith('https://');
-
-  if (loading) return <Card.Skeleton type={type} />;
 
   if (type === 'simple') {
     return (

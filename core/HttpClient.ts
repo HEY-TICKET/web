@@ -16,7 +16,6 @@ const CONTENT_TYPES = {
 interface HttpClientOptions {
   baseUrl?: string;
   apiVersion?: number;
-  acceptAllResponse?: boolean;
 }
 
 export abstract class HttpClient {
@@ -51,9 +50,9 @@ export abstract class HttpClient {
     this.instance.interceptors.response.use(this._handleResponse, this._handleError);
   };
 
-  setToken = (token: string | null): void => {
-    HttpClient.token = token;
-  };
+  // setToken = (token: string | null): void => {
+  //   HttpClient.token = token;
+  // };
 
   _handleRequest = (config: InternalAxiosRequestConfig) => {
     config.headers[HEADERS.contentType] = CONTENT_TYPES.applicationJson;
@@ -62,7 +61,6 @@ export abstract class HttpClient {
   };
 
   _handleResponse = (response: AxiosResponse) => {
-    if (this._options.acceptAllResponse) return response;
     return response.data;
   };
   _handleError = ({ response: { data, status } }: { response: { data?: any; status: any } }) =>
