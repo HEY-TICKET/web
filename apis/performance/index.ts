@@ -1,29 +1,62 @@
-import { HttpClient } from 'core/HttpClient';
+import axios from 'axios';
 
 import {
-  DetailPerformanceParams,
-  PerformancesParams,
-  PerformancesResponses,
-} from '../performance/type';
+  PerformanceNewParams,
+  PerformanceResponse,
+  PerformanceParams,
+  PerformanceRankParams,
+  PerformanceRankResponse,
+  PerformanceCommonResponse,
+  PerformanceResponseWithPages,
+} from 'apis/performance/type';
 
-class PerformanceApi extends HttpClient {
-  constructor() {
-    // env로 관리 필요.
-    super({ baseUrl: process.env.NEXT_PUBLIC_API_URL });
+const performanceAxios = axios.create({
+  baseURL: `/api/performances`,
+});
+
+const getPerformance = async (params: PerformanceParams): Promise<PerformanceResponse> => {
+  try {
+    const response = await performanceAxios.get(`/${params.id}`);
+    console.log('response', response);
+    return response.data.data;
+  } catch (err) {
+    throw new Error('getPerformance Api 에러발생');
   }
-  getPerformances = async (params: PerformancesParams): Promise<PerformancesResponses[]> => {
-    return await this.instance.get('/performances', { params });
-  };
+};
 
-  getPerformanceDetail = async (
-    params: DetailPerformanceParams,
-  ): Promise<PerformancesResponses> => {
-    return await this.instance.get(`/performances/${params.id}`);
-  };
+const getRecommendationPerformance = async (
+  params: PerformanceParams,
+): Promise<PerformanceCommonResponse> => {
+  try {
+    const response = await performanceAxios.get(`/${params.id}/recommendation`);
+    return response.data.data;
+  } catch (err) {
+    throw new Error('getRecommendationPerformance Api 에러발생');
+  }
+};
 
-  // getPlace = async () => {};
-}
+const getRank = async (
+  params: PerformanceRankParams,
+): Promise<PerformanceResponseWithPages<PerformanceRankResponse>> => {
+  try {
+    const response = await performanceAxios.get('/rank', { params });
+    return response.data.data;
+  } catch (err) {
+    throw new Error('getRank Api 에러발생');
+  }
+};
 
-const performanceService = new PerformanceApi();
+const getNew = async (
+  params: PerformanceNewParams,
+): Promise<PerformanceResponseWithPages<PerformanceResponse>> => {
+  try {
+    const response = await performanceAxios.get('/new', { params });
+    return response.data.data;
+  } catch (err) {
+    throw new Error('getNew Api 에러발생');
+  }
+};
+
+const performanceService = { getPerformance, getRecommendationPerformance, getRank, getNew };
 
 export default performanceService;

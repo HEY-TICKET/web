@@ -1,4 +1,4 @@
-import { PerformanceRankResponse } from 'apis/New/performance/type';
+import { PerformanceRankResponse } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
 
 import * as Styles from './CardList.styles';

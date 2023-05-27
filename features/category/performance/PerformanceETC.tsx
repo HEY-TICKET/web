@@ -2,33 +2,30 @@ import { HTMLAttributes } from 'react';
 
 import styled from 'styled-components';
 
-import { PerformancesResponses } from 'apis/performance/type';
-import { GetPlaceReturnValue } from 'apis/place/type';
+import { PerformanceResponse } from 'apis/performance/type';
 import Description from 'features/category/performance/Description';
 import * as Styles from 'features/category/performance/Performance.styles';
 import STYLES from 'styles/index';
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  data: PerformancesResponses;
-  placeData: GetPlaceReturnValue;
+  data: PerformanceResponse;
 }
 
-const PerformanceETC = ({ data, placeData }: Props) => {
+const PerformanceETC = ({ data }: Props) => {
   const { age, crew } = data;
-  const { fcltychartr, phoneNumber } = placeData;
 
   return (
     <Styles.InfoWrapper>
       <Styles.InfoTitle>기타 정보</Styles.InfoTitle>
       <ContentsWrapper>
-        <SubTitle>주체/기획</SubTitle>
-        <DescriptionWrapper>
-          <Description>{fcltychartr}</Description>
-        </DescriptionWrapper>
-        <SubTitle>고객문의</SubTitle>
-        <DescriptionWrapper>
-          <Description>{phoneNumber}</Description>
-        </DescriptionWrapper>
+        {/*<SubTitle>주체/기획</SubTitle>*/}
+        {/*<DescriptionWrapper>*/}
+        {/*  <Description>{fcltychartr}</Description>*/}
+        {/*</DescriptionWrapper>*/}
+        {/*<SubTitle>고객문의</SubTitle>*/}
+        {/*<DescriptionWrapper>*/}
+        {/*  <Description>{phoneNumber}</Description>*/}
+        {/*</DescriptionWrapper>*/}
         <SubTitle>관람 등급</SubTitle>
         <DescriptionWrapper>
           <Description>{age}</Description>

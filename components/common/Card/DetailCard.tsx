@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 
-import { PerformancesResponses } from 'apis/performance/type';
+import { PerformanceResponse } from 'apis/performance/type';
 import Badge from 'components/common/Badge/Badge';
 import Poster from 'components/common/Card/Poster';
 import { getDateDiff, getPeriod } from 'utils/times';
@@ -8,12 +8,12 @@ import { getDateDiff, getPeriod } from 'utils/times';
 import * as Styles from './DetailCard.styles';
 
 interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
-  onClick?: (id: PerformancesResponses['mt20id']) => void;
-  data: PerformancesResponses;
+  onClick?: (id: PerformanceResponse['id']) => void;
+  data: PerformanceResponse;
 }
 
 const DetailCard = ({ data, onClick }: CardProps) => {
-  const { mt20id, title, startDate, endDate, poster } = data;
+  const { id, title, startDate, endDate, poster } = data;
   const restDate = getDateDiff(startDate);
 
   const period = getPeriod(startDate, endDate);
@@ -24,7 +24,7 @@ const DetailCard = ({ data, onClick }: CardProps) => {
     poster.startsWith('/') || poster.startsWith('http://') || poster.startsWith('https://');
 
   return (
-    <Styles.CardContainer onClick={() => onClick?.(mt20id)}>
+    <Styles.CardContainer onClick={() => onClick?.(id)}>
       {/*TODO : 이미지가 유효하지 않은 값이 오거나 없는 경우 default 이미지를 렌더링 시켜야 함*/}
       {isSrcValid && (
         <Styles.PosterWrapper>

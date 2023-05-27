@@ -3,23 +3,22 @@ import { HTMLAttributes } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { PerformancesResponses } from 'apis/performance/type';
+import { PerformanceResponse } from 'apis/performance/type';
 import * as Styles from 'features/category/performance/Performance.styles';
 import STYLES from 'styles/index';
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  data: PerformancesResponses;
+  data: PerformanceResponse;
 }
 
 const PerformanceDetail = ({ data }: Props) => {
-  const { sty, styurls } = data;
-  const urls = styurls.map((value) => value.url);
+  const { story, storyUrls } = data;
   return (
     <Styles.InfoWrapper>
       <Styles.InfoTitle>공연 상세</Styles.InfoTitle>
       <UrlImagesWrapper>
-        <Text>{sty}</Text>
-        {urls.map((url) => (
+        <Text>{story}</Text>
+        {storyUrls.map((url) => (
           <Image
             key={url}
             src={url}

@@ -2,8 +2,7 @@ import { HTMLAttributes } from 'react';
 
 import styled from 'styled-components';
 
-import { PerformancesResponses } from 'apis/performance/type';
-import { GetPlaceReturnValue } from 'apis/place/type';
+import { PerformanceResponse } from 'apis/performance/type';
 import NaverMap from 'components/common/Map/NaverMap';
 import Description from 'features/category/performance/Description';
 import * as Styles from 'features/category/performance/Performance.styles';
@@ -12,13 +11,21 @@ import { getArrayPerformanceTime, getArrayPrice } from 'utils/performance';
 import { getPeriod } from 'utils/times';
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  data: PerformancesResponses;
-  placeData: GetPlaceReturnValue;
+  data: PerformanceResponse;
 }
 
-const PerformanceInfo = ({ data, placeData }: Props) => {
-  const { startDate, endDate, dtguidance: time, cast, runtime, pcseguidance: price, place } = data;
-  const { latitude, longitude, address } = placeData;
+const PerformanceInfo = ({ data }: Props) => {
+  const {
+    startDate,
+    endDate,
+    dtguidance: time,
+    cast,
+    runtime,
+    price,
+    place,
+    latitude,
+    longitude,
+  } = data;
 
   const period = getPeriod(startDate, endDate);
 
@@ -51,7 +58,7 @@ const PerformanceInfo = ({ data, placeData }: Props) => {
         <SubTitle>공연장</SubTitle>
         <DescriptionWrapper>
           <Description>{place}</Description>
-          <Description>{address}</Description>
+          {/*<Description>{address}</Description>*/}
         </DescriptionWrapper>
       </ContentsWrapper>
       <MapWrapper>

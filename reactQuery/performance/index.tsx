@@ -1,36 +1,25 @@
 'use client';
 
-import {
-  useInfiniteQuery,
-  UseInfiniteQueryOptions,
-  UseInfiniteQueryResult,
-  useQuery,
-  UseQueryOptions,
-  UseQueryResult,
-} from '@tanstack/react-query';
+import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
-import performanceNewService from 'apis/New/performance';
+import performanceNewService from 'apis/performance';
 import {
   PerformanceNewParams,
-  PerformanceNewResponse,
+  PerformanceResponse,
+  PerformanceParams,
   PerformanceRankParams,
   PerformanceRankResponse,
   PerformanceResponseWithPages,
-} from 'apis/New/performance/type';
-import performanceService from 'apis/performance';
-import {
-  DetailPerformanceParams,
-  PerformancesParams,
-  PerformancesResponses,
 } from 'apis/performance/type';
 
 const PERFORMANCES_KEYS = {
   all: ['performance'],
-  lists: () => [...PERFORMANCES_KEYS.all, 'list'],
-  list: (params: PerformancesParams) => [...PERFORMANCES_KEYS.lists(), params],
+  // lists: () => [...PERFORMANCES_KEYS.all, 'list'],
+  // list: (params: PerformancesParams) => [...PERFORMANCES_KEYS.lists(), params],
+
   details: () => [...PERFORMANCES_KEYS.all, 'detail'],
-  detail: (params: DetailPerformanceParams) => [...PERFORMANCES_KEYS.details(), params],
+  detail: (params: PerformanceParams) => [...PERFORMANCES_KEYS.details(), params],
 
   ranks: () => [...PERFORMANCES_KEYS.all, 'rank'],
   rank: (params: PerformanceRankParams) => [...PERFORMANCES_KEYS.ranks(), params],
@@ -60,9 +49,9 @@ export const usePerformanceNewQuery = (
   params: PerformanceNewParams,
   config?: Omit<
     UseQueryOptions<
-      PerformanceResponseWithPages<PerformanceNewResponse>,
+      PerformanceResponseWithPages<PerformanceResponse>,
       AxiosError,
-      PerformanceResponseWithPages<PerformanceNewResponse>,
+      PerformanceResponseWithPages<PerformanceResponse>,
       ReturnType<typeof PERFORMANCES_KEYS.new>
     >,
     'queryKey' | 'queryFn'
@@ -73,70 +62,70 @@ export const usePerformanceNewQuery = (
   });
 };
 
-export const useDetailPerformanceQuery = (
-  params: DetailPerformanceParams,
+export const usePerformanceDetailQuery = (
+  params: PerformanceParams,
   config?: Omit<
     UseQueryOptions<
-      PerformancesResponses,
+      PerformanceResponse,
       AxiosError,
-      PerformancesResponses,
+      PerformanceResponse,
       ReturnType<typeof PERFORMANCES_KEYS.detail>
     >,
     'queryKey' | 'queryFn'
   >,
-): UseQueryResult<PerformancesResponses, AxiosError> => {
+): UseQueryResult<PerformanceResponse, AxiosError> => {
   return useQuery(
     PERFORMANCES_KEYS.detail(params),
-    () => performanceService.getPerformanceDetail(params),
+    () => performanceNewService.getPerformance(params),
     { ...config },
   );
 };
 
-export const usePerformanceQuery = (
-  params: PerformancesParams,
-  config?: UseQueryOptions<
-    PerformancesResponses[],
-    AxiosError,
-    PerformancesResponses[],
-    ReturnType<typeof PERFORMANCES_KEYS.list>
-  >,
-): UseQueryResult<PerformancesResponses[], AxiosError> => {
-  return useQuery(
-    PERFORMANCES_KEYS.list(params),
-    () => performanceService.getPerformances(params),
-    {
-      ...config,
-    },
-  );
-};
+// export const usePerformanceQuery = (
+//   params: PerformancesParams,
+//   config?: UseQueryOptions<
+//     PerformancesResponses[],
+//     AxiosError,
+//     PerformancesResponses[],
+//     ReturnType<typeof PERFORMANCES_KEYS.list>
+//   >,
+// ): UseQueryResult<PerformancesResponses[], AxiosError> => {
+//   return useQuery(
+//     PERFORMANCES_KEYS.list(params),
+//     () => performanceService.getPerformances(params),
+//     {
+//       ...config,
+//     },
+//   );
+// };
 
-export const useInfinitePerformanceQuery = (
-  params: PerformancesParams,
-  config?: Omit<
-    UseInfiniteQueryOptions<
-      PerformancesResponses[],
-      AxiosError,
-      PerformancesResponses[],
-      PerformancesResponses[],
-      ReturnType<typeof PERFORMANCES_KEYS.list>
-    >,
-    'getNextPageParam'
-  >,
-): UseInfiniteQueryResult<PerformancesResponses[], AxiosError> => {
-  return useInfiniteQuery(
-    PERFORMANCES_KEYS.list(params),
-    ({ queryKey: [, , params], pageParam = 0 }) => {
-      const _params = params as PerformancesParams;
-      return performanceService.getPerformances({
-        ..._params,
-        page: pageParam,
-      });
-    },
-    {
-      ...config,
-      getNextPageParam: (lastPage, allPages) => {
-        return !lastPage.length ? undefined : allPages.length;
-      },
-    },
-  );
-};
+// export const useInfinitePerformanceQuery = (
+//   params: PerformancesParams,
+//   config?: Omit<
+//     UseInfiniteQueryOptions<
+//       PerformancesResponses[],
+//       AxiosError,
+//       PerformancesResponses[],
+//       PerformancesResponses[],
+//       ReturnType<typeof PERFORMANCES_KEYS.list>
+//     >,
+//     'getNextPageParam'
+//   >,
+// ): UseInfiniteQueryResult<PerformancesResponses[], AxiosError> => {
+//   return useInfiniteQuery(
+//     PERFORMANCES_KEYS.list(params),
+//     ({ queryKey: [, , params], pageParam = 0 }) => {
+//       const _params = params as PerformancesParams;
+//       return performanceService.getPerformances({
+//         ..._params,
+//         page: pageParam,
+//       });
+//     },
+//     {
+//       ...config,
+//       getNextPageParam: (lastPage, allPages) => {
+//         return !lastPage.length ? undefined : allPages.length;
+//       },
+//     },
+//   );
+// };

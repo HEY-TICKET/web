@@ -23,7 +23,7 @@ import SortingModal, {
 import useCustomToast from 'hooks/useCustomToast';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import useModal from 'hooks/useModal';
-import { useInfinitePerformanceQuery } from 'reactQuery/performance';
+// import { useInfinitePerformanceQuery } from 'reactQuery/performance';
 import { ArrowRight, FilterIcon, SortIcon } from 'styles/icons';
 
 interface GenreProps {
@@ -43,21 +43,26 @@ const Genre = ({ genre }: GenreProps) => {
   const [prevSortingValues, setPrevSortingValues] = useState<SortingModalFormValues | null>(null);
   const [chipValues, setChipValues] = useState(FILTER_MODAL_DEFAULT_VALUES);
 
-  const { isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfinitePerformanceQuery(
-    {
-      page: 0,
-      size: 24,
-    },
-    { keepPreviousData: true },
-  );
+  // TODO : 데이터 없는 동안만 임시 주석 처리
+
+  // const { isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfinitePerformanceQuery(
+  //   {
+  //     page: 0,
+  //     size: 24,
+  //   },
+  //   { keepPreviousData: true },
+  // );
 
   const onIntersect: IntersectionObserverCallback = useCallback(
     async ([{ isIntersecting }]) => {
-      if (hasNextPage && isIntersecting && !isFetchingNextPage) {
-        await fetchNextPage();
-      }
+      console.log(isIntersecting);
+      // if (hasNextPage && isIntersecting && !isFetchingNextPage) {
+      //   await fetchNextPage();
+      // }
     },
-    [fetchNextPage, hasNextPage, isFetchingNextPage],
+    [
+      // fetchNextPage, hasNextPage, isFetchingNextPage
+    ],
   );
   const { setTarget } = useIntersectionObserver({ onIntersect });
 
@@ -164,7 +169,9 @@ const Genre = ({ genre }: GenreProps) => {
                 // data?.pages.flat() ??
                 []
               }
-              loading={isFetchingNextPage || isLoading}
+              loading={
+                false // isFetchingNextPage || isLoading
+              }
               onClick={clickCard}
             />
           </Styles.CardListWrapper>

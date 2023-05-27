@@ -4,7 +4,7 @@ import { HTMLAttributes } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { PerformanceNewParams } from 'apis/New/performance/type';
+import { PerformanceNewParams } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
 import Slider from 'components/common/Slider/Slider';
 import { ROUTES } from 'constants/routes';

@@ -1,36 +1,63 @@
-export type PerformancesParams = {
-  page: number;
-  size: number;
-};
+import { AREA, GENRE, SORT_ORDER, SORT_TYPE, TIME_PERIOD } from 'constants/new/performance';
 
-export type DetailPerformanceParams = {
+export type PerformanceParams = {
   id: string;
 };
 
-export type Url = {
-  url: string;
+export type PerformanceRankParams = {
+  page: number;
+  pageSize: number;
+
+  timePeriod: keyof typeof TIME_PERIOD;
+  date: Date | string;
+  genre?: keyof typeof GENRE;
+  area?: keyof typeof AREA;
 };
 
-export type PerformancesResponses = {
-  mt20id: string; // 공연 id
-  mt10id: string; // 공연 시설 id
-  title: string; // 공연명
-  startDate: Date | string; // 공연 시작일
-  endDate: Date | string; // 공연 종료일
-  place: string; // 공연 시설명
-  cast: string; // 출연진
-  crew: string; // 제작진
-  runtime: string; // 공연 시간
-  age: string; // 관람 연령
-  entrpsnm: string; // 제작사
-  pcseguidance: string; // 티켓 가격
-  poster: string; // 포스터 이미지 경로
-  sty: string; // 줄거리
-  genre: string; // 장르
-  state: string; // 공연 상태
-  openrun: boolean; // 오픈런 여부
-  // 줄거리 이미지 경로
-  styurls: Url[];
+export type PerformanceNewParams = {
+  page: number;
+  pageSize: number;
 
+  genre: keyof typeof GENRE;
+  sortType: keyof typeof SORT_TYPE;
+  sortOrder: keyof typeof SORT_ORDER;
+};
+
+export type PerformanceResponseWithPages<T> = {
+  contents: T[];
+  page: number;
+  pageSize: number;
+  totalPages: number;
+};
+
+export type PerformanceCommonResponse = {
+  id: string;
+  placeId: string;
+  title: string;
+  startDate: Date;
+  endDate: Date;
+  place: string;
+  cast: string;
+  crew: string;
+  runtime: string;
+  age: string;
+  company: string;
+  price: string;
+  poster: string;
+  story: string;
+  genre: string;
+  state: string;
+  openRun: boolean;
+  storyUrls: string[];
   dtguidance: string; // 공연시간
 };
+
+export interface PerformanceResponse extends PerformanceCommonResponse {
+  views: number;
+  latitude: number;
+  longitude: number;
+}
+
+export interface PerformanceRankResponse extends PerformanceCommonResponse {
+  rank: number;
+}

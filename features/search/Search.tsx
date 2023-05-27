@@ -14,7 +14,6 @@ import SearchContents from 'features/search/SearchContents';
 import SearchHistory from 'features/search/SearchHistory';
 import useModal from 'hooks/useModal';
 import useOutsideClick from 'hooks/useOutsideClick';
-import { usePerformanceQuery } from 'reactQuery/performance';
 import { ArrowRight, SortIcon } from 'styles/icons';
 
 export type SearchFormValue = {
@@ -42,9 +41,11 @@ const Search = () => {
   });
 
   // TODO : 실제 값 들어오면 keyword 처리
-  const { data, isLoading } = usePerformanceQuery({ page: 0, size: 10 }, { enabled: !!keyword });
+  // const { data, isLoading } = usePerformanceQuery({ page: 0, size: 10 }, { enabled: !!keyword });
 
-  console.log(data);
+  // console.log(data);
+  const data = [];
+  const isLoading = true;
 
   const methods = useForm<SearchFormValue>({
     mode: 'onTouched',

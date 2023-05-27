@@ -4,8 +4,7 @@ import { HTMLAttributes } from 'react';
 
 import styled from 'styled-components';
 
-import { PerformancesResponses } from 'apis/performance/type';
-import { GetPlaceReturnValue } from 'apis/place/type';
+import { PerformanceResponse } from 'apis/performance/type';
 import CloseButton from 'components/common/Button/CloseButton';
 import useCustomToast from 'hooks/useCustomToast';
 import STYLES from 'styles/index';
@@ -14,8 +13,7 @@ import { nullFn } from 'utils/function';
 
 interface ShareModalProps extends HTMLAttributes<HTMLElement> {
   close?: () => void;
-  performance?: PerformancesResponses;
-  place?: GetPlaceReturnValue;
+  performance?: PerformanceResponse;
 }
 
 declare global {
@@ -25,13 +23,11 @@ declare global {
   }
 }
 
-const ShareModal = ({ close = nullFn, performance, place }: ShareModalProps) => {
+const ShareModal = ({ close = nullFn, performance }: ShareModalProps) => {
   const toast = useCustomToast();
 
-  if (!performance || !place) return null;
-  const { title, poster } = performance;
-
-  const { latitude, longitude } = place;
+  if (!performance) return null;
+  const { title, poster, latitude, longitude } = performance;
 
   const copyLink = async () => {
     await copyClipboard(window.location.href, () => toast('링크를 복사했어요.'));

@@ -4,7 +4,7 @@ import React, { Suspense, useState } from 'react';
 
 import styled from 'styled-components';
 
-import { PerformanceNewParams } from 'apis/New/performance/type';
+import { PerformanceNewParams } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
 import Chip from 'components/common/Chip/Chip';
 import { PERFORMANCE_GENRE_MAP } from 'constants/new/performance';
