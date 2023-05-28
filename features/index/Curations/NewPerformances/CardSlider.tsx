@@ -16,16 +16,17 @@ interface CardSliderProps extends HTMLAttributes<HTMLElement> {
 
 const CardSlider = ({ genre }: CardSliderProps) => {
   const { push } = useRouter();
+  console.log('genre', genre);
 
   const { data } = usePerformanceNewQuery(
     {
-      genre: genre,
+      genre: 'THEATER',
       sortOrder: 'DESC',
       sortType: 'TIME',
       pageSize: 10,
       page: 0,
     },
-    { suspense: true, useErrorBoundary: true },
+    { suspense: true },
   );
 
   const cards = data?.contents ?? [];

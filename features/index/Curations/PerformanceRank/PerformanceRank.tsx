@@ -8,6 +8,7 @@ import { PerformanceRankParams } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
 import Chip from 'components/common/Chip/Chip';
 import { PERFORMANCE_GENRE_MAP } from 'constants/new/performance';
+// import ErrorBoundary from 'core/ErrorBoundary';
 import Curation from 'features/index/Curation';
 import CardSlider from 'features/index/Curations/PerformanceRank/CardSlider';
 
@@ -19,7 +20,7 @@ const PerformanceRank = () => {
   );
 
   return (
-    <Curation title={'공연 랭킹'} readMoreLinkProps={{ href: '/' }}>
+    <Curation title={'공연 랭킹'}>
       <ChipsWrap>
         {PERFORMANCE_RANK_GENRE_MAP.map(({ caption, value }, index) => (
           <Chip
@@ -31,6 +32,7 @@ const PerformanceRank = () => {
         ))}
       </ChipsWrap>
       <CardSliderWrap>
+        {/*<ErrorBoundary fallback={<div>에러발생 현재는 데이터가 없음..?!</div>} key={genre}>*/}
         <Suspense
           fallback={
             <Wrap>
@@ -42,6 +44,7 @@ const PerformanceRank = () => {
         >
           <CardSlider genre={genre} />
         </Suspense>
+        {/*</ErrorBoundary>*/}
       </CardSliderWrap>
     </Curation>
   );

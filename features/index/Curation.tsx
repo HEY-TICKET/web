@@ -2,7 +2,6 @@
 
 import { HTMLAttributes } from 'react';
 
-import Link, { LinkProps } from 'next/link';
 import styled from 'styled-components';
 
 import { ArrowRight } from 'styles/icons';
@@ -10,17 +9,14 @@ import STYLES from 'styles/index';
 
 interface CurateSectionProps extends HTMLAttributes<HTMLElement> {
   title: string;
-  readMoreLinkProps: LinkProps;
 }
 
-const Curation = ({ title, readMoreLinkProps, children }: CurateSectionProps) => {
-  const { href } = readMoreLinkProps;
-
+const Curation = ({ title, children }: CurateSectionProps) => {
   return (
     <CurateSectionWrapper>
       <Header>
         <InfoTitle>{title}</InfoTitle>
-        <ReadMoreButton href={href}>
+        <ReadMoreButton>
           <span>더보기</span>
           <ArrowRight size={20} />
         </ReadMoreButton>
@@ -53,7 +49,7 @@ const InfoTitle = styled.div`
   line-height: 24px;
 `;
 
-const ReadMoreButton = styled(Link)`
+const ReadMoreButton = styled.button`
   display: flex;
   align-items: center;
 `;
