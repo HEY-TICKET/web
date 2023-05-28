@@ -20,6 +20,7 @@ const getPerformance = async (params: PerformanceParams): Promise<PerformanceRes
     console.log('response', response);
     return response.data.data;
   } catch (err) {
+    console.log(err);
     throw new Error('getPerformance Api 에러발생');
   }
 };
@@ -31,6 +32,7 @@ const getRecommendationPerformance = async (
     const response = await performanceAxios.get(`/${params.id}/recommendation`);
     return response.data.data;
   } catch (err) {
+    console.log(err);
     throw new Error('getRecommendationPerformance Api 에러발생');
   }
 };
@@ -42,6 +44,7 @@ const getRank = async (
     const response = await performanceAxios.get('/rank', { params });
     return response.data.data;
   } catch (err) {
+    console.log(err);
     throw new Error('getRank Api 에러발생');
   }
 };
@@ -53,6 +56,7 @@ const getNew = async (
     const response = await performanceAxios.get('/new', { params });
     return response.data.data;
   } catch (err) {
+    console.log(err);
     throw new Error('getNew Api 에러발생');
   }
 };

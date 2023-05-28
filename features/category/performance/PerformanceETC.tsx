@@ -12,20 +12,21 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const PerformanceETC = ({ data }: Props) => {
-  const { age, crew } = data;
+  const { age, crew, company } = data;
 
   return (
     <Styles.InfoWrapper>
       <Styles.InfoTitle>기타 정보</Styles.InfoTitle>
       <ContentsWrapper>
-        {/*<SubTitle>주체/기획</SubTitle>*/}
-        {/*<DescriptionWrapper>*/}
-        {/*  <Description>{fcltychartr}</Description>*/}
-        {/*</DescriptionWrapper>*/}
-        {/*<SubTitle>고객문의</SubTitle>*/}
-        {/*<DescriptionWrapper>*/}
-        {/*  <Description>{phoneNumber}</Description>*/}
-        {/*</DescriptionWrapper>*/}
+        <SubTitle>주체/기획</SubTitle>
+        <DescriptionWrapper>
+          <Description>{company}</Description>
+        </DescriptionWrapper>
+        <SubTitle>고객문의</SubTitle>
+        <DescriptionWrapper>
+          {/*TODO 고객문의 번호 데이터 추가되면 수정*/}
+          <Description>{''}</Description>
+        </DescriptionWrapper>
         <SubTitle>관람 등급</SubTitle>
         <DescriptionWrapper>
           <Description>{age}</Description>
