@@ -1,8 +1,8 @@
-import EmailLogin from 'features/auth/pages/EmailLogin';
-import FindPassword from 'features/auth/pages/FindPassword';
-import Login from 'features/auth/pages/Login';
-import MobileAuthentication from 'features/auth/pages/MobileAuthentication';
-import WritePassword from 'features/auth/pages/WritePassword';
+import EmailLogin from 'features/auth/_components/EmailLogin';
+import FindPassword from 'features/auth/_components/FindPassword';
+import Login from 'features/auth/_components/Login';
+import MobileAuthentication from 'features/auth/_components/MobileAuthentication';
+import WritePassword from 'features/auth/_components/WritePassword';
 
 interface PageProps {
   params: { step: string };
