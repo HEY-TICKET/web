@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -8,6 +8,7 @@ import { PerformanceRankParams } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
 import Chip from 'components/common/Chip/Chip';
 import { PERFORMANCE_GENRE_MAP } from 'constants/new/performance';
+import CustomSuspense from 'core/CustomSuspense';
 import Curation from 'features/index/Curation';
 import CardSlider from 'features/index/Curations/PerformanceRank/CardSlider';
 
@@ -31,7 +32,7 @@ const PerformanceRank = () => {
         ))}
       </ChipsWrap>
       <CardSliderWrap>
-        <Suspense
+        <CustomSuspense
           fallback={
             <Wrap>
               {Array.from({ length: 5 }, (x) => x).map((value, index) => (
@@ -41,7 +42,7 @@ const PerformanceRank = () => {
           }
         >
           <CardSlider genre={genre} />
-        </Suspense>
+        </CustomSuspense>
       </CardSliderWrap>
     </Curation>
   );

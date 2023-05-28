@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useState } from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -8,6 +8,7 @@ import { PerformanceNewParams } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
 import Chip from 'components/common/Chip/Chip';
 import { PERFORMANCE_GENRE_MAP } from 'constants/new/performance';
+import CustomSuspense from 'core/CustomSuspense';
 import ErrorBoundary from 'core/ErrorBoundary';
 import Curation from 'features/index/Curation';
 import CardSlider from 'features/index/Curations/NewPerformances/CardSlider';
@@ -33,7 +34,7 @@ const NewPerformance = () => {
       </ChipsWrap>
       <CardSliderWrap>
         <ErrorBoundary fallback={<div>에러발생 현재는 데이터가 없음..?!</div>} key={genre}>
-          <Suspense
+          <CustomSuspense
             fallback={
               <Wrap>
                 {Array.from({ length: 5 }, (x) => x).map((value, index) => (
@@ -43,7 +44,7 @@ const NewPerformance = () => {
             }
           >
             <CardSlider genre={genre} />
-          </Suspense>
+          </CustomSuspense>
         </ErrorBoundary>
       </CardSliderWrap>
     </Curation>
