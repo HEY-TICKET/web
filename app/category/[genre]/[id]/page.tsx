@@ -18,17 +18,15 @@ const Page = ({ params }: PageProps) => {
 
   return (
     <>
+      <Performance id={id} title={title} />
       <Script
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_CLIENT_ID}`}
-        strategy={'afterInteractive'}
       />
       <Script
         src={'https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js'}
         integrity={process.env.NEXT_PUBLIC_KAKAO_SDK_INTEGRITY}
         crossOrigin={'anonymous'}
-        strategy={'afterInteractive'}
       />
-      <Performance id={id} title={title} />
     </>
   );
 };

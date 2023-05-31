@@ -32,6 +32,7 @@
     "yup": "^1.1.1"
   },
   "devDependencies": {
+    "@builder.io/partytown": "^0.8.0",
     "@tanstack/react-query-devtools": "^4.29.6",
     "@types/navermaps": "^3.6.4",
     "@types/react-datepicker": "^4.8.0",

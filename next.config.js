@@ -14,6 +14,7 @@ const nextConfig = {
     images: {
       allowFutureImage: true,
     },
+    nextScriptWorkers: true,
   },
   async rewrites() {
     return [
