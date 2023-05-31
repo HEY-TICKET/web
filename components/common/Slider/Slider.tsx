@@ -8,6 +8,7 @@ import {
   useMemo,
   useRef,
   useState,
+  isValidElement,
 } from 'react';
 
 import styled from 'styled-components';
@@ -19,9 +20,10 @@ import { clamp } from 'utils/number';
 
 interface CardSliderProps extends HTMLAttributes<HTMLElement> {
   skipCount?: number;
+  fallback?: JSX.Element;
 }
 
-const Slider = ({ children, skipCount = 1 }: CardSliderProps) => {
+const Slider = ({ children, skipCount = 1, fallback }: CardSliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isEnd, setIsEnd] = useState(false);
 
@@ -52,6 +54,10 @@ const Slider = ({ children, skipCount = 1 }: CardSliderProps) => {
       return isEnd || prev === maxIndex ? 0 : clamp(prev + skipCount, 0, maxIndex);
     });
   }, [isEnd, maxIndex, skipCount]);
+
+  if (isValidElement(fallback) && Children.toArray(children).length === 0) {
+    return fallback;
+  }
 
   return (
     <SliderWrap>

@@ -33,7 +33,7 @@ const NewPerformance = () => {
         ))}
       </ChipsWrap>
       <CardSliderWrap>
-        <ErrorBoundary fallback={<div>에러발생 현재는 데이터가 없음..?!</div>} key={genre}>
+        <ErrorBoundary fallback={<Curation.CardSliderFallback />} key={genre}>
           <CustomSuspense
             fallback={
               <Wrap>

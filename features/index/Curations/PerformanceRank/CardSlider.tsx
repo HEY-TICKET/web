@@ -8,6 +8,7 @@ import { PerformanceRankParams } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
 import Slider from 'components/common/Slider/Slider';
 import { ROUTES } from 'constants/routes';
+import Curation from 'features/index/Curation';
 import { usePerformanceRankQuery } from 'reactQuery/performance';
 
 interface CardSliderProps extends HTMLAttributes<HTMLElement> {
@@ -25,7 +26,7 @@ const CardSlider = ({ genre }: CardSliderProps) => {
       pageSize: 10,
       page: 0,
     },
-    { suspense: true },
+    { suspense: true, retry: false },
   );
 
   const cards = data?.contents ?? [];
@@ -35,7 +36,7 @@ const CardSlider = ({ genre }: CardSliderProps) => {
   };
 
   return (
-    <Slider skipCount={3}>
+    <Slider skipCount={3} fallback={<Curation.CardSliderFallback />}>
       {cards.map((item, index) => (
         <Card key={index} data={item} onClick={clickCard} type={'simple'} rank={item.rank} />
       ))}

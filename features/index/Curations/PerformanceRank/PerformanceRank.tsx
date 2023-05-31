@@ -9,6 +9,7 @@ import Card from 'components/common/Card/Card';
 import Chip from 'components/common/Chip/Chip';
 import { PERFORMANCE_GENRE_MAP } from 'constants/new/performance';
 import CustomSuspense from 'core/CustomSuspense';
+import ErrorBoundary from 'core/ErrorBoundary';
 import Curation from 'features/index/Curation';
 import CardSlider from 'features/index/Curations/PerformanceRank/CardSlider';
 
@@ -32,17 +33,19 @@ const PerformanceRank = () => {
         ))}
       </ChipsWrap>
       <CardSliderWrap>
-        <CustomSuspense
-          fallback={
-            <Wrap>
-              {Array.from({ length: 5 }, (x) => x).map((value, index) => (
-                <Card.Skeleton key={index} type={'simple'} />
-              ))}
-            </Wrap>
-          }
-        >
-          <CardSlider genre={genre} />
-        </CustomSuspense>
+        <ErrorBoundary fallback={<Curation.CardSliderFallback />} key={genre}>
+          <CustomSuspense
+            fallback={
+              <Wrap>
+                {Array.from({ length: 5 }, (x) => x).map((value, index) => (
+                  <Card.Skeleton key={index} type={'simple'} />
+                ))}
+              </Wrap>
+            }
+          >
+            <CardSlider genre={genre} />
+          </CustomSuspense>
+        </ErrorBoundary>
       </CardSliderWrap>
     </Curation>
   );

@@ -32,6 +32,33 @@ const Curation = ({ title, readMoreLinkProps, children }: CurateSectionProps) =>
 
 export default Curation;
 
+Curation.CardSliderFallback = function CardSliderFallback() {
+  return (
+    <FallbackWrap>
+      현재 이 카테고리의
+      <br />
+      진행중인 공연이 없어요
+    </FallbackWrap>
+  );
+};
+
+const FallbackWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 295.27px;
+  padding: 24px 16px;
+
+  color: ${STYLES.color.gray400};
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+`;
+
 const CurateSectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
