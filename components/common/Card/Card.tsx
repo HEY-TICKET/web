@@ -25,7 +25,9 @@ const Card = ({ data, onClick, type = 'default', rank }: CardProps) => {
 
   const date = getPeriod(startDate, endDate);
 
-  const isRunning = restDate > 0;
+  console.log('restDate', restDate);
+
+  const isRunning = restDate < 0;
   const dDay = Math.floor(restDate);
   const isSrcValid =
     poster?.startsWith('/') || poster?.startsWith('http://') || poster?.startsWith('https://');

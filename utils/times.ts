@@ -10,7 +10,7 @@ export const getDateDiff = (date: DateProps, otherDate?: DateProps) => {
   const _date = new Date(date);
   const _otherDate = otherDate ? new Date(otherDate) : new Date();
 
-  const diffDate = _otherDate.getTime() - _date.getTime();
+  const diffDate = _date.getTime() - _otherDate.getTime();
 
   return diffDate / (1000 * 60 * 60 * 24); // 밀리세컨 * 초 * 분 * 시 = 일
 };

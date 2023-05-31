@@ -18,7 +18,7 @@ const DetailCard = ({ data, onClick }: CardProps) => {
 
   const period = getPeriod(startDate, endDate);
 
-  const isRunning = restDate > 0;
+  const isRunning = restDate < 0;
   const dDay = Math.floor(restDate);
   const isSrcValid =
     poster.startsWith('/') || poster.startsWith('http://') || poster.startsWith('https://');
