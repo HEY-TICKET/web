@@ -25,7 +25,7 @@ const WritePassword = () => {
         다시 진행해야 해요. 페이지에서 나갈까요?
       </span>
     ),
-    onSubmit: () => replace('/auth/login'),
+    onSubmit: () => replace('/auth/signIn'),
   });
 
   return (

@@ -1,26 +1,26 @@
-import EmailLogin from 'features/auth/_components/EmailLogin';
+import EmailSignIn from 'features/auth/_components/EmailSignIn';
 import FindPassword from 'features/auth/_components/FindPassword';
-import Login from 'features/auth/_components/Login';
 import MobileAuthentication from 'features/auth/_components/MobileAuthentication';
+import SignIn from 'features/auth/_components/SignIn';
 import WritePassword from 'features/auth/_components/WritePassword';
 
 interface PageProps {
   params: { step: string };
 }
 
-// type Step = 'login' | 'email-login' | 'mobile-authentication' | 'write-email';
+// type Step = 'signIn' | 'email-signIn' | 'mobile-authentication' | 'write-email';
 
 const STEP = [
-  'login',
-  'email-login',
+  'signIn',
+  'email-signIn',
   'mobile-authentication',
   'write-password',
   'find-password',
 ] as const;
 
 const PAGE_BY_STEP: { [K in (typeof STEP)[number]]: () => JSX.Element } = {
-  login: Login,
-  'email-login': EmailLogin,
+  signIn: SignIn,
+  'email-signIn': EmailSignIn,
   'mobile-authentication': MobileAuthentication,
   'write-password': WritePassword,
   'find-password': FindPassword,
@@ -48,8 +48,8 @@ export async function generateStaticParams() {
 }
 
 /**
- * /auth/login (로그인) (시작)
- * /auth/email-login (이메일 로그인) (이메일이 있는 경우 이동 1)
+ * /auth/signIn (로그인) (시작)
+ * /auth/email-signIn (이메일 로그인) (이메일이 있는 경우 이동 1)
  * /auth/find-email (이메일 찾기)
  * /auth/find-password (비밀번호 찾기)
  * /auth/terms-agreement (약관동의)

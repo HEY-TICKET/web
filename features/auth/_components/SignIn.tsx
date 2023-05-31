@@ -8,24 +8,24 @@ import Logo from 'components/common/Logo/Logo';
 import TopBar from 'components/common/Nav/TopBar';
 import ConnectForm from 'components/FormProvider/ConnectForm';
 import Input from 'components/Input/Input';
-import LoginFormProvider, { LoginFormValue } from 'features/auth/FormProvider/LoginFormProvider';
+import SignInFormProvider, { SignInFormValue } from 'features/auth/FormProvider/SignInFormProvider';
 import STYLES from 'styles/index';
 
-const Login = () => {
+const SignIn = () => {
   const { back } = useRouter();
 
   return (
     <>
       <TopBar leftProps={<TopBar.BackButton onClick={back} />} />
       <Wrapper>
-        <EmailLoginFormWrapper>
+        <EmailSignInFormWrapper>
           <Logo />
-          <LoginFormProvider>
-            <ConnectForm<LoginFormValue>>
+          <SignInFormProvider>
+            <ConnectForm<SignInFormValue>>
               {({ formState: { isValid, isSubmitting } }) => (
                 <>
                   <InputContainer>
-                    <Input<LoginFormValue>
+                    <Input<SignInFormValue>
                       name={'email'}
                       label={'이메일 주소'}
                       placeholder={'abcd@heyticket.co.kr'}
@@ -36,9 +36,9 @@ const Login = () => {
                 </>
               )}
             </ConnectForm>
-          </LoginFormProvider>
-        </EmailLoginFormWrapper>
-        <KakaoLoginFormWrapper>
+          </SignInFormProvider>
+        </EmailSignInFormWrapper>
+        <SignInWithKakaoFormWrapper>
           <Button
             type={'button'}
             theme={'none'}
@@ -49,13 +49,13 @@ const Login = () => {
           >
             카카오로 계속하기
           </Button>
-        </KakaoLoginFormWrapper>
+        </SignInWithKakaoFormWrapper>
       </Wrapper>
     </>
   );
 };
 
-export default Login;
+export default SignIn;
 
 const Wrapper = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const EmailLoginFormWrapper = styled.div`
+const EmailSignInFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,7 +78,7 @@ const EmailLoginFormWrapper = styled.div`
 const InputContainer = styled.div`
   margin-bottom: 20px;
 `;
-const KakaoLoginFormWrapper = styled.section`
+const SignInWithKakaoFormWrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;

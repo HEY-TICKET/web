@@ -44,7 +44,7 @@ const WritePasswordFormProvider = ({ children }: FormProviderProps) => {
         setError('password', { message: '이전에 사용하던 비밀번호는 사용할 수 없습니다' });
         return;
       }
-      push(`/auth/login`);
+      push(`/auth/signIn`);
       // 비밀번호 재설정 api
       setTimeout(() => toast.success('새 비밀번호로 바뀌었어요. 다시 로그인해주세요.'), 1000);
     } else {

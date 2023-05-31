@@ -1,6 +1,9 @@
-export type RefreshTokenParams = { email: string; refreshToken: string };
+export type ReIssuanceTokenParams = {
+  email: string;
+  refreshToken: string;
+};
 
-export type PasswordChangeParams = {
+export type SetPasswordParams = {
   email: string;
   password: string;
   verificationCode: string;
@@ -11,12 +14,17 @@ export type VerifyParams = {
   code: string;
 };
 
-export type VerificationParams = {
+export type VerificationSendParams = {
   email: string;
   verificationType: keyof typeof VERIFICATION_TYPE;
 };
 
-export type LoginParams = {
+export type SignInParams = {
+  email: string;
+  password: string;
+};
+
+export type WithdrawalParams = {
   email: string;
   password: string;
 };

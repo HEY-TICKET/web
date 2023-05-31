@@ -12,16 +12,16 @@ import { EMAIL_REGEX, PASSWORD_REGEX } from 'constants/regex';
 
 type FormProviderProps = HTMLAttributes<HTMLElement>;
 
-export type EmailLoginFormValue = {
+export type EmailSignInFormValue = {
   email: string;
   password: string;
 };
 
-const EmailLoginFormProvider = ({ children }: FormProviderProps) => {
+const EmailSignInFormProvider = ({ children }: FormProviderProps) => {
   const { push } = useRouter();
   const email = useSearchParams().get('email') ?? '';
 
-  const methods = useForm<EmailLoginFormValue>({
+  const methods = useForm<EmailSignInFormValue>({
     mode: 'onTouched',
     defaultValues: {
       email: email,
@@ -32,7 +32,7 @@ const EmailLoginFormProvider = ({ children }: FormProviderProps) => {
 
   const { handleSubmit, setError } = methods;
 
-  const onValidSubmit: SubmitHandler<EmailLoginFormValue> = (data) => {
+  const onValidSubmit: SubmitHandler<EmailSignInFormValue> = (data) => {
     console.log(data);
     const { password } = data;
     const isCorrectPassword = password === 'Test123@';
@@ -52,7 +52,7 @@ const EmailLoginFormProvider = ({ children }: FormProviderProps) => {
   );
 };
 
-export default EmailLoginFormProvider;
+export default EmailSignInFormProvider;
 
 const Form = styled.form`
   width: 100%;

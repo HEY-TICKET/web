@@ -12,14 +12,14 @@ import { EMAIL_REGEX } from 'constants/regex';
 
 type FormProviderProps = HTMLAttributes<HTMLElement>;
 
-export type LoginFormValue = {
+export type SignInFormValue = {
   email: string;
 };
 
-const LoginFormProvider = ({ children }: FormProviderProps) => {
+const SignInFormProvider = ({ children }: FormProviderProps) => {
   const { push } = useRouter();
 
-  const methods = useForm<LoginFormValue>({
+  const methods = useForm<SignInFormValue>({
     mode: 'onTouched',
     defaultValues: {
       email: '',
@@ -29,14 +29,14 @@ const LoginFormProvider = ({ children }: FormProviderProps) => {
 
   const { handleSubmit } = methods;
 
-  const onValidSubmit: SubmitHandler<LoginFormValue> = (data) => {
+  const onValidSubmit: SubmitHandler<SignInFormValue> = (data) => {
     console.log(data);
 
     const isSubscribedEmail = data.email === 'test@gmail.com';
 
     if (isSubscribedEmail) {
       // FIXME: 세션으로 데이터 전달 ? or route query 로 전달?
-      push(`/auth/email-login?email=${data.email}`);
+      push(`/auth/email-signIn?email=${data.email}`);
     } else {
       //
       push(`/auth/mobile-authentication?email=${data.email}`);
@@ -52,7 +52,7 @@ const LoginFormProvider = ({ children }: FormProviderProps) => {
   );
 };
 
-export default LoginFormProvider;
+export default SignInFormProvider;
 
 const Form = styled.form`
   width: 100%;

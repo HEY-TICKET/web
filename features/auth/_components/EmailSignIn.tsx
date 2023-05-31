@@ -9,13 +9,13 @@ import Logo from 'components/common/Logo/Logo';
 import TopBar from 'components/common/Nav/TopBar';
 import ConnectForm from 'components/FormProvider/ConnectForm';
 import Input from 'components/Input/Input';
-import EmailLoginFormProvider, {
-  EmailLoginFormValue,
-} from 'features/auth/FormProvider/EmailLoginFormProvider';
+import EmailSignInFormProvider, {
+  EmailSignInFormValue,
+} from 'features/auth/FormProvider/EmailSignInFormProvider';
 import PasswordInput from 'features/auth/Input/PasswordInput';
 import STYLES from 'styles/index';
 
-const EmailLogin = () => {
+const EmailSignIn = () => {
   const { back } = useRouter();
   const email = useSearchParams().get('email');
 
@@ -23,15 +23,15 @@ const EmailLogin = () => {
     <>
       <TopBar leftProps={<TopBar.BackButton onClick={back} />} />
       <Wrapper>
-        <EmailLoginFormWrapper>
+        <EmailSignInFormWrapper>
           <Logo />
-          <EmailLoginFormProvider>
-            <ConnectForm<EmailLoginFormValue>>
+          <EmailSignInFormProvider>
+            <ConnectForm<EmailSignInFormValue>>
               {({ formState: { isValid, isSubmitting } }) => (
                 <>
                   <InputContainer>
-                    <Input<EmailLoginFormValue> name={'email'} label={'이메일 주소'} disabled />
-                    <PasswordInput<EmailLoginFormValue>
+                    <Input<EmailSignInFormValue> name={'email'} label={'이메일 주소'} disabled />
+                    <PasswordInput<EmailSignInFormValue>
                       name={'password'}
                       placeholder={'비밀번호 입력'}
                       message={'영문 대문자, 소문자, 숫자 포함 8자 이상'}
@@ -42,8 +42,8 @@ const EmailLogin = () => {
                 </>
               )}
             </ConnectForm>
-          </EmailLoginFormProvider>
-        </EmailLoginFormWrapper>
+          </EmailSignInFormProvider>
+        </EmailSignInFormWrapper>
         <FindPasswordLink href={`/auth/find-password?email=${email}`}>
           비밀번호 찾기
         </FindPasswordLink>
@@ -52,7 +52,7 @@ const EmailLogin = () => {
   );
 };
 
-export default EmailLogin;
+export default EmailSignIn;
 
 const Wrapper = styled.div`
   display: flex;
@@ -63,7 +63,7 @@ const Wrapper = styled.div`
   justify-content: center;
   padding-top: 56px;
 `;
-const EmailLoginFormWrapper = styled.div`
+const EmailSignInFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

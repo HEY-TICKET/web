@@ -49,7 +49,7 @@ const FindPassword = () => {
             <FindPasswordDescription>
               이메일 주소가 기억나지 않으시면
               <br />
-              <FindPasswordLink href={'/auth/login'}>다시 가입</FindPasswordLink>해 주세요.
+              <FindPasswordLink href={'/auth/signIn'}>다시 가입</FindPasswordLink>해 주세요.
             </FindPasswordDescription>
           </RegisterWrapper>
         </FindPasswordFormWrapper>
