@@ -53,7 +53,15 @@ const ArrayInput = <T extends FieldValues>({
     }
     if (event.code === 'Enter' && inputRef) {
       event.preventDefault();
-      addKeyword();
+
+      const prevValues = getValues(name);
+      const setValues = new Set(prevValues);
+
+      if (prevValues.length !== setValues.size) {
+        inputRef.value = '';
+      } else {
+        addKeyword();
+      }
     }
   };
 
@@ -109,17 +117,19 @@ const ArrayInput = <T extends FieldValues>({
           fallback
         ) : (
           <ChipsContainer>
-            {values.map((value: string, index: number) => {
-              if (!value) return <React.Fragment key={index} />;
-              return (
-                <Chip
-                  key={index}
-                  text={value}
-                  onClose={(event) => deleteValue(event, index)}
-                  closable
-                />
-              );
-            })}
+            {values
+              .map((value: string, index: number) => {
+                if (!value) return <React.Fragment key={index} />;
+                return (
+                  <Chip
+                    key={index}
+                    text={value}
+                    onClose={(event) => deleteValue(event, index)}
+                    closable
+                  />
+                );
+              })
+              .reverse()}
           </ChipsContainer>
         )}
       </FallbackWrapper>
