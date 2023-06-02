@@ -18,13 +18,14 @@ const PerformanceInfo = ({ data }: Props) => {
   const {
     startDate,
     endDate,
-    dtguidance: time,
     cast,
+    schedule,
     runtime,
     price,
     place,
     latitude,
     longitude,
+    address,
   } = data;
 
   const period = getPeriod(startDate, endDate);
@@ -43,7 +44,7 @@ const PerformanceInfo = ({ data }: Props) => {
         </DescriptionWrapper>
         <SubTitle>시간</SubTitle>
         <DescriptionWrapper>
-          {getArrayPerformanceTime(time).map((desc, index) => (
+          {getArrayPerformanceTime(schedule).map((desc, index) => (
             <Description key={index}>{desc}</Description>
           ))}
         </DescriptionWrapper>
@@ -58,7 +59,7 @@ const PerformanceInfo = ({ data }: Props) => {
         <SubTitle>공연장</SubTitle>
         <DescriptionWrapper>
           <Description>{place}</Description>
-          {/*<Description>{address}</Description>*/}
+          <Description>{address}</Description>
         </DescriptionWrapper>
       </ContentsWrapper>
       <MapWrapper>

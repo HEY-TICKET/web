@@ -32,6 +32,7 @@ export type PerformanceResponseWithPages<T> = {
 
 export type PerformanceCommonResponse = {
   id: string;
+  address: string;
   placeId: string;
   title: string;
   startDate: Date;
@@ -49,7 +50,7 @@ export type PerformanceCommonResponse = {
   state: string;
   openRun: boolean;
   storyUrls: string[];
-  dtguidance: string; // 공연시간
+  schedule: string; // 공연시간
 };
 
 export interface PerformanceResponse extends PerformanceCommonResponse {

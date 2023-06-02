@@ -25,8 +25,6 @@ const Card = ({ data, onClick, type = 'default', rank }: CardProps) => {
 
   const date = getPeriod(startDate, endDate);
 
-  console.log('restDate', restDate);
-
   const isRunning = restDate < 0;
   const dDay = Math.floor(restDate);
   const isSrcValid =
