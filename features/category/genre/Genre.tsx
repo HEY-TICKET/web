@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Tab from 'components/common/Tab/Tab';
-import { CATEGORY } from 'constants/category';
+import { PERFORMANCE_GENRE_MAP } from 'constants/new/performance';
 import { ROUTES } from 'constants/routes';
 import CardList from 'features/category/genre/CardList';
 import FilterChips, { FILTER_VALUE_MAP } from 'features/category/genre/filter/chip/FilterChips';
@@ -29,7 +29,7 @@ import { ArrowRight, FilterIcon, SortIcon } from 'styles/icons';
 interface GenreProps {
   genre: string;
 }
-const Header = new Map(CATEGORY.map(({ caption, route }) => [route, caption]));
+const Header = new Map(PERFORMANCE_GENRE_MAP.map(({ caption, value }) => [value, caption]));
 
 const Genre = ({ genre }: GenreProps) => {
   const { replace, push } = useRouter();

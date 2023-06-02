@@ -3,7 +3,7 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
-import performanceNewService from 'apis/performance';
+import performanceService from 'apis/performance';
 import {
   PerformanceNewParams,
   PerformanceResponse,
@@ -11,6 +11,7 @@ import {
   PerformanceRankParams,
   PerformanceRankResponse,
   PerformanceResponseWithPages,
+  PerformanceCommonResponse,
 } from 'apis/performance/type';
 
 const PERFORMANCES_KEYS = {
@@ -26,6 +27,9 @@ const PERFORMANCES_KEYS = {
 
   news: () => [...PERFORMANCES_KEYS.all, 'new'],
   new: (params: PerformanceNewParams) => [...PERFORMANCES_KEYS.news(), params],
+
+  recommendations: () => [...PERFORMANCES_KEYS.all, 'recommendation'],
+  recommendation: (params: PerformanceParams) => [...PERFORMANCES_KEYS.news(), params],
 } as const;
 
 export const usePerformanceRankQuery = (
@@ -40,7 +44,7 @@ export const usePerformanceRankQuery = (
     'queryKey' | 'queryFn'
   >,
 ) => {
-  return useQuery(PERFORMANCES_KEYS.rank(params), () => performanceNewService.getRank(params), {
+  return useQuery(PERFORMANCES_KEYS.rank(params), () => performanceService.getRank(params), {
     ...config,
   });
 };
@@ -57,7 +61,7 @@ export const usePerformanceNewQuery = (
     'queryKey' | 'queryFn'
   >,
 ) => {
-  return useQuery(PERFORMANCES_KEYS.new(params), () => performanceNewService.getNew(params), {
+  return useQuery(PERFORMANCES_KEYS.new(params), () => performanceService.getNew(params), {
     ...config,
   });
 };
@@ -76,28 +80,28 @@ export const usePerformanceDetailQuery = (
 ): UseQueryResult<PerformanceResponse, AxiosError> => {
   return useQuery(
     PERFORMANCES_KEYS.detail(params),
-    () => performanceNewService.getPerformance(params),
+    () => performanceService.getPerformance(params),
     { ...config },
   );
 };
 
-// export const usePerformanceQuery = (
-//   params: PerformancesParams,
-//   config?: UseQueryOptions<
-//     PerformancesResponses[],
-//     AxiosError,
-//     PerformancesResponses[],
-//     ReturnType<typeof PERFORMANCES_KEYS.list>
-//   >,
-// ): UseQueryResult<PerformancesResponses[], AxiosError> => {
-//   return useQuery(
-//     PERFORMANCES_KEYS.list(params),
-//     () => performanceService.getPerformances(params),
-//     {
-//       ...config,
-//     },
-//   );
-// };
+export const useRecommendationPerformanceQuery = (
+  params: PerformanceParams,
+  config?: UseQueryOptions<
+    PerformanceCommonResponse[],
+    AxiosError,
+    PerformanceCommonResponse[],
+    ReturnType<typeof PERFORMANCES_KEYS.recommendation>
+  >,
+): UseQueryResult<PerformanceCommonResponse[], AxiosError> => {
+  return useQuery(
+    PERFORMANCES_KEYS.recommendation(params),
+    () => performanceService.getRecommendationPerformance(params),
+    {
+      ...config,
+    },
+  );
+};
 
 // export const useInfinitePerformanceQuery = (
 //   params: PerformancesParams,

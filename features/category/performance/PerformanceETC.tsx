@@ -12,7 +12,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const PerformanceETC = ({ data }: Props) => {
-  const { age, crew, company } = data;
+  const { age, crew, company, phoneNumber } = data;
 
   return (
     <Styles.InfoWrapper>
@@ -24,8 +24,7 @@ const PerformanceETC = ({ data }: Props) => {
         </DescriptionWrapper>
         <SubTitle>고객문의</SubTitle>
         <DescriptionWrapper>
-          {/*TODO 고객문의 번호 데이터 추가되면 수정*/}
-          <Description>{''}</Description>
+          <Description>{phoneNumber}</Description>
         </DescriptionWrapper>
         <SubTitle>관람 등급</SubTitle>
         <DescriptionWrapper>

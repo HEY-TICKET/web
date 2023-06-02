@@ -19,7 +19,7 @@ interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
 }
 
 const Card = ({ data, onClick, type = 'default', rank }: CardProps) => {
-  const { id, title, place, startDate, endDate, poster, price } = data;
+  const { id, title, theater, startDate, endDate, poster, price } = data;
 
   const restDate = getDateDiff(startDate);
 
@@ -37,7 +37,7 @@ const Card = ({ data, onClick, type = 'default', rank }: CardProps) => {
         {isSrcValid && <Poster src={poster} width={148} alt={'poster'} rank={rank} />}
         <Styles.ContentsWrapper>
           <Styles.SimpleInfoWrapper>
-            <Styles.SimpleCardDescription>{place}</Styles.SimpleCardDescription>
+            <Styles.SimpleCardDescription>{theater}</Styles.SimpleCardDescription>
             <Styles.CardTitle>{title}</Styles.CardTitle>
             <Styles.PerformanceDate $isRunning={isRunning}>
               <span>{isRunning ? '공연 중' : `D-${dDay}`}</span>
@@ -63,7 +63,7 @@ const Card = ({ data, onClick, type = 'default', rank }: CardProps) => {
             <Badge colorTheme={'blue25'}>{`D-${dDay}`}</Badge>
           )}
           <Styles.CardTitle>{title}</Styles.CardTitle>
-          <Styles.CardDescription>{place}</Styles.CardDescription>
+          <Styles.CardDescription>{theater}</Styles.CardDescription>
           <Styles.CardDescription>{date}</Styles.CardDescription>
         </Styles.InfoWrapper>
 

@@ -22,7 +22,7 @@ const PerformanceInfo = ({ data }: Props) => {
     schedule,
     runtime,
     price,
-    place,
+    theater,
     latitude,
     longitude,
     address,
@@ -58,7 +58,7 @@ const PerformanceInfo = ({ data }: Props) => {
         </DescriptionWrapper>
         <SubTitle>공연장</SubTitle>
         <DescriptionWrapper>
-          <Description>{place}</Description>
+          <Description>{theater}</Description>
           <Description>{address}</Description>
         </DescriptionWrapper>
       </ContentsWrapper>

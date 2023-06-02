@@ -1,13 +1,13 @@
 import Script from 'next/script';
 
-import { CATEGORY } from 'constants/category';
+import { PERFORMANCE_GENRE_MAP } from 'constants/new/performance';
 import Performance from 'features/category/performance/Performance';
 
 interface PageProps {
   params: { genre: string; id: string };
 }
 
-const Header = new Map(CATEGORY.map(({ caption, route }) => [route, caption]));
+const Header = new Map(PERFORMANCE_GENRE_MAP.map(({ caption, value }) => [value, caption]));
 
 const Page = ({ params }: PageProps) => {
   const { id, genre } = params;

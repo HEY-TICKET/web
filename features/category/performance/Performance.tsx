@@ -35,7 +35,7 @@ const Performance = ({ id, title }: { id: string; title: string }) => {
       <Styles.InfoContainer>
         <PerformanceInfo data={data} />
         <PerformanceDetail data={data} />
-        <OtherPerformances />
+        <OtherPerformances id={id} />
         <PerformanceETC data={data} />
       </Styles.InfoContainer>
       <Styles.FooterWrapper>

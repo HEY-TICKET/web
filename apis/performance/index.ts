@@ -27,9 +27,10 @@ const getPerformance = async (params: PerformanceParams): Promise<PerformanceRes
 
 const getRecommendationPerformance = async (
   params: PerformanceParams,
-): Promise<PerformanceCommonResponse> => {
+): Promise<PerformanceCommonResponse[]> => {
   try {
     const response = await performanceAxios.get(`/${params.id}/recommendation`);
+    console.log('response', response);
     return response.data.data;
   } catch (err) {
     console.log(err);

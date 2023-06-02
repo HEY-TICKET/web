@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { CATEGORY } from 'constants/category';
+import { PERFORMANCE_GENRE_MAP } from 'constants/new/performance';
 import { ROUTES } from 'constants/routes';
 import * as Styles from 'features/category/Category.styles';
 import { ArrowRight } from 'styles/icons';
@@ -26,8 +26,8 @@ const Category = () => {
         ))}
       </Styles.Category>
       <Styles.SubCategory>
-        {CATEGORY.map(({ caption, route }) => (
-          <Styles.SubCategoryItemWrapper key={caption} onClick={() => clickSubCategory(route)}>
+        {PERFORMANCE_GENRE_MAP.map(({ caption, value }) => (
+          <Styles.SubCategoryItemWrapper key={caption} onClick={() => clickSubCategory(value)}>
             <Styles.SubCategoryItem>
               <span>{caption}</span>
               {/*<p>{(1234).addComma()}</p>*/}

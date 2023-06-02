@@ -37,7 +37,7 @@ export type PerformanceCommonResponse = {
   title: string;
   startDate: Date;
   endDate: Date;
-  place: string;
+  theater: string;
   cast: string;
   crew: string;
   runtime: string;
@@ -51,6 +51,7 @@ export type PerformanceCommonResponse = {
   openRun: boolean;
   storyUrls: string[];
   schedule: string; // 공연시간
+  phoneNumber: string;
 };
 
 export interface PerformanceResponse extends PerformanceCommonResponse {
