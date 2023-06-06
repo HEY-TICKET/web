@@ -65,7 +65,7 @@ const Slider = ({ children, skipCount = 1, fallback }: CardSliderProps) => {
       <Container>
         <Wrap clientX={clientX}>
           {Children.map(children, (child, i) => (
-            <li
+            <CardWrap
               key={i}
               ref={(element) => {
                 ref.current[i] = element;
@@ -75,7 +75,7 @@ const Slider = ({ children, skipCount = 1, fallback }: CardSliderProps) => {
               }}
             >
               {child}
-            </li>
+            </CardWrap>
           ))}
         </Wrap>
       </Container>
@@ -98,6 +98,11 @@ const Wrap = styled.div<{ clientX: number }>`
   transition-property: all;
   transition-duration: 500ms;
   transition-timing-function: ease-in-out;
+`;
+
+const CardWrap = styled.li`
+  width: 100%;
+  min-width: 148px;
 `;
 
 const SliderWrap = styled.div`

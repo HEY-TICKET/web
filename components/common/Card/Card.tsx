@@ -18,7 +18,7 @@ interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
   rank?: number;
 }
 
-const Card = ({ data, onClick, type = 'default', rank }: CardProps) => {
+const Card = ({ data, onClick, type = 'default', rank, css }: CardProps) => {
   const { id, title, theater, startDate, endDate, poster, price } = data;
 
   const restDate = getDateDiff(startDate);
@@ -32,9 +32,9 @@ const Card = ({ data, onClick, type = 'default', rank }: CardProps) => {
 
   if (type === 'simple') {
     return (
-      <Styles.CardContainer onClick={() => onClick?.(id)}>
+      <Styles.CardContainer onClick={() => onClick?.(id)} css={css}>
         {/*TODO : 이미지가 유효하지 않은 값이 오거나 없는 경우 default 이미지를 렌더링 시켜야 함*/}
-        {isSrcValid && <Poster src={poster} width={148} alt={'poster'} rank={rank} />}
+        {isSrcValid && <Poster src={poster} alt={'poster'} rank={rank} />}
         <Styles.ContentsWrapper>
           <Styles.SimpleInfoWrapper>
             <Styles.SimpleCardDescription>{theater}</Styles.SimpleCardDescription>
@@ -52,7 +52,7 @@ const Card = ({ data, onClick, type = 'default', rank }: CardProps) => {
   }
 
   return (
-    <Styles.CardContainer onClick={() => onClick?.(id)}>
+    <Styles.CardContainer onClick={() => onClick?.(id)} css={css}>
       {/*TODO : 이미지가 유효하지 않은 값이 오거나 없는 경우 default 이미지를 렌더링 시켜야 함*/}
       {isSrcValid && <Poster src={poster} alt={'poster'} />}
       <Styles.ContentsWrapper>

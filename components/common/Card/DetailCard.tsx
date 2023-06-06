@@ -28,7 +28,7 @@ const DetailCard = ({ data, onClick }: CardProps) => {
       {/*TODO : 이미지가 유효하지 않은 값이 오거나 없는 경우 default 이미지를 렌더링 시켜야 함*/}
       {isSrcValid && (
         <Styles.PosterWrapper>
-          <Poster src={poster} width={280} height={400} alt={'poster'} />
+          <Poster src={poster} alt={'poster'} />
         </Styles.PosterWrapper>
       )}
       <Styles.ContentsWrapper>
