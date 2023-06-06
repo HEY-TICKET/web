@@ -1,10 +1,9 @@
 import { useEffect, useRef } from 'react';
 
+import { PerformanceResponse } from 'apis/performance/type';
 import { handleOpenNewTab } from 'utils/url';
 
-export type Location = { latitude: number; longitude: number };
-
-const NaverMap = ({ latitude, longitude }: Location) => {
+const NaverMap = ({ latitude, longitude }: Pick<PerformanceResponse, 'latitude' | 'longitude'>) => {
   const mapElement = useRef(null);
 
   useEffect(() => {

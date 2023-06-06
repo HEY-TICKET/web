@@ -7,6 +7,7 @@ import Button from 'components/common/Button/Button';
 import Logo from 'components/common/Logo/Logo';
 import TopBar from 'components/common/Nav/TopBar';
 import ConnectForm from 'components/FormProvider/ConnectForm';
+import FormHeader from 'components/FormProvider/FormHeader';
 import Input from 'components/Input/Input';
 import SignInFormProvider, { SignInFormValue } from 'features/auth/FormProvider/SignInFormProvider';
 import STYLES from 'styles/index';
@@ -19,7 +20,12 @@ const SignIn = () => {
       <TopBar leftProps={<TopBar.BackButton onClick={back} />} />
       <Wrapper>
         <EmailSignInFormWrapper>
-          <Logo />
+          <FormHeader>
+            <Logo />
+            <FormHeader.Description>
+              로그인 또는 가입을 위해 이메일 주소를 입력해 주세요
+            </FormHeader.Description>
+          </FormHeader>
           <SignInFormProvider>
             <ConnectForm<SignInFormValue>>
               {({ formState: { isValid, isSubmitting } }) => (
