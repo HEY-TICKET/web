@@ -25,7 +25,7 @@ const PerformanceDetail = ({ data }: Props) => {
             alt={'performance-detail-image'}
             width={568}
             height={366}
-            priority={false}
+            priority
           />
         ))}
       </UrlImagesWrapper>

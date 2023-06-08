@@ -63,3 +63,8 @@ export interface PerformanceResponse extends PerformanceCommonResponse {
 export interface PerformanceRankResponse extends PerformanceCommonResponse {
   rank: number;
 }
+
+export interface PerformanceCountByGenreResponse {
+  genre: keyof typeof GENRE;
+  count: number;
+}

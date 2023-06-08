@@ -8,6 +8,7 @@ import {
   PerformanceRankResponse,
   PerformanceCommonResponse,
   PerformanceResponseWithPages,
+  PerformanceCountByGenreResponse,
 } from 'apis/performance/type';
 
 const performanceAxios = axios.create({
@@ -62,6 +63,22 @@ const getNew = async (
   }
 };
 
-const performanceService = { getPerformance, getRecommendationPerformance, getRank, getNew };
+const getCountByGenre = async (): Promise<PerformanceCountByGenreResponse[]> => {
+  try {
+    const response = await performanceAxios.get('/genres/count');
+    return response.data.data;
+  } catch (err) {
+    console.log(err);
+    throw new Error('getNew Api 에러발생');
+  }
+};
+
+const performanceService = {
+  getPerformance,
+  getRecommendationPerformance,
+  getRank,
+  getNew,
+  getCountByGenre,
+};
 
 export default performanceService;

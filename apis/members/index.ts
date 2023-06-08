@@ -1,7 +1,11 @@
 import axios from 'axios';
 
 import {
+  GetUserParams,
+  LikeParams,
   ReIssuanceTokenParams,
+  SetCategoriesParams,
+  SetKeywordsParams,
   SetPasswordParams,
   SignInParams,
   SignUpParams,
@@ -14,6 +18,7 @@ const memberAxios = axios.create({
   baseURL: `/api/members`,
 });
 
+// note: PUT
 const reIssuanceToken = async (params: ReIssuanceTokenParams) => {
   try {
     const response = await memberAxios.put(`/token`, { ...params });
@@ -36,6 +41,29 @@ const setPassword = async (params: SetPasswordParams) => {
   }
 };
 
+const setKeywords = async (params: SetKeywordsParams) => {
+  try {
+    const response = await memberAxios.put(`/keywords`, { ...params });
+    console.log('response', response);
+    return response.data.data;
+  } catch (err) {
+    console.log(err);
+    throw new Error('setPassword Api 에러발생');
+  }
+};
+
+const setCategories = async (params: SetCategoriesParams) => {
+  try {
+    const response = await memberAxios.put(`/categories`, { ...params });
+    console.log('response', response);
+    return response.data.data;
+  } catch (err) {
+    console.log(err);
+    throw new Error('setPassword Api 에러발생');
+  }
+};
+
+// note: POST
 const verify = async (params: VerifyParams) => {
   try {
     const response = await memberAxios.post(`/verification/verify`, { ...params });
@@ -80,6 +108,18 @@ const signIn = async (params: SignInParams) => {
   }
 };
 
+const like = async (params: LikeParams) => {
+  try {
+    const response = await memberAxios.post(`/like`, { ...params });
+    console.log('response', response);
+    return response.data.data;
+  } catch (err) {
+    console.log(err);
+    throw new Error('signIn Api 에러발생');
+  }
+};
+
+// note: DELETE
 const withdrawal = async (params: WithdrawalParams) => {
   try {
     const response = await memberAxios.delete(`/`, { params: params });
@@ -102,15 +142,44 @@ const expireVerification = async (params: WithdrawalParams) => {
   }
 };
 
+const dislike = async (params: LikeParams) => {
+  try {
+    const response = await memberAxios.delete(`/like`, { params: params });
+    console.log('response', response);
+    return response.data.data;
+  } catch (err) {
+    console.log(err);
+    throw new Error('signIn Api 에러발생');
+  }
+};
+
+// note: GET
+
+const getUser = async (params: GetUserParams) => {
+  try {
+    const response = await memberAxios.get(`/${params.id}`);
+    console.log('response', response);
+    return response.data.data;
+  } catch (err) {
+    console.log(err);
+    throw new Error('signIn Api 에러발생');
+  }
+};
+
 const memberService = {
   reIssuanceToken,
   setPassword,
+  setKeywords,
+  setCategories,
   verify,
   sendVerification,
   signUp,
   signIn,
   withdrawal,
   expireVerification,
+  like,
+  dislike,
+  getUser,
 };
 
 export default memberService;

@@ -12,6 +12,7 @@ import {
   PerformanceRankResponse,
   PerformanceResponseWithPages,
   PerformanceCommonResponse,
+  PerformanceCountByGenreResponse,
 } from 'apis/performance/type';
 
 const PERFORMANCES_KEYS = {
@@ -29,7 +30,10 @@ const PERFORMANCES_KEYS = {
   new: (params: PerformanceNewParams) => [...PERFORMANCES_KEYS.news(), params],
 
   recommendations: () => [...PERFORMANCES_KEYS.all, 'recommendation'],
-  recommendation: (params: PerformanceParams) => [...PERFORMANCES_KEYS.news(), params],
+  recommendation: (params: PerformanceParams) => [...PERFORMANCES_KEYS.recommendations(), params],
+
+  counts: () => [...PERFORMANCES_KEYS.all, 'count'],
+  count: () => [...PERFORMANCES_KEYS.counts()],
 } as const;
 
 export const usePerformanceRankQuery = (
@@ -101,6 +105,18 @@ export const useRecommendationPerformanceQuery = (
       ...config,
     },
   );
+};
+export const useGetCountByGenreQuery = (
+  config?: UseQueryOptions<
+    PerformanceCountByGenreResponse[],
+    AxiosError,
+    PerformanceCountByGenreResponse[],
+    ReturnType<typeof PERFORMANCES_KEYS.count>
+  >,
+): UseQueryResult<PerformanceCountByGenreResponse[], AxiosError> => {
+  return useQuery(PERFORMANCES_KEYS.count(), () => performanceService.getCountByGenre(), {
+    ...config,
+  });
 };
 
 // export const useInfinitePerformanceQuery = (

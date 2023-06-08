@@ -5,12 +5,16 @@ import { useRouter } from 'next/navigation';
 import { PERFORMANCE_GENRE_MAP } from 'constants/new/performance';
 import { ROUTES } from 'constants/routes';
 import * as Styles from 'features/category/Category.styles';
+import { useGetCountByGenreQuery } from 'reactQuery/performance';
 import { ArrowRight } from 'styles/icons';
+import { addComma } from 'utils/number';
 
 const categoryList = ['공연', '전시', '스포츠'];
 
 const Category = () => {
   const { push } = useRouter();
+
+  const { data } = useGetCountByGenreQuery();
 
   const clickSubCategory = (route: string) => {
     push(`${ROUTES.category}/${route}`);
@@ -26,11 +30,11 @@ const Category = () => {
         ))}
       </Styles.Category>
       <Styles.SubCategory>
-        {PERFORMANCE_GENRE_MAP.map(({ caption, value }) => (
-          <Styles.SubCategoryItemWrapper key={caption} onClick={() => clickSubCategory(value)}>
+        {(data ?? []).map(({ genre, count }) => (
+          <Styles.SubCategoryItemWrapper key={genre} onClick={() => clickSubCategory(genre)}>
             <Styles.SubCategoryItem>
-              <span>{caption}</span>
-              {/*<p>{(1234).addComma()}</p>*/}
+              <span>{PERFORMANCE_GENRE_MAP.find(({ value }) => value === genre)?.caption}</span>
+              <p>{addComma(count)}</p>
             </Styles.SubCategoryItem>
             <ArrowRight size={24} />
           </Styles.SubCategoryItemWrapper>

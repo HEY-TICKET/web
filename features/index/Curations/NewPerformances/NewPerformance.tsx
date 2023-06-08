@@ -64,6 +64,7 @@ const ChipsWrap = styled.div`
   display: flex;
   column-gap: 8px;
   padding: 8px 16px;
+  overflow: auto;
 `;
 
 const CardSliderWrap = styled.div`

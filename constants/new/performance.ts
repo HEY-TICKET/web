@@ -61,6 +61,6 @@ export const PERFORMANCE_GENRE_MAP = [
   { caption: '현대무용', value: 'POPULAR_DANCE' },
   { caption: '서커스/마술', value: 'CIRCUS_AND_MAGIC' },
   { caption: '복합', value: 'MIXED_GENRE' },
-  { caption: '아동', value: 'KID' },
-  { caption: '진행중', value: 'OPEN' },
+  // { caption: '아동', value: 'KID' },
+  // { caption: '진행중', value: 'OPEN' },
 ] as const;
