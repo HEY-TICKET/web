@@ -45,7 +45,7 @@ const DefaultGenre = ({ genre }: GenreProps) => {
   const title = Object.fromEntries(Header)[genre];
 
   const [tabIndex, setTabIndex] = useState(0);
-  const [currentSorting, setCurrentSorting] = useState(SORTING_MODAL_LIST[0].value);
+  const [currentSorting, setCurrentSorting] = useState(SORTING_MODAL_LIST[0].caption);
   const [prevFilterValues, setPrevFilterValues] = useState<FilterModalFormValues | null>(null);
   const [prevSortingValues, setPrevSortingValues] = useState<SortingModalFormValues | null>(null);
   const [chipValues, setChipValues] = useState(FILTER_MODAL_DEFAULT_VALUES);
@@ -109,7 +109,12 @@ const DefaultGenre = ({ genre }: GenreProps) => {
 
   const submitSortingValue = (data: SortingModalFormValues) => {
     // TODO : 데이터 submit
-    setCurrentSorting(data.sorting);
+
+    const value = SORTING_MODAL_LIST.find(
+      ({ value }) => value === data.sorting,
+    ) as (typeof SORTING_MODAL_LIST)[number];
+
+    setCurrentSorting(value?.caption);
     toast('필터가 적용되었습니다');
     sortingModalClose();
   };
