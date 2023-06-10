@@ -4,6 +4,12 @@ export const TIME_PERIOD = {
   MONTH: 'MONTH',
 } as const;
 
+export const TIME_PERIOD_MAP: { caption: string; value: keyof typeof TIME_PERIOD }[] = [
+  { caption: '일간', value: 'DAY' },
+  { caption: '주간', value: 'WEEK' },
+  { caption: '월간', value: 'MONTH' },
+];
+
 export const GENRE = {
   THEATER: 'THEATER',
   MUSICAL: 'MUSICAL',
@@ -42,6 +48,11 @@ export const SORT_TYPE = {
   TIME: 'TIME',
   VIEWS: 'VIEWS',
 } as const;
+
+export const SORT_TYPE_MAP: { caption: string; value: keyof typeof SORT_TYPE }[] = [
+  { caption: '최근 등록순', value: 'TIME' },
+  { caption: '조회수순', value: 'VIEWS' },
+];
 
 export const SORT_ORDER = {
   DESC: 'DESC',

@@ -54,7 +54,7 @@ const Card = ({ data, onClick, type = 'default', rank, css }: CardProps) => {
   return (
     <Styles.CardContainer onClick={() => onClick?.(id)} css={css}>
       {/*TODO : 이미지가 유효하지 않은 값이 오거나 없는 경우 default 이미지를 렌더링 시켜야 함*/}
-      {isSrcValid && <Poster src={poster} alt={'poster'} />}
+      {isSrcValid && <Poster src={poster} alt={'poster'} rank={rank} />}
       <Styles.ContentsWrapper>
         <Styles.InfoWrapper>
           {isRunning ? (

@@ -9,7 +9,6 @@ export type PerformanceRankParams = {
   pageSize: number;
 
   timePeriod: keyof typeof TIME_PERIOD;
-  date: Date | string;
   genre?: keyof typeof GENRE;
   area?: keyof typeof AREA;
 };

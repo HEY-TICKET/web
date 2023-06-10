@@ -21,7 +21,10 @@ const NewPerformance = () => {
   );
 
   return (
-    <Curation title={'새로 나온 공연'} readMoreLinkProps={{ href: '/' }}>
+    <Curation
+      title={'새로 나온 공연'}
+      readMoreLinkProps={{ href: { pathname: `/category/${genre}`, query: { new: true } } }}
+    >
       <ChipsWrap>
         {NEW_PERFORMANCE_GENRE_MAP.map(({ caption, value }, index) => (
           <Chip

@@ -21,7 +21,10 @@ const PerformanceRank = () => {
   );
 
   return (
-    <Curation title={'공연 랭킹'} readMoreLinkProps={{ href: '/' }}>
+    <Curation
+      title={'공연 랭킹'}
+      readMoreLinkProps={{ href: { pathname: `/category/${genre}`, query: { rank: true } } }}
+    >
       <ChipsWrap>
         {PERFORMANCE_RANK_GENRE_MAP.map(({ caption, value }, index) => (
           <Chip

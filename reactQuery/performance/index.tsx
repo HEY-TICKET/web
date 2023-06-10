@@ -1,6 +1,13 @@
 'use client';
 
-import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
+import {
+  UseInfiniteQueryOptions,
+  UseInfiniteQueryResult,
+  useQuery,
+  UseQueryOptions,
+  UseQueryResult,
+  useInfiniteQuery,
+} from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import performanceService from 'apis/performance';
@@ -36,7 +43,7 @@ const PERFORMANCES_KEYS = {
   count: () => [...PERFORMANCES_KEYS.counts()],
 } as const;
 
-export const usePerformanceRankQuery = (
+export const useRankPerformanceQuery = (
   params: PerformanceRankParams,
   config?: Omit<
     UseQueryOptions<
@@ -53,7 +60,7 @@ export const usePerformanceRankQuery = (
   });
 };
 
-export const usePerformanceNewQuery = (
+export const useNewPerformanceQuery = (
   params: PerformanceNewParams,
   config?: Omit<
     UseQueryOptions<
@@ -117,6 +124,72 @@ export const useGetCountByGenreQuery = (
   return useQuery(PERFORMANCES_KEYS.count(), () => performanceService.getCountByGenre(), {
     ...config,
   });
+};
+
+export const useInfiniteNewPerformanceQuery = (
+  params: PerformanceNewParams,
+  config?: Omit<
+    UseInfiniteQueryOptions<
+      PerformanceResponseWithPages<PerformanceResponse>,
+      AxiosError,
+      PerformanceResponseWithPages<PerformanceResponse>,
+      PerformanceResponseWithPages<PerformanceResponse>,
+      ReturnType<typeof PERFORMANCES_KEYS.new>
+    >,
+    'getNextPageParam'
+  >,
+): UseInfiniteQueryResult<PerformanceResponseWithPages<PerformanceResponse>, AxiosError> => {
+  return useInfiniteQuery(
+    PERFORMANCES_KEYS.new(params),
+    ({ queryKey: [, , params], pageParam = 0 }) => {
+      const _params = params as PerformanceNewParams;
+      return performanceService.getNew({
+        ..._params,
+        page: pageParam,
+      });
+    },
+    {
+      ...config,
+      getNextPageParam: (lastPage, allPages) => {
+        console.log({ lastPage, allPages });
+        const isLastPage = lastPage.totalPages === lastPage.page || lastPage.totalPages === 0;
+        return isLastPage ? undefined : lastPage.page + 1;
+      },
+    },
+  );
+};
+
+export const useInfiniteRankPerformanceQuery = (
+  params: PerformanceRankParams,
+  config?: Omit<
+    UseInfiniteQueryOptions<
+      PerformanceResponseWithPages<PerformanceRankResponse>,
+      AxiosError,
+      PerformanceResponseWithPages<PerformanceRankResponse>,
+      PerformanceResponseWithPages<PerformanceRankResponse>,
+      ReturnType<typeof PERFORMANCES_KEYS.rank>
+    >,
+    'getNextPageParam'
+  >,
+): UseInfiniteQueryResult<PerformanceResponseWithPages<PerformanceRankResponse>, AxiosError> => {
+  return useInfiniteQuery(
+    PERFORMANCES_KEYS.rank(params),
+    ({ queryKey: [, , params], pageParam = 0 }) => {
+      const _params = params as PerformanceRankParams;
+      return performanceService.getRank({
+        ..._params,
+        page: pageParam,
+      });
+    },
+    {
+      ...config,
+      getNextPageParam: (lastPage, allPages) => {
+        console.log({ lastPage, allPages });
+        const isLastPage = lastPage.totalPages === lastPage.page || lastPage.totalPages === 0;
+        return isLastPage ? undefined : lastPage.page + 1;
+      },
+    },
+  );
 };
 
 // export const useInfinitePerformanceQuery = (

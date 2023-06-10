@@ -9,7 +9,7 @@ import Card from 'components/common/Card/Card';
 import Slider from 'components/common/Slider/Slider';
 import { ROUTES } from 'constants/routes';
 import Curation from 'features/index/Curation';
-import { usePerformanceRankQuery } from 'reactQuery/performance';
+import { useRankPerformanceQuery } from 'reactQuery/performance';
 
 interface CardSliderProps extends HTMLAttributes<HTMLElement> {
   genre: PerformanceRankParams['genre'];
@@ -18,10 +18,9 @@ interface CardSliderProps extends HTMLAttributes<HTMLElement> {
 const CardSlider = ({ genre }: CardSliderProps) => {
   const { push } = useRouter();
 
-  const { data } = usePerformanceRankQuery(
+  const { data } = useRankPerformanceQuery(
     {
       timePeriod: 'DAY',
-      date: '2023-05-22',
       genre: genre,
       pageSize: 10,
       page: 0,

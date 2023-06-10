@@ -9,7 +9,7 @@ import Card from 'components/common/Card/Card';
 import Slider from 'components/common/Slider/Slider';
 import { ROUTES } from 'constants/routes';
 import Curation from 'features/index/Curation';
-import { usePerformanceNewQuery } from 'reactQuery/performance';
+import { useNewPerformanceQuery } from 'reactQuery/performance';
 
 interface CardSliderProps extends HTMLAttributes<HTMLElement> {
   genre: PerformanceNewParams['genre'];
@@ -18,7 +18,7 @@ interface CardSliderProps extends HTMLAttributes<HTMLElement> {
 const CardSlider = ({ genre }: CardSliderProps) => {
   const { push } = useRouter();
 
-  const { data } = usePerformanceNewQuery(
+  const { data } = useNewPerformanceQuery(
     {
       genre: genre,
       sortOrder: 'DESC',

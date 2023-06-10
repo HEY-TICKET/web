@@ -10,7 +10,7 @@ import STYLES from 'styles/index';
  * isAllValue: true => 첫번째 값과 다른 값들을 동시에 선택할 수 없습니다.
  */
 interface ListProps {
-  list: string[];
+  list: { caption: string; value: string }[];
   name?: string;
   type?: 'checkbox' | 'radio';
   setIsDirty?: Dispatch<SetStateAction<boolean>>;
@@ -18,7 +18,8 @@ interface ListProps {
 }
 
 const List = ({ list, name, type = 'checkbox', setIsDirty, isAllValue = false }: ListProps) => {
-  const [selected, setSelected] = useState([list[0]]);
+  const initValue = list[0].value;
+  const [selected, setSelected] = useState([initValue]);
   const useHook = !!name;
   const { register, setValue, getValues } = useFormContext();
 
@@ -29,17 +30,17 @@ const List = ({ list, name, type = 'checkbox', setIsDirty, isAllValue = false }:
       await register(name).onChange(e);
       if (isAllValue) {
         if (type === 'checkbox') {
-          if (value === list[0]) {
+          if (value === initValue) {
             setValue(name, [value], { shouldDirty: true });
           } else {
             const prevValues = getValues(name);
 
             if (prevValues.length === 0) {
-              setValue(name, [list[0]], { shouldDirty: true });
-            } else if (prevValues.includes(list[0])) {
+              setValue(name, [initValue], { shouldDirty: true });
+            } else if (prevValues.includes(initValue)) {
               setValue(
                 name,
-                prevValues.filter((item: string) => item !== list[0]),
+                prevValues.filter((item: string) => item !== initValue),
                 { shouldDirty: true },
               );
             }
@@ -55,12 +56,12 @@ const List = ({ list, name, type = 'checkbox', setIsDirty, isAllValue = false }:
 
   return (
     <Container>
-      {list.map((value) => (
+      {list.map(({ caption, value }) => (
         <Item key={value}>
           <ListItem
             type={type}
             value={value}
-            text={value}
+            text={caption}
             {...(useHook && {
               ...register(name),
               onChange: handleChange,

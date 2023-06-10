@@ -1,14 +1,14 @@
 'use client';
 
 import List from 'components/common/List/List';
-import { REGION } from 'constants/perform/region';
+import { REGION_MAP } from 'constants/perform/region';
 
 type Props = {
   name: string;
 };
 
 const Region = ({ name }: Props) => {
-  const regionList = ['전체'].concat(Object.values(REGION));
+  const regionList = [{ caption: '전체', value: 'ALL' }].concat(REGION_MAP);
 
   return <List list={regionList} name={name} isAllValue />;
 };

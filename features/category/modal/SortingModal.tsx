@@ -1,3 +1,5 @@
+import { FieldValues, FieldName } from 'react-hook-form';
+
 import Button from 'components/common/Button/Button';
 import List from 'components/common/List/List';
 import { CloseIcon } from 'styles/icons';
@@ -5,23 +7,21 @@ import { nullFn } from 'utils/function';
 
 import * as Styles from './SortingModal.styles';
 
-interface CategoryModalProps {
+interface CategoryModalProps<T extends FieldValues> {
+  name: FieldName<T>;
+  list: { caption: string; value: string }[];
   close?: () => void;
   onSubmit?: () => void;
   onCancel?: () => void;
 }
 
-export type SortingModalFormValues = {
-  sorting: string;
-};
-
-export const SORTING_MODAL_DEFAULT_VALUES = {
-  sorting: '예매순',
-};
-
-const SortingModal = ({ close = nullFn, onSubmit, onCancel }: CategoryModalProps) => {
-  const list = ['최신순', '예매순', '조회수순'];
-
+const SortingModal = <T extends FieldValues>({
+  list,
+  name,
+  close = nullFn,
+  onSubmit,
+  onCancel,
+}: CategoryModalProps<T>) => {
   const clickClose = () => {
     onCancel?.();
     close();
@@ -37,7 +37,7 @@ const SortingModal = ({ close = nullFn, onSubmit, onCancel }: CategoryModalProps
           </Styles.CloseIconWrapper>
         </Styles.Header>
         <Styles.Body>
-          <List list={list} type={'radio'} name={'sorting'} />
+          <List list={list} type={'radio'} name={name} />
         </Styles.Body>
         <Styles.Footer>
           <Button type={'submit'}>적용</Button>

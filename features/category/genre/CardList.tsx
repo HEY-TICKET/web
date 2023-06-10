@@ -1,19 +1,28 @@
-import { PerformanceRankResponse } from 'apis/performance/type';
+import { PerformanceCommonResponse } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
 
 import * as Styles from './CardList.styles';
 
 type Props = {
-  data: PerformanceRankResponse[];
-  onClick?: (id: PerformanceRankResponse['id']) => void;
+  data: PerformanceCommonResponse[];
+  onClick?: (id: PerformanceCommonResponse['id']) => void;
   loading: boolean;
+  hasRank?: boolean;
 };
 
-const CardList = ({ data, loading, onClick }: Props) => {
+const CardList = ({ data, loading, onClick, hasRank = false }: Props) => {
   return (
     <Styles.CardListWrapper>
-      {data.map((item) => {
-        return <Card key={item.id} data={item} loading={loading} onClick={onClick} />;
+      {data.map((item, index) => {
+        return (
+          <Card
+            key={item.id}
+            data={item}
+            loading={loading}
+            onClick={onClick}
+            {...(hasRank && { rank: index + 1 })}
+          />
+        );
       })}
     </Styles.CardListWrapper>
   );

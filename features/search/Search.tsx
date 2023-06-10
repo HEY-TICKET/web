@@ -7,7 +7,11 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import Input from 'components/Input/Input';
 import { ROUTES } from 'constants/routes';
-import SortingModal, { SORTING_MODAL_DEFAULT_VALUES } from 'features/category/modal/SortingModal';
+import {
+  SORTING_MODAL_LIST,
+  SortingModalFormValues,
+} from 'features/category/genre/_components/DefaultGenre';
+import SortingModal from 'features/category/modal/SortingModal';
 import * as Styles from 'features/search/Search.styles';
 import { FilterButton } from 'features/search/Search.styles';
 import SearchContents from 'features/search/SearchContents';
@@ -30,7 +34,7 @@ const Search = () => {
   const [currentTab, setCurrentTab] = useState<(typeof FILTER_TAB_LIST)[number]>(
     FILTER_TAB_LIST[0],
   );
-  const [currentSorting, setCurrentSorting] = useState(SORTING_MODAL_DEFAULT_VALUES['sorting']);
+  const [currentSorting, setCurrentSorting] = useState(SORTING_MODAL_LIST[0].value);
   const [prevSortingValues, setPrevSortingValues] = useState<string | null>(null);
   const [isFocused, setIsFocused] = useState(!keyword);
 
@@ -128,7 +132,12 @@ const Search = () => {
         </Styles.Container>
       </Styles.Form>
       <SortingModalFrame canClose={false}>
-        <SortingModal onSubmit={handleSubmit(onValidSubmit)} onCancel={cancelSortingModal} />
+        <SortingModal<SortingModalFormValues>
+          name={'sorting'}
+          list={SORTING_MODAL_LIST}
+          onSubmit={handleSubmit(onValidSubmit)}
+          onCancel={cancelSortingModal}
+        />
       </SortingModalFrame>
     </FormProvider>
   );

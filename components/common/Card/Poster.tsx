@@ -14,7 +14,7 @@ interface PosterProps extends Omit<ComponentProps<typeof Image>, 'width' | 'heig
 const Poster = ({ src, alt, rank, height, ...rest }: PosterProps) => {
   return (
     <Wrapper height={height}>
-      <CardImage src={src} fill alt={alt} priority {...rest} />
+      <CardImage src={src} fill sizes="(max-width: 768px) 100vw" alt={alt} priority {...rest} />
       <RankingMark $visible={!!rank}>{rank}</RankingMark>
     </Wrapper>
   );
