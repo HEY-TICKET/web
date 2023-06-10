@@ -6,13 +6,14 @@ import styled from 'styled-components';
 import STYLES from 'styles/index';
 
 interface PosterProps extends Omit<ComponentProps<typeof Image>, 'width' | 'height'> {
+  height?: number;
   scaleUp?: boolean;
   rank?: number;
 }
 
-const Poster = ({ src, alt, rank, ...rest }: PosterProps) => {
+const Poster = ({ src, alt, rank, height, ...rest }: PosterProps) => {
   return (
-    <Wrapper>
+    <Wrapper height={height}>
       <CardImage src={src} fill alt={alt} priority {...rest} />
       <RankingMark $visible={!!rank}>{rank}</RankingMark>
     </Wrapper>
@@ -21,12 +22,14 @@ const Poster = ({ src, alt, rank, ...rest }: PosterProps) => {
 
 export default Poster;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ height?: number }>`
   position: relative;
   aspect-ratio: 1 / 1.414;
   border-radius: 6px;
   overflow: hidden;
   cursor: pointer;
+
+  height: ${({ height }) => `${height}px` ?? '100%'};
 `;
 
 const CardImage = styled(Image)`
