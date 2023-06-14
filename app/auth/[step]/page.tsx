@@ -2,17 +2,17 @@ import EmailSignIn from 'features/auth/_components/EmailSignIn';
 import FindPassword from 'features/auth/_components/FindPassword';
 import MobileAuthentication from 'features/auth/_components/MobileAuthentication';
 import SignIn from 'features/auth/_components/SignIn';
+import SignUp from 'features/auth/_components/SignUp';
 import WritePassword from 'features/auth/_components/WritePassword';
 
 interface PageProps {
   params: { step: string };
 }
 
-// type Step = 'signIn' | 'email-signIn' | 'mobile-authentication' | 'write-email';
-
 const STEP = [
   'signIn',
   'email-signIn',
+  'signUp',
   'mobile-authentication',
   'write-password',
   'find-password',
@@ -22,6 +22,7 @@ const PAGE_BY_STEP: { [K in (typeof STEP)[number]]: () => JSX.Element } = {
   signIn: SignIn,
   'email-signIn': EmailSignIn,
   'mobile-authentication': MobileAuthentication,
+  signUp: SignUp,
   'write-password': WritePassword,
   'find-password': FindPassword,
 };

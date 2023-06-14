@@ -39,7 +39,7 @@ const SignInFormProvider = ({ children }: FormProviderProps) => {
       push(`/auth/email-signIn?email=${data.email}`);
     } else {
       //
-      push(`/auth/mobile-authentication?email=${data.email}`);
+      push(`/auth/signUp?email=${data.email}`);
     }
   };
 

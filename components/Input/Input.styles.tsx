@@ -29,6 +29,14 @@ export const InputWrapper = styled.div<{ error: boolean; disabled: boolean }>`
         : STYLES.color.gray400};
 
       background-color: ${disabled ? STYLES.color.gray150 : STYLES.color.white};
+
+      ${Label} {
+        color: ${disabled ? STYLES.color.gray600 : STYLES.color.gray900};
+      }
+
+      ${Input} {
+        color: ${disabled ? STYLES.color.gray600 : STYLES.color.gray900};
+      }
     `}}
 `;
 
