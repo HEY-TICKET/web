@@ -1,6 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
+
+import { useRouter, useSearchParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import Button from 'components/common/Button/Button';
@@ -11,13 +13,25 @@ import Input from 'components/Input/Input';
 import MobileAuthenticationFormProvider, {
   MobileAuthenticationFormValue,
 } from 'features/auth/FormProvider/MobileAuthenticationFormProvider';
-import AuthenticationNumberInput from 'features/auth/Input/AuthenticationNumberInput';
+import AuthenticationCodeInput from 'features/auth/Input/AuthenticationCodeInput';
 import useCountDown from 'hooks/useCountDown';
+import { useMemberVerificationSendQuery } from 'reactQuery/members';
 
 const MobileAuthentication = () => {
   const { back } = useRouter();
+  const searchParams = useSearchParams();
+  const email = searchParams.get('email') ?? '';
 
-  const { leftTime, reset, timeOver } = useCountDown(true, 30);
+  const { leftTime, reset, timeOver } = useCountDown(true, 60 * 5);
+
+  const { mutate: sendVerification } = useMemberVerificationSendQuery();
+
+  const sendAuthenticationCode = useCallback(async () => {
+    if (email) {
+      await sendVerification({ email, verificationType: 'SIGN_UP' });
+      reset();
+    }
+  }, [email, reset, sendVerification]);
 
   return (
     <>
@@ -40,12 +54,12 @@ const MobileAuthentication = () => {
                       label={'이메일 주소'}
                       disabled
                     />
-                    <AuthenticationNumberInput<MobileAuthenticationFormValue>
-                      name={'authenticationNumber'}
+                    <AuthenticationCodeInput<MobileAuthenticationFormValue>
+                      name={'code'}
                       autoFocus
                       placeholder={'6자리 입력'}
                       leftTime={leftTime}
-                      reset={reset}
+                      reset={sendAuthenticationCode}
                       timeOver={timeOver}
                     />
                   </InputContainer>

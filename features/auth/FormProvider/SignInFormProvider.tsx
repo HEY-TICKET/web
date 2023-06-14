@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import * as yup from 'yup';
 
 import { EMAIL_REGEX } from 'constants/regex';
+import { useMemberValidationQuery } from 'reactQuery/members';
 
 type FormProviderProps = HTMLAttributes<HTMLElement>;
 
@@ -27,19 +28,23 @@ const SignInFormProvider = ({ children }: FormProviderProps) => {
     resolver: yupResolver(schema),
   });
 
+  const { mutateAsync: validation } = useMemberValidationQuery();
+
   const { handleSubmit } = methods;
 
-  const onValidSubmit: SubmitHandler<SignInFormValue> = (data) => {
-    console.log(data);
+  const onValidSubmit: SubmitHandler<SignInFormValue> = async (data) => {
+    const { email } = data;
+    try {
+      const isValid = await validation({ email });
 
-    const isSubscribedEmail = data.email === 'test@gmail.com';
-
-    if (isSubscribedEmail) {
       // FIXME: 세션으로 데이터 전달 ? or route query 로 전달?
-      push(`/auth/email-signIn?email=${data.email}`);
-    } else {
-      //
-      push(`/auth/signUp?email=${data.email}`);
+      if (isValid) {
+        push(`/auth/email-signIn?email=${data.email}`);
+      } else {
+        push(`/auth/signUp?email=${data.email}`);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 

@@ -9,6 +9,7 @@ import {
   SetPasswordParams,
   SignInParams,
   SignUpParams,
+  ValidationParams,
   VerificationSendParams,
   VerifyParams,
   WithdrawalParams,
@@ -64,6 +65,17 @@ const setCategories = async (params: SetCategoriesParams) => {
 };
 
 // note: POST
+const validation = async (params: ValidationParams) => {
+  try {
+    const response = await memberAxios.post(`/validation`, { ...params });
+    console.log('response', response);
+    return response.data.data;
+  } catch (err) {
+    console.log(err);
+    throw new Error('verification verify Api 에러발생');
+  }
+};
+
 const verify = async (params: VerifyParams) => {
   try {
     const response = await memberAxios.post(`/verification/verify`, { ...params });
@@ -171,6 +183,7 @@ const memberService = {
   setPassword,
   setKeywords,
   setCategories,
+  validation,
   verify,
   sendVerification,
   signUp,

@@ -10,12 +10,13 @@ import * as yup from 'yup';
 
 import { EMAIL_REGEX } from 'constants/regex';
 import useCustomToast from 'hooks/useCustomToast';
+import { useMemberVerifyQuery } from 'reactQuery/members';
 
 type FormProviderProps = HTMLAttributes<HTMLElement>;
 
 export type MobileAuthenticationFormValue = {
   email: string;
-  authenticationNumber: string;
+  code: string;
 };
 
 const MobileAuthenticationFormProvider = ({ children }: FormProviderProps) => {
@@ -28,29 +29,35 @@ const MobileAuthenticationFormProvider = ({ children }: FormProviderProps) => {
     mode: 'onTouched',
     defaultValues: {
       email: email,
-      authenticationNumber: '',
+      code: '',
     },
     resolver: yupResolver(schema),
   });
 
   const { handleSubmit, setError } = methods;
 
-  const onValidSubmit: SubmitHandler<MobileAuthenticationFormValue> = (data) => {
-    console.log(data);
+  const { mutateAsync: verify } = useMemberVerifyQuery();
 
-    const isValidAuthenticationNumber = true;
+  const onValidSubmit: SubmitHandler<MobileAuthenticationFormValue> = async (data) => {
+    const { email, code } = data;
 
-    if (isValidAuthenticationNumber) {
-      toast.success('이메일 인증이 확인되었어요.');
-      if (find) {
-        push(`/auth/write-password?email=${email}?find=true`);
+    try {
+      const isValid = await verify({ email, code });
+
+      if (isValid) {
+        toast.success('이메일 인증이 확인되었어요.');
+        if (find) {
+          push(`/auth/write-password?email=${email}?find=true`);
+        } else {
+          push(`/auth/write-password?email=${email}`);
+        }
       } else {
-        push(`/auth/write-password?email=${email}`);
+        setError('code', {
+          message: '인증코드가 일치하지 않아요. 다시 입력해 주세요.',
+        });
       }
-    } else {
-      setError('authenticationNumber', {
-        message: '인증코드가 일치하지 않아요. 다시 입력해 주세요.',
-      });
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -76,9 +83,6 @@ const schema = yup
       .required('이메일을 입력해주세요.')
       .matches(EMAIL_REGEX, '이메일 형식에 맞게 입력해주세요.'),
 
-    authenticationNumber: yup
-      .string()
-      .min(6, '인증번호는 6자리 입니다.')
-      .required('인증번호를 입력해주세요.'),
+    code: yup.string().min(6, '인증번호는 6자리 입니다.').required('인증번호를 입력해주세요.'),
   })
   .required();

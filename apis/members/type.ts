@@ -20,15 +20,24 @@ export type SetCategoriesParams = {
   areas: string[];
 };
 
+export type ValidationParams = {
+  email: string;
+};
+
+export type ValidationResponse = boolean;
+
 export type VerifyParams = {
   email: string;
   code: string;
 };
 
+export type VerifyResponse = boolean;
+
 export type VerificationSendParams = {
   email: string;
   verificationType: keyof typeof VERIFICATION_TYPE;
 };
+export type VerificationSendResponse = string;
 
 export type SignInParams = {
   email: string;

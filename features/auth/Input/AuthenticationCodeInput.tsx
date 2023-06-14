@@ -10,20 +10,20 @@ import { UseCountDownReturnType } from 'hooks/useCountDown';
 import useCustomToast from 'hooks/useCustomToast';
 import STYLES from 'styles/index';
 
-interface AuthenticationNumberInputProps<T extends FieldValues>
+interface AuthenticationCodeInputProps<T extends FieldValues>
   extends InputHTMLAttributes<HTMLInputElement>,
     Omit<UseCountDownReturnType, 'pause' | 'play'> {
   name: Path<T>;
 }
 
-const AuthenticationNumberInput = <T extends FieldValues>({
+const AuthenticationCodeInput = <T extends FieldValues>({
   name,
   disabled,
   leftTime,
   reset,
   timeOver,
   ...restProps
-}: AuthenticationNumberInputProps<T>) => {
+}: AuthenticationCodeInputProps<T>) => {
   const toast = useCustomToast();
 
   const reReceiveCode = () => {
@@ -54,7 +54,7 @@ const AuthenticationNumberInput = <T extends FieldValues>({
   );
 };
 
-export default AuthenticationNumberInput;
+export default AuthenticationCodeInput;
 
 const Wrapper = styled.div`
   display: flex;
