@@ -3,12 +3,13 @@
 import { HTMLAttributes } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
 import { EMAIL_REGEX } from 'constants/regex';
+import { authInfo } from 'constants/storage';
 
 type FormProviderProps = HTMLAttributes<HTMLElement>;
 
@@ -18,7 +19,7 @@ export type FindPasswordFormValue = {
 
 const FindPasswordFormProvider = ({ children }: FormProviderProps) => {
   const { push } = useRouter();
-  const email = useSearchParams().get('email') ?? '';
+  const { email } = authInfo.getItem();
 
   const methods = useForm<FindPasswordFormValue>({
     mode: 'onTouched',
@@ -30,10 +31,8 @@ const FindPasswordFormProvider = ({ children }: FormProviderProps) => {
 
   const { handleSubmit } = methods;
 
-  const onValidSubmit: SubmitHandler<FindPasswordFormValue> = (data) => {
-    const { email } = data;
-
-    push(`/auth/mobile-authentication?email=${email}&find=true`);
+  const onValidSubmit: SubmitHandler<FindPasswordFormValue> = () => {
+    push(`/auth/mobile-authentication?&find=true`);
   };
 
   return (

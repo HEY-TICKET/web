@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
 import Button from 'components/common/Button/Button';
@@ -17,7 +17,6 @@ import STYLES from 'styles/index';
 
 const EmailSignIn = () => {
   const { back } = useRouter();
-  const email = useSearchParams().get('email');
 
   return (
     <>
@@ -44,9 +43,7 @@ const EmailSignIn = () => {
             </ConnectForm>
           </EmailSignInFormProvider>
         </EmailSignInFormWrapper>
-        <FindPasswordLink href={`/auth/find-password?email=${email}`}>
-          비밀번호 찾기
-        </FindPasswordLink>
+        <FindPasswordLink href={`/auth/find-password`}>비밀번호 찾기</FindPasswordLink>
       </Wrapper>
     </>
   );

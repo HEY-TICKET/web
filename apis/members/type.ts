@@ -57,9 +57,8 @@ export type WithdrawalParams = {
 export type SignUpParams = {
   email: string;
   password: string;
-  verificationCode: string;
   genres: string[];
-  area: string[];
+  areas: string[];
   keywords: string[];
 };
 

@@ -28,21 +28,28 @@ const WritePassword = () => {
     onSubmit: () => replace('/auth/signIn'),
   });
 
+  const renderFormHeaderContents = () => {
+    if (find) {
+      return (
+        <>
+          <FormHeader.Title>새 비밀번호를 입력해 주세요</FormHeader.Title>
+          <FormHeader.Description>
+            새로 사용할 비밀번호를 입력해 주세요.
+            <br />
+            (이전에 사용하던 비밀번호는 사용할 수 없어요)
+          </FormHeader.Description>
+        </>
+      );
+    }
+    return <FormHeader.Title>비밀번호를 입력해 주세요</FormHeader.Title>;
+  };
+
   return (
     <>
       <TopBar leftProps={<TopBar.BackButton onClick={openPopup} />} />
       <Wrapper>
         <WritePasswordFormWrapper>
-          <FormHeader>
-            <FormHeader.Title>{`${find ? '새 ' : ''}비밀번호를 입력해 주세요`}</FormHeader.Title>
-            {find && (
-              <FormHeader.Description>
-                새로 사용할 비밀번호를 입력해 주세요.
-                <br />
-                (이전에 사용하던 비밀번호는 사용할 수 없어요)
-              </FormHeader.Description>
-            )}
-          </FormHeader>
+          <FormHeader>{renderFormHeaderContents()}</FormHeader>
           <WritePasswordFormProvider>
             <ConnectForm<WritePasswordFormValue>>
               {({ formState: { isValid, isSubmitting } }) => (
@@ -55,7 +62,7 @@ const WritePassword = () => {
                       message={'영문 대문자, 소문자, 숫자 포함 8자 이상'}
                     />
                   </InputContainer>
-                  <Button disabled={!isValid || isSubmitting}>로그인</Button>
+                  <Button disabled={!isValid || isSubmitting}>다음</Button>
                 </>
               )}
             </ConnectForm>

@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import * as yup from 'yup';
 
 import { EMAIL_REGEX } from 'constants/regex';
+import { authInfo } from 'constants/storage';
 import { useMemberValidationQuery } from 'reactQuery/members';
 
 type FormProviderProps = HTMLAttributes<HTMLElement>;
@@ -35,14 +36,15 @@ const SignInFormProvider = ({ children }: FormProviderProps) => {
   const onValidSubmit: SubmitHandler<SignInFormValue> = async (data) => {
     const { email } = data;
     try {
-      const isValid = await validation({ email });
+      const isExistedEmail = await validation({ email });
 
       // FIXME: 세션으로 데이터 전달 ? or route query 로 전달?
-      if (isValid) {
-        push(`/auth/email-signIn?email=${data.email}`);
+      if (isExistedEmail) {
+        push(`/auth/email-signIn`);
       } else {
-        push(`/auth/signUp?email=${data.email}`);
+        push(`/auth/signUp`);
       }
+      authInfo.setItem({ email });
     } catch (e) {
       console.log(e);
     }

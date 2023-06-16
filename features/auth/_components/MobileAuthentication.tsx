@@ -2,7 +2,7 @@
 
 import { useCallback } from 'react';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
 import Button from 'components/common/Button/Button';
@@ -10,6 +10,7 @@ import TopBar from 'components/common/Nav/TopBar';
 import ConnectForm from 'components/FormProvider/ConnectForm';
 import FormHeader from 'components/FormProvider/FormHeader';
 import Input from 'components/Input/Input';
+import { authInfo } from 'constants/storage';
 import MobileAuthenticationFormProvider, {
   MobileAuthenticationFormValue,
 } from 'features/auth/FormProvider/MobileAuthenticationFormProvider';
@@ -19,8 +20,7 @@ import { useMemberVerificationSendQuery } from 'reactQuery/members';
 
 const MobileAuthentication = () => {
   const { back } = useRouter();
-  const searchParams = useSearchParams();
-  const email = searchParams.get('email') ?? '';
+  const { email } = authInfo.getItem();
 
   const { leftTime, reset, timeOver } = useCountDown(true, 60 * 5);
 

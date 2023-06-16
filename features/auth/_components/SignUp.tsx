@@ -1,24 +1,26 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
 import Button from 'components/common/Button/Button';
 import TopBar from 'components/common/Nav/TopBar';
 import FormHeader from 'components/FormProvider/FormHeader';
 import * as Styles from 'components/Input/Input.styles';
+import { authInfo } from 'constants/storage';
 import { useMemberVerificationSendQuery } from 'reactQuery/members';
 
 const SignUp = () => {
   const { push, back } = useRouter();
-  const searchParams = useSearchParams();
-  const email = searchParams.get('email') ?? '';
+  const { email } = authInfo.getItem();
 
   const { mutate: sendVerification } = useMemberVerificationSendQuery();
 
   const goToAuthenticationPage = () => {
-    sendVerification({ email, verificationType: 'SIGN_UP' });
-    push(`/auth/mobile-authentication?email=${email}`);
+    if (email) {
+      sendVerification({ email, verificationType: 'SIGN_UP' });
+      push(`/auth/mobile-authentication`);
+    }
   };
 
   return (

@@ -3,12 +3,13 @@
 import { HTMLAttributes } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
 import { EMAIL_REGEX, PASSWORD_REGEX } from 'constants/regex';
+import { authInfo } from 'constants/storage';
 
 type FormProviderProps = HTMLAttributes<HTMLElement>;
 
@@ -19,7 +20,7 @@ export type EmailSignInFormValue = {
 
 const EmailSignInFormProvider = ({ children }: FormProviderProps) => {
   const { push } = useRouter();
-  const email = useSearchParams().get('email') ?? '';
+  const { email } = authInfo.getItem();
 
   const methods = useForm<EmailSignInFormValue>({
     mode: 'onTouched',
