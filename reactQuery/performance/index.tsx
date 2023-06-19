@@ -77,7 +77,7 @@ export const useNewPerformanceQuery = (
   });
 };
 
-export const usePerformanceDetailQuery = (
+export const usePerformanceByIdQuery = (
   params: PerformanceParams,
   config?: Omit<
     UseQueryOptions<
@@ -91,7 +91,7 @@ export const usePerformanceDetailQuery = (
 ): UseQueryResult<PerformanceResponse, AxiosError> => {
   return useQuery(
     PERFORMANCES_KEYS.detail(params),
-    () => performanceService.getPerformance(params),
+    () => performanceService.getPerformanceById(params),
     { ...config },
   );
 };

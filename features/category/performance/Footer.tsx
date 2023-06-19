@@ -9,7 +9,7 @@ import Button from 'components/common/Button/Button';
 import ShareModal from 'features/category/performance/ShareModal';
 import useCustomToast from 'hooks/useCustomToast';
 import useModal from 'hooks/useModal';
-import { usePerformanceDetailQuery } from 'reactQuery/performance';
+import { usePerformanceByIdQuery } from 'reactQuery/performance';
 import { CouponIcon, HeartIcon, HeartLineIcon, ShareIcon } from 'styles/icons';
 import STYLES from 'styles/index';
 import { handleOpenNewTab } from 'utils/url';
@@ -22,7 +22,7 @@ const Footer = () => {
   const { Modal, open } = useModal();
   const toast = useCustomToast();
 
-  const { data: performance } = usePerformanceDetailQuery({ id: id }, { enabled: !!id });
+  const { data: performance } = usePerformanceByIdQuery({ id: id }, { enabled: !!id });
 
   const clickSaveButton = () => {
     if (saved) {

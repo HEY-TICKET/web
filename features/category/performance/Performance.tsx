@@ -9,13 +9,13 @@ import * as Styles from 'features/category/performance/Performance.styles';
 import PerformanceDetail from 'features/category/performance/PerformanceDetail';
 import PerformanceETC from 'features/category/performance/PerformanceETC';
 import PerformanceInfo from 'features/category/performance/PerformanceInfo';
-import { usePerformanceDetailQuery } from 'reactQuery/performance';
+import { usePerformanceByIdQuery } from 'reactQuery/performance';
 import { ArrowRight } from 'styles/icons';
 
 const Performance = ({ id, title }: { id: string; title: string }) => {
   const { back } = useRouter();
 
-  const { data } = usePerformanceDetailQuery({ id: id }, { enabled: !!id });
+  const { data } = usePerformanceByIdQuery({ id: id }, { enabled: !!id });
 
   const goToBack = () => back();
 

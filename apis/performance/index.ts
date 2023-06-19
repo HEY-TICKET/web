@@ -9,13 +9,28 @@ import {
   PerformanceCommonResponse,
   PerformanceResponseWithPages,
   PerformanceCountByGenreResponse,
+  GetPerformancesParams,
 } from 'apis/performance/type';
 
 const performanceAxios = axios.create({
   baseURL: `/api/performances`,
 });
 
-const getPerformance = async (params: PerformanceParams): Promise<PerformanceResponse> => {
+// TODO : react-query 연결
+const getPerformances = async (
+  params: GetPerformancesParams,
+): Promise<PerformanceResponseWithPages<PerformanceResponse>> => {
+  try {
+    const response = await performanceAxios.get(`/`, { params });
+    console.log('response', response);
+    return response.data.data;
+  } catch (err) {
+    console.log(err);
+    throw new Error('getPerformance Api 에러발생');
+  }
+};
+
+const getPerformanceById = async (params: PerformanceParams): Promise<PerformanceResponse> => {
   try {
     const response = await performanceAxios.get(`/${params.id}`);
     console.log('response', response);
@@ -74,7 +89,8 @@ const getCountByGenre = async (): Promise<PerformanceCountByGenreResponse[]> => 
 };
 
 const performanceService = {
-  getPerformance,
+  getPerformances,
+  getPerformanceById,
   getRecommendationPerformance,
   getRank,
   getNew,

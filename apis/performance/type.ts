@@ -1,4 +1,21 @@
-import { AREA, GENRE, SORT_ORDER, SORT_TYPE, TIME_PERIOD } from 'constants/new/performance';
+import {
+  AREA,
+  GENRE,
+  SORT_ORDER,
+  SORT_TYPE,
+  TIME_PERIOD,
+  STATUSES,
+} from 'constants/new/performance';
+
+export type GetPerformancesParams = {
+  genres: (keyof typeof GENRE)[];
+  areas: (keyof typeof AREA)[];
+  date: Date | string | number;
+  statuses: (keyof typeof STATUSES)[];
+  price: '';
+  sortType: keyof typeof SORT_TYPE;
+  sortOrder: keyof typeof SORT_ORDER;
+};
 
 export type PerformanceParams = {
   id: string;

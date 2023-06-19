@@ -75,3 +75,9 @@ export const PERFORMANCE_GENRE_MAP = [
   // { caption: '아동', value: 'KID' },
   // { caption: '진행중', value: 'OPEN' },
 ] as const;
+
+export const STATUSES = {
+  UPCOMING: 'UPCOMING',
+  ONGOING: 'ONGOING',
+  COMPLETED: 'COMPLETED',
+};

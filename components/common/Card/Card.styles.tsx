@@ -131,7 +131,7 @@ export const SimpleCardPosterStyle = css`
   width: 148px;
   height: 100%;
   border-radius: 6px;
-  aspect-ratio: 1 / 1.414;
+  aspect-ratio: 3 / 4;
 
   margin-bottom: 14px;
 `;
