@@ -5,7 +5,13 @@ import {
   SORT_TYPE,
   TIME_PERIOD,
   STATUSES,
+  SEARCH_TYPE,
 } from 'constants/new/performance';
+
+type PerformanceCommonParams = {
+  page: number;
+  pageSize: number;
+};
 
 export type GetPerformancesParams = {
   genres: (keyof typeof GENRE)[];
@@ -15,7 +21,12 @@ export type GetPerformancesParams = {
   price: '';
   sortType: keyof typeof SORT_TYPE;
   sortOrder: keyof typeof SORT_ORDER;
-};
+} & PerformanceCommonParams;
+
+export type SearchPerformanceParams = {
+  searchType: keyof typeof SEARCH_TYPE;
+  query: string;
+} & PerformanceCommonParams;
 
 export type PerformanceParams = {
   id: string;

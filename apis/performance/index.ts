@@ -10,6 +10,7 @@ import {
   PerformanceResponseWithPages,
   PerformanceCountByGenreResponse,
   GetPerformancesParams,
+  SearchPerformanceParams,
 } from 'apis/performance/type';
 
 const performanceAxios = axios.create({
@@ -22,6 +23,20 @@ const getPerformances = async (
 ): Promise<PerformanceResponseWithPages<PerformanceResponse>> => {
   try {
     const response = await performanceAxios.get(`/`, { params });
+    console.log('response', response);
+    return response.data.data;
+  } catch (err) {
+    console.log(err);
+    throw new Error('getPerformance Api 에러발생');
+  }
+};
+
+// TODO : react-query 연결
+const searchPerformance = async (
+  params: SearchPerformanceParams,
+): Promise<PerformanceResponseWithPages<PerformanceResponse>> => {
+  try {
+    const response = await performanceAxios.get(`/search`, { params });
     console.log('response', response);
     return response.data.data;
   } catch (err) {
@@ -90,6 +105,7 @@ const getCountByGenre = async (): Promise<PerformanceCountByGenreResponse[]> => 
 
 const performanceService = {
   getPerformances,
+  searchPerformance,
   getPerformanceById,
   getRecommendationPerformance,
   getRank,

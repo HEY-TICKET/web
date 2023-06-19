@@ -81,3 +81,8 @@ export const STATUSES = {
   ONGOING: 'ONGOING',
   COMPLETED: 'COMPLETED',
 };
+
+export const SEARCH_TYPE = {
+  PERFORMANCE: 'PERFORMANCE',
+  ARTIST: 'ARTIST',
+};
