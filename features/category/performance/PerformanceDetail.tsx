@@ -1,9 +1,10 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, useState } from 'react';
 
 import Image from 'next/image';
 import styled from 'styled-components';
 
 import { PerformanceResponse } from 'apis/performance/type';
+import Button from 'components/common/Button/Button';
 import * as Styles from 'features/category/performance/Performance.styles';
 import STYLES from 'styles/index';
 
@@ -13,10 +14,11 @@ interface Props extends HTMLAttributes<HTMLElement> {
 
 const PerformanceDetail = ({ data }: Props) => {
   const { story, storyUrls } = data;
+  const [readMore, setReadMore] = useState(false);
   return (
     <Styles.InfoWrapper>
       <Styles.InfoTitle>공연 상세</Styles.InfoTitle>
-      <UrlImagesWrapper>
+      <UrlImagesWrapper readMore={readMore}>
         <Text>{story}</Text>
         {storyUrls.map((url) => (
           <Image
@@ -29,6 +31,9 @@ const PerformanceDetail = ({ data }: Props) => {
           />
         ))}
       </UrlImagesWrapper>
+      <Button theme={'white'} onClick={() => setReadMore((prev) => !prev)}>
+        공연 상세 {readMore ? '접기' : '더 보기'}
+      </Button>
     </Styles.InfoWrapper>
   );
 };
@@ -44,11 +49,14 @@ const Text = styled.span`
   white-space: pre-wrap;
 `;
 
-const UrlImagesWrapper = styled.div`
+const UrlImagesWrapper = styled.div<{ readMore: boolean }>`
   padding: 16px 0;
   display: flex;
   flex-direction: column;
   row-gap: 12px;
+
+  max-height: ${({ readMore }) => (readMore ? 'unset' : '336px')};
+  overflow: ${({ readMore }) => (readMore ? 'unset' : 'hidden')};
 
   & > img {
     width: auto;
