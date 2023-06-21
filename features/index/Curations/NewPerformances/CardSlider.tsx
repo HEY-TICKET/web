@@ -4,15 +4,15 @@ import { HTMLAttributes } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { PerformanceNewParams } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
 import Slider from 'components/common/Slider/Slider';
 import { ROUTES } from 'constants/routes';
 import Curation from 'features/index/Curation';
 import { useNewPerformanceQuery } from 'reactQuery/performance';
+import { GenreTypes } from 'types/performance';
 
 interface CardSliderProps extends HTMLAttributes<HTMLElement> {
-  genre: PerformanceNewParams['genre'];
+  genre: GenreTypes;
 }
 
 const CardSlider = ({ genre }: CardSliderProps) => {

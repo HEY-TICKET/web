@@ -1,8 +1,8 @@
-import { GENRE } from 'constants/new/performance';
 import Genre from 'features/category/genre/Genre';
+import { GenreTypes } from 'types/performance';
 
 interface PageProps {
-  params: { genre: keyof typeof GENRE };
+  params: { genre: GenreTypes };
 }
 
 const Page = ({ params }: PageProps) => {

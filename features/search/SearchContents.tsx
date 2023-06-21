@@ -2,14 +2,14 @@
 
 import { useSearchParams } from 'next/navigation';
 
-import { PerformanceCommonResponse } from 'apis/performance/type';
+import { PerformanceResponse } from 'apis/performance/type';
 import CardList from 'features/category/genre/CardList';
 import NoResult from 'features/search/NoResult';
 
 import * as Styles from './Search.styles';
 
 type Props = {
-  data: PerformanceCommonResponse[];
+  data: PerformanceResponse[];
   loading: boolean;
 };
 

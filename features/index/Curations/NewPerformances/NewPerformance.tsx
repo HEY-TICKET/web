@@ -4,21 +4,17 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-import { PerformanceNewParams } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
 import Chip from 'components/common/Chip/Chip';
-import { PERFORMANCE_GENRE_MAP } from 'constants/new/performance';
+import { GENRE_LIST_MAP } from 'constants/performance/common';
 import CustomSuspense from 'core/CustomSuspense';
 import ErrorBoundary from 'core/ErrorBoundary';
 import Curation from 'features/index/Curation';
 import CardSlider from 'features/index/Curations/NewPerformances/CardSlider';
-
-const NEW_PERFORMANCE_GENRE_MAP = PERFORMANCE_GENRE_MAP;
+import { GenreTypes } from 'types/performance';
 
 const NewPerformance = () => {
-  const [genre, setGenre] = useState<PerformanceNewParams['genre']>(
-    NEW_PERFORMANCE_GENRE_MAP[0].value,
-  );
+  const [genre, setGenre] = useState<GenreTypes>('ALL');
 
   return (
     <Curation
@@ -26,7 +22,7 @@ const NewPerformance = () => {
       readMoreLinkProps={{ href: { pathname: `/category/${genre}`, query: { new: true } } }}
     >
       <ChipsWrap>
-        {NEW_PERFORMANCE_GENRE_MAP.map(({ caption, value }, index) => (
+        {GENRE_LIST_MAP.map(({ caption, value }, index) => (
           <Chip
             key={index}
             active={value === genre}

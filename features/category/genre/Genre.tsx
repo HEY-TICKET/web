@@ -2,13 +2,13 @@
 
 import { useSearchParams } from 'next/navigation';
 
-import { GENRE } from 'constants/new/performance';
 import DefaultGenre from 'features/category/genre/_components/DefaultGenre';
 import NewGenre from 'features/category/genre/_components/NewGenre';
 import RankGenre from 'features/category/genre/_components/RankGenre';
+import { GenreTypes } from 'types/performance';
 
 interface GenreProps {
-  genre: keyof typeof GENRE;
+  genre: GenreTypes;
 }
 
 const Genre = ({ genre }: GenreProps) => {

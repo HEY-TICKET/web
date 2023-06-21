@@ -4,21 +4,17 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-import { PerformanceRankParams } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
 import Chip from 'components/common/Chip/Chip';
-import { PERFORMANCE_GENRE_MAP } from 'constants/new/performance';
+import { BOX_OFFICE_GENRE_LIST_MAP } from 'constants/performance/common';
 import CustomSuspense from 'core/CustomSuspense';
 import ErrorBoundary from 'core/ErrorBoundary';
 import Curation from 'features/index/Curation';
 import CardSlider from 'features/index/Curations/PerformanceRank/CardSlider';
-
-const PERFORMANCE_RANK_GENRE_MAP = PERFORMANCE_GENRE_MAP;
+import { BoxOfficeGenreTypes } from 'types/performance';
 
 const PerformanceRank = () => {
-  const [genre, setGenre] = useState<PerformanceRankParams['genre']>(
-    PERFORMANCE_RANK_GENRE_MAP[0].value,
-  );
+  const [genre, setGenre] = useState<BoxOfficeGenreTypes>('ALL');
 
   return (
     <Curation
@@ -26,7 +22,7 @@ const PerformanceRank = () => {
       readMoreLinkProps={{ href: { pathname: `/category/${genre}`, query: { rank: true } } }}
     >
       <ChipsWrap>
-        {PERFORMANCE_RANK_GENRE_MAP.map(({ caption, value }, index) => (
+        {BOX_OFFICE_GENRE_LIST_MAP.map(({ caption, value }, index) => (
           <Chip
             key={index}
             active={value === genre}

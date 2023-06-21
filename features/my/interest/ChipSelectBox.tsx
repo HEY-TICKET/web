@@ -8,12 +8,13 @@ import styled from 'styled-components';
 import Chip from 'components/common/Chip/Chip';
 import * as ChipStyles from 'components/common/Chip/Chip.styles';
 import STYLES from 'styles/index';
+import { CommonItem } from 'types/common';
 
 interface ChipSelectBoxProps<T extends FieldValues> extends HTMLAttributes<HTMLElement> {
   name: Path<T>;
   title: string;
   description: string;
-  list: string[];
+  list: CommonItem<string>[];
 }
 
 const ChipSelectBox = <T extends FieldValues>({
@@ -33,10 +34,10 @@ const ChipSelectBox = <T extends FieldValues>({
         <Description>{description}</Description>
       </TextWrapper>
       <ChipsContainer>
-        {list.map((value, index) => (
+        {list.map(({ caption, value }, index) => (
           <Label key={index}>
             <Input type="checkbox" value={value} {...register(name)} />
-            {<Chip text={value} />}
+            {<Chip text={caption} />}
           </Label>
         ))}
       </ChipsContainer>

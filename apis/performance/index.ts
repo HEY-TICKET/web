@@ -3,10 +3,8 @@ import axios from 'axios';
 import {
   PerformanceNewParams,
   PerformanceResponse,
-  PerformanceParams,
   PerformanceRankParams,
   PerformanceRankResponse,
-  PerformanceCommonResponse,
   PerformanceResponseWithPages,
   PerformanceCountByGenreResponse,
   GetPerformancesParams,
@@ -18,6 +16,10 @@ const performanceAxios = axios.create({
 });
 
 // TODO : react-query 연결
+/**
+ * @param params
+ * @summary 공연 카테고리 조회
+ */
 const getPerformances = async (
   params: GetPerformancesParams,
 ): Promise<PerformanceResponseWithPages<PerformanceResponse>> => {
@@ -27,38 +29,34 @@ const getPerformances = async (
     return response.data.data;
   } catch (err) {
     console.log(err);
-    throw new Error('getPerformance Api 에러발생');
+    throw new Error('getPerformances Api 에러발생');
   }
 };
 
-// TODO : react-query 연결
-const searchPerformance = async (
-  params: SearchPerformanceParams,
-): Promise<PerformanceResponseWithPages<PerformanceResponse>> => {
-  try {
-    const response = await performanceAxios.get(`/search`, { params });
-    console.log('response', response);
-    return response.data.data;
-  } catch (err) {
-    console.log(err);
-    throw new Error('getPerformance Api 에러발생');
-  }
-};
-
-const getPerformanceById = async (params: PerformanceParams): Promise<PerformanceResponse> => {
+/**
+ * @param params
+ * @summary 공연 id로 상세 조회
+ */
+const getPerformanceById = async (
+  params: Pick<PerformanceResponse, 'id'>,
+): Promise<PerformanceResponse> => {
   try {
     const response = await performanceAxios.get(`/${params.id}`);
     console.log('response', response);
     return response.data.data;
   } catch (err) {
     console.log(err);
-    throw new Error('getPerformance Api 에러발생');
+    throw new Error('getPerformanceById Api 에러발생');
   }
 };
 
-const getRecommendationPerformance = async (
-  params: PerformanceParams,
-): Promise<PerformanceCommonResponse[]> => {
+/**
+ * @param params
+ * @summary 공연 상세페이지 추천 공연 목록 조회
+ */
+const getRecommendationPerformancesById = async (
+  params: Pick<PerformanceResponse, 'id'>,
+): Promise<PerformanceResponse[]> => {
   try {
     const response = await performanceAxios.get(`/${params.id}/recommendation`);
     console.log('response', response);
@@ -69,7 +67,25 @@ const getRecommendationPerformance = async (
   }
 };
 
-const getRank = async (
+// TODO : react-query 연결
+/**
+ * @param params
+ * @summary 키워드로 공연 검색
+ */
+const searchPerformances = async (
+  params: SearchPerformanceParams,
+): Promise<PerformanceResponseWithPages<PerformanceResponse>> => {
+  try {
+    const response = await performanceAxios.get(`/search`, { params });
+    console.log('response', response);
+    return response.data.data;
+  } catch (err) {
+    console.log(err);
+    throw new Error('searchPerformance Api 에러발생');
+  }
+};
+
+const getPerformanceByRank = async (
   params: PerformanceRankParams,
 ): Promise<PerformanceResponseWithPages<PerformanceRankResponse>> => {
   try {
@@ -77,11 +93,11 @@ const getRank = async (
     return response.data.data;
   } catch (err) {
     console.log(err);
-    throw new Error('getRank Api 에러발생');
+    throw new Error('getPerformanceByRank Api 에러발생');
   }
 };
 
-const getNew = async (
+const getPerformanceByNew = async (
   params: PerformanceNewParams,
 ): Promise<PerformanceResponseWithPages<PerformanceResponse>> => {
   try {
@@ -105,11 +121,11 @@ const getCountByGenre = async (): Promise<PerformanceCountByGenreResponse[]> => 
 
 const performanceService = {
   getPerformances,
-  searchPerformance,
   getPerformanceById,
-  getRecommendationPerformance,
-  getRank,
-  getNew,
+  getRecommendationPerformancesById,
+  searchPerformances,
+  getPerformanceByRank,
+  getPerformanceByNew,
   getCountByGenre,
 };
 

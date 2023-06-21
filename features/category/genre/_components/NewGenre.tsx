@@ -7,7 +7,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { PerformanceNewParams } from 'apis/performance/type';
 import Chip from 'components/common/Chip/Chip';
-import { GENRE, PERFORMANCE_GENRE_MAP, SORT_TYPE, SORT_TYPE_MAP } from 'constants/new/performance';
+import { GENRE_LIST_MAP, SORTING_METHOD_LIST_MAP } from 'constants/performance/common';
 import { ROUTES } from 'constants/routes';
 import CardList from 'features/category/genre/CardList';
 import * as Styles from 'features/category/genre/Genre.styles';
@@ -17,30 +17,31 @@ import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import useModal from 'hooks/useModal';
 import { useInfiniteNewPerformanceQuery } from 'reactQuery/performance';
 import { ArrowRight, SortIcon } from 'styles/icons';
+import { GenreTypes, SortingMethodTypes } from 'types/performance';
 
 interface GenreProps {
-  genre: keyof typeof GENRE;
+  genre: GenreTypes;
 }
 
 interface SortTypeModalFormValues {
-  sortType: keyof typeof SORT_TYPE;
+  sortType: SortingMethodTypes;
 }
 
-const NEW_PERFORMANCE_GENRE_MAP = PERFORMANCE_GENRE_MAP;
+const NEW_PERFORMANCE_GENRE_MAP = GENRE_LIST_MAP;
 
-const INITIAL_SORT_TYPE: keyof typeof SORT_TYPE = 'TIME';
+const INITIAL_SORT_TYPE: SortingMethodTypes = 'TIME';
 
 const NewGenre = ({ genre }: GenreProps) => {
   const { replace, push, back } = useRouter();
   const toast = useCustomToast();
 
-  const [prevSortTypeValues, setPrevSortTypeValues] = useState<keyof typeof SORT_TYPE | null>(
+  const [prevSortTypeValues, setPrevSortTypeValues] = useState<SortingMethodTypes | null>(
     INITIAL_SORT_TYPE,
   );
 
   // TODO : setOrder 처리
   const [order] = useState<PerformanceNewParams['sortOrder']>('DESC');
-  const [sortType, setSortType] = useState<keyof typeof SORT_TYPE>(INITIAL_SORT_TYPE);
+  const [sortType, setSortType] = useState<SortingMethodTypes>(INITIAL_SORT_TYPE);
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteNewPerformanceQuery({
@@ -62,9 +63,9 @@ const NewGenre = ({ genre }: GenreProps) => {
   );
   const { setTarget } = useIntersectionObserver({ onIntersect });
 
-  const sortingModalMethods = useForm<{ sortType: keyof typeof SORT_TYPE }>({
+  const sortingModalMethods = useForm<{ sortType: SortingMethodTypes }>({
     mode: 'onTouched',
-    defaultValues: { sortType: SORT_TYPE.TIME },
+    defaultValues: { sortType: 'TIME' },
   });
 
   const {
@@ -119,7 +120,7 @@ const NewGenre = ({ genre }: GenreProps) => {
         <Styles.SubFilterWrapper>
           <Styles.SortIconWrapper onClick={sortingModalOpen}>
             <SortIcon size={24} />
-            {SORT_TYPE_MAP.find(({ value }) => value === sortType)?.caption}
+            {SORTING_METHOD_LIST_MAP.find(({ value }) => value === sortType)?.caption}
           </Styles.SortIconWrapper>
         </Styles.SubFilterWrapper>
       </Styles.StickyBox>
@@ -144,7 +145,7 @@ const NewGenre = ({ genre }: GenreProps) => {
           <SortingModalFrame canClose={false}>
             <SortingModal<SortTypeModalFormValues>
               name={'sortType'}
-              list={SORT_TYPE_MAP}
+              list={SORTING_METHOD_LIST_MAP}
               onSubmit={sortingModalMethods.handleSubmit(submitSortingValue)}
               onCancel={cancelSortingModal}
             />

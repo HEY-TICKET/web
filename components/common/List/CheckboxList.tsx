@@ -5,31 +5,32 @@ import styled from 'styled-components';
 
 import Checkbox from 'components/common/Checkbox/Checkbox';
 import STYLES from 'styles/index';
+import { CommonItem } from 'types/common';
 
-interface CheckboxListProps {
-  list: string[];
+interface CheckboxListProps<T> {
+  list: CommonItem<T>[];
   name?: string;
 }
 
-const CheckboxList = ({ list, name }: CheckboxListProps) => {
-  const [checked, setChecked] = useState([list[0]]);
+const CheckboxList = <T extends string>({ list, name }: CheckboxListProps<T>) => {
+  const [checked, setChecked] = useState<T[]>([list[0].value]);
   const useHook = !!name;
   const { register } = useFormContext();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
-    if (checked) setChecked((prev) => [...prev, value]);
+    if (checked) setChecked((prev) => [...prev, value as T]);
     else setChecked((prev) => prev.filter((item) => item !== value));
   };
 
   return (
     <Container>
-      {list.map((value) => (
+      {list.map(({ caption, value }) => (
         <Item key={value}>
           <Checkbox
             type="checkbox"
             value={value}
-            text={value}
+            text={caption}
             {...(useHook && register(name))}
             {...(!useHook && {
               checked: checked.includes(value),

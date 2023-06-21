@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Tab from 'components/common/Tab/Tab';
-import { GENRE, PERFORMANCE_GENRE_MAP } from 'constants/new/performance';
+import { GENRE_LIST_MAP } from 'constants/performance/common';
 import { ROUTES } from 'constants/routes';
 import CardList from 'features/category/genre/CardList';
 import FilterChips, { FILTER_VALUE_MAP } from 'features/category/genre/filter/chip/FilterChips';
@@ -22,6 +22,7 @@ import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import useModal from 'hooks/useModal';
 // import { useInfinitePerformanceQuery } from 'reactQuery/performance';
 import { ArrowRight, FilterIcon, SortIcon } from 'styles/icons';
+import { GenreTypes } from 'types/performance';
 
 export const SORTING_MODAL_LIST = [
   { caption: '최신순', value: 'latest' },
@@ -34,9 +35,9 @@ export type SortingModalFormValues = {
 };
 
 interface GenreProps {
-  genre: keyof typeof GENRE;
+  genre: GenreTypes;
 }
-const Header = new Map(PERFORMANCE_GENRE_MAP.map(({ caption, value }) => [value, caption]));
+const Header = new Map(GENRE_LIST_MAP.map(({ caption, value }) => [value, caption]));
 
 const DefaultGenre = ({ genre }: GenreProps) => {
   const { replace, push } = useRouter();

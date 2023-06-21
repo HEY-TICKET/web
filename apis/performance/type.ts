@@ -1,55 +1,26 @@
 import {
-  AREA,
-  GENRE,
-  SORT_ORDER,
-  SORT_TYPE,
-  TIME_PERIOD,
-  STATUSES,
-  SEARCH_TYPE,
-} from 'constants/new/performance';
+  AreaTypes,
+  BoxOfficeAreaTypes,
+  BoxOfficeGenreTypes,
+  GenreTypes,
+  SearchTypes,
+  SortingMethodTypes,
+  SortingOrderByPeriodTypes,
+  SortingOrderTypes,
+  StatusTypes,
+} from 'types/performance';
 
-type PerformanceCommonParams = {
+/**
+ * 페이지 조회 시 페이지 관련 공통 파라미터 타입
+ */
+type PerformancePageParams = {
   page: number;
   pageSize: number;
 };
 
-export type GetPerformancesParams = {
-  genres: (keyof typeof GENRE)[];
-  areas: (keyof typeof AREA)[];
-  date: Date | string | number;
-  statuses: (keyof typeof STATUSES)[];
-  price: '';
-  sortType: keyof typeof SORT_TYPE;
-  sortOrder: keyof typeof SORT_ORDER;
-} & PerformanceCommonParams;
-
-export type SearchPerformanceParams = {
-  searchType: keyof typeof SEARCH_TYPE;
-  query: string;
-} & PerformanceCommonParams;
-
-export type PerformanceParams = {
-  id: string;
-};
-
-export type PerformanceRankParams = {
-  page: number;
-  pageSize: number;
-
-  timePeriod: keyof typeof TIME_PERIOD;
-  genre?: keyof typeof GENRE;
-  area?: keyof typeof AREA;
-};
-
-export type PerformanceNewParams = {
-  page: number;
-  pageSize: number;
-
-  genre: keyof typeof GENRE;
-  sortType: keyof typeof SORT_TYPE;
-  sortOrder: keyof typeof SORT_ORDER;
-};
-
+/**
+ * 페이지로 조회 시 response 제네릭 타입
+ */
 export type PerformanceResponseWithPages<T> = {
   contents: T[];
   page: number;
@@ -57,13 +28,29 @@ export type PerformanceResponseWithPages<T> = {
   totalPages: number;
 };
 
-export type PerformanceCommonResponse = {
+/**
+ * 공연 조회 파라미터 타입
+ */
+export interface GetPerformancesParams extends PerformancePageParams {
+  genres: GenreTypes[];
+  areas: AreaTypes[];
+  date: Date | string | number;
+  statuses: StatusTypes[];
+  minPrice: number | null;
+  maxPrice: number | null;
+  sortType: SortingMethodTypes;
+  sortOrder: SortingOrderTypes;
+}
+
+/**
+ * 공통 공연조회 response 타입
+ */
+export type PerformanceResponse = {
   id: string;
-  address: string;
   placeId: string;
   title: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   theater: string;
   cast: string;
   crew: string;
@@ -73,25 +60,45 @@ export type PerformanceCommonResponse = {
   price: string;
   poster: string;
   story: string;
-  genre: string;
-  state: string;
+  genre: GenreTypes;
+  status: StatusTypes;
   openRun: boolean;
   storyUrls: string[];
-  schedule: string; // 공연시간
-  phoneNumber: string;
-};
-
-export interface PerformanceResponse extends PerformanceCommonResponse {
+  schedule: string;
   views: number;
   latitude: number;
   longitude: number;
+  address: string;
+  phoneNumber: string;
+  sido: string;
+  gugun: string;
+};
+
+/**
+ * 공연 검색 파라미터 타입
+ */
+export interface SearchPerformanceParams extends PerformancePageParams {
+  searchType: SearchTypes;
+  query: string;
 }
 
-export interface PerformanceRankResponse extends PerformanceCommonResponse {
+export interface PerformanceRankParams extends PerformancePageParams {
+  boxOfficeArea?: BoxOfficeAreaTypes;
+  boxOfficeGenre?: BoxOfficeGenreTypes;
+  timePeriod: SortingOrderByPeriodTypes;
+}
+
+export interface PerformanceRankResponse extends PerformanceResponse {
   rank: number;
 }
 
+export interface PerformanceNewParams extends PerformancePageParams {
+  genre: GenreTypes;
+  sortType: SortingMethodTypes;
+  sortOrder: SortingOrderTypes;
+}
+
 export interface PerformanceCountByGenreResponse {
-  genre: keyof typeof GENRE;
+  genre: GenreTypes;
   count: number;
 }

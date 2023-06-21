@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { PERFORMANCE_GENRE_MAP } from 'constants/new/performance';
+import { GENRE_LIST_MAP } from 'constants/performance/common';
 import { ROUTES } from 'constants/routes';
 import * as Styles from 'features/category/Category.styles';
 import { useGetCountByGenreQuery } from 'reactQuery/performance';
@@ -33,7 +33,7 @@ const Category = () => {
         {(data ?? []).map(({ genre, count }) => (
           <Styles.SubCategoryItemWrapper key={genre} onClick={() => clickSubCategory(genre)}>
             <Styles.SubCategoryItem>
-              <span>{PERFORMANCE_GENRE_MAP.find(({ value }) => value === genre)?.caption}</span>
+              <span>{GENRE_LIST_MAP.find(({ value }) => value === genre)?.caption}</span>
               <p>{addComma(count)}</p>
             </Styles.SubCategoryItem>
             <ArrowRight size={24} />

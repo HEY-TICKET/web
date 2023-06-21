@@ -4,15 +4,15 @@ import { HTMLAttributes } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { PerformanceRankParams } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
 import Slider from 'components/common/Slider/Slider';
 import { ROUTES } from 'constants/routes';
 import Curation from 'features/index/Curation';
 import { useRankPerformanceQuery } from 'reactQuery/performance';
+import { BoxOfficeGenreTypes } from 'types/performance';
 
 interface CardSliderProps extends HTMLAttributes<HTMLElement> {
-  genre: PerformanceRankParams['genre'];
+  genre: BoxOfficeGenreTypes;
 }
 
 const CardSlider = ({ genre }: CardSliderProps) => {
@@ -21,7 +21,8 @@ const CardSlider = ({ genre }: CardSliderProps) => {
   const { data } = useRankPerformanceQuery(
     {
       timePeriod: 'DAY',
-      genre: genre,
+      boxOfficeGenre: genre,
+      boxOfficeArea: 'ALL',
       pageSize: 10,
       page: 0,
     },

@@ -1,11 +1,11 @@
-import { PerformanceCommonResponse } from 'apis/performance/type';
+import { PerformanceResponse } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
 
 import * as Styles from './CardList.styles';
 
 type Props = {
-  data: PerformanceCommonResponse[];
-  onClick?: (id: PerformanceCommonResponse['id']) => void;
+  data: PerformanceResponse[];
+  onClick?: (id: PerformanceResponse['id']) => void;
   loading: boolean;
   hasRank?: boolean;
 };

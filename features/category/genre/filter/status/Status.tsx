@@ -1,14 +1,13 @@
 import CheckboxList from 'components/common/List/CheckboxList';
-import { STATUS } from 'constants/perform/status';
+import { STATUS_LIST_MAP } from 'constants/performance/common';
+import { StatusTypes } from 'types/performance';
 
 type Props = {
   name: string;
 };
 
 const Status = ({ name }: Props) => {
-  const statusList = Object.values(STATUS);
-
-  return <CheckboxList list={statusList} name={name} />;
+  return <CheckboxList<StatusTypes> list={STATUS_LIST_MAP} name={name} />;
 };
 
 export default Status;

@@ -1,19 +1,19 @@
 import { useParams, useRouter } from 'next/navigation';
 import styled, { css } from 'styled-components';
 
-import { PerformanceParams } from 'apis/performance/type';
+import { PerformanceResponse } from 'apis/performance/type';
 import Card from 'components/common/Card/Card';
 import { ROUTES } from 'constants/routes';
 import * as Styles from 'features/category/performance/Performance.styles';
 import { useRecommendationPerformanceQuery } from 'reactQuery/performance';
 
-const OtherPerformances = ({ id }: PerformanceParams) => {
+const OtherPerformances = ({ id }: Pick<PerformanceResponse, 'id'>) => {
   const { push } = useRouter();
   const params = useParams();
 
   const { data } = useRecommendationPerformanceQuery({ id }, { enabled: !!id });
 
-  const clickCard = (id: string) => {
+  const clickCard = (id: PerformanceResponse['id']) => {
     push(`${ROUTES.category}/${params.genre}/${id}`);
   };
 

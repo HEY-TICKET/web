@@ -14,11 +14,9 @@ import performanceService from 'apis/performance';
 import {
   PerformanceNewParams,
   PerformanceResponse,
-  PerformanceParams,
   PerformanceRankParams,
   PerformanceRankResponse,
   PerformanceResponseWithPages,
-  PerformanceCommonResponse,
   PerformanceCountByGenreResponse,
 } from 'apis/performance/type';
 
@@ -28,7 +26,7 @@ const PERFORMANCES_KEYS = {
   // list: (params: PerformancesParams) => [...PERFORMANCES_KEYS.lists(), params],
 
   details: () => [...PERFORMANCES_KEYS.all, 'detail'],
-  detail: (params: PerformanceParams) => [...PERFORMANCES_KEYS.details(), params],
+  detail: (params: Pick<PerformanceResponse, 'id'>) => [...PERFORMANCES_KEYS.details(), params],
 
   ranks: () => [...PERFORMANCES_KEYS.all, 'rank'],
   rank: (params: PerformanceRankParams) => [...PERFORMANCES_KEYS.ranks(), params],
@@ -37,7 +35,10 @@ const PERFORMANCES_KEYS = {
   new: (params: PerformanceNewParams) => [...PERFORMANCES_KEYS.news(), params],
 
   recommendations: () => [...PERFORMANCES_KEYS.all, 'recommendation'],
-  recommendation: (params: PerformanceParams) => [...PERFORMANCES_KEYS.recommendations(), params],
+  recommendation: (params: Pick<PerformanceResponse, 'id'>) => [
+    ...PERFORMANCES_KEYS.recommendations(),
+    params,
+  ],
 
   counts: () => [...PERFORMANCES_KEYS.all, 'count'],
   count: () => [...PERFORMANCES_KEYS.counts()],
@@ -55,9 +56,13 @@ export const useRankPerformanceQuery = (
     'queryKey' | 'queryFn'
   >,
 ) => {
-  return useQuery(PERFORMANCES_KEYS.rank(params), () => performanceService.getRank(params), {
-    ...config,
-  });
+  return useQuery(
+    PERFORMANCES_KEYS.rank(params),
+    () => performanceService.getPerformanceByRank(params),
+    {
+      ...config,
+    },
+  );
 };
 
 export const useNewPerformanceQuery = (
@@ -72,13 +77,17 @@ export const useNewPerformanceQuery = (
     'queryKey' | 'queryFn'
   >,
 ) => {
-  return useQuery(PERFORMANCES_KEYS.new(params), () => performanceService.getNew(params), {
-    ...config,
-  });
+  return useQuery(
+    PERFORMANCES_KEYS.new(params),
+    () => performanceService.getPerformanceByNew(params),
+    {
+      ...config,
+    },
+  );
 };
 
 export const usePerformanceByIdQuery = (
-  params: PerformanceParams,
+  params: Pick<PerformanceResponse, 'id'>,
   config?: Omit<
     UseQueryOptions<
       PerformanceResponse,
@@ -97,17 +106,17 @@ export const usePerformanceByIdQuery = (
 };
 
 export const useRecommendationPerformanceQuery = (
-  params: PerformanceParams,
+  params: Pick<PerformanceResponse, 'id'>,
   config?: UseQueryOptions<
-    PerformanceCommonResponse[],
+    PerformanceResponse[],
     AxiosError,
-    PerformanceCommonResponse[],
+    PerformanceResponse[],
     ReturnType<typeof PERFORMANCES_KEYS.recommendation>
   >,
-): UseQueryResult<PerformanceCommonResponse[], AxiosError> => {
+): UseQueryResult<PerformanceResponse[], AxiosError> => {
   return useQuery(
     PERFORMANCES_KEYS.recommendation(params),
-    () => performanceService.getRecommendationPerformance(params),
+    () => performanceService.getRecommendationPerformancesById(params),
     {
       ...config,
     },
@@ -143,7 +152,7 @@ export const useInfiniteNewPerformanceQuery = (
     PERFORMANCES_KEYS.new(params),
     ({ queryKey: [, , params], pageParam = 0 }) => {
       const _params = params as PerformanceNewParams;
-      return performanceService.getNew({
+      return performanceService.getPerformanceByNew({
         ..._params,
         page: pageParam,
       });
@@ -176,7 +185,7 @@ export const useInfiniteRankPerformanceQuery = (
     PERFORMANCES_KEYS.rank(params),
     ({ queryKey: [, , params], pageParam = 0 }) => {
       const _params = params as PerformanceRankParams;
-      return performanceService.getRank({
+      return performanceService.getPerformanceByRank({
         ..._params,
         page: pageParam,
       });

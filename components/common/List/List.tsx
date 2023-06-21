@@ -5,12 +5,13 @@ import styled from 'styled-components';
 
 import ListItem from 'components/common/List/ListItem';
 import STYLES from 'styles/index';
+import { CommonItem } from 'types/common';
 
 /**
  * isAllValue: true => 첫번째 값과 다른 값들을 동시에 선택할 수 없습니다.
  */
 interface ListProps {
-  list: { caption: string; value: string }[];
+  list: CommonItem<string>[];
   name?: string;
   type?: 'checkbox' | 'radio';
   setIsDirty?: Dispatch<SetStateAction<boolean>>;

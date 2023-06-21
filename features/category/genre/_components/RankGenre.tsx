@@ -7,12 +7,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import Chip from 'components/common/Chip/Chip';
 import {
-  AREA,
-  GENRE,
-  PERFORMANCE_GENRE_MAP,
-  TIME_PERIOD,
-  TIME_PERIOD_MAP,
-} from 'constants/new/performance';
+  BOX_OFFICE_GENRE_LIST_MAP,
+  SORTING_ORDER_BY_PERIOD,
+  SORTING_ORDER_BY_PERIOD_MAP,
+} from 'constants/performance/common';
 import { ROUTES } from 'constants/routes';
 import CardList from 'features/category/genre/CardList';
 import * as Styles from 'features/category/genre/Genre.styles';
@@ -22,38 +20,41 @@ import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import useModal from 'hooks/useModal';
 import { useInfiniteRankPerformanceQuery } from 'reactQuery/performance';
 import { ArrowRight, SortIcon } from 'styles/icons';
+import {
+  BoxOfficeAreaTypes,
+  BoxOfficeGenreTypes,
+  SortingOrderByPeriodTypes,
+} from 'types/performance';
 
 interface GenreProps {
-  genre: keyof typeof GENRE;
+  genre: BoxOfficeGenreTypes;
 }
 
 interface SortTypeModalFormValues {
-  timePeriod: keyof typeof TIME_PERIOD;
+  timePeriod: SortingOrderByPeriodTypes;
 }
 
-const PERFORMANCE_RANK_GENRE_MAP = PERFORMANCE_GENRE_MAP;
-
-const INITIAL_TIME_PERIOD: keyof typeof TIME_PERIOD = 'DAY';
+const INITIAL_TIME_PERIOD: SortingOrderByPeriodTypes = 'DAY';
 
 const RankGenre = ({ genre }: GenreProps) => {
   const { replace, push, back } = useRouter();
   const toast = useCustomToast();
 
-  const [prevSortTypeValues, setPrevSortTypeValues] = useState<keyof typeof TIME_PERIOD | null>(
+  const [prevSortTypeValues, setPrevSortTypeValues] = useState<SortingOrderByPeriodTypes | null>(
     INITIAL_TIME_PERIOD,
   );
 
   // TODO : setArea 설정
-  const [area] = useState<keyof typeof AREA>('ALL');
+  const [area] = useState<BoxOfficeAreaTypes>('ALL');
 
-  const [timePeriod, setTimePeriod] = useState<keyof typeof TIME_PERIOD>(INITIAL_TIME_PERIOD);
+  const [timePeriod, setTimePeriod] = useState<SortingOrderByPeriodTypes>(INITIAL_TIME_PERIOD);
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteRankPerformanceQuery({
       page: 0,
       pageSize: 24,
-      genre: genre,
-      area: area,
+      boxOfficeGenre: genre,
+      boxOfficeArea: area,
       timePeriod: timePeriod,
     });
 
@@ -70,7 +71,7 @@ const RankGenre = ({ genre }: GenreProps) => {
 
   const sortingModalMethods = useForm<SortTypeModalFormValues>({
     mode: 'onTouched',
-    defaultValues: { timePeriod: TIME_PERIOD.DAY },
+    defaultValues: { timePeriod: SORTING_ORDER_BY_PERIOD[0] },
   });
 
   const {
@@ -93,7 +94,7 @@ const RankGenre = ({ genre }: GenreProps) => {
     push(`${ROUTES.category}/${genre}/${id}`);
   };
 
-  const clickChip = (genre: (typeof PERFORMANCE_RANK_GENRE_MAP)[number]['value']) => {
+  const clickChip = (genre: BoxOfficeGenreTypes) => {
     replace(`/category/${genre}?new=true`);
   };
 
@@ -112,7 +113,7 @@ const RankGenre = ({ genre }: GenreProps) => {
         </Styles.GenreHeader>
         <Styles.FilterContainer>
           <Styles.FilterWrapper>
-            {PERFORMANCE_RANK_GENRE_MAP.map(({ caption, value }, index) => (
+            {BOX_OFFICE_GENRE_LIST_MAP.map(({ caption, value }, index) => (
               <Chip
                 key={index}
                 active={value === genre}
@@ -125,7 +126,7 @@ const RankGenre = ({ genre }: GenreProps) => {
         <Styles.SubFilterWrapper>
           <Styles.SortIconWrapper onClick={sortingModalOpen}>
             <SortIcon size={24} />
-            {TIME_PERIOD_MAP.find(({ value }) => value === timePeriod)?.caption}
+            {SORTING_ORDER_BY_PERIOD_MAP.find(({ value }) => value === timePeriod)?.caption}
           </Styles.SortIconWrapper>
         </Styles.SubFilterWrapper>
       </Styles.StickyBox>
@@ -151,7 +152,7 @@ const RankGenre = ({ genre }: GenreProps) => {
           <SortingModalFrame canClose={false}>
             <SortingModal<SortTypeModalFormValues>
               name={'timePeriod'}
-              list={TIME_PERIOD_MAP}
+              list={SORTING_ORDER_BY_PERIOD_MAP}
               onSubmit={sortingModalMethods.handleSubmit(submitSortingValue)}
               onCancel={cancelSortingModal}
             />

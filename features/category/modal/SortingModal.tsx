@@ -3,13 +3,14 @@ import { FieldValues, FieldName } from 'react-hook-form';
 import Button from 'components/common/Button/Button';
 import List from 'components/common/List/List';
 import { CloseIcon } from 'styles/icons';
+import { CommonItem } from 'types/common';
 import { nullFn } from 'utils/function';
 
 import * as Styles from './SortingModal.styles';
 
 interface CategoryModalProps<T extends FieldValues> {
   name: FieldName<T>;
-  list: { caption: string; value: string }[];
+  list: CommonItem<string>[];
   close?: () => void;
   onSubmit?: () => void;
   onCancel?: () => void;

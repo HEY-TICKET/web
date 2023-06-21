@@ -8,6 +8,8 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
+import { authInfo } from 'constants/storage';
+
 type FormProviderProps = HTMLAttributes<HTMLElement>;
 
 export type InterestFormValue = {
@@ -42,11 +44,13 @@ const InterestFormProvider = ({ children }: FormProviderProps) => {
 
   const onValidSubmit: SubmitHandler<InterestFormValue> = (data) => {
     console.log(data);
+    const { region, genre, keyword } = data;
 
     if (type === 'category') {
+      authInfo.setItem({ areas: region, genres: genre }, true);
       push('/my/interest?type=keyword');
     } else {
-      // TODO: api 통신 시 빈 값 제거, 자동 로그인? 혹은 로그인 화면으로? ??
+      authInfo.setItem({ keywords: keyword }, true);
       push('/');
     }
   };
