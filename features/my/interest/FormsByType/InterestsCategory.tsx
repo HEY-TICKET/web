@@ -14,7 +14,7 @@ const InterestsCategory = () => {
       {({ formState: { isValid, isSubmitting } }) => (
         <>
           <ChipSelectBox<InterestFormValue>
-            name={'region'}
+            name={'areas'}
             title={'지역'}
             description={'복수 선택 가능해요'}
             list={AREA_LIST_MAP}
@@ -24,7 +24,7 @@ const InterestsCategory = () => {
           />
 
           <ChipSelectBox<InterestFormValue>
-            name={'genre'}
+            name={'genres'}
             title={'공연 장르'}
             description={'복수 선택 가능해요'}
             list={GENRE_LIST_MAP}

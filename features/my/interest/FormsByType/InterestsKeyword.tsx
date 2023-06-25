@@ -15,7 +15,7 @@ const InterestsKeyword = () => {
     <>
       <FormWrapper>
         <ArrayInput<InterestFormValue>
-          name={'keyword'}
+          name={'keywords'}
           placeholder={'공연, 출연진 입력'}
           fallback={
             <InputGuideWrapper>

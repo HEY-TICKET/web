@@ -5,6 +5,10 @@ import { AxiosError } from 'axios';
 
 import memberService from 'apis/members';
 import {
+  AuthenticationCode,
+  RefreshTokenParams,
+  SignInParams,
+  SignUpParams,
   ValidationParams,
   ValidationResponse,
   VerificationSendParams,
@@ -36,6 +40,30 @@ export const useMemberVerifyQuery = (
   config?: UseMutationOptions<VerifyResponse, AxiosError, VerifyParams>,
 ): UseMutationResult<VerifyResponse, AxiosError, VerifyParams> => {
   return useMutation((params: VerifyParams) => memberService.verify(params), {
+    ...config,
+  });
+};
+
+export const useMemberSignUpQuery = (
+  config?: UseMutationOptions<AuthenticationCode, AxiosError, SignUpParams>,
+): UseMutationResult<AuthenticationCode, AxiosError, SignUpParams> => {
+  return useMutation((params: SignUpParams) => memberService.signUp(params), {
+    ...config,
+  });
+};
+
+export const useMemberSignInQuery = (
+  config?: UseMutationOptions<AuthenticationCode, AxiosError, SignInParams>,
+): UseMutationResult<AuthenticationCode, AxiosError, SignInParams> => {
+  return useMutation((params: SignInParams) => memberService.signIn(params), {
+    ...config,
+  });
+};
+
+export const useMemberRefreshTokenQuery = (
+  config?: UseMutationOptions<AuthenticationCode, AxiosError, RefreshTokenParams>,
+): UseMutationResult<AuthenticationCode, AxiosError, RefreshTokenParams> => {
+  return useMutation((params: RefreshTokenParams) => memberService.refreshToken(params), {
     ...config,
   });
 };

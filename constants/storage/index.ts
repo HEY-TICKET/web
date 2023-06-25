@@ -2,7 +2,7 @@
 
 import { SignUpParams } from 'apis/members/type';
 
-const defaultAuthValue: SignUpParams = {
+const defaultAuthValue: Omit<SignUpParams, 'keywordPush' | 'verificationCode'> = {
   email: '',
   password: '',
   genres: [],
