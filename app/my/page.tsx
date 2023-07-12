@@ -1,10 +1,8 @@
 import My from 'features/my/My';
 
-const Page = () => {
+export default function Page() {
   return <My />;
-};
-
-export default Page;
+}
 
 // export async function getUser() {
 //   const cookieStore = cookies();
