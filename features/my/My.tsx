@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import { useLayoutContext } from 'components/layout/_context/LayoutContext';
@@ -10,7 +12,9 @@ const My = () => {
 
   const { isLoggedIn, logout } = useLayoutContext();
 
-  if (!isLoggedIn) push('/auth/signIn');
+  useEffect(() => {
+    if (!isLoggedIn) push('/auth/signIn');
+  }, [isLoggedIn, push]);
 
   return (
     <Styles.MyContainer>
