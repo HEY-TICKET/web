@@ -9,4 +9,6 @@ export const MyContainer = styled.div`
   position: relative;
 
   height: 100%;
+
+  padding: 56px 0 60px;
 `;

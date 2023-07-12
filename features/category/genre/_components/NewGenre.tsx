@@ -29,7 +29,7 @@ interface SortTypeModalFormValues {
 
 const NEW_PERFORMANCE_GENRE_MAP = GENRE_LIST_MAP;
 
-const INITIAL_SORT_TYPE: SortingMethodTypes = 'TIME';
+const INITIAL_SORT_TYPE: SortingMethodTypes = 'CREATED_DATE';
 
 const NewGenre = ({ genre }: GenreProps) => {
   const { replace, push, back } = useRouter();
@@ -65,7 +65,7 @@ const NewGenre = ({ genre }: GenreProps) => {
 
   const sortingModalMethods = useForm<{ sortType: SortingMethodTypes }>({
     mode: 'onTouched',
-    defaultValues: { sortType: 'TIME' },
+    defaultValues: { sortType: 'CREATED_DATE' },
   });
 
   const {
@@ -103,7 +103,7 @@ const NewGenre = ({ genre }: GenreProps) => {
           <Styles.LeftIconWrapper onClick={back}>
             <ArrowRight size={28} />
           </Styles.LeftIconWrapper>
-          <Styles.Title>새로나온 공연</Styles.Title>
+          <Styles.Title>새로 나온 공연</Styles.Title>
         </Styles.GenreHeader>
         <Styles.FilterContainer>
           <Styles.FilterWrapper>

@@ -8,7 +8,7 @@ import TopBar from 'components/common/Nav/TopBar';
 import FormHeader from 'components/FormProvider/FormHeader';
 import * as Styles from 'components/Input/Input.styles';
 import { authInfo } from 'constants/storage';
-import { useMemberVerificationSendQuery } from 'reactQuery/members';
+import { useMemberVerificationSendQuery } from 'reactQuery/members/mutation';
 
 const SignUp = () => {
   const { push, back } = useRouter();

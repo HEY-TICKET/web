@@ -1,7 +1,8 @@
 import { usePathname } from 'next/navigation';
 
-import * as Styles from 'components/layout/Footer/Footer.styles';
 import { CategoryIcon, HomeIcon, MyIcon } from 'styles/icons';
+
+import * as Styles from './Footer.styles';
 
 type FooterItem = {
   route: string;

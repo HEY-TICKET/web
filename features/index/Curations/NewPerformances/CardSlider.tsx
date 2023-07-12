@@ -22,7 +22,7 @@ const CardSlider = ({ genre }: CardSliderProps) => {
     {
       genre: genre,
       sortOrder: 'DESC',
-      sortType: 'TIME',
+      sortType: 'CREATED_DATE',
       pageSize: 10,
       page: 0,
     },

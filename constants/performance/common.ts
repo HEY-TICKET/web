@@ -95,12 +95,11 @@ export const SORTING_ORDER_LIST_MAP: CommonItem<SortingOrderTypes>[] = [
   { caption: '내림차순', value: 'DESC' },
 ];
 
-export const SORTING_METHOD_LIST = ['TIME', 'VIEWS', 'END_DATE', 'LIKE_DATE'] as const;
+export const SORTING_METHOD_LIST = ['CREATED_DATE', 'VIEWS', 'LIKE_DATE'] as const;
 
 export const SORTING_METHOD_LIST_MAP: CommonItem<SortingMethodTypes>[] = [
-  { caption: '최근 등록순', value: 'TIME' },
+  { caption: '최근 등록순', value: 'CREATED_DATE' },
   { caption: '조회수 순', value: 'VIEWS' },
-  { caption: '공연 종료순', value: 'END_DATE' },
   { caption: '찜 등록순', value: 'LIKE_DATE' },
 ];
 

@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { useRouter } from 'next/navigation';
 import styled, { css } from 'styled-components';
 
@@ -9,11 +11,18 @@ import TopBar from 'components/common/Nav/TopBar';
 import ConnectForm from 'components/FormProvider/ConnectForm';
 import FormHeader from 'components/FormProvider/FormHeader';
 import Input from 'components/Input/Input';
+import { useLayoutContext } from 'components/layout/_context/LayoutContext';
 import SignInFormProvider, { SignInFormValue } from 'features/auth/FormProvider/SignInFormProvider';
 import STYLES from 'styles/index';
 
 const SignIn = () => {
-  const { back } = useRouter();
+  const { back, push } = useRouter();
+
+  const { isLoggedIn } = useLayoutContext();
+
+  useEffect(() => {
+    if (isLoggedIn) push('/');
+  }, [isLoggedIn, push]);
 
   return (
     <>

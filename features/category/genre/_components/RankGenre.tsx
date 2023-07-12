@@ -95,7 +95,7 @@ const RankGenre = ({ genre }: GenreProps) => {
   };
 
   const clickChip = (genre: BoxOfficeGenreTypes) => {
-    replace(`/category/${genre}?new=true`);
+    replace(`/category/${genre}?rank=true`);
   };
 
   const cancelSortingModal = () => {
