@@ -11,7 +11,7 @@ import * as yup from 'yup';
 import { EMAIL_REGEX } from 'constants/regex';
 import { authInfo } from 'constants/storage';
 import useCustomToast from 'hooks/useCustomToast';
-import { useMemberVerifyQuery } from 'reactQuery/members';
+import { useMemberVerifyQuery } from 'reactQuery/members/mutation';
 
 type FormProviderProps = HTMLAttributes<HTMLElement>;
 

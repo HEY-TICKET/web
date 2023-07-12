@@ -16,7 +16,7 @@ import MobileAuthenticationFormProvider, {
 } from 'features/auth/FormProvider/MobileAuthenticationFormProvider';
 import AuthenticationCodeInput from 'features/auth/Input/AuthenticationCodeInput';
 import useCountDown from 'hooks/useCountDown';
-import { useMemberVerificationSendQuery } from 'reactQuery/members';
+import { useMemberVerificationSendQuery } from 'reactQuery/members/mutation';
 
 const MobileAuthentication = () => {
   const { back } = useRouter();

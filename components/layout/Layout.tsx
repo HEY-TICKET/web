@@ -1,46 +1,108 @@
 'use client';
 
-import { HTMLAttributes } from 'react';
+import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 
 import { usePathname } from 'next/navigation';
+import styled from 'styled-components';
+import Cookies from 'universal-cookie';
 
-import Footer from 'components/layout/Footer/Footer';
-import * as Styles from 'components/layout/RootLayout.styles';
-import GNB from 'features/index/GNB';
+import Footer from 'components/layout/_components/Footer';
+import GNB from 'components/layout/_components/GNB';
+import LayoutContext from 'components/layout/_context/LayoutContext';
+import { REFRESH_TOKEN } from 'constants/auth';
+import { authInfo } from 'constants/storage';
+import usePopup from 'hooks/usePopup';
+import { useMemberRefreshToken } from 'reactQuery/members/mutation';
 
-type LayoutProps = HTMLAttributes<HTMLDivElement>;
+// const ONE_MINUTE = 1000 * 60;
+//
+// const JWT_EXPIRY_TIME = ONE_MINUTE * 5; // 5분
 
-const HEADER_EXCLUDE_PATH = ['/category/', '/search', '/auth', '/my/interest'];
-const FOOTER_EXCLUDE_PATH = ['/auth', '/my/interest'];
+const cookies = new Cookies();
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children }: PropsWithChildren) => {
   const pathname = usePathname();
+  const { mutateAsync: getNewToken } = useMemberRefreshToken();
 
-  // FIXME: exclude path return 함수 리팩토링 필요.
-  const isHeaderExcludePath = () => {
-    return HEADER_EXCLUDE_PATH.some((path) => pathname.startsWith(path));
-  };
+  const [hasGNB, setHasGNB] = useState(true);
+  const [hasFooter, setHasFooter] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // FIXME: exclude path return 함수 리팩토링 필요.
-  const isFooterExcludePath = () => {
-    return FOOTER_EXCLUDE_PATH.some((path) => pathname.startsWith(path));
+  const setGNB = (has: boolean) => setHasGNB(has);
+  const setFooter = (has: boolean) => setHasFooter(has);
+
+  const { Popup, open: openPopup } = usePopup({
+    title: '로그아웃 하시겠어요?',
+    submitText: '로그아웃',
+    onSubmit: () => {
+      cookies.remove(REFRESH_TOKEN);
+      setIsLoggedIn(false);
+    },
+  });
+
+  const logout = openPopup;
+
+  const login = () => setIsLoggedIn(true);
+
+  const checkLogin = useCallback(async () => {
+    try {
+      const refreshToken = cookies.get(REFRESH_TOKEN);
+      const { email } = authInfo.getItem();
+
+      if (!!email && !!refreshToken) {
+        const res = await getNewToken({ email, refreshToken });
+        cookies.set(REFRESH_TOKEN, res.refreshToken, { path: '/', sameSite: 'strict' });
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    } catch (err) {
+      // cookies.remove(REFRESH_TOKEN);
+      setIsLoggedIn(false);
+      console.error(err);
+    }
+  }, [getNewToken]);
+
+  useEffect(() => {
+    if (isLoggedIn) checkLogin().then();
+  }, [checkLogin, isLoggedIn]);
+
+  useEffect(() => {
+    if (pathname === '/' || pathname === '/category') {
+      setGNB(true);
+      setFooter(true);
+    } else {
+      setGNB(false);
+      setFooter(false);
+    }
+  }, [pathname]);
+
+  const contextProps = {
+    setGNB,
+    setFooter,
+    isLoggedIn,
+    login,
+    logout,
   };
 
   return (
-    <Styles.Wrapper>
-      {!isHeaderExcludePath() && (
-        <Styles.Header>
-          <GNB />
-        </Styles.Header>
-      )}
-      <Styles.Body>{children}</Styles.Body>
-      {!isFooterExcludePath() && (
-        <Styles.Footer>
-          <Footer />
-        </Styles.Footer>
-      )}
-    </Styles.Wrapper>
+    <LayoutContext {...contextProps}>
+      {hasGNB && <GNB />}
+      <Body>{children}</Body>
+      {hasFooter && <Footer />}
+      <Popup />
+    </LayoutContext>
   );
 };
 
 export default Layout;
+
+const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+`;

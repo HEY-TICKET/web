@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
@@ -9,6 +11,7 @@ import Logo from 'components/common/Logo/Logo';
 import TopBar from 'components/common/Nav/TopBar';
 import ConnectForm from 'components/FormProvider/ConnectForm';
 import Input from 'components/Input/Input';
+import { useLayoutContext } from 'components/layout/_context/LayoutContext';
 import EmailSignInFormProvider, {
   EmailSignInFormValue,
 } from 'features/auth/FormProvider/EmailSignInFormProvider';
@@ -16,8 +19,13 @@ import PasswordInput from 'features/auth/Input/PasswordInput';
 import STYLES from 'styles/index';
 
 const EmailSignIn = () => {
-  const { back } = useRouter();
+  const { back, push } = useRouter();
 
+  const { isLoggedIn } = useLayoutContext();
+
+  useEffect(() => {
+    if (isLoggedIn) push('/');
+  }, [isLoggedIn, push]);
   return (
     <>
       <TopBar leftProps={<TopBar.BackButton onClick={back} />} />

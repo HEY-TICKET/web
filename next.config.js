@@ -6,7 +6,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true, // Recommended for the `pages` directory, default in `migration`.
+  // reactStrictMode: true, // Recommended for the `pages` directory, default in `migration`.
   swcMinify: true,
   experimental: {
     appDir: true,

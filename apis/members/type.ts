@@ -1,4 +1,6 @@
-export type ReIssuanceTokenParams = {
+import { AreaTypes, GenreTypes } from 'types/performance';
+
+export type RefreshTokenParams = {
   email: string;
   refreshToken: string;
 };
@@ -57,13 +59,30 @@ export type WithdrawalParams = {
 export type SignUpParams = {
   email: string;
   password: string;
-  genres: string[];
-  areas: string[];
-  keywords: string[];
+  genres?: GenreTypes[];
+  areas?: AreaTypes[];
+  keywords?: string[];
+  verificationCode: string;
+  keywordPush: boolean;
 };
 
 export type GetUserParams = {
   id: string;
+};
+
+export type AuthenticationCode = {
+  grantType: string;
+  accessToken: string;
+  refreshToken: string;
+};
+
+export type GetUserResponse = {
+  email: string;
+  allowKeywordPush: boolean;
+  allowMarketing: boolean;
+  genres: GenreTypes[];
+  areas: AreaTypes[];
+  keywords: string[];
 };
 
 const VERIFICATION_TYPE = { SIGN_UP: 'SIGN_UP', PASSWORD_CHANGE: 'PASSWORD_CHANGE' } as const;

@@ -35,7 +35,6 @@ const CategoryFilterModal = ({
   onCancel,
   onReset,
   onSubmit,
-  disabledReset = false,
 }: CategoryModalProps) => {
   const resetFormValue = () => {
     onReset?.();
@@ -45,8 +44,6 @@ const CategoryFilterModal = ({
     onCancel?.();
     close();
   };
-
-  console.log(disabledReset);
 
   return (
     <form onSubmit={onSubmit}>

@@ -10,7 +10,7 @@ import * as yup from 'yup';
 
 import { EMAIL_REGEX } from 'constants/regex';
 import { authInfo } from 'constants/storage';
-import { useMemberValidationQuery } from 'reactQuery/members';
+import { useMemberValidationQuery } from 'reactQuery/members/mutation';
 
 type FormProviderProps = HTMLAttributes<HTMLElement>;
 
@@ -19,7 +19,7 @@ export type SignInFormValue = {
 };
 
 const SignInFormProvider = ({ children }: FormProviderProps) => {
-  const { push } = useRouter();
+  const { replace } = useRouter();
 
   const methods = useForm<SignInFormValue>({
     mode: 'onTouched',
@@ -40,9 +40,9 @@ const SignInFormProvider = ({ children }: FormProviderProps) => {
 
       // FIXME: 세션으로 데이터 전달 ? or route query 로 전달?
       if (isExistedEmail) {
-        push(`/auth/email-signIn`);
+        replace(`/auth/email-signIn`);
       } else {
-        push(`/auth/signUp`);
+        replace(`/auth/signUp`);
       }
       authInfo.setItem({ email });
     } catch (e) {

@@ -3,15 +3,20 @@
 import { HTMLAttributes } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useRouter } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import Cookies from 'universal-cookie';
 import * as yup from 'yup';
 
+import { useLayoutContext } from 'components/layout/_context/LayoutContext';
+import { REFRESH_TOKEN } from 'constants/auth';
 import { EMAIL_REGEX, PASSWORD_REGEX } from 'constants/regex';
 import { authInfo } from 'constants/storage';
+import { useMemberSignInQuery } from 'reactQuery/members/mutation';
 
 type FormProviderProps = HTMLAttributes<HTMLElement>;
+
+const cookies = new Cookies();
 
 export type EmailSignInFormValue = {
   email: string;
@@ -19,8 +24,8 @@ export type EmailSignInFormValue = {
 };
 
 const EmailSignInFormProvider = ({ children }: FormProviderProps) => {
-  const { push } = useRouter();
   const { email } = authInfo.getItem();
+  const { login } = useLayoutContext();
 
   const methods = useForm<EmailSignInFormValue>({
     mode: 'onTouched',
@@ -31,15 +36,23 @@ const EmailSignInFormProvider = ({ children }: FormProviderProps) => {
     resolver: yupResolver(schema),
   });
 
+  const { mutateAsync: signIn } = useMemberSignInQuery();
   const { handleSubmit, setError } = methods;
 
-  const onValidSubmit: SubmitHandler<EmailSignInFormValue> = (data) => {
+  const onValidSubmit: SubmitHandler<EmailSignInFormValue> = async (data) => {
     console.log(data);
-    const { password } = data;
-    const isCorrectPassword = password === 'Test123@';
-    if (isCorrectPassword) {
-      push('/');
-    } else {
+    const { email, password } = data;
+    try {
+      localStorage.setItem('email', email);
+      const res = await signIn({ email, password });
+      const { refreshToken } = res;
+      cookies.set(REFRESH_TOKEN, refreshToken, { path: '/', sameSite: 'strict' });
+      login();
+
+      // const nextUrl = searchParams.get('next') ?? '/';
+      // push(nextUrl);
+    } catch (e) {
+      console.log(e);
       setError('password', { message: '이메일 주소 혹은 비밀번호를 확인해주세요' });
     }
   };

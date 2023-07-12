@@ -1,9 +1,11 @@
 import axios from 'axios';
 
 import {
+  AuthenticationCode,
   GetUserParams,
+  GetUserResponse,
   LikeParams,
-  ReIssuanceTokenParams,
+  RefreshTokenParams,
   SetCategoriesParams,
   SetKeywordsParams,
   SetPasswordParams,
@@ -20,7 +22,7 @@ const memberAxios = axios.create({
 });
 
 // note: PUT
-const reIssuanceToken = async (params: ReIssuanceTokenParams) => {
+const refreshToken = async (params: RefreshTokenParams): Promise<AuthenticationCode> => {
   try {
     const response = await memberAxios.put(`/token`, { ...params });
     console.log('response', response);
@@ -167,7 +169,7 @@ const dislike = async (params: LikeParams) => {
 
 // note: GET
 
-const getUser = async (params: GetUserParams) => {
+const getUser = async (params: GetUserParams): Promise<GetUserResponse> => {
   try {
     const response = await memberAxios.get(`/${params.id}`);
     console.log('response', response);
@@ -179,7 +181,7 @@ const getUser = async (params: GetUserParams) => {
 };
 
 const memberService = {
-  reIssuanceToken,
+  refreshToken,
   setPassword,
   setKeywords,
   setCategories,
