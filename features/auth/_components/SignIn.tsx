@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styled, { css } from 'styled-components';
 
 import Button from 'components/common/Button/Button';
@@ -18,15 +18,24 @@ import STYLES from 'styles/index';
 const SignIn = () => {
   const { back, push } = useRouter();
 
+  const searchParams = useSearchParams();
+  const from = searchParams.get('from');
+
   const { isLoggedIn } = useLayoutContext();
 
+  const clickBackButton = () => {
+    console.log(from);
+    from ? push(from) : back();
+  };
+
   useEffect(() => {
+    console.log('isLoggedIn => ', isLoggedIn);
     if (isLoggedIn) push('/');
   }, [isLoggedIn, push]);
 
   return (
     <>
-      <TopBar leftProps={<TopBar.BackButton onClick={back} />} />
+      <TopBar leftProps={<TopBar.BackButton onClick={clickBackButton} />} />
       <Wrapper>
         <EmailSignInFormWrapper>
           <FormHeader>

@@ -5,18 +5,15 @@ import { HTMLAttributes } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import Cookies from 'universal-cookie';
 import * as yup from 'yup';
 
 import { useLayoutContext } from 'components/layout/_context/LayoutContext';
-import { REFRESH_TOKEN } from 'constants/auth';
 import { EMAIL_REGEX, PASSWORD_REGEX } from 'constants/regex';
 import { authInfo } from 'constants/storage';
+import { tokenInfo } from 'constants/storage/token';
 import { useMemberSignInQuery } from 'reactQuery/members/mutation';
 
 type FormProviderProps = HTMLAttributes<HTMLElement>;
-
-const cookies = new Cookies();
 
 export type EmailSignInFormValue = {
   email: string;
@@ -45,12 +42,9 @@ const EmailSignInFormProvider = ({ children }: FormProviderProps) => {
     try {
       localStorage.setItem('email', email);
       const res = await signIn({ email, password });
-      const { refreshToken } = res;
-      cookies.set(REFRESH_TOKEN, refreshToken, { path: '/', sameSite: 'strict' });
+      const { refreshToken, accessToken, grantType } = res;
+      tokenInfo.setItem({ accessToken, refreshToken, grantType });
       login();
-
-      // const nextUrl = searchParams.get('next') ?? '/';
-      // push(nextUrl);
     } catch (e) {
       console.log(e);
       setError('password', { message: '이메일 주소 혹은 비밀번호를 확인해주세요' });

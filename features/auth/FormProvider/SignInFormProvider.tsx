@@ -35,10 +35,10 @@ const SignInFormProvider = ({ children }: FormProviderProps) => {
 
   const onValidSubmit: SubmitHandler<SignInFormValue> = async (data) => {
     const { email } = data;
+    console.table({ email });
+
     try {
       const isExistedEmail = await validation({ email });
-
-      // FIXME: 세션으로 데이터 전달 ? or route query 로 전달?
       if (isExistedEmail) {
         replace(`/auth/email-signIn`);
       } else {

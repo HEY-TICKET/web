@@ -8,13 +8,14 @@ import { useLayoutContext } from 'components/layout/_context/LayoutContext';
 import * as Styles from 'features/my/My.styles';
 
 const My = () => {
-  const { push } = useRouter();
+  const { replace } = useRouter();
 
   const { isLoggedIn, logout } = useLayoutContext();
 
   useEffect(() => {
-    if (!isLoggedIn) push('/auth/signIn');
-  }, [isLoggedIn, push]);
+    console.log('auth sign in logged in', isLoggedIn);
+    if (!isLoggedIn) replace('/auth/signIn?from=/my');
+  }, [isLoggedIn, replace]);
 
   return (
     <Styles.MyContainer>
