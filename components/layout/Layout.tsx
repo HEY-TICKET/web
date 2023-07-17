@@ -4,13 +4,12 @@ import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 
 import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
-import Cookies from 'universal-cookie';
 
 import Footer from 'components/layout/_components/Footer';
 import GNB from 'components/layout/_components/GNB';
 import LayoutContext from 'components/layout/_context/LayoutContext';
-import { REFRESH_TOKEN } from 'constants/auth';
 import { authInfo } from 'constants/storage';
+import { tokenInfo } from 'constants/storage/token';
 import usePopup from 'hooks/usePopup';
 import { useMemberRefreshToken } from 'reactQuery/members/mutation';
 
@@ -18,15 +17,13 @@ import { useMemberRefreshToken } from 'reactQuery/members/mutation';
 //
 // const JWT_EXPIRY_TIME = ONE_MINUTE * 5; // 5분
 
-const cookies = new Cookies();
-
 const Layout = ({ children }: PropsWithChildren) => {
   const pathname = usePathname();
   const { mutateAsync: getNewToken } = useMemberRefreshToken();
 
   const [hasGNB, setHasGNB] = useState(true);
   const [hasFooter, setHasFooter] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!tokenInfo.getItem().accessToken);
 
   const setGNB = (has: boolean) => setHasGNB(has);
   const setFooter = (has: boolean) => setHasFooter(has);
@@ -34,8 +31,9 @@ const Layout = ({ children }: PropsWithChildren) => {
   const { Popup, open: openPopup } = usePopup({
     title: '로그아웃 하시겠어요?',
     submitText: '로그아웃',
-    onSubmit: () => {
-      cookies.remove(REFRESH_TOKEN);
+    onSubmit: async () => {
+      await authInfo.setItem({});
+      await tokenInfo.setItem({});
       setIsLoggedIn(false);
     },
   });
@@ -46,29 +44,32 @@ const Layout = ({ children }: PropsWithChildren) => {
 
   const checkLogin = useCallback(async () => {
     try {
-      const refreshToken = cookies.get(REFRESH_TOKEN);
       const { email } = authInfo.getItem();
+      const { refreshToken } = tokenInfo.getItem();
 
       if (!!email && !!refreshToken) {
         const res = await getNewToken({ email, refreshToken });
-        cookies.set(REFRESH_TOKEN, res.refreshToken, { path: '/', sameSite: 'strict' });
+        console.log(res);
+        tokenInfo.setItem({ accessToken: res.accessToken, refreshToken: res.refreshToken }, true);
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
       }
     } catch (err) {
-      // cookies.remove(REFRESH_TOKEN);
       setIsLoggedIn(false);
       console.error(err);
     }
   }, [getNewToken]);
 
   useEffect(() => {
-    if (isLoggedIn) checkLogin().then();
-  }, [checkLogin, isLoggedIn]);
+    const { accessToken } = tokenInfo.getItem();
+    if (accessToken) {
+      if (isLoggedIn) checkLogin().then();
+    }
+  }, [checkLogin, isLoggedIn, pathname]);
 
   useEffect(() => {
-    if (pathname === '/' || pathname === '/category') {
+    if (pathname === '/' || pathname === '/category' || pathname === '/my') {
       setGNB(true);
       setFooter(true);
     } else {
