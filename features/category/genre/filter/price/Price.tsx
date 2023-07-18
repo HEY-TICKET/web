@@ -1,18 +1,20 @@
 import styled from 'styled-components';
 
 import RadioList from 'components/common/List/RadioList';
+import { PRICE_LIST } from 'constants/performance/common';
 import STYLES from 'styles/index';
 
 type Props = {
   name: string;
 };
 
+type PriceRange = { minPrice?: number; maxPrice?: number };
+
 const Price = ({ name }: Props) => {
-  const list = ['전체', '1만원 미만', '1 ~ 4만원', '4 ~ 7만원', '7 ~ 10만원', '10만원 이상'];
   return (
     <Wrapper>
       <span>낮은 예매가 기준으로 적용돼요</span>
-      <RadioList list={list} name={name} useForm={true} />
+      <RadioList<PriceRange> list={PRICE_LIST} name={name} useForm={true} />
     </Wrapper>
   );
 };

@@ -185,3 +185,11 @@ export const BOX_OFFICE_AREA_LIST_MAP: CommonItem<BoxOfficeAreaTypes>[] = [
   { caption: '제주특별자치도', value: 'JEJU' },
   { caption: '대학교', value: 'UNI' },
 ];
+
+export const PRICE_LIST = [
+  { caption: '전체', value: { minPrice: 0 } },
+  { caption: '3만원 미만', value: { maxPrice: 3 } },
+  { caption: '3 ~ 8만원', value: { minPrice: 3, maxPrice: 8 } },
+  { caption: '8 ~ 13만원', value: { minPrice: 8, maxPrice: 13 } },
+  { caption: '13만원 이상', value: { minPrice: 13 } },
+];

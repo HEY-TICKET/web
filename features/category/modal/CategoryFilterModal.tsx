@@ -3,6 +3,7 @@ import { PropsWithChildren } from 'react';
 import Button from 'components/common/Button/Button';
 import CloseButton from 'components/common/Button/CloseButton';
 import { ResetIcon } from 'styles/icons';
+import { AreaTypesWithAll, StatusTypes } from 'types/performance';
 import { nullFn } from 'utils/function';
 
 import * as Styles from './CategoryFilterModal.styles';
@@ -16,17 +17,17 @@ interface CategoryModalProps extends PropsWithChildren {
 }
 
 export type FilterModalFormValues = {
-  region: string[];
-  date: Date | null;
-  status: string[];
+  areas: AreaTypesWithAll[];
+  date?: Date;
+  status: StatusTypes[];
   price: string;
 };
 
 export const FILTER_MODAL_DEFAULT_VALUES: FilterModalFormValues = {
-  region: ['전체'],
-  date: null,
+  areas: ['ALL'],
+  date: undefined,
   status: [],
-  price: '전체',
+  price: JSON.stringify({ minPrice: 0 }),
 };
 
 const CategoryFilterModal = ({
