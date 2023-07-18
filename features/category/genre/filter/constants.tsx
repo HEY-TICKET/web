@@ -6,7 +6,7 @@ import Schedule from 'features/category/genre/filter/schedule/Schedule';
 import Status from 'features/category/genre/filter/status/Status';
 
 export const FILTER_MODAL_TAB_ITEM_LIST: { title: string; component: ReactNode }[] = [
-  { title: '지역', component: <Area name={'region'} /> },
+  { title: '지역', component: <Area name={'areas'} /> },
   {
     title: '공연일',
     component: <Schedule name={'date'} />,

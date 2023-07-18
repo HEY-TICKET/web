@@ -12,6 +12,8 @@ import {
 
 export type AreaTypes = (typeof AREA_LIST)[number];
 
+export type AreaTypesWithAll = AreaTypes | 'ALL';
+
 export type GenreTypes = (typeof GENRE_LIST)[number];
 
 export type StatusTypes = (typeof STATUS_LIST)[number];

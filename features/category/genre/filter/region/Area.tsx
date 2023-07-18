@@ -8,7 +8,9 @@ type Props = {
 };
 
 const Area = ({ name }: Props) => {
-  return <List list={AREA_LIST_MAP} name={name} isAllValue />;
+  return (
+    <List list={[{ caption: '전체', value: 'ALL' }, ...AREA_LIST_MAP]} name={name} isAllValue />
+  );
 };
 
 export default Area;

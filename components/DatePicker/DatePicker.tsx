@@ -50,6 +50,7 @@ const DatePicker = ({ name, control }: PickerProps) => {
                   const day = nameOfDay.toString().substring(0, 3) as DayOfWeekType;
                   return DAY_OF_WEEK[day];
                 }}
+                dateFormat={'YYYY.MM.DD'}
                 onChange={onChange}
                 selected={value as Date}
                 inline

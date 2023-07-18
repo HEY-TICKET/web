@@ -1,29 +1,30 @@
 'use client';
 
 import {
+  useInfiniteQuery,
   UseInfiniteQueryOptions,
   UseInfiniteQueryResult,
   useQuery,
   UseQueryOptions,
   UseQueryResult,
-  useInfiniteQuery,
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import performanceService from 'apis/performance';
 import {
+  GetPerformancesParams,
+  PerformanceCountByGenreResponse,
   PerformanceNewParams,
-  PerformanceResponse,
   PerformanceRankParams,
   PerformanceRankResponse,
+  PerformanceResponse,
   PerformanceResponseWithPages,
-  PerformanceCountByGenreResponse,
 } from 'apis/performance/type';
 
 const PERFORMANCES_KEYS = {
   all: ['performance'],
-  // lists: () => [...PERFORMANCES_KEYS.all, 'list'],
-  // list: (params: PerformancesParams) => [...PERFORMANCES_KEYS.lists(), params],
+  lists: () => [...PERFORMANCES_KEYS.all, 'list'],
+  list: (params: GetPerformancesParams) => [...PERFORMANCES_KEYS.lists(), params],
 
   details: () => [...PERFORMANCES_KEYS.all, 'detail'],
   detail: (params: Pick<PerformanceResponse, 'id'>) => [...PERFORMANCES_KEYS.details(), params],
@@ -201,33 +202,35 @@ export const useInfiniteRankPerformanceQuery = (
   );
 };
 
-// export const useInfinitePerformanceQuery = (
-//   params: PerformancesParams,
-//   config?: Omit<
-//     UseInfiniteQueryOptions<
-//       PerformancesResponses[],
-//       AxiosError,
-//       PerformancesResponses[],
-//       PerformancesResponses[],
-//       ReturnType<typeof PERFORMANCES_KEYS.list>
-//     >,
-//     'getNextPageParam'
-//   >,
-// ): UseInfiniteQueryResult<PerformancesResponses[], AxiosError> => {
-//   return useInfiniteQuery(
-//     PERFORMANCES_KEYS.list(params),
-//     ({ queryKey: [, , params], pageParam = 0 }) => {
-//       const _params = params as PerformancesParams;
-//       return performanceService.getPerformances({
-//         ..._params,
-//         page: pageParam,
-//       });
-//     },
-//     {
-//       ...config,
-//       getNextPageParam: (lastPage, allPages) => {
-//         return !lastPage.length ? undefined : allPages.length;
-//       },
-//     },
-//   );
-// };
+export const useInfinitePerformanceQuery = (
+  params: GetPerformancesParams,
+  config?: Omit<
+    UseInfiniteQueryOptions<
+      PerformanceResponseWithPages<PerformanceResponse>,
+      AxiosError,
+      PerformanceResponseWithPages<PerformanceResponse>,
+      PerformanceResponseWithPages<PerformanceResponse>,
+      ReturnType<typeof PERFORMANCES_KEYS.list>
+    >,
+    'getNextPageParam'
+  >,
+): UseInfiniteQueryResult<PerformanceResponseWithPages<PerformanceResponse>, AxiosError> => {
+  return useInfiniteQuery(
+    PERFORMANCES_KEYS.list(params),
+    ({ queryKey: [, , params], pageParam = 0 }) => {
+      const _params = params as GetPerformancesParams;
+      return performanceService.getPerformances({
+        ..._params,
+        page: pageParam,
+      });
+    },
+    {
+      ...config,
+      getNextPageParam: (lastPage, allPages) => {
+        console.log({ lastPage, allPages });
+        const isLastPage = lastPage.totalPages === lastPage.page || lastPage.totalPages === 0;
+        return isLastPage ? undefined : lastPage.page + 1;
+      },
+    },
+  );
+};

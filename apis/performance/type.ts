@@ -34,10 +34,10 @@ export type PerformanceResponseWithPages<T> = {
 export interface GetPerformancesParams extends PerformancePageParams {
   genres: GenreTypes[];
   areas: AreaTypes[];
-  date: Date | string | number;
+  date?: Date | string | number;
   statuses: StatusTypes[];
-  minPrice: number | null;
-  maxPrice: number | null;
+  minPrice?: number;
+  maxPrice?: number;
   sortType: SortingMethodTypes;
   sortOrder: SortingOrderTypes;
 }

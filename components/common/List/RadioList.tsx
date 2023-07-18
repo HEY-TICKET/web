@@ -6,14 +6,14 @@ import styled from 'styled-components';
 import Radio from 'components/common/Radio/Radio';
 import STYLES from 'styles/index';
 
-interface CheckboxListProps {
-  list: string[];
+interface CheckboxListProps<T> {
+  list: { caption: string; value: T }[];
   name: string;
   useForm?: boolean;
 }
 
-const RadioList = ({ list, name, useForm = false }: CheckboxListProps) => {
-  const [checked, setChecked] = useState(list[0]);
+const RadioList = <T,>({ list, name, useForm = false }: CheckboxListProps<T>) => {
+  const [checked, setChecked] = useState(JSON.stringify(list[0].value));
 
   const useHook = !!name && useForm;
 
@@ -26,11 +26,11 @@ const RadioList = ({ list, name, useForm = false }: CheckboxListProps) => {
 
   return (
     <Container>
-      {list.map((value) => (
-        <Item key={value}>
+      {list.map(({ caption, value }) => (
+        <Item key={JSON.stringify(value)}>
           <Radio
-            label={value}
-            value={value}
+            label={caption}
+            value={JSON.stringify(value)}
             name={name}
             {...(useHook && register(name))}
             {...(!useHook && {

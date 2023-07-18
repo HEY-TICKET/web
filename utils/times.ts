@@ -25,3 +25,5 @@ export const getPeriod = (startDate: Date | string, endDate: Date | string) => {
   const _endDate = `${endDate}(${getDayOfWeek(endDate, 'ko')})`;
   return _startDate === _endDate ? _endDate : `${_startDate} ~ ${_endDate}`;
 };
+
+export const convertor = (date: Date, format: string) => dayjs(date).format(format);

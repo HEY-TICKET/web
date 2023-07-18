@@ -5,6 +5,7 @@ import { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import { GetPerformancesParams } from 'apis/performance/type';
 import Tab from 'components/common/Tab/Tab';
 import { GENRE_LIST_MAP } from 'constants/performance/common';
 import { ROUTES } from 'constants/routes';
@@ -20,9 +21,10 @@ import SortingModal from 'features/category/modal/SortingModal';
 import useCustomToast from 'hooks/useCustomToast';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import useModal from 'hooks/useModal';
-// import { useInfinitePerformanceQuery } from 'reactQuery/performance';
+import { useInfinitePerformanceQuery } from 'reactQuery/performance';
 import { ArrowRight, FilterIcon, SortIcon } from 'styles/icons';
-import { GenreTypes } from 'types/performance';
+import { AreaTypes, GenreTypes } from 'types/performance';
+import { convertor } from 'utils/times';
 
 export const SORTING_MODAL_LIST = [
   { caption: '최신순', value: 'latest' },
@@ -50,27 +52,34 @@ const DefaultGenre = ({ genre }: GenreProps) => {
   const [prevFilterValues, setPrevFilterValues] = useState<FilterModalFormValues | null>(null);
   const [prevSortingValues, setPrevSortingValues] = useState<SortingModalFormValues | null>(null);
   const [chipValues, setChipValues] = useState(FILTER_MODAL_DEFAULT_VALUES);
+  const [performanceQueryParams, setPerformanceQueryParams] = useState<
+    Omit<GetPerformancesParams, 'page' | 'pageSize' | 'genres' | 'sortType' | 'sortOrder'>
+  >({
+    areas: [],
+    date: undefined,
+    minPrice: 0,
+    maxPrice: undefined,
+    statuses: [],
+  });
 
-  // TODO : 데이터 없는 동안만 임시 주석 처리
-
-  // const { isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfinitePerformanceQuery(
-  //   {
-  //     page: 0,
-  //     size: 24,
-  //   },
-  //   { keepPreviousData: true },
-  // );
+  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
+    useInfinitePerformanceQuery({
+      page: 0,
+      pageSize: 24,
+      genres: [genre],
+      ...performanceQueryParams,
+      sortOrder: 'DESC',
+      sortType: 'CREATED_DATE',
+    });
 
   const onIntersect: IntersectionObserverCallback = useCallback(
     async ([{ isIntersecting }]) => {
       console.log(isIntersecting);
-      // if (hasNextPage && isIntersecting && !isFetchingNextPage) {
-      //   await fetchNextPage();
-      // }
+      if (hasNextPage && isIntersecting && !isFetchingNextPage) {
+        await fetchNextPage();
+      }
     },
-    [
-      // fetchNextPage, hasNextPage, isFetchingNextPage
-    ],
+    [fetchNextPage, hasNextPage, isFetchingNextPage],
   );
   const { setTarget } = useIntersectionObserver({ onIntersect });
 
@@ -102,13 +111,26 @@ const DefaultGenre = ({ genre }: GenreProps) => {
   );
 
   const submitFilterValue = (data: FilterModalFormValues) => {
-    // TODO : 데이터 submit
+    console.log('filter data => ', data);
+
+    const { areas, date, status, price } = data;
+
+    setPerformanceQueryParams({
+      areas: (areas.includes('ALL') ? [] : areas) as AreaTypes[],
+      date: date ? convertor(date, 'YYYY-MM-DD') : undefined,
+      statuses: status,
+      minPrice: JSON.parse(price).minPrice,
+      maxPrice: JSON.parse(price).maxPrice,
+    });
+
     setChipValues(data);
     toast('필터가 적용되었습니다');
     filterModalClose();
   };
 
   const submitSortingValue = (data: SortingModalFormValues) => {
+    console.log('sorting data => ', data);
+
     // TODO : 데이터 submit
 
     const value = SORTING_MODAL_LIST.find(
@@ -133,6 +155,20 @@ const DefaultGenre = ({ genre }: GenreProps) => {
 
   const closeChip = (name: keyof typeof FILTER_MODAL_DEFAULT_VALUES) => {
     filterModalMethods.resetField(name);
+
+    setPerformanceQueryParams((prev) => {
+      switch (name) {
+        case 'areas':
+          return { ...prev, areas: [] };
+        case 'date':
+          return { ...prev, date: undefined };
+        case 'status':
+          return { ...prev, statuses: [] };
+        case 'price':
+          return { ...prev, minPrice: 0, maxPrice: undefined };
+      }
+    });
+
     setChipValues((prev) => ({ ...prev, [name]: FILTER_MODAL_DEFAULT_VALUES[name] }));
     toast(`${FILTER_VALUE_MAP[name]} 필터가 해제되었습니다`);
   };
@@ -177,14 +213,8 @@ const DefaultGenre = ({ genre }: GenreProps) => {
         <Styles.GenreContents>
           <Styles.CardListWrapper>
             <CardList
-              data={
-                //FIXME : react-query api 교체 하면서 해당 부분도 체크
-                // data?.pages.flat() ??
-                []
-              }
-              loading={
-                false // isFetchingNextPage || isLoading
-              }
+              data={data?.pages.map((response) => response.contents).flat() ?? []}
+              loading={isFetchingNextPage || isLoading}
               onClick={clickCard}
             />
           </Styles.CardListWrapper>
