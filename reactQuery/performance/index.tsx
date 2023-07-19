@@ -19,6 +19,7 @@ import {
   PerformanceRankResponse,
   PerformanceResponse,
   PerformanceResponseWithPages,
+  SearchPerformanceParams,
 } from 'apis/performance/type';
 
 const PERFORMANCES_KEYS = {
@@ -43,6 +44,9 @@ const PERFORMANCES_KEYS = {
 
   counts: () => [...PERFORMANCES_KEYS.all, 'count'],
   count: () => [...PERFORMANCES_KEYS.counts()],
+
+  searches: () => [...PERFORMANCES_KEYS.all, 'search'],
+  search: (params: SearchPerformanceParams) => [...PERFORMANCES_KEYS.searches(), params],
 } as const;
 
 export const useRankPerformanceQuery = (
@@ -220,6 +224,39 @@ export const useInfinitePerformanceQuery = (
     ({ queryKey: [, , params], pageParam = 0 }) => {
       const _params = params as GetPerformancesParams;
       return performanceService.getPerformances({
+        ..._params,
+        page: pageParam,
+      });
+    },
+    {
+      ...config,
+      getNextPageParam: (lastPage, allPages) => {
+        console.log({ lastPage, allPages });
+        const isLastPage = lastPage.totalPages === lastPage.page || lastPage.totalPages === 0;
+        return isLastPage ? undefined : lastPage.page + 1;
+      },
+    },
+  );
+};
+
+export const useInfiniteSearchPerformanceQuery = (
+  params: SearchPerformanceParams,
+  config?: Omit<
+    UseInfiniteQueryOptions<
+      PerformanceResponseWithPages<PerformanceResponse>,
+      AxiosError,
+      PerformanceResponseWithPages<PerformanceResponse>,
+      PerformanceResponseWithPages<PerformanceResponse>,
+      ReturnType<typeof PERFORMANCES_KEYS.search>
+    >,
+    'getNextPageParam'
+  >,
+): UseInfiniteQueryResult<PerformanceResponseWithPages<PerformanceResponse>, AxiosError> => {
+  return useInfiniteQuery(
+    PERFORMANCES_KEYS.search(params),
+    ({ queryKey: [, , params], pageParam = 0 }) => {
+      const _params = params as SearchPerformanceParams;
+      return performanceService.searchPerformances({
         ..._params,
         page: pageParam,
       });

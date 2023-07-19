@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -71,6 +71,11 @@ const DefaultGenre = ({ genre }: GenreProps) => {
       sortOrder: 'DESC',
       sortType: 'CREATED_DATE',
     });
+
+  const cardList = useMemo(
+    () => data?.pages.map((response) => response.contents).flat() ?? [],
+    [data?.pages],
+  );
 
   const onIntersect: IntersectionObserverCallback = useCallback(
     async ([{ isIntersecting }]) => {
@@ -213,7 +218,7 @@ const DefaultGenre = ({ genre }: GenreProps) => {
         <Styles.GenreContents>
           <Styles.CardListWrapper>
             <CardList
-              data={data?.pages.map((response) => response.contents).flat() ?? []}
+              data={cardList}
               loading={isFetchingNextPage || isLoading}
               onClick={clickCard}
             />

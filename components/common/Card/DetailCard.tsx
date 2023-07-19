@@ -3,7 +3,7 @@ import { HTMLAttributes } from 'react';
 import { PerformanceResponse } from 'apis/performance/type';
 import Badge from 'components/common/Badge/Badge';
 import Poster from 'components/common/Card/Poster';
-import { getDateDiff, getPeriod } from 'utils/times';
+import { getDday, getPeriod, performanceStatus } from 'utils/times';
 
 import * as Styles from './DetailCard.styles';
 
@@ -14,14 +14,24 @@ interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
 
 const DetailCard = ({ data, onClick }: CardProps) => {
   const { id, title, startDate, endDate, poster } = data;
-  const restDate = getDateDiff(startDate);
 
   const period = getPeriod(startDate, endDate);
 
-  const isRunning = restDate < 0;
-  const dDay = Math.floor(restDate);
+  const status = performanceStatus(startDate, endDate);
+
   const isSrcValid =
     poster.startsWith('/') || poster.startsWith('http://') || poster.startsWith('https://');
+
+  const renderBadge = () => {
+    switch (status) {
+      case 'UPCOMING':
+        return <Badge colorTheme={'blue25'}>{`${getDday(startDate)}`}</Badge>;
+      case 'ONGOING':
+        return <Badge colorTheme={'green25'}>{`공연 중`}</Badge>;
+      case 'COMPLETED':
+        return <Badge>{`공연 종료`}</Badge>;
+    }
+  };
 
   return (
     <Styles.CardContainer onClick={() => onClick?.(id)}>
@@ -33,11 +43,7 @@ const DetailCard = ({ data, onClick }: CardProps) => {
       )}
       <Styles.ContentsWrapper>
         <Styles.InfoWrapper>
-          {isRunning ? (
-            <Badge>{`공연 중`}</Badge>
-          ) : (
-            <Badge colorTheme={'blue25'}>{`D-${dDay}`}</Badge>
-          )}
+          {renderBadge()}
           <Styles.CardTitle>{title}</Styles.CardTitle>
           <Styles.CardDescription>{period}</Styles.CardDescription>
         </Styles.InfoWrapper>

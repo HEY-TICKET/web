@@ -67,7 +67,6 @@ const getRecommendationPerformancesById = async (
   }
 };
 
-// TODO : react-query 연결
 /**
  * @param params
  * @summary 키워드로 공연 검색

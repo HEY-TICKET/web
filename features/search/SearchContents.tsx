@@ -1,10 +1,12 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { PerformanceResponse } from 'apis/performance/type';
+import { ROUTES } from 'constants/routes';
 import CardList from 'features/category/genre/CardList';
 import NoResult from 'features/search/NoResult';
+import { GenreTypes } from 'types/performance';
 
 import * as Styles from './Search.styles';
 
@@ -14,7 +16,13 @@ type Props = {
 };
 
 const SearchContents = ({ data, loading }: Props) => {
+  console.log(data);
+  const { push } = useRouter();
   const keyword = useSearchParams().get('keyword');
+
+  const clickCard = (id: string, genre: GenreTypes) => {
+    push(`${ROUTES.category}/${genre}/${id}`);
+  };
 
   const isNoResult = data.length === 0;
 
@@ -24,14 +32,7 @@ const SearchContents = ({ data, loading }: Props) => {
 
   return (
     <Styles.SearchContents>
-      <CardList
-        data={
-          // 배포 테스트
-          //FIXME : react-query api 교체 하면서 해당 부분도 체크
-          []
-        }
-        loading={loading}
-      />
+      <CardList data={data} loading={loading} onClick={clickCard} />
     </Styles.SearchContents>
   );
 };

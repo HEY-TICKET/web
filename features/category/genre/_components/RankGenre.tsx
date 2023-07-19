@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -57,6 +57,11 @@ const RankGenre = ({ genre }: GenreProps) => {
       boxOfficeArea: area,
       timePeriod: timePeriod,
     });
+
+  const cardList = useMemo(
+    () => data?.pages.map((response) => response.contents).flat() ?? [],
+    [data?.pages],
+  );
 
   const onIntersect: IntersectionObserverCallback = useCallback(
     async ([{ isIntersecting }]) => {
@@ -134,10 +139,7 @@ const RankGenre = ({ genre }: GenreProps) => {
         <Styles.GenreContents>
           <Styles.CardListWrapper>
             <CardList
-              data={
-                //FIXME : react-query api 교체 하면서 해당 부분도 체크
-                data?.pages.map((response) => response.contents).flat() ?? []
-              }
+              data={cardList}
               loading={isFetchingNextPage || isLoading}
               onClick={clickCard}
               hasRank

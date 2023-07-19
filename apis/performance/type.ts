@@ -49,8 +49,8 @@ export type PerformanceResponse = {
   id: string;
   placeId: string;
   title: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date | string | number;
+  endDate: Date | string | number;
   theater: string;
   cast: string;
   crew: string;

@@ -5,7 +5,7 @@ import * as Styles from './CardList.styles';
 
 type Props = {
   data: PerformanceResponse[];
-  onClick?: (id: PerformanceResponse['id']) => void;
+  onClick?: (id: PerformanceResponse['id'], genre: PerformanceResponse['genre']) => void;
   loading: boolean;
   hasRank?: boolean;
 };

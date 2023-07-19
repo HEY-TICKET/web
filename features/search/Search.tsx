@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import Input from 'components/Input/Input';
+import { SEARCH_TYPES, SEARCH_TYPES_MAP } from 'constants/performance/common';
 import { ROUTES } from 'constants/routes';
 import {
   SORTING_MODAL_LIST,
@@ -16,24 +17,23 @@ import * as Styles from 'features/search/Search.styles';
 import { FilterButton } from 'features/search/Search.styles';
 import SearchContents from 'features/search/SearchContents';
 import SearchHistory from 'features/search/SearchHistory';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import useModal from 'hooks/useModal';
 import useOutsideClick from 'hooks/useOutsideClick';
+import { useInfiniteSearchPerformanceQuery } from 'reactQuery/performance';
 import { ArrowRight, SortIcon } from 'styles/icons';
+import { SearchTypes } from 'types/performance';
 
 export type SearchFormValue = {
   search: string;
   sorting: string;
 };
 
-const FILTER_TAB_LIST = ['공연', '아티스트'] as const;
-
 const Search = () => {
   const { back, push } = useRouter();
   const keyword = useSearchParams().get('keyword');
 
-  const [currentTab, setCurrentTab] = useState<(typeof FILTER_TAB_LIST)[number]>(
-    FILTER_TAB_LIST[0],
-  );
+  const [currentTab, setCurrentTab] = useState<SearchTypes>(SEARCH_TYPES[0]);
   const [currentSorting, setCurrentSorting] = useState(SORTING_MODAL_LIST[0].value);
   const [prevSortingValues, setPrevSortingValues] = useState<string | null>(null);
   const [isFocused, setIsFocused] = useState(!keyword);
@@ -44,16 +44,32 @@ const Search = () => {
     },
   });
 
-  // TODO : 실제 값 들어오면 keyword 처리
-  // const { data, isLoading } = usePerformanceQuery({ page: 0, size: 10 }, { enabled: !!keyword });
+  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
+    useInfiniteSearchPerformanceQuery(
+      { searchType: currentTab, query: keyword ?? '', page: 0, pageSize: 24 },
+      { enabled: !!keyword },
+    );
 
-  // console.log(data);
-  const data = [];
-  const isLoading = true;
+  const searchList = useMemo(
+    () => data?.pages.map((response) => response.contents).flat() ?? [],
+    [data?.pages],
+  );
+
+  const onIntersect: IntersectionObserverCallback = useCallback(
+    async ([{ isIntersecting }]) => {
+      console.log(isIntersecting);
+      if (hasNextPage && isIntersecting && !isFetchingNextPage) {
+        await fetchNextPage();
+      }
+    },
+    [fetchNextPage, hasNextPage, isFetchingNextPage],
+  );
+
+  const { setTarget } = useIntersectionObserver({ onIntersect });
 
   const methods = useForm<SearchFormValue>({
     mode: 'onTouched',
-    defaultValues: { search: '', sorting: '예매순' },
+    defaultValues: { search: keyword ?? '', sorting: '예매순' },
   });
   const { handleSubmit, getValues, setValue } = methods;
 
@@ -82,6 +98,13 @@ const Search = () => {
     prevSortingValues && setValue('sorting', prevSortingValues);
   };
 
+  useEffect(() => {
+    if (keyword) {
+      setIsFocused(false);
+      setValue('search', keyword);
+    }
+  }, [keyword, setValue]);
+
   return (
     <FormProvider {...methods}>
       <Styles.Form id={'search-input-form'} onSubmit={handleSubmit(onValidSubmit)}>
@@ -104,21 +127,22 @@ const Search = () => {
             {!!keyword && (
               <Styles.CategoryWrapper>
                 <Styles.FilterWrapper>
-                  {FILTER_TAB_LIST.map((tab) => (
+                  {SEARCH_TYPES_MAP.map(({ caption, value }) => (
                     <FilterButton
-                      key={tab}
-                      $active={tab === currentTab}
-                      onClick={() => setCurrentTab(tab)}
+                      key={value}
+                      $active={value === currentTab}
+                      onClick={() => setCurrentTab(value)}
                     >
-                      {tab}
+                      {caption}
                     </FilterButton>
                   ))}
                 </Styles.FilterWrapper>
                 <Styles.SearchResultWrapper>
-                  {data?.length && (
-                    <Styles.SearchResult>{`${getValues('search')} 검색 결과 ${
-                      data.length
-                    }`}</Styles.SearchResult>
+                  {searchList.length && (
+                    <Styles.SearchResult>
+                      <b>{getValues('search')}&nbsp;</b>
+                      <span>검색 결과 {searchList.length} </span>
+                    </Styles.SearchResult>
                   )}
                   <Styles.SortIconWrapper type={'button'} onClick={sortingModalOpen}>
                     <SortIcon size={24} />
@@ -128,7 +152,10 @@ const Search = () => {
               </Styles.CategoryWrapper>
             )}
           </Styles.StickyBox>
-          {!isLoading && <SearchContents data={[]} loading={isLoading} />}
+          {!isLoading && <SearchContents data={searchList} loading={isLoading} />}
+
+          {/* desc : infinite query intersect ref*/}
+          <div ref={setTarget} />
         </Styles.Container>
       </Styles.Form>
       <SortingModalFrame canClose={false}>

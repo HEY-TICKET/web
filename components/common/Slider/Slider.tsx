@@ -103,6 +103,7 @@ const Wrap = styled.div<{ clientX: number }>`
 const CardWrap = styled.li`
   width: 100%;
   min-width: 148px;
+  max-width: 148px;
 `;
 
 const SliderWrap = styled.div`

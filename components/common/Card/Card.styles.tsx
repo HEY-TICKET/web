@@ -14,12 +14,12 @@ export const CardTitle = styled.h3`
   ${textOverflowEllipsis({ lineCount: 2 })};
 `;
 
-export const PerformanceDate = styled.span<{ $isRunning: boolean }>`
+export const PerformanceDate = styled.span<{ color: string }>`
   display: flex;
   column-gap: 4px;
 
   & > span {
-    color: ${({ $isRunning }) => ($isRunning ? STYLES.color.green50 : STYLES.color.blue50)};
+    color: ${({ color }) => color};
 
     font-style: normal;
     font-weight: 600;

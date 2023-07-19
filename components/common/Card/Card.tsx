@@ -4,14 +4,16 @@ import { PerformanceResponse } from 'apis/performance/type';
 import Badge from 'components/common/Badge/Badge';
 import Poster from 'components/common/Card/Poster';
 import Skeleton from 'components/common/Skeleton/Skeleton';
-import { getDateDiff, getPeriod } from 'utils/times';
+import { STATUS_LIST_MAP } from 'constants/performance/common';
+import STYLES from 'styles/index';
+import { getDday, getPeriod, performanceStatus } from 'utils/times';
 
 import * as Styles from './Card.styles';
 
 type CardType = 'default' | 'simple';
 
 interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
-  onClick?: (id: PerformanceResponse['id']) => void;
+  onClick?: (id: PerformanceResponse['id'], genre: PerformanceResponse['genre']) => void;
   data: PerformanceResponse;
   loading?: boolean;
   type?: CardType;
@@ -19,30 +21,54 @@ interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
 }
 
 const Card = ({ data, onClick, type = 'default', rank, css }: CardProps) => {
-  const { id, title, theater, startDate, endDate, poster, price } = data;
-
-  const restDate = getDateDiff(startDate);
+  const { id, title, theater, startDate, endDate, poster, price, genre } = data;
 
   const date = getPeriod(startDate, endDate);
 
-  const isRunning = restDate < 0;
-  const dDay = Math.floor(restDate);
+  const status = performanceStatus(startDate, endDate);
+
   const isSrcValid =
     poster?.startsWith('/') || poster?.startsWith('http://') || poster?.startsWith('https://');
 
+  const renderBadge = () => {
+    switch (status) {
+      case 'UPCOMING':
+        return <Badge colorTheme={'blue25'}>{`${getDday(startDate)}`}</Badge>;
+      case 'ONGOING':
+        return <Badge colorTheme={'green25'}>{`공연 중`}</Badge>;
+      case 'COMPLETED':
+        return <Badge>{`공연 종료`}</Badge>;
+    }
+  };
+
+  const renderColor = () => {
+    switch (status) {
+      case 'UPCOMING':
+        return STYLES.color.blue50;
+      case 'ONGOING':
+        return STYLES.color.green50;
+      case 'COMPLETED':
+        return STYLES.color.gray400;
+    }
+  };
+
   if (type === 'simple') {
     return (
-      <Styles.CardContainer onClick={() => onClick?.(id)} css={css}>
+      <Styles.CardContainer onClick={() => onClick?.(id, genre)} css={css}>
         {/*TODO : 이미지가 유효하지 않은 값이 오거나 없는 경우 default 이미지를 렌더링 시켜야 함*/}
         {isSrcValid && <Poster src={poster} alt={'poster'} rank={rank} />}
         <Styles.ContentsWrapper>
           <Styles.SimpleInfoWrapper>
             <Styles.SimpleCardDescription>{theater}</Styles.SimpleCardDescription>
             <Styles.CardTitle>{title}</Styles.CardTitle>
-            <Styles.PerformanceDate $isRunning={isRunning}>
-              <span>{isRunning ? '공연 중' : `D-${dDay}`}</span>
+            <Styles.PerformanceDate color={renderColor()}>
+              <span>
+                {STATUS_LIST_MAP.find(
+                  ({ value }) => value === performanceStatus(startDate, endDate),
+                )?.caption ?? ''}
+              </span>
               <Styles.SimpleCardDescription>
-                {isRunning ? `${endDate} 종료` : `${startDate} 시작`}
+                {status === 'ONGOING' ? `${endDate} 종료` : `${startDate} 시작`}
               </Styles.SimpleCardDescription>
             </Styles.PerformanceDate>
           </Styles.SimpleInfoWrapper>
@@ -52,16 +78,12 @@ const Card = ({ data, onClick, type = 'default', rank, css }: CardProps) => {
   }
 
   return (
-    <Styles.CardContainer onClick={() => onClick?.(id)} css={css}>
+    <Styles.CardContainer onClick={() => onClick?.(id, genre)} css={css}>
       {/*TODO : 이미지가 유효하지 않은 값이 오거나 없는 경우 default 이미지를 렌더링 시켜야 함*/}
       {isSrcValid && <Poster src={poster} alt={'poster'} rank={rank} />}
       <Styles.ContentsWrapper>
         <Styles.InfoWrapper>
-          {isRunning ? (
-            <Badge colorTheme={'green25'}>{`공연 중`}</Badge>
-          ) : (
-            <Badge colorTheme={'blue25'}>{`D-${dDay}`}</Badge>
-          )}
+          {renderBadge()}
           <Styles.CardTitle>{title}</Styles.CardTitle>
           <Styles.CardDescription>{theater}</Styles.CardDescription>
           <Styles.CardDescription>{date}</Styles.CardDescription>
