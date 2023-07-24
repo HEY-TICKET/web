@@ -24,7 +24,7 @@ const CardSlider = ({ genre }: CardSliderProps) => {
       sortOrder: 'DESC',
       sortType: 'CREATED_DATE',
       pageSize: 10,
-      page: 0,
+      page: 1,
     },
     { suspense: true, retry: false },
   );
@@ -36,7 +36,7 @@ const CardSlider = ({ genre }: CardSliderProps) => {
   };
 
   return (
-    <Slider skipCount={1} fallback={<Curation.CardSliderFallback />}>
+    <Slider skipCount={3} fallback={<Curation.CardSliderFallback />}>
       {cards.map((item, index) => (
         <Card key={index} data={item} onClick={clickCard} type={'simple'} />
       ))}

@@ -45,7 +45,7 @@ const NewGenre = ({ genre }: GenreProps) => {
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteNewPerformanceQuery({
-      page: 0,
+      page: 1,
       pageSize: 24,
       genre: genre,
       sortOrder: order,
@@ -59,7 +59,6 @@ const NewGenre = ({ genre }: GenreProps) => {
 
   const onIntersect: IntersectionObserverCallback = useCallback(
     async ([{ isIntersecting }]) => {
-      console.log(isIntersecting);
       if (hasNextPage && isIntersecting && !isFetchingNextPage) {
         await fetchNextPage();
       }

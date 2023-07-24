@@ -54,7 +54,7 @@ const Card = ({ data, onClick, type = 'default', rank, css }: CardProps) => {
 
   if (type === 'simple') {
     return (
-      <Styles.CardContainer onClick={() => onClick?.(id, genre)} css={css}>
+      <Styles.SimpleCardContainer onClick={() => onClick?.(id, genre)} css={css}>
         {/*TODO : 이미지가 유효하지 않은 값이 오거나 없는 경우 default 이미지를 렌더링 시켜야 함*/}
         {isSrcValid && <Poster src={poster} alt={'poster'} rank={rank} />}
         <Styles.ContentsWrapper>
@@ -73,7 +73,7 @@ const Card = ({ data, onClick, type = 'default', rank, css }: CardProps) => {
             </Styles.PerformanceDate>
           </Styles.SimpleInfoWrapper>
         </Styles.ContentsWrapper>
-      </Styles.CardContainer>
+      </Styles.SimpleCardContainer>
     );
   }
 

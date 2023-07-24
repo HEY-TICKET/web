@@ -69,6 +69,21 @@ export const CardContainer = styled.div`
   }
 `;
 
+export const SimpleCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  cursor: pointer;
+
+  ${SimpleCardDescription} {
+    margin-bottom: 4px;
+  }
+
+  ${CardTitle} {
+    margin-bottom: 8px;
+  }
+`;
+
 export const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -77,7 +92,6 @@ export const ContentsWrapper = styled.div`
 export const SimpleInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 72px;
 `;
 
 export const InfoWrapper = styled.div`

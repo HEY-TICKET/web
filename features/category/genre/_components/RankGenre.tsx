@@ -51,7 +51,7 @@ const RankGenre = ({ genre }: GenreProps) => {
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteRankPerformanceQuery({
-      page: 0,
+      page: 1,
       pageSize: 24,
       boxOfficeGenre: genre,
       boxOfficeArea: area,

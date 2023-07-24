@@ -155,7 +155,7 @@ export const useInfiniteNewPerformanceQuery = (
 ): UseInfiniteQueryResult<PerformanceResponseWithPages<PerformanceResponse>, AxiosError> => {
   return useInfiniteQuery(
     PERFORMANCES_KEYS.new(params),
-    ({ queryKey: [, , params], pageParam = 0 }) => {
+    ({ queryKey: [, , params], pageParam = 1 }) => {
       const _params = params as PerformanceNewParams;
       return performanceService.getPerformanceByNew({
         ..._params,
@@ -188,7 +188,7 @@ export const useInfiniteRankPerformanceQuery = (
 ): UseInfiniteQueryResult<PerformanceResponseWithPages<PerformanceRankResponse>, AxiosError> => {
   return useInfiniteQuery(
     PERFORMANCES_KEYS.rank(params),
-    ({ queryKey: [, , params], pageParam = 0 }) => {
+    ({ queryKey: [, , params], pageParam = 1 }) => {
       const _params = params as PerformanceRankParams;
       return performanceService.getPerformanceByRank({
         ..._params,
@@ -254,7 +254,7 @@ export const useInfiniteSearchPerformanceQuery = (
 ): UseInfiniteQueryResult<PerformanceResponseWithPages<PerformanceResponse>, AxiosError> => {
   return useInfiniteQuery(
     PERFORMANCES_KEYS.search(params),
-    ({ queryKey: [, , params], pageParam = 0 }) => {
+    ({ queryKey: [, , params], pageParam = 1 }) => {
       const _params = params as SearchPerformanceParams;
       return performanceService.searchPerformances({
         ..._params,

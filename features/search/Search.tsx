@@ -46,7 +46,7 @@ const Search = () => {
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteSearchPerformanceQuery(
-      { searchType: currentTab, query: keyword ?? '', page: 0, pageSize: 24 },
+      { page: 1, pageSize: 24, searchType: currentTab, query: keyword ?? '' },
       { enabled: !!keyword },
     );
 
@@ -152,8 +152,7 @@ const Search = () => {
               </Styles.CategoryWrapper>
             )}
           </Styles.StickyBox>
-          {!isLoading && <SearchContents data={searchList} loading={isLoading} />}
-
+          <SearchContents data={searchList} loading={isLoading} />
           {/* desc : infinite query intersect ref*/}
           <div ref={setTarget} />
         </Styles.Container>

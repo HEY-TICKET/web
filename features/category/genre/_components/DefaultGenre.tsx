@@ -64,7 +64,7 @@ const DefaultGenre = ({ genre }: GenreProps) => {
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfinitePerformanceQuery({
-      page: 0,
+      page: 1,
       pageSize: 24,
       genres: [genre],
       ...performanceQueryParams,

@@ -24,7 +24,7 @@ const CardSlider = ({ genre }: CardSliderProps) => {
       boxOfficeGenre: genre,
       boxOfficeArea: 'ALL',
       pageSize: 10,
-      page: 0,
+      page: 1,
     },
     { suspense: true, retry: false },
   );
