@@ -13,6 +13,7 @@ const nextConfig = {
     scrollRestoration: true,
     images: {
       allowFutureImage: true,
+      formats: ['image/avif', 'image/webp'],
     },
     nextScriptWorkers: true,
   },
