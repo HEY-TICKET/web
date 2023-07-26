@@ -20,14 +20,14 @@ const PerformanceDetail = ({ data }: Props) => {
       <Styles.InfoTitle>공연 상세</Styles.InfoTitle>
       <UrlImagesWrapper readMore={readMore}>
         <Text>{story}</Text>
-        {storyUrls.map((url) => (
+        {storyUrls.map((url, index) => (
           <Image
             key={url}
             src={url}
             alt={'performance-detail-image'}
             width={568}
             height={366}
-            priority
+            priority={index === 0}
           />
         ))}
       </UrlImagesWrapper>
