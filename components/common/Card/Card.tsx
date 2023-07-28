@@ -97,7 +97,7 @@ const Card = ({ data, onClick, type = 'default', rank, css }: CardProps) => {
           {renderBadge()}
           <Styles.CardTitle>{title}</Styles.CardTitle>
           <Styles.CardDescription>{theater}</Styles.CardDescription>
-          <Styles.CardDescription>{date}</Styles.CardDescription>
+          <Styles.CardDescription>{date.replace(/-/g, '.')}</Styles.CardDescription>
         </Styles.InfoWrapper>
 
         <Styles.PriceWrapper>
