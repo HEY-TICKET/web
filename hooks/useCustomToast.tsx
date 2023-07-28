@@ -6,15 +6,15 @@ import styled from 'styled-components';
 import { SuccessCheckIcon } from 'styles/icons';
 import STYLES from 'styles/index';
 
-type Option =
-  | Partial<
-      Pick<Toast, 'id' | 'icon' | 'duration' | 'ariaProps' | 'className' | 'position' | 'iconTheme'>
-    >
-  | undefined;
+type Option = Partial<
+  Pick<Toast, 'id' | 'icon' | 'duration' | 'ariaProps' | 'className' | 'position' | 'iconTheme'>
+>;
 
 const useCustomToast = () => {
-  const _toast = (message: string, option?: Option) =>
-    toast(() => <DefaultToast>{message}</DefaultToast>, option);
+  const _toast = (message: string, options?: Option) => {
+    const opts: Option = { duration: 1000, ...options };
+    return toast(() => <DefaultToast>{message}</DefaultToast>, opts);
+  };
 
   _toast.info = (message: string, option?: Option) =>
     toast(() => <InfoToast>{message}</InfoToast>, option);

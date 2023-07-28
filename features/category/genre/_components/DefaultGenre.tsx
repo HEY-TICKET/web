@@ -24,6 +24,7 @@ import useModal from 'hooks/useModal';
 import { useInfinitePerformanceQuery } from 'reactQuery/performance';
 import { ArrowRight, FilterIcon, SortIcon } from 'styles/icons';
 import { AreaTypes, GenreTypes } from 'types/performance';
+import { clamp } from 'utils/number';
 import { convertor } from 'utils/times';
 
 export const SORTING_MODAL_LIST = [
@@ -61,6 +62,11 @@ const DefaultGenre = ({ genre }: GenreProps) => {
     maxPrice: undefined,
     statuses: [],
   });
+
+  const handleTabIndex = (index: number) => {
+    const nextIndex = clamp(index, 0, FILTER_MODAL_TAB_ITEM_LIST.length - 1);
+    setTabIndex(nextIndex);
+  };
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfinitePerformanceQuery({
@@ -154,12 +160,17 @@ const DefaultGenre = ({ genre }: GenreProps) => {
   const goToBack = () => replace(`${ROUTES.category}`);
 
   const clickChip = (index: number) => {
-    setTabIndex(index);
+    handleTabIndex(index);
+    filterModalOpen();
+  };
+
+  const clickFilterIcon = () => {
+    setTabIndex(0);
     filterModalOpen();
   };
 
   const closeChip = (name: keyof typeof FILTER_MODAL_DEFAULT_VALUES) => {
-    filterModalMethods.resetField(name);
+    filterModalMethods.resetField(name, { defaultValue: FILTER_MODAL_DEFAULT_VALUES[name] });
 
     setPerformanceQueryParams((prev) => {
       switch (name) {
@@ -203,7 +214,7 @@ const DefaultGenre = ({ genre }: GenreProps) => {
           <Styles.FilterWrapper>
             <FilterChips chipValues={chipValues} clickChip={clickChip} closeChip={closeChip} />
           </Styles.FilterWrapper>
-          <Styles.FilterIconWrapper onClick={filterModalOpen}>
+          <Styles.FilterIconWrapper onClick={clickFilterIcon}>
             <FilterIcon />
           </Styles.FilterIconWrapper>
         </Styles.FilterContainer>
@@ -235,7 +246,11 @@ const DefaultGenre = ({ genre }: GenreProps) => {
               onReset={resetFilter}
               onSubmit={filterModalMethods.handleSubmit(submitFilterValue)}
             >
-              <Tab tabList={FILTER_MODAL_TAB_ITEM_LIST} tabIndex={tabIndex} />
+              <Tab
+                tabList={FILTER_MODAL_TAB_ITEM_LIST}
+                tabIndex={tabIndex}
+                handleTabIndex={handleTabIndex}
+              />
             </CategoryFilterModal>
           </FilterModalFrame>
         </FormProvider>

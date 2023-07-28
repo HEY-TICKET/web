@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 
 import styled, { css } from 'styled-components';
 
@@ -7,22 +7,21 @@ import STYLES from 'styles/index';
 interface UseTabProps {
   tabIndex?: number;
   tabList: { title: string; component: ReactNode }[];
+  handleTabIndex: (index: number) => void;
 }
 
-const Tab = ({ tabIndex = 0, tabList }: UseTabProps) => {
-  const [current, setCurrent] = useState(tabIndex);
-
+const Tab = ({ tabIndex = 0, tabList, handleTabIndex }: UseTabProps) => {
   return (
     <Wrapper>
       <Header>
         {tabList.map(({ title }, index) => (
-          <TabName key={index} onClick={() => setCurrent(index)} $active={current === index}>
-            <Dot $active={current === index} />
+          <TabName key={index} onClick={() => handleTabIndex(index)} $active={tabIndex === index}>
+            <Dot $active={tabIndex === index} />
             {title}
           </TabName>
         ))}
       </Header>
-      <Body>{tabList[current].component}</Body>
+      <Body>{tabList[tabIndex].component}</Body>
     </Wrapper>
   );
 };
