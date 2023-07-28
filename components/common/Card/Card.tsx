@@ -6,6 +6,7 @@ import Poster from 'components/common/Card/Poster';
 import Skeleton from 'components/common/Skeleton/Skeleton';
 import { STATUS_LIST_MAP } from 'constants/performance/common';
 import STYLES from 'styles/index';
+import { addComma, getMinMax } from 'utils/number';
 import { getDday, getPeriod, performanceStatus } from 'utils/times';
 
 import * as Styles from './Card.styles';
@@ -22,6 +23,16 @@ interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
 
 const Card = ({ data, onClick, type = 'default', rank, css }: CardProps) => {
   const { id, title, theater, startDate, endDate, poster, price, genre } = data;
+
+  const regex = /\d{1,3},\d{3}/g;
+  const stringPriceArr = price.match(regex);
+
+  let priceRange = '-';
+  if (stringPriceArr) {
+    const numberPriceArr = stringPriceArr.map((str) => parseInt(str.replace(/,/g, '')));
+    const { min, max } = getMinMax(numberPriceArr);
+    priceRange = min === max ? `${addComma(min)}` : `${addComma(min)}~${addComma(max)}`;
+  }
 
   const date = getPeriod(startDate, endDate);
 
@@ -91,7 +102,7 @@ const Card = ({ data, onClick, type = 'default', rank, css }: CardProps) => {
 
         <Styles.PriceWrapper>
           <span>예매가</span>
-          <p>{price}</p>
+          <p>{priceRange}</p>
         </Styles.PriceWrapper>
       </Styles.ContentsWrapper>
     </Styles.CardContainer>
