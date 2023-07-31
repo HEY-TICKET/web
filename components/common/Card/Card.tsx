@@ -25,7 +25,7 @@ const Card = ({ data, onClick, type = 'default', rank, css }: CardProps) => {
   const { id, title, theater, startDate, endDate, poster, price, genre } = data;
 
   const regex = /\d{1,3},\d{3}/g;
-  const stringPriceArr = price.match(regex);
+  const stringPriceArr = String(price).match(regex);
 
   let priceRange = '-';
   if (stringPriceArr) {

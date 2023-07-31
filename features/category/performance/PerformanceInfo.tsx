@@ -7,6 +7,7 @@ import NaverMap from 'components/common/Map/NaverMap';
 import Description from 'features/category/performance/Description';
 import * as Styles from 'features/category/performance/Performance.styles';
 import STYLES from 'styles/index';
+import { isEmptyValue } from 'utils/common';
 import { getArrayPerformanceTime, getArrayPrice } from 'utils/performance';
 import { getPeriod } from 'utils/times';
 
@@ -30,36 +31,34 @@ const PerformanceInfo = ({ data }: Props) => {
 
   const period = getPeriod(startDate, endDate);
 
+  const renderContentsWithEmptyCheck = (value: unknown) => {
+    const isEmpty = isEmptyValue(value);
+    const result = isEmpty ? '-' : value;
+    return <Description>{String(result)}</Description>;
+  };
+
   return (
     <Styles.InfoWrapper>
       <Styles.InfoTitle>공연 정보</Styles.InfoTitle>
       <ContentsWrapper>
         <SubTitle>기간</SubTitle>
-        <DescriptionWrapper>
-          <Description>{period}</Description>
-        </DescriptionWrapper>
+        <DescriptionWrapper>{renderContentsWithEmptyCheck(period)}</DescriptionWrapper>
         <SubTitle>런타임</SubTitle>
-        <DescriptionWrapper>
-          <Description>{runtime}</Description>
-        </DescriptionWrapper>
+        <DescriptionWrapper>{renderContentsWithEmptyCheck(runtime)}</DescriptionWrapper>
         <SubTitle>시간</SubTitle>
         <DescriptionWrapper>
-          {getArrayPerformanceTime(schedule).map((desc, index) => (
-            <Description key={index}>{desc}</Description>
-          ))}
+          {getArrayPerformanceTime(schedule).map((desc) => renderContentsWithEmptyCheck(desc))}
         </DescriptionWrapper>
         <SubTitle>출연진</SubTitle>
-        <Description>{cast}</Description>
+        {renderContentsWithEmptyCheck(cast)}
         <SubTitle>예매가</SubTitle>
         <DescriptionWrapper>
-          {getArrayPrice(price).map((desc, index) => (
-            <Description key={index}>{`${desc}`}</Description>
-          ))}
+          {getArrayPrice(price).map((desc) => renderContentsWithEmptyCheck(desc))}
         </DescriptionWrapper>
         <SubTitle>공연장</SubTitle>
         <DescriptionWrapper>
-          <Description>{theater}</Description>
-          <Description>{address}</Description>
+          {renderContentsWithEmptyCheck(theater)}
+          {renderContentsWithEmptyCheck(address)}
         </DescriptionWrapper>
       </ContentsWrapper>
       <MapWrapper>

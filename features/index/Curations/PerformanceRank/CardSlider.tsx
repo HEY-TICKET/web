@@ -31,7 +31,7 @@ const CardSlider = ({ genre }: CardSliderProps) => {
 
   const cards = data?.contents ?? [];
 
-  const clickCard = (id: string) => {
+  const clickCard = (id: string, genre: BoxOfficeGenreTypes) => {
     push(`${ROUTES.category}/${genre}/${id}`);
   };
 

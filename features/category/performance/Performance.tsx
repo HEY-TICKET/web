@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import DetailCard from 'components/common/Card/DetailCard';
+import { GENRE_LIST_MAP } from 'constants/performance/common';
 import Footer from 'features/category/performance/Footer';
 import OtherPerformances from 'features/category/performance/OtherPerformances';
 import * as Styles from 'features/category/performance/Performance.styles';
@@ -12,10 +13,12 @@ import PerformanceInfo from 'features/category/performance/PerformanceInfo';
 import { usePerformanceByIdQuery } from 'reactQuery/performance';
 import { ArrowRight } from 'styles/icons';
 
-const Performance = ({ id, title }: { id: string; title: string }) => {
+const Performance = ({ id }: { id: string }) => {
   const { back } = useRouter();
 
   const { data } = usePerformanceByIdQuery({ id: id }, { enabled: !!id });
+
+  const title = GENRE_LIST_MAP.find(({ value }) => value === data?.genre)?.caption ?? '전체';
 
   const goToBack = () => back();
 
