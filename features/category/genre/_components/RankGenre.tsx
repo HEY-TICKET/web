@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Chip from 'components/common/Chip/Chip';
+import TopBar from 'components/common/Nav/TopBar';
 import {
   BOX_OFFICE_GENRE_LIST_MAP,
   SORTING_ORDER_BY_PERIOD,
@@ -19,7 +20,7 @@ import useCustomToast from 'hooks/useCustomToast';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import useModal from 'hooks/useModal';
 import { useInfiniteRankPerformanceQuery } from 'reactQuery/performance';
-import { ArrowRight, SortIcon } from 'styles/icons';
+import { SortIcon } from 'styles/icons';
 import {
   BoxOfficeAreaTypes,
   BoxOfficeGenreTypes,
@@ -110,12 +111,10 @@ const RankGenre = ({ genre }: GenreProps) => {
   return (
     <>
       <Styles.StickyBox>
-        <Styles.GenreHeader>
-          <Styles.LeftIconWrapper onClick={back}>
-            <ArrowRight size={28} />
-          </Styles.LeftIconWrapper>
-          <Styles.Title>공연 랭킹</Styles.Title>
-        </Styles.GenreHeader>
+        <TopBar
+          leftProps={<TopBar.BackButton onClick={back} />}
+          middleProps={<TopBar.Title>공연 랭킹</TopBar.Title>}
+        />
         <Styles.FilterContainer>
           <Styles.FilterWrapper>
             {BOX_OFFICE_GENRE_LIST_MAP.map(({ caption, value }, index) => (

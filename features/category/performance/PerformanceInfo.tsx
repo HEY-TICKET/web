@@ -31,10 +31,10 @@ const PerformanceInfo = ({ data }: Props) => {
 
   const period = getPeriod(startDate, endDate);
 
-  const renderContentsWithEmptyCheck = (value: unknown) => {
+  const renderContentsWithEmptyCheck = (value: unknown, index?: number) => {
     const isEmpty = isEmptyValue(value);
     const result = isEmpty ? '-' : value;
-    return <Description>{String(result)}</Description>;
+    return <Description key={`${String(result)}_${index}`}>{String(result)}</Description>;
   };
 
   return (
@@ -47,13 +47,15 @@ const PerformanceInfo = ({ data }: Props) => {
         <DescriptionWrapper>{renderContentsWithEmptyCheck(runtime)}</DescriptionWrapper>
         <SubTitle>시간</SubTitle>
         <DescriptionWrapper>
-          {getArrayPerformanceTime(schedule).map((desc) => renderContentsWithEmptyCheck(desc))}
+          {getArrayPerformanceTime(schedule).map((desc, index) =>
+            renderContentsWithEmptyCheck(desc, index),
+          )}
         </DescriptionWrapper>
         <SubTitle>출연진</SubTitle>
         {renderContentsWithEmptyCheck(cast)}
         <SubTitle>예매가</SubTitle>
         <DescriptionWrapper>
-          {getArrayPrice(price).map((desc) => renderContentsWithEmptyCheck(desc))}
+          {getArrayPrice(price).map((desc, index) => renderContentsWithEmptyCheck(desc, index))}
         </DescriptionWrapper>
         <SubTitle>공연장</SubTitle>
         <DescriptionWrapper>

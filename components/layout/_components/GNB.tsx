@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import Logo from 'components/common/Logo/Logo';
 import { ROUTES } from 'constants/routes';
-import { BellIcon, SearchIcon } from 'styles/icons';
+import { BellIcon, SearchIcon, SettingIcon } from 'styles/icons';
 import STYLES from 'styles/index';
 
 const GNB = () => {
@@ -13,10 +13,13 @@ const GNB = () => {
     <Wrapper>
       <Logo />
       <Contents>
-        <Link href={`${ROUTES.search}`}>
+        <Link href={ROUTES.search}>
           <SearchIcon size={28} />
         </Link>
         <BellIcon size={28} />
+        <Link href={ROUTES.setting}>
+          <SettingIcon />
+        </Link>
       </Contents>
     </Wrapper>
   );

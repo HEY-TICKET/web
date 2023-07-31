@@ -1,10 +1,11 @@
 'use client';
 
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, PropsWithChildren } from 'react';
 
 import styled from 'styled-components';
 
 import { ArrowRight } from 'styles/icons';
+import STYLES from 'styles/index';
 
 interface TopBarProps extends HTMLAttributes<HTMLElement> {
   leftProps?: JSX.Element;
@@ -36,6 +37,10 @@ TopBar.BackButton = function BackButton({ onClick }: BackButtonProps) {
   );
 };
 
+TopBar.Title = function Title({ children }: PropsWithChildren) {
+  return <StyledTitle>{children}</StyledTitle>;
+};
+
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
@@ -56,4 +61,13 @@ const StyledBackButton = styled.button`
     transform: rotate(-180deg);
     cursor: pointer;
   }
+`;
+
+const StyledTitle = styled.span`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+
+  ${STYLES.color.gray900};
 `;

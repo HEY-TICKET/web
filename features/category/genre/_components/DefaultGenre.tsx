@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { GetPerformancesParams } from 'apis/performance/type';
+import TopBar from 'components/common/Nav/TopBar';
 import Tab from 'components/common/Tab/Tab';
 import { GENRE_LIST_MAP } from 'constants/performance/common';
 import { ROUTES } from 'constants/routes';
@@ -22,7 +23,7 @@ import useCustomToast from 'hooks/useCustomToast';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import useModal from 'hooks/useModal';
 import { useInfinitePerformanceQuery } from 'reactQuery/performance';
-import { ArrowRight, FilterIcon, SortIcon } from 'styles/icons';
+import { FilterIcon, SortIcon } from 'styles/icons';
 import { AreaTypes, GenreTypes } from 'types/performance';
 import { clamp } from 'utils/number';
 import { convertor } from 'utils/times';
@@ -204,12 +205,10 @@ const DefaultGenre = ({ genre }: GenreProps) => {
   return (
     <>
       <Styles.StickyBox>
-        <Styles.GenreHeader>
-          <Styles.LeftIconWrapper onClick={goToBack}>
-            <ArrowRight size={28} />
-          </Styles.LeftIconWrapper>
-          <Styles.Title>{title}</Styles.Title>
-        </Styles.GenreHeader>
+        <TopBar
+          leftProps={<TopBar.BackButton onClick={goToBack} />}
+          middleProps={<TopBar.Title>{title}</TopBar.Title>}
+        />
         <Styles.FilterContainer>
           <Styles.FilterWrapper>
             <FilterChips chipValues={chipValues} clickChip={clickChip} closeChip={closeChip} />

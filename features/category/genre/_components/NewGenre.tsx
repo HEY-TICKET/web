@@ -7,6 +7,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { PerformanceNewParams } from 'apis/performance/type';
 import Chip from 'components/common/Chip/Chip';
+import TopBar from 'components/common/Nav/TopBar';
 import { GENRE_LIST_MAP, SORTING_METHOD_LIST_MAP } from 'constants/performance/common';
 import { ROUTES } from 'constants/routes';
 import CardList from 'features/category/genre/CardList';
@@ -16,7 +17,7 @@ import useCustomToast from 'hooks/useCustomToast';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import useModal from 'hooks/useModal';
 import { useInfiniteNewPerformanceQuery } from 'reactQuery/performance';
-import { ArrowRight, SortIcon } from 'styles/icons';
+import { SortIcon } from 'styles/icons';
 import { GenreTypes, SortingMethodTypes } from 'types/performance';
 
 interface GenreProps {
@@ -103,12 +104,10 @@ const NewGenre = ({ genre }: GenreProps) => {
   return (
     <>
       <Styles.StickyBox>
-        <Styles.GenreHeader>
-          <Styles.LeftIconWrapper onClick={back}>
-            <ArrowRight size={28} />
-          </Styles.LeftIconWrapper>
-          <Styles.Title>새로 나온 공연</Styles.Title>
-        </Styles.GenreHeader>
+        <TopBar
+          leftProps={<TopBar.BackButton onClick={back} />}
+          middleProps={<TopBar.Title>새로 나온 공연</TopBar.Title>}
+        />
         <Styles.FilterContainer>
           <Styles.FilterWrapper>
             {NEW_PERFORMANCE_GENRE_MAP.map(({ caption, value }, index) => (
