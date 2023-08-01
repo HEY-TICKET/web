@@ -17,7 +17,7 @@ const GNB = () => {
           <SearchIcon size={28} />
         </Link>
         <BellIcon size={28} />
-        <Link href={ROUTES.setting}>
+        <Link href={ROUTES.notification}>
           <SettingIcon />
         </Link>
       </Contents>

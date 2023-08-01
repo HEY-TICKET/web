@@ -1,14 +1,22 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import ToggleButton from 'components/common/Button/ToggleButton';
 import TopBar from 'components/common/Nav/TopBar';
+import {
+  ContentsWrapper,
+  ContentTitle,
+  Description,
+  Divider,
+  ListWrapper,
+  Title,
+} from 'features/my/setting/Setting.styles';
 import { ArrowRight } from 'styles/icons';
 import STYLES from 'styles/index';
 
-const Setting = () => {
+const Notification = () => {
   const { back } = useRouter();
 
   return (
@@ -62,59 +70,12 @@ const Setting = () => {
   );
 };
 
-export default Setting;
+export default Notification;
 
-const Container = styled.div``;
-
-const ListWrapper = styled.div<{ cursor?: boolean }>`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 12px 16px;
-
-  ${({ cursor }) =>
-    cursor &&
-    css`
-      &:hover {
-        background-color: ${STYLES.color.gray100};
-        cursor: pointer;
-      }
-    `}
-`;
-
-const ContentsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 2px;
-`;
-
-const Title = styled.span`
-  color: ${STYLES.color.gray500};
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-`;
-
-const ContentTitle = styled(Title)`
-  color: ${STYLES.color.gray900};
-`;
-
-const Description = styled.span`
-  color: ${STYLES.color.gray400};
-
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`;
-
-const Divider = styled.hr`
+const Container = styled.div`
   width: 100%;
-  border: 1px solid ${STYLES.color.gray200};
-  border-bottom: 0;
-  margin: 12px 0;
+  height: 100%;
+  background-color: ${STYLES.color.white};
 `;
 
 const VersionInfo = styled.div`

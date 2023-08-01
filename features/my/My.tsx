@@ -2,9 +2,11 @@
 
 import { useEffect } from 'react';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { useLayoutContext } from 'components/layout/_context/LayoutContext';
+import { ROUTES } from 'constants/routes';
 import * as Styles from 'features/my/My.styles';
 
 const My = () => {
@@ -22,6 +24,9 @@ const My = () => {
       <div>
         <button onClick={logout}>로그아웃</button>
       </div>
+      <Link href={ROUTES.account}>
+        <button>계정관리</button>
+      </Link>
     </Styles.MyContainer>
   );
 };

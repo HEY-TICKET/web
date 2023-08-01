@@ -106,4 +106,5 @@ const Body = styled.div`
   width: 100%;
   max-width: 640px;
   margin: 0 auto;
+  height: 100vh;
 `;
