@@ -70,13 +70,15 @@ const Account = () => {
 export default Account;
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+
   width: 100%;
   height: 100%;
   background-color: ${STYLES.color.white};
 `;
 
 const SubAreaContainer = styled.div`
-  width: 100%;
-  height: 100%;
+  flex: 1;
   background-color: ${STYLES.color.gray150};
 `;

@@ -14,7 +14,12 @@ interface ContainerProps<T extends FieldValues> extends HTMLAttributes<HTMLDivEl
   disabled: boolean | undefined;
 }
 
-const Container = <T extends FieldValues>({ name, disabled, children }: ContainerProps<T>) => {
+const Container = <T extends FieldValues>({
+  name,
+  disabled,
+  children,
+  ...props
+}: ContainerProps<T>) => {
   const methods = useFormContext<T>();
   const {
     formState: { errors },
@@ -23,7 +28,7 @@ const Container = <T extends FieldValues>({ name, disabled, children }: Containe
   const error = errors[name];
 
   return (
-    <Styles.Container>
+    <Styles.Container {...props}>
       <Styles.InputWrapper error={!!error} disabled={!!disabled}>
         {children}
       </Styles.InputWrapper>

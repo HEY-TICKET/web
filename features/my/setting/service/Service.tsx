@@ -16,7 +16,7 @@ import {
 import { ArrowRight } from 'styles/icons';
 import STYLES from 'styles/index';
 
-const Notification = () => {
+const Service = () => {
   const { back } = useRouter();
 
   return (
@@ -70,7 +70,7 @@ const Notification = () => {
   );
 };
 
-export default Notification;
+export default Service;
 
 const Container = styled.div`
   width: 100%;

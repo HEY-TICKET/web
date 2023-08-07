@@ -3,6 +3,7 @@ export const ROUTES = {
   category: '/category',
   my: '/my',
   search: '/search',
-  notification: '/my/setting/notification',
+  notification: '/my/notification',
   account: '/my/setting/account',
+  service: '/my/setting/service',
 };
